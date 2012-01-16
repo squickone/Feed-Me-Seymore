@@ -19,7 +19,7 @@ public class HelloAndroidActivity extends Activity {
         super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
         setContentView(R.layout.main);
-        System.out.println("Testing Git Push!");
+        System.out.println("Testing Git Push - Please work!");
     }
 
 }
