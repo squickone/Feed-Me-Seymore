@@ -2,6 +2,9 @@ package com.feedme;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+
+import java.util.List;
 
 /**
  * User: dayel.ostraco
@@ -15,5 +18,26 @@ public class AddChild extends Activity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.add_child);
+
+
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        /**
+         * CRUD Operations
+         * */
+        // Inserting baby
+        Log.d("Insert: ", "Inserting ..");
+        db.addBaby(new Baby("Roger", "male"));
+
+
+        // Reading all babies
+        Log.d("Reading: ", "Reading all babies..");
+        List<Baby> contacts = db.getAllBabies();
+
+        for (Baby cn : contacts) {
+            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Sex: " + cn.getSex();
+            // Writing babies to log
+            Log.d("Name: ", log);
+        }
     }
 }

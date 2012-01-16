@@ -22,26 +22,5 @@ public class Home extends Activity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.main);
 
-
-        DatabaseHandler db = new DatabaseHandler(this);
-
-        /**
-         * CRUD Operations
-         * */
-        // Inserting Contacts
-        Log.d("Insert: ", "Inserting ..");
-        db.addBaby(new Baby("Thomas", "male"));
-        db.addBaby(new Baby("Sarah", "female"));
-        db.addBaby(new Baby("Mary", "female"));
-
-        // Reading all contacts
-        Log.d("Reading: ", "Reading all babies..");
-        List<Baby> contacts = db.getAllBabies();
-
-        for (Baby cn : contacts) {
-            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getSex();
-            // Writing Contacts to log
-            Log.d("Name: ", log);
-        }
     }
 }
