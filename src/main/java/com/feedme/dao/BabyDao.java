@@ -23,9 +23,6 @@ public class BabyDao {
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_SEX = "sex";
-    private static final String KEY_HEIGHT = "height";
-    private static final String KEY_WEIGHT = "weight";
-    private static final String KEY_DOB = "dob";
 
     private SQLiteDatabase database;
     private DatabaseHandler databaseHandler;
@@ -47,21 +44,15 @@ public class BabyDao {
      *
      * @param baby - Baby POJO
      */
-    void addBaby(Baby baby) {
-        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+    public void addBaby(Baby baby) {
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, baby.getName()); // Baby name
-        values.put(KEY_SEX, baby.getSex()); // Baby sex
-        values.put(KEY_HEIGHT, baby.getHeight()); // Baby height
-        values.put(KEY_WEIGHT, baby.getWeight()); // Baby weight
-        values.put(KEY_DOB, baby.getDob()); // Baby dob
+        values.put(KEY_NAME, baby.getName()); // Contact Name
+        values.put(KEY_SEX, baby.getSex()); // Contact Phone
 
         // Inserting Row
-        db.insert(TABLE_DATA, null, values);
-        db.close(); // Closing database connection
+        database.insert(TABLE_DATA, null, values);
     }
-
 
     /**
      * Getting single baby from the database by its ID.
@@ -71,18 +62,14 @@ public class BabyDao {
      * @return - Baby POJO representation of a specific Baby in the database.
      */
     Baby getBaby(int id) {
-        SQLiteDatabase db = databaseHandler.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+        Cursor cursor = database.query(TABLE_DATA, new String[]{KEY_ID, KEY_NAME, KEY_SEX}, KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        Baby baby = new Baby(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
         // return baby
-        return baby;
+        return new Baby(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
     }
 
     /**
@@ -95,21 +82,12 @@ public class BabyDao {
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_DATA;
 
-        SQLiteDatabase db = databaseHandler.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = database.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Baby data = new Baby();
-                data.setID(Integer.parseInt(cursor.getString(0)));
-                data.setName(cursor.getString(1));
-                data.setSex(cursor.getString(2));
-                data.setHeight(cursor.getString(3));
-                data.setWeight(cursor.getString(4));
-                data.setDob(cursor.getString(5));
-                // Adding contact to list
-                babyList.add(data);
+                babyList.add(cursorToBaby(cursor));
             } while (cursor.moveToNext());
         }
 
@@ -123,27 +101,21 @@ public class BabyDao {
      * @return
      */
     public int updateBaby(Baby baby) {
-        SQLiteDatabase db = databaseHandler.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, baby.getName());
         values.put(KEY_SEX, baby.getSex());
-        values.put(KEY_HEIGHT, baby.getHeight());
-        values.put(KEY_WEIGHT, baby.getWeight());
-        values.put(KEY_DOB, baby.getDob());
 
         // updating row
-        return db.update(TABLE_DATA, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(baby.getID()) });
+        return database.update(TABLE_DATA, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(baby.getID())});
     }
 
     /**
      * Deletes a Baby from the Database
      */
     public void deleteBaby(Baby baby) {
-        SQLiteDatabase db = databaseHandler.getWritableDatabase();
-        db.delete(TABLE_DATA, KEY_ID + " = ?",
-                new String[] { String.valueOf(baby.getID()) });
+        database.delete(TABLE_DATA, KEY_ID + " = ?",
+                new String[]{String.valueOf(baby.getID())});
     }
 
     /**
@@ -151,7 +123,7 @@ public class BabyDao {
      *
      * @return - Total number of babies in the Babies table.
      */
-    public int getBabyCount() {
+    public int getBabiesCount() {
         String countQuery = "SELECT  * FROM " + TABLE_DATA;
         SQLiteDatabase db = databaseHandler.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
