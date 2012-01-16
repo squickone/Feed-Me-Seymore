@@ -14,21 +14,21 @@
             <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/addChild"
-            android:id="@+id/addChild"
+            android:text="@string/addEntry"
+            android:id="@+id/addEntry"
             />
     </TableRow>
 
     <TableRow>
         <TextView
-                android:text="Baby name: "
+                android:text="Entry date: "
                 android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
         </TextView>
         <EditText
             android:text=""
-            android:id="@+id/babyName"
+            android:id="@+id/entryDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
     </EditText>
@@ -36,14 +36,14 @@
 
     <TableRow>
         <TextView
-                android:text="Sex: "
+                android:text="Entry Time: "
                 android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
         </TextView>
         <EditText
             android:text=""
-            android:id="@+id/babySex"
+            android:id="@+id/entryTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
     </EditText>
@@ -51,14 +51,23 @@
 
     <TableRow>
         <TextView
-                android:text="Height: "
+                android:text="Minutes Breastfeeding "
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        </TextView>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+                android:text="Left: "
                 android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
         </TextView>
         <EditText
             android:text=""
-            android:id="@+id/babyHeight"
+            android:id="@+id/entryMinLeft"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
     </EditText>
@@ -66,14 +75,14 @@
 
     <TableRow>
         <TextView
-                android:text="Weight: "
+                android:text="Right: "
                 android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
         </TextView>
         <EditText
             android:text=""
-            android:id="@+id/babyWeight"
+            android:id="@+id/entryMinRight"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
     </EditText>
@@ -81,14 +90,14 @@
 
     <TableRow>
         <TextView
-                android:text="DOB: "
+                android:text="Ounces: "
                 android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
         </TextView>
         <EditText
             android:text=""
-            android:id="@+id/babyDob"
+            android:id="@+id/entryOunces"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
     </EditText>
@@ -98,7 +107,7 @@
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
-            android:id="@+id/addChildButton"
+            android:id="@+id/addEntryButton"
             ></Button>
     </TableRow>
 

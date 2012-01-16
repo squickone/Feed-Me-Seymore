@@ -5,6 +5,7 @@
     <!-- Select Baby Strings -->
     <string name="selectChildTitle">Select a Child</string>
     <string name="addChild">Add a Child</string>
+    <string name="addEntry">Add a Journal Entry</string>
     <string-array name="childArray">
         <item>Sadie</item>
         <item>Baby #2</item>
