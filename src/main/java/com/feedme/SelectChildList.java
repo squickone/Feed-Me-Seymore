@@ -18,7 +18,6 @@ public class SelectChildList extends ListActivity {
         super.onCreate(savedInstanceState);
 
         final BabyDao babyDao = new BabyDao(getApplicationContext());
-        babyDao.open();
 
         setListAdapter(new ArrayAdapter<String>(this, R.layout.select_child_list_item, babyDao.getAllBabiesAsStringArray()));
 

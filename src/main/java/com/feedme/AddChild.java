@@ -24,7 +24,6 @@ public class AddChild extends Activity {
         
         setContentView(R.layout.add_child);
         final BabyDao babyDao = new BabyDao(getApplicationContext());
-        babyDao.open();
 
         // button listener for add child button
         final EditText babyName = (EditText) findViewById(R.id.babyName);
@@ -59,8 +58,6 @@ public class AddChild extends Activity {
                 babyHeight.setText("");
                 babyWeight.setText("");
                 babyDob.setText("");
-
-                babyDao.close();
              }
         });
     }

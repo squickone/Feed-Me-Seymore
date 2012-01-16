@@ -47,8 +47,10 @@ public class BabyDao {
      *
      * @param baby - Baby POJO
      */
-    void addBaby(Baby baby) {
+    public void addBaby(Baby baby) {
 
+        open();
+        
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, baby.getName()); // Baby name
         values.put(KEY_SEX, baby.getSex()); // Baby sex
@@ -58,6 +60,8 @@ public class BabyDao {
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
+        
+        close();
     }
 
     /**
@@ -67,16 +71,21 @@ public class BabyDao {
      *
      * @return - Baby POJO representation of a specific Baby in the database.
      */
-    Baby getBaby(int id) {
+    public Baby getBaby(int id) {
 
+        open();
+        
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
                 KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        // return baby
-        return cursorToBaby(cursor);
+        Baby baby =  cursorToBaby(cursor);
+
+        close();
+
+        return baby;
     }
 
     /**
@@ -85,6 +94,9 @@ public class BabyDao {
      * @return - Collection of all Babies located in the database.
      */
     public List<Baby> getAllBabies() {
+
+        open();
+
         List<Baby> babyList = new ArrayList<Baby>();
 
         // Select All Query
@@ -98,6 +110,8 @@ public class BabyDao {
             } while (cursor.moveToNext());
         }
 
+        close();
+
         return babyList;
     }
 
@@ -107,6 +121,9 @@ public class BabyDao {
      * @return
      */
     public String[] getAllBabiesAsStringArray(){
+
+        open();
+
         List<Baby> babies = getAllBabies();
         
         String[] babiesAsStrings = new String[babies.size()];
@@ -114,6 +131,8 @@ public class BabyDao {
             Baby baby = babies.get(i);
             babiesAsStrings[i] = baby.getName();
         }
+
+        close();
 
         return babiesAsStrings;
     }
@@ -125,6 +144,8 @@ public class BabyDao {
      */
     public int updateBaby(Baby baby) {
 
+        open();
+
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, baby.getName());
         values.put(KEY_SEX, baby.getSex());
@@ -133,15 +154,20 @@ public class BabyDao {
         values.put(KEY_DOB, baby.getDob());
 
         // updating row
-        return database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(baby.getID()) });
+        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(baby.getID()) });
+
+        close();
+
+        return result;
     }
 
     /**
      * Deletes a Baby from the Database
      */
     public void deleteBaby(Baby baby) {
-        database.delete(TABLE_DATA, KEY_ID + " = ?",
-                new String[]{String.valueOf(baby.getID())});
+        open();
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(baby.getID())});
+        close();
     }
 
     /**
@@ -150,13 +176,17 @@ public class BabyDao {
      * @return - Total number of babies in the Babies table.
      */
     public int getBabiesCount() {
+        open();
         String countQuery = "SELECT  * FROM " + TABLE_DATA;
-        SQLiteDatabase db = databaseHandler.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        Cursor cursor = database.rawQuery(countQuery, null);
         cursor.close();
 
         // return count
-        return cursor.getCount();
+        int count = cursor.getCount();
+
+        close();
+
+        return count;
     }
 
     /**
