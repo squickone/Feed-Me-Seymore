@@ -143,21 +143,21 @@ public class BabyDao {
      *
      * @return
      */
-    public String[] getAllBabiesAsStringArray(){
+    public Baby[] getAllBabiesAsStringArray(){
 
         open();
 
         List<Baby> babies = getAllBabies();
         
-        String[] babiesAsStrings = new String[babies.size()];
+        Baby[] babyArray = new Baby[babies.size()];
         for(int i=0 ; i<babies.size() ; i++){
             Baby baby = babies.get(i);
-            babiesAsStrings[i] = baby.getName();
+            babyArray[i] = baby;
         }
 
         close();
 
-        return babiesAsStrings;
+        return babyArray;
     }
 
     /**
