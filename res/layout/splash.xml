@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/splash"
+        android:background="#fffae8"
         xmlns:android="http://schemas.android.com/apk/res/android">
-</RelativeLayout>
+
+    <ImageView
+            android:background="@drawable/splash"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+</LinearLayout>
