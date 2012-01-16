@@ -1,13 +1,14 @@
-package com.feedme;
+package com.feedme.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.feedme.R;
 import com.feedme.dao.BabyDao;
+import com.feedme.model.Baby;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class AddChild extends Activity {
+public class AddChildActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

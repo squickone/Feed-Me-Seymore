@@ -1,13 +1,9 @@
-package com.feedme;
-
-import java.util.Date;
+package com.feedme.model;
 
 /**
- * Created by IntelliJ IDEA.
  * User: root
  * Date: 1/16/12
  * Time: 1:22 PM
- * To change this template use File | Settings | File Templates.
  */
 
 public class Baby {
@@ -24,6 +20,7 @@ public class Baby {
     public Baby(){
 
     }
+
     // constructor
     public Baby(int id, String name, String sex, String height, String weight, String dob){
         this._id = id;

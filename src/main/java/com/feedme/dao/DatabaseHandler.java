@@ -1,4 +1,4 @@
-package com.feedme;
+package com.feedme.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

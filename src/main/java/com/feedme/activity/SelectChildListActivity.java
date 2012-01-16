@@ -1,9 +1,10 @@
-package com.feedme;
+package com.feedme.activity;
 
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+import com.feedme.R;
 import com.feedme.dao.BabyDao;
 
 /**
@@ -11,7 +12,7 @@ import com.feedme.dao.BabyDao;
  * Date: 1/16/12
  * Time: 11:29 AM
  */
-public class SelectChildList extends ListActivity {
+public class SelectChildListActivity extends ListActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

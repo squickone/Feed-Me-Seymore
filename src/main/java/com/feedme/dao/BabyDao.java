@@ -5,8 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import com.feedme.Baby;
-import com.feedme.DatabaseHandler;
+import com.feedme.model.Baby;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +77,30 @@ public class BabyDao {
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
                 KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Baby baby =  cursorToBaby(cursor);
+
+        close();
+
+        return baby;
+    }
+
+    /**
+     * Getting single baby from the database by its ID.
+     *
+     * @param name - The full name of the Baby in the database.
+     *
+     * @return - Baby POJO representation of a specific Baby in the database.
+     */
+    public Baby getBabyByName(String name) {
+
+        open();
+
+        Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
+                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_NAME + "=?",
+                new String[] { String.valueOf(name) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
