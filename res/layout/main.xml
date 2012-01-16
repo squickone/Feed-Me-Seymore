@@ -6,4 +6,10 @@
     android:background="#fffae8"
     >
 
+    
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Child"
+            android:id="@+id/addChildScreen"
+            ></Button>
 </LinearLayout>

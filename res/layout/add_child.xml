@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_height="fill_parent"
+              android:background="#fffae8">
 
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/addChild"
+            android:id="@+id/addChild"
             />
-</LinearLayout>
+
+    <EditText
+            android:text="Baby name"
+            android:id="@+id/babyName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addChild">
+    </EditText>
+
+    <EditText
+            android:text="Sex"
+            android:id="@+id/babySex"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/babyName">
+    </EditText>
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/addChildButton"
+            android:layout_below="@id/babySex"
+            ></Button>
+</RelativeLayout>
