@@ -47,7 +47,7 @@ public class BabyDao {
      *
      * @param baby - Baby POJO
      */
-    public void addBaby(Baby baby) {
+    void addBaby(Baby baby) {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, baby.getName()); // Baby name
@@ -67,7 +67,7 @@ public class BabyDao {
      *
      * @return - Baby POJO representation of a specific Baby in the database.
      */
-    public Baby getBaby(int id) {
+    Baby getBaby(int id) {
 
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
                 KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_ID + "=?",
