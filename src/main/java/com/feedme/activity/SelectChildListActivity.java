@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
+import com.feedme.adapter.BabyAdapter;
 
 /**
  * User: dayel.ostraco
@@ -21,7 +22,7 @@ public class SelectChildListActivity extends ListActivity {
 
         final BabyDao babyDao = new BabyDao(getApplicationContext());
 
-        setListAdapter(new ArrayAdapter<String>(this, R.layout.select_child_list_item, babyDao.getAllBabiesAsStringArray()));
+        setListAdapter(new BabyAdapter(getApplicationContext(), R.layout.select_child_list_item, babyDao.getAllBabies()));
 
         ListView lv = getListView();
         lv.setTextFilterEnabled(true);
@@ -30,11 +31,14 @@ public class SelectChildListActivity extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
+                TextView babyName = (TextView) view.findViewById(R.id.babyItem);
+//                TextView babyId = (TextView) view.findViewById(R.id.babyPk);
+
+                Toast.makeText(getApplicationContext(), babyName.getText(),
                         Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(view.getContext(), ViewBabyActivity.class);
-                intent.putExtra("babyName", ((TextView) view).getText().toString());
+                intent.putExtra("babyName", babyName.getText());
                 startActivityForResult(intent, 3);
             }
         });
