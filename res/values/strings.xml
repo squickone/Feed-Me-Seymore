@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Feed Me Seymore</string>
+    <string name="app_name">Feed-Me-Seymore</string>
 
-    <!-- Select Child Strings -->
+    <!-- Select Baby Strings -->
     <string name="selectChildTitle">Select a Child</string>
     <string name="addChild">Add a Child</string>
     <string-array name="childArray">

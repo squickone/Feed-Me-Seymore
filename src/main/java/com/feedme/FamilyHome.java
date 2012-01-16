@@ -23,7 +23,7 @@ public class FamilyHome extends Activity {
 
     public void handleButtons() {
 
-        //Select Child Button
+        //Select Baby Button
         Button selectChild = (Button) findViewById(R.id.selectChild);
         selectChild.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -32,7 +32,7 @@ public class FamilyHome extends Activity {
             }
         });
 
-        //Add Child Button
+        //Add Baby Button
         Button addChild = (Button) findViewById(R.id.addChild);
         addChild.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

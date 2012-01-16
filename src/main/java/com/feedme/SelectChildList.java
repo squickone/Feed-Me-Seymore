@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+import com.feedme.dao.BabyDao;
 
 /**
  * User: dayel.ostraco
@@ -12,14 +13,14 @@ import android.widget.*;
  */
 public class SelectChildList extends ListActivity {
 
-    //TODO: Needs to be populated from the DB
-    String[] children = {"Sadie", "Baby #2"};
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new ArrayAdapter<String>(this, R.layout.select_child_list_item, children));
+        final BabyDao babyDao = new BabyDao(getApplicationContext());
+        babyDao.open();
+
+        setListAdapter(new ArrayAdapter<String>(this, R.layout.select_child_list_item, babyDao.getAllBabiesAsStringArray()));
 
         ListView lv = getListView();
         lv.setTextFilterEnabled(true);

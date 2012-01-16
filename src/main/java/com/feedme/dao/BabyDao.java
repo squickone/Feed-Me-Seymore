@@ -47,7 +47,7 @@ public class BabyDao {
      *
      * @param baby - Baby POJO
      */
-    void addBaby(Baby baby) {
+    public void addBaby(Baby baby) {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, baby.getName()); // Baby name
@@ -67,7 +67,7 @@ public class BabyDao {
      *
      * @return - Baby POJO representation of a specific Baby in the database.
      */
-    Baby getBaby(int id) {
+    public Baby getBaby(int id) {
 
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
                 KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_ID + "=?",
@@ -99,6 +99,23 @@ public class BabyDao {
         }
 
         return babyList;
+    }
+
+    /**
+     * Returns a String[] of all babies by name.
+     *
+     * @return
+     */
+    public String[] getAllBabiesAsStringArray(){
+        List<Baby> babies = getAllBabies();
+        
+        String[] babiesAsStrings = new String[babies.size()];
+        for(int i=0 ; i<babies.size() ; i++){
+            Baby baby = babies.get(i);
+            babiesAsStrings[i] = baby.getName();
+        }
+
+        return babiesAsStrings;
     }
 
     /**

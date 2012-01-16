@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.feedme.dao.BabyDao;
 
 import java.util.List;
 
@@ -22,10 +23,10 @@ public class AddChild extends Activity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.add_child);
-        final DatabaseHandler db = new DatabaseHandler(this);
+        final BabyDao babyDao = new BabyDao(getApplicationContext());
+        babyDao.open();
 
         // button listener for add child button
-
         final EditText babyName = (EditText) findViewById(R.id.babyName);
         final EditText babySex = (EditText) findViewById(R.id.babySex);
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
@@ -41,14 +42,14 @@ public class AddChild extends Activity {
                  * */
                 // Inserting baby
                 Log.d("Insert: ", "Inserting ..");
-                db.addBaby(new Baby(babyName.getText().toString(), babySex.getText().toString(), babyHeight.getText().toString(), babyWeight.getText().toString(), babyDob.getText().toString()));
+                babyDao.addBaby(new Baby(babyName.getText().toString(), babySex.getText().toString(), babyHeight.getText().toString(), babyWeight.getText().toString(), babyDob.getText().toString()));
 
                 // Reading all babies
                 Log.d("Reading: ", "Reading all babies..");
-                List<Baby> contacts = db.getAllBabies();
+                List<Baby> babies = babyDao.getAllBabies();
 
-                for (Baby cn : contacts) {
-                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Sex: " + cn.getSex() + " ,Height: " + cn.getHeight() + " ,Weight: " + cn.getWeight() + " ,DOB: " + cn.getDob();
+                for (Baby baby : babies) {
+                    String log = "Id: "+baby.getID()+" ,Name: " + baby.getName() + " ,Sex: " + baby.getSex() + " ,Height: " + baby.getHeight() + " ,Weight: " + baby.getWeight() + " ,DOB: " + baby.getDob();
                     // Writing babies to log
                     Log.d("Name: ", log);
                 }
@@ -59,9 +60,8 @@ public class AddChild extends Activity {
                 babyWeight.setText("");
                 babyDob.setText("");
 
+                babyDao.close();
              }
         });
-
-
     }
 }
