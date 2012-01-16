@@ -16,7 +16,7 @@ import java.util.List;
 public class JournalDao {
 
     // Contacts table name
-    private static final String TABLE_DATA = "journal";
+    private static final String TABLE_DATA = "entries";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -25,12 +25,13 @@ public class JournalDao {
     private static final String KEY_MIN_LEFT = "minutes_left";
     private static final String KEY_MIN_RIGHT = "minutes_right";
     private static final String KEY_OUNCES = "ounces";
+    private static final String KEY_CHILD_ID = "child_id";
 
     private SQLiteDatabase database;
-    private DatabaseHandler databaseHandler;
+    private JournalDatabaseHandler databaseHandler;
 
     public JournalDao(Context context) {
-        databaseHandler = new DatabaseHandler(context);
+        databaseHandler = new JournalDatabaseHandler(context);
     }
 
     public void open() throws SQLException {
@@ -49,11 +50,12 @@ public class JournalDao {
     public void addEntry(Journal entry) {
 
         ContentValues values = new ContentValues();
-        values.put(KEY_DATE, entry.getDate()); // Baby name
-        values.put(KEY_TIME, entry.getTime()); // Baby sex
-        values.put(KEY_MIN_LEFT, entry.getMinLeft()); // Baby height
-        values.put(KEY_MIN_RIGHT, entry.getMinRight()); // Baby weight
-        values.put(KEY_OUNCES, entry.getOunces()); // Baby dob
+        values.put(KEY_DATE, entry.getDate()); // Date
+        values.put(KEY_TIME, entry.getTime()); // Time
+        values.put(KEY_MIN_LEFT, entry.getMinLeft()); // Minutes right
+        values.put(KEY_MIN_RIGHT, entry.getMinRight()); // Minutes left
+        values.put(KEY_OUNCES, entry.getOunces()); // Ounces
+        values.put(KEY_CHILD_ID, entry.getChild()); // Child ID
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -69,7 +71,7 @@ public class JournalDao {
     Journal getEntry(int id) {
 
         Cursor cursor = database.query(TABLE_DATA, new String[]{KEY_ID,
-                KEY_DATE, KEY_TIME, KEY_MIN_LEFT, KEY_MIN_RIGHT, KEY_OUNCES}, KEY_ID + "=?",
+                KEY_DATE, KEY_TIME, KEY_MIN_LEFT, KEY_MIN_RIGHT, KEY_OUNCES, KEY_CHILD_ID}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -130,6 +132,7 @@ public class JournalDao {
         values.put(KEY_MIN_LEFT, entry.getMinLeft());
         values.put(KEY_MIN_RIGHT, entry.getMinRight());
         values.put(KEY_OUNCES, entry.getOunces());
+        values.put(KEY_CHILD_ID, entry.getChild());
 
         // updating row
         return database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(entry.getID()) });
@@ -167,6 +170,6 @@ public class JournalDao {
      */
     private Journal cursorToJournal(Cursor cursor) {
         return new Journal(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), Integer.parseInt(cursor.getString(6)));
     }
 }

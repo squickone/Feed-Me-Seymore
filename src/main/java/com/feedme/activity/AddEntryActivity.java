@@ -32,34 +32,37 @@ public class AddEntryActivity extends Activity {
         final EditText entryMinLeft = (EditText) findViewById(R.id.entryMinLeft);
         final EditText entryMinRight = (EditText) findViewById(R.id.entryMinRight);
         final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
-        Button addChildButton = (Button)findViewById(R.id.addEntryButton);
+        final EditText entryChild = (EditText) findViewById(R.id.entryChild);
+        Button addEntryButton = (Button)findViewById(R.id.addEntryButton);
 
-        addChildButton.setOnClickListener(new View.OnClickListener() {
+        addEntryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 /**
                  * CRUD Operations
                  * */
-                // Inserting baby
+                // Inserting entry
                 Log.d("Insert: ", "Inserting ..");
-                journalDao.addEntry(new Journal(entryDate.getText().toString(), entryTime.getText().toString(), entryMinLeft.getText().toString(), entryMinRight.getText().toString(), entryOunces.getText().toString()));
+                journalDao.addEntry(new Journal(entryDate.getText().toString(), entryTime.getText().toString(), entryMinLeft.getText().toString(), entryMinRight.getText().toString(), entryOunces.getText().toString(), Integer.parseInt(entryChild.getText().toString())));
 
                 // Reading all entries
                 Log.d("Reading: ", "Reading all entries..");
                 List<Journal> entries = journalDao.getAllEntries();
 
                 for (Journal entry : entries) {
-                    String log = "Id: "+entry.getID()+" ,Name: " + entry.getDate() + " ,Sex: " + entry.getTime() + " ,Height: " + entry.getMinLeft() + " ,Weight: " + entry.getMinRight() + " ,DOB: " + entry.getOunces();
+                    String log = "Id: "+entry.getID()+" ,Date: " + entry.getDate() + " ,Time: " + entry.getTime() + " ,Left: " + entry.getMinLeft() + " ,Right: " + entry.getMinRight() + " ,Ounces: " + entry.getOunces() + " ,Child: " + entry.getChild();
                     // Writing babies to log
                     Log.d("Name: ", log);
                 }
-                
+
                 entryDate.setText("");
                 entryTime.setText("");
                 entryMinLeft.setText("");
                 entryMinRight.setText("");
                 entryOunces.setText("");
+                entryChild.setText("");
              }
         });
+
     }
 }
