@@ -51,7 +51,7 @@ public class AddEntryActivity extends Activity {
 
                 for (Journal entry : entries) {
                     String log = "Id: "+entry.getID()+" ,Date: " + entry.getDate() + " ,Time: " + entry.getTime() + " ,Left: " + entry.getMinLeft() + " ,Right: " + entry.getMinRight() + " ,Ounces: " + entry.getOunces() + " ,Child: " + entry.getChild();
-                    // Writing babies to log
+                    // Writing entries to log
                     Log.d("Name: ", log);
                 }
 

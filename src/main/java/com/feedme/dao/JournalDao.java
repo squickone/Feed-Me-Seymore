@@ -22,8 +22,8 @@ public class JournalDao {
     private static final String KEY_ID = "id";
     private static final String KEY_DATE = "date";
     private static final String KEY_TIME = "time";
-    private static final String KEY_MIN_LEFT = "minutes_left";
-    private static final String KEY_MIN_RIGHT = "minutes_right";
+    private static final String KEY_MIN_LEFT = "min_left";
+    private static final String KEY_MIN_RIGHT = "min_right";
     private static final String KEY_OUNCES = "ounces";
     private static final String KEY_CHILD_ID = "child_id";
 
@@ -48,6 +48,8 @@ public class JournalDao {
      * @param entry - Journal POJO
      */
     public void addEntry(Journal entry) {
+        
+        open();
 
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, entry.getDate()); // Date
@@ -59,6 +61,8 @@ public class JournalDao {
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
+        
+        close();
     }
 
     /**
@@ -68,16 +72,22 @@ public class JournalDao {
      *
      * @return - Journal POJO representation of a specific Entry in the database.
      */
-    Journal getEntry(int id) {
+    public Journal getEntry(int id) {
 
+        open();
+        
         Cursor cursor = database.query(TABLE_DATA, new String[]{KEY_ID,
                 KEY_DATE, KEY_TIME, KEY_MIN_LEFT, KEY_MIN_RIGHT, KEY_OUNCES, KEY_CHILD_ID}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
+        Journal entry =  cursorToJournal(cursor);
+        
+        close();
+
         // return baby
-        return cursorToJournal(cursor);
+        return entry;
     }
 
     /**
@@ -86,6 +96,9 @@ public class JournalDao {
      * @return - Collection of all Entries located in the database.
      */
     public List<Journal> getAllEntries() {
+        
+        open();
+        
         List<Journal> entryList = new ArrayList<Journal>();
 
         // Select All Query
@@ -98,6 +111,8 @@ public class JournalDao {
                 entryList.add(cursorToJournal(cursor));
             } while (cursor.moveToNext());
         }
+        
+        close();
 
         return entryList;
     }
@@ -108,6 +123,9 @@ public class JournalDao {
      * @return
      */
     public String[] getAllEntriesAsStringArray(){
+        
+        open();
+        
         List<Journal> entries = getAllEntries();
         
         String[] entriesAsStrings = new String[entries.size()];
@@ -116,6 +134,8 @@ public class JournalDao {
             entriesAsStrings[i] = entry.getDate();
         }
 
+        close();
+        
         return entriesAsStrings;
     }
 
@@ -126,6 +146,8 @@ public class JournalDao {
      */
     public int updateEntry(Journal entry) {
 
+        open();
+        
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, entry.getDate());
         values.put(KEY_TIME, entry.getTime());
@@ -135,15 +157,20 @@ public class JournalDao {
         values.put(KEY_CHILD_ID, entry.getChild());
 
         // updating row
-        return database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(entry.getID()) });
+        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(entry.getID()) });
+        
+        close();
+        
+        return result;
     }
 
     /**
      * Deletes an entry from the Database
      */
     public void deleteEntry(Journal entry) {
-        database.delete(TABLE_DATA, KEY_ID + " = ?",
-                new String[]{String.valueOf(entry.getID())});
+        open();
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(entry.getID())});
+        close();
     }
 
     /**
@@ -152,13 +179,17 @@ public class JournalDao {
      * @return - Total number of entries in the entries table.
      */
     public int getEntriesCount() {
+        open();
         String countQuery = "SELECT  * FROM " + TABLE_DATA;
-        SQLiteDatabase db = databaseHandler.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        Cursor cursor = database.rawQuery(countQuery, null);
         cursor.close();
 
         // return count
-        return cursor.getCount();
+        int count = cursor.getCount();
+        
+        close();
+        
+        return count;
     }
 
     /**
