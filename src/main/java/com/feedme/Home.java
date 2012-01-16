@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.List;
+
 public class Home extends Activity {
 
     private static String TAG = "Feed-Me";
@@ -19,6 +21,27 @@ public class Home extends Activity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
         setContentView(R.layout.main);
-        System.out.println("Testing again. Broke my project :-(");
+
+
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        /**
+         * CRUD Operations
+         * */
+        // Inserting Contacts
+        Log.d("Insert: ", "Inserting ..");
+        db.addBaby(new Baby("Thomas", "male"));
+        db.addBaby(new Baby("Sarah", "female"));
+        db.addBaby(new Baby("Mary", "female"));
+
+        // Reading all contacts
+        Log.d("Reading: ", "Reading all babies..");
+        List<Baby> contacts = db.getAllBabies();
+
+        for (Baby cn : contacts) {
+            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getSex();
+            // Writing Contacts to log
+            Log.d("Name: ", log);
+        }
     }
 }
