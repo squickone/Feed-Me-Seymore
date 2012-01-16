@@ -47,7 +47,7 @@ public class BabyDao {
      *
      * @param baby - Baby POJO
      */
-    void addBaby(Baby baby) {
+    public void addBaby(Baby baby) {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, baby.getName()); // Baby name
