@@ -23,15 +23,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "dataManager";
+    private static final String DATABASE_NAME = "babyData";
 
     // Contacts table name
-    private static final String TABLE_DATA = "data";
+    private static final String TABLE_DATA = "babies";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_SEX = "sex";
+    private static final String KEY_HEIGHT = "height";
+    private static final String KEY_WEIGHT = "weight";
+    private static final String KEY_DOB = "dob";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,7 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_DATA_TABLE = "CREATE TABLE " + TABLE_DATA + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_SEX + " TEXT" + ")";
+                + KEY_SEX + " TEXT," + KEY_HEIGHT + " TEXT," + KEY_WEIGHT + " TEXT," + KEY_DOB + " TEXT" + ")";
         db.execSQL(CREATE_DATA_TABLE);
     }
 
@@ -66,8 +69,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, baby.getName()); // Contact Name
-        values.put(KEY_SEX, baby.getSex()); // Contact Phone
+        values.put(KEY_NAME, baby.getName()); // Baby name
+        values.put(KEY_SEX, baby.getSex()); // Baby sex
+        values.put(KEY_HEIGHT, baby.getHeight()); // Baby height
+        values.put(KEY_WEIGHT, baby.getWeight()); // Baby weight
+        values.put(KEY_DOB, baby.getDob()); // Baby dob
 
         // Inserting Row
         db.insert(TABLE_DATA, null, values);
@@ -79,13 +85,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_NAME, KEY_SEX }, KEY_ID + "=?",
+                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         Baby baby = new Baby(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
         // return baby
         return baby;
     }
@@ -106,6 +112,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 data.setID(Integer.parseInt(cursor.getString(0)));
                 data.setName(cursor.getString(1));
                 data.setSex(cursor.getString(2));
+                data.setHeight(cursor.getString(3));
+                data.setWeight(cursor.getString(4));
+                data.setDob(cursor.getString(5));
                 // Adding contact to list
                 babyList.add(data);
             } while (cursor.moveToNext());
@@ -122,22 +131,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, baby.getName());
         values.put(KEY_SEX, baby.getSex());
+        values.put(KEY_HEIGHT, baby.getHeight());
+        values.put(KEY_WEIGHT, baby.getWeight());
+        values.put(KEY_DOB, baby.getDob());
 
         // updating row
         return db.update(TABLE_DATA, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(baby.getID()) });
     }
 
-    // Deleting single contact
-    public void deleteContact(Baby baby) {
+    // Deleting single baby
+    public void deleteBaby(Baby baby) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_DATA, KEY_ID + " = ?",
                 new String[] { String.valueOf(baby.getID()) });
         db.close();
     }
 
-    // Getting contacts Count
-    public int getContactsCount() {
+    // Getting baby count
+    public int getBabyCount() {
         String countQuery = "SELECT  * FROM " + TABLE_DATA;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);

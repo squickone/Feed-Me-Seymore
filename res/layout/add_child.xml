@@ -5,33 +5,105 @@
               android:layout_height="fill_parent"
               android:background="#fffae8">
 
-    <TextView
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:stretchColumns="1">
+
+    <TableRow>
+            <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/addChild"
             android:id="@+id/addChild"
             />
+    </TableRow>
 
-    <EditText
-            android:text="Baby name"
+    <TableRow>
+        <TextView
+                android:text="Baby name: "
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:text=""
             android:id="@+id/babyName"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/addChild">
+            android:layout_height="wrap_content">
     </EditText>
+    </TableRow>
 
-    <EditText
-            android:text="Sex"
+    <TableRow>
+        <TextView
+                android:text="Sex: "
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:text=""
             android:id="@+id/babySex"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/babyName">
+            android:layout_height="wrap_content">
     </EditText>
+    </TableRow>
 
+    <TableRow>
+        <TextView
+                android:text="Height: "
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:text=""
+            android:id="@+id/babyHeight"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+    </EditText>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+                android:text="Weight: "
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:text=""
+            android:id="@+id/babyWeight"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+    </EditText>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+                android:text="DOB: "
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:text=""
+            android:id="@+id/babyDob"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+    </EditText>
+    </TableRow>
+
+    <TableRow>
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
             android:id="@+id/addChildButton"
-            android:layout_below="@id/babySex"
+            android:layout_below="@id/babyDob"
             ></Button>
+    </TableRow>
+
+
+    </TableLayout>
+
 </RelativeLayout>

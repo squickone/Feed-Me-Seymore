@@ -26,7 +26,6 @@ public class Home extends Activity {
         setContentView(R.layout.main);
 
         // button listener for add child screen button
-
         Button addChildScreen = (Button)findViewById(R.id.addChildScreen);
         addChildScreen.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

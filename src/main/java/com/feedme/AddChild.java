@@ -28,6 +28,9 @@ public class AddChild extends Activity {
 
         final EditText babyName = (EditText) findViewById(R.id.babyName);
         final EditText babySex = (EditText) findViewById(R.id.babySex);
+        final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
+        final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
+        final EditText babyDob = (EditText) findViewById(R.id.babyDob);
         Button addChildButton = (Button)findViewById(R.id.addChildButton);
 
         addChildButton.setOnClickListener(new View.OnClickListener() {
@@ -38,20 +41,23 @@ public class AddChild extends Activity {
                  * */
                 // Inserting baby
                 Log.d("Insert: ", "Inserting ..");
-                db.addBaby(new Baby(babyName.getText().toString(), babySex.getText().toString()));
+                db.addBaby(new Baby(babyName.getText().toString(), babySex.getText().toString(), babyHeight.getText().toString(), babyWeight.getText().toString(), babyDob.getText().toString()));
 
                 // Reading all babies
                 Log.d("Reading: ", "Reading all babies..");
                 List<Baby> contacts = db.getAllBabies();
 
                 for (Baby cn : contacts) {
-                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Sex: " + cn.getSex();
+                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Sex: " + cn.getSex() + " ,Height: " + cn.getHeight() + " ,Weight: " + cn.getWeight() + " ,DOB: " + cn.getDob();
                     // Writing babies to log
                     Log.d("Name: ", log);
                 }
                 
                 babyName.setText("");
                 babySex.setText("");
+                babyHeight.setText("");
+                babyWeight.setText("");
+                babyDob.setText("");
 
              }
         });
