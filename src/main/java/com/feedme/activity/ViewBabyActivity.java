@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TableRow;
 import android.widget.TextView;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
@@ -41,6 +44,17 @@ public class ViewBabyActivity extends Activity {
             babyName.setText(baby.getName());
             final TextView babySex = (TextView) findViewById(R.id.babySex);
             babySex.setText(baby.getSex());
+            
+            final TableRow viewChild = (TableRow) findViewById(R.id.viewChild);
+            final Button familyButton = (Button) findViewById(R.id.familyButton);
+            if ((baby.getSex()).equals("male")) {
+                viewChild.setBackgroundColor(0xFF7ED0FF);
+                familyButton.setBackgroundColor(0xFF7ED0FF);
+            } else {
+                viewChild.setBackgroundColor(0xFFFF99CC);
+                familyButton.setBackgroundColor(0xFFFF99CC);
+           }
+            
             final TextView babyHeight = (TextView) findViewById(R.id.babyHeight);
             babyHeight.setText(baby.getHeight());
             final TextView babyWeight = (TextView) findViewById(R.id.babyWeight);
@@ -48,7 +62,17 @@ public class ViewBabyActivity extends Activity {
             final TextView babyDob = (TextView) findViewById(R.id.babyDob);
             babyDob.setText(baby.getDob());
         }
-    }
+
+        //Add Family Button
+        Button familyButton = (Button) findViewById(R.id.familyButton);
+        familyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ViewBabyActivity.this,
+                        FamilyHomeActivity.class));
+            }
+        });
+
+   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

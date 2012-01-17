@@ -6,17 +6,52 @@
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     android:background="#fffae8"
     >
+<TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:stretchColumns="2">
 
+    <TableRow  android:gravity="center"
+            android:layout_span="2">
+        <ImageView
+            android:background="@drawable/splash"
+            android:layout_centerHorizontal="true"
+            android:layout_width="130dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+    </TableRow>
+
+    <TableRow>
+        <Button android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Add Child"
+                android:layout_column="0"
+                android:id="@+id/addChildScreen"
+                android:layout_gravity="center"
+                ></Button>
+
+        <Button android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Add Journal Entry"
+                android:layout_column="1"
+                android:id="@+id/addEntryScreen"
+                android:layout_gravity="center"
+               ></Button>
+    </TableRow>
     
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Child"
-            android:id="@+id/addChildScreen"
-            ></Button>
+    <TableRow
+            android:paddingTop="20dp"
+            android:gravity="center"
+>
+        <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manage Family"
+                android:id="@+id/familyScreen"
+                android:layout_gravity="center"
+                ></Button>
+    </TableRow>
 
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Journal Entry"
-            android:id="@+id/addEntryScreen"
-            ></Button>
+</TableLayout>
 </LinearLayout>
