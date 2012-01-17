@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
 import java.util.ArrayList;
@@ -87,6 +88,31 @@ public class JournalDao {
         close();
 
         // return baby
+        return entry;
+    }
+
+
+    /**
+     * Getting single entry from the database by its date.
+     *
+     * @param date - The date of the entry in the database.
+     *
+     * @return - Journal POJO representation of a specific entry in the database.
+     */
+    public Journal getEntryByDate(String date) {
+
+        open();
+
+        Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
+                KEY_DATE, KEY_TIME, KEY_MIN_LEFT, KEY_MIN_RIGHT, KEY_OUNCES, KEY_CHILD_ID }, KEY_DATE + "=?",
+                new String[] { String.valueOf(date) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Journal entry =  cursorToJournal(cursor);
+
+        close();
+
         return entry;
     }
 
