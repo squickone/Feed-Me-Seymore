@@ -65,8 +65,6 @@ public class HomeActivity extends Activity {
                         FamilyHomeActivity.class));
                 break;
             case R.id.home:
-                startActivity(new Intent(HomeActivity.this,
-                        HomeActivity.class));
                 break;
         }
         return true;
