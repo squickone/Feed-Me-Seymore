@@ -1,130 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:background="#fffae8">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#fffae8">
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:layout_width="fill_parent"
                  android:layout_height="fill_parent"
                  android:stretchColumns="1">
 
-    <TableRow>
+        <TableRow>
             <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/addEntry"
-            android:id="@+id/addEntry"
-            />
-    </TableRow>
+                    android:layout_span="3"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#7ed0ff"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp"
+                    android:gravity="right"
+                    android:text="@string/addEntry"
+                    android:id="@+id/addEntry"
+                    />
+        </TableRow>
 
-    <TableRow>
-        <TextView
-                android:text="Entry date: "
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </TextView>
-        <EditText
-            android:text=""
-            android:id="@+id/entryDate"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-    </TableRow>
+        <TableRow>
+            <TextView
+                    android:text="Entry date: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                    android:text=""
+                    android:id="@+id/entryDate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+            </EditText>
+        </TableRow>
 
-    <TableRow>
-        <TextView
-                android:text="Entry Time: "
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </TextView>
-        <EditText
-            android:text=""
-            android:id="@+id/entryTime"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-    </TableRow>
+        <TableRow>
+            <TextView
+                    android:text="Entry Time: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                    android:text=""
+                    android:id="@+id/entryTime"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+            </EditText>
+        </TableRow>
 
-    <TableRow>
-        <TextView
-                android:text="Minutes Breastfeeding "
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </TextView>
-    </TableRow>
+        <TableRow>
+            <TextView
+                    android:text="Minutes Breastfeeding "
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+        </TableRow>
 
-    <TableRow>
-        <TextView
-                android:text="Left: "
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </TextView>
-        <EditText
-            android:text=""
-            android:id="@+id/entryMinLeft"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-    </TableRow>
+        <TableRow>
+            <TextView
+                    android:text="Left: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                    android:text=""
+                    android:id="@+id/entryMinLeft"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+            </EditText>
+        </TableRow>
 
-    <TableRow>
-        <TextView
-                android:text="Right: "
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </TextView>
-        <EditText
-            android:text=""
-            android:id="@+id/entryMinRight"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-    </TableRow>
+        <TableRow>
+            <TextView
+                    android:text="Right: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                    android:text=""
+                    android:id="@+id/entryMinRight"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+            </EditText>
+        </TableRow>
 
-    <TableRow>
-        <TextView
-                android:text="Ounces: "
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </TextView>
-        <EditText
-            android:text=""
-            android:id="@+id/entryOunces"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-    </TableRow>
+        <TableRow>
+            <TextView
+                    android:text="Ounces: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                    android:text=""
+                    android:id="@+id/entryOunces"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+            </EditText>
+        </TableRow>
 
-    <TableRow>
-        <TextView
-                android:text="Child ID: "
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-        </TextView>
-        <EditText
-                android:text=""
-                android:id="@+id/entryChild"
+        <TableRow>
+            <TextView
+                    android:text="Child ID: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                    android:text=""
+                    android:id="@+id/entryChild"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+            </EditText>
+        </TableRow>
+
+        <TableRow
+                android:layout_span="3"
+                android:paddingBottom="5dp"
+                android:paddingTop="8dp"
+                android:paddingRight="5dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-        </EditText>
-    </TableRow>
-
-    <TableRow>
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:id="@+id/addEntryButton"
-            ></Button>
-    </TableRow>
+                android:layout_height="wrap_content"
+                android:background="#7ed0ff"
+                android:textColor="#FFFFFF"
+                android:gravity="right">
+            <Button android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:id="@+id/addEntryButton"
+                    ></Button>
+        </TableRow>
 
 
     </TableLayout>
