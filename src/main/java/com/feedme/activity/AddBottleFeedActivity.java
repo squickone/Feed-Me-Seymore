@@ -90,14 +90,10 @@ public class AddBottleFeedActivity extends Activity
                 List<Journal> entries = journalDao.getAllEntries();
 
                 for (Journal entry : entries) {
-<<<<<<< HEAD
                     String log = "Id: " + entry.getID() + " ,Date: " + entry.getDate() + " ," +
                             "Time: " + entry.getTime() + " ,Left: " + entry.getMinLeft() + " ," +
                             "Right: " + entry.getMinRight() + " ,Ounces: " + entry.getOunces() + " ," +
                             "Child: " + entry.getChild();
-=======
-                    String log = "Id: "+entry.getID()+" ,Date: " + entry.getDate() + " ,Time: " + entry.getTime() + " ,Ounces: " + entry.getOunces() + " ,Child: " + entry.getChild();
->>>>>>> 4af250aa511a3f3e429fecb778b0f14969446589
                     // Writing entries to log
                     Log.d("Name: ", log);
                 }
