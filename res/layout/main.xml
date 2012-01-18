@@ -22,13 +22,51 @@
         android:layout_below="@+id/topBanner">
 
         <ImageView
+            android:id="@+id/familySplash"
             android:background="@drawable/splash"
             android:layout_centerHorizontal="true"
-            android:layout_width="205dp"
-            android:layout_height="300dp"
+            android:layout_width="130dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-
             />
+
+            <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/familySplash"
+                        >
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:background="@drawable/splash"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="130dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        />
+
+                    <ImageView
+                        android:background="@drawable/splash"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="130dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        />
+
+                    <ImageView
+                        android:background="@drawable/splash"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="130dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        />
+
+                </LinearLayout>
+                
+            </HorizontalScrollView>
 
     </RelativeLayout>
 
