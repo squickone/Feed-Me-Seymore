@@ -90,6 +90,24 @@ public class ViewBabyActivity extends Activity {
             }
         });
 
+        //Add Bottle Feeding Button`
+        Button bottleButton = (Button) findViewById(R.id.bottleButton);
+        bottleButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ViewBabyActivity.this,
+                        AddBottleFeedActivity.class));
+            }
+        });
+
+        //Add Breast Feeding Button`
+        Button breastfeedButton = (Button) findViewById(R.id.breastfeedButton);
+        breastfeedButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ViewBabyActivity.this,
+                        AddBreastFeedActivity.class));
+            }
+        });
+
     }
 
     @Override

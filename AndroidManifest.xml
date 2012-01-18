@@ -25,6 +25,10 @@
                   android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".activity.AddEntryActivity"
                   android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.AddBottleFeedActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.AddBreastFeedActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".activity.ViewBabyActivity"
                   android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".activity.TakePictureActivity"
@@ -32,7 +36,8 @@
         <activity android:name=".activity.SelectPictureActivity"
                   android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".activity.SettingsActivity"
-                  android:theme="@android:style/Theme.NoTitleBar"/>    </application>
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+    </application>
 
 </manifest>
 
