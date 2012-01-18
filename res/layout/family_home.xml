@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:background="#fffae8" >
+    
+    <RelativeLayout
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+            android:background="#7ed0ff">
     <Button
             android:id="@+id/selectChild"
             android:text="@string/selectChildTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dip"
-            android:layout_gravity="center" />
+            android:layout_alignParentLeft="true" />
     <Button
             android:id="@+id/addChild"
             android:text="@string/addChild"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dip"
-            android:layout_gravity="center" />
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

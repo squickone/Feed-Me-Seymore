@@ -4,90 +4,73 @@
                 android:layout_height="fill_parent"
                 android:background="#fffae8">
 
-    <TableLayout android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"
-                 android:stretchColumns="2">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
 
-        <TableRow>
-            <TextView
-                    android:layout_span="3"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#7ed0ff"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp"
-                    android:gravity="right"
-                    android:text="@string/myFamily"
-                    android:id="@+id/myFamily"
-                    />
-        </TableRow>
-
-        <TableRow android:gravity="center"
-                  android:layout_span="2">
-            <ImageView
-                android:background="@drawable/splash"
-                android:layout_centerHorizontal="true"
-                android:layout_width="130dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:gravity="center"
+        <TextView  android:layout_span="3"
+                   android:paddingBottom="5dp"
+                   android:paddingTop="5dp"
+                   android:paddingRight="8dp"
+                   android:layout_marginBottom="20dp"
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:background="#7ed0ff"
+                   android:textColor="#FFFFFF"
+                   android:textSize="25dp"
+                   android:gravity="right"
+                   android:text="@string/myFamily"
+                   android:id="@+id/myFamily"
                 />
-        </TableRow>
-    
-        <TableRow android:paddingTop="20dp"
-                  android:gravity="center">
+        <ImageView
+            android:background="@drawable/splash"
+            android:layout_centerHorizontal="true"
+            android:layout_width="205dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_below="@+id/myFamily"
+            />
+    </RelativeLayout>
 
-        <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Manage Family"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#7ed0ff"
+        android:padding="4dp"
+        android:paddingBottom="6dp"
+        android:layout_alignParentBottom="true">
+
+        <Button android:text="@string/icon_settings"
+                android:id="@+id/settings"
+                android:drawableTop="@drawable/icon_settings"
+                android:layout_alignParentLeft="true"
+                style="@style/NavButton"
+                />
+
+        <Button android:text="Family"
                 android:id="@+id/familyScreen"
-                android:layout_gravity="center"
+                android:drawableTop="@drawable/icon_family"
+                android:layout_toRightOf="@+id/settings"
+                style="@style/NavButton"
                 />
-        </TableRow>
 
-    </TableLayout>
+        <Button android:text="Journal"
+                android:id="@+id/addEntryScreen"
+                android:drawableTop="@drawable/icon_pencil"
+                android:layout_toLeftOf="@+id/addChildScreen"
+                style="@style/NavButton"
+                />
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="fill_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_alignParentBottom="true"
-                 android:stretchColumns="3">
+        <Button android:text="@string/icon_add"
+                android:id="@+id/addChildScreen"
+                android:drawableTop="@drawable/icon_baby"
+                android:layout_alignParentRight="true"
+                style="@style/NavButton"
+                />
 
-        <TableRow
-                android:layout_span="3"
-                android:padding="4dp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#7ed0ff"
-                android:textColor="#FFFFFF"
-                android:gravity="right">
+    </RelativeLayout>
 
-            <Button android:text="@string/icon_settings"
-                    android:layout_gravity="center"
-                    android:drawableTop="@drawable/icon_settings"
-                    style="@style/NavButton"
-                    />
-
-            <Button android:text="Journal"
-                    android:id="@+id/addEntryScreen"
-                    android:layout_gravity="center"
-                    android:drawableTop="@drawable/icon_pencil"
-                    style="@style/NavButton"
-                    />
-
-            <Button android:text="@string/icon_add"
-                    android:id="@+id/addChildScreen"
-                    android:layout_gravity="center"
-                    android:drawableTop="@drawable/icon_baby"
-                    style="@style/NavButton"
-                    />
-
-        </TableRow>
-
-    </TableLayout>
-    
 </RelativeLayout>
