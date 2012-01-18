@@ -61,7 +61,7 @@ public class SettingsActivity extends Activity {
                 settingsSound.setText("");
                 settingsVibrate.setText("");
 
-                Intent intent = new Intent(getApplicationContext(), FamilyHomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivityForResult(intent, ADD_SETTINGS_ACTIVITY_ID);
              }
         });

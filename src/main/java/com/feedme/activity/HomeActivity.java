@@ -29,6 +29,15 @@ public class HomeActivity extends Activity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.main);
 
+        //Add Settings Button
+        Button addSettingsButton = (Button) findViewById(R.id.settings);
+        addSettingsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
+                startActivityForResult(intent, 2);
+            }
+        });
+
         // button listener for add child screen button
         Button addChildScreen = (Button)findViewById(R.id.addChildScreen);
         addChildScreen.setOnClickListener(new View.OnClickListener() {
