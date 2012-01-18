@@ -125,7 +125,7 @@
                 android:textColor="#FFFFFF"
                 android:gravity="right">
             <Button android:id="@+id/takePicture"
-                    android:text="@string/addPicture"
+                    android:text="@string/takePicture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <Button android:id="@+id/pickPicture"

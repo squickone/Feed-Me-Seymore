@@ -38,7 +38,6 @@ public class TakePictureActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
 
         if (requestCode == TAKE_PICTURE){
-            System.out.println(outputFileUri.toString());
 
             //TODO: Store taken picture path to Baby table.
             Intent intent = new Intent(getApplicationContext(), AddChildActivity.class);

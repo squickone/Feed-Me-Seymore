@@ -7,6 +7,6 @@
     <string name="addChild">Add a Child</string>
     <string name="myFamily">My Family</string>
     <string name="addEntry">Add a Journal Entry</string>
-    <string name="addPicture">Add Picture</string>
+    <string name="takePicture">Take Picture</string>
     <string name="pickPicture">Select Picture</string>
 </resources>

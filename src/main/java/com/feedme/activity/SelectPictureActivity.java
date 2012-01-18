@@ -25,8 +25,10 @@ public class SelectPictureActivity extends Activity {
 
         if (requestCode == SELECT_PICTURE_REQUEST){
             Uri photoUri = data.getData();
-            System.out.println("photoUri = " + photoUri);
-            //TODO: Save picture path to the Baby table.
+            
+            if(photoUri!=null){
+                //TODO: Save picture path to the Baby table.
+            }
             
             Intent intent = new Intent(getApplicationContext(), AddChildActivity.class);
             startActivityForResult(intent, SELECT_PICTURE_REQUEST);
