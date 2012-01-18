@@ -5,7 +5,9 @@
         <item name="android:paddingTop">4dp</item>
         <item name="android:width">54dp</item>
         <item name="android:height">54dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ff9090fc</item>
-        <item name="android:layout_margin">2dp</item>
+        <item name="android:layout_margin">4dp</item>
     </style>
 </resources>
