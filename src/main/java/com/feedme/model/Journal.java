@@ -17,31 +17,31 @@ public class Journal {
     String _min_left;
     String _min_right;
     String _ounces;
-    int _child;
+    int _child_id;
 
     // Empty constructor
     public Journal(){
 
     }
     // constructor
-    public Journal(int id, String date, String time, String min_left, String min_right, String ounces, int child){
+    public Journal(int id, String date, String time, String min_left, String min_right, String ounces, int child_id){
         this._id = id;
         this._date = date;
         this._time = time;
         this._min_left = min_left;
         this._min_right = min_right;
         this._ounces = ounces;
-        this._child = child;
+        this._child_id = child_id;
    }
 
     // constructor
-    public Journal(String date, String time, String min_left, String min_right, String ounces, int child){
+    public Journal(String date, String time, String min_left, String min_right, String ounces, int child_id){
         this._date = date;
         this._time = time;
         this._min_left = min_left;
         this._min_right = min_right;
         this._ounces = ounces;
-        this._child = child;
+        this._child_id = child_id;
    }
 
     // getting ID
@@ -106,12 +106,12 @@ public class Journal {
 
     // getting child
     public int getChild(){
-        return this._child;
+        return this._child_id;
     }
 
     // setting child
-    public void setChild(int child){
-        this._child = child;
+    public void setChild(int child_id){
+        this._child_id = child_id;
     }
 
 }

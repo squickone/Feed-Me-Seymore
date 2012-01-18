@@ -21,7 +21,7 @@ public class ViewEntryActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_baby);
+        setContentView(R.layout.view_entry);
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
         
@@ -34,12 +34,15 @@ public class ViewEntryActivity extends Activity {
         if(!entryId.equals("")){
             entry = journalDao.getEntryByDate(entryId);
         }
-        
+
+        TextView viewEntry = (TextView) findViewById(R.id.addEntry);
+        viewEntry.setText(entry.getDate());
+
         // Populate Baby Data
         if(entry!=null){
-            //final TextView entryDate = (TextView) findViewById(R.id.entryDate);
-            //entryDate.setText(entry.getDate());
-            Log.d("Name: ", entry.getDate());
+            final TextView entryDate = (TextView) findViewById(R.id.entryDate);
+            entryDate.setText(entry.getDate());
+            Log.d("Date: ", entry.getDate());
             final TextView entryTime = (TextView) findViewById(R.id.entryTime);
             entryTime.setText(entry.getTime());
             
@@ -57,8 +60,12 @@ public class ViewEntryActivity extends Activity {
                 final TextView entryOunces = (TextView) findViewById(R.id.entryOunces);
                 entryOunces.setText(entry.getOunces());
             }
+
             final TextView entryChild = (TextView) findViewById(R.id.entryChild);
-            entryChild.setText(entry.getID());
+            int childId = entry.getChild();
+
+
+            entryChild.setText(Integer.toString(childId));
         }
     }
 }
