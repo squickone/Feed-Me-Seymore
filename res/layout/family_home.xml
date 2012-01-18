@@ -8,18 +8,31 @@
               android:background="#fffae8" >
     
     <RelativeLayout
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-            android:background="#7ed0ff">
-        <Button
-                android:id="@+id/selectChild"
-                android:text="@string/selectChildTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dip"
-                android:layout_alignParentLeft="true" />
+              android:id="@+id/topBanner"
+              style="@style/topBanner">
+>
+        <TextView  style="@style/rightHeadline"
+                  android:text="@string/selectChildTitle"
+                  android:id="@+id/myFamily"
+                />
 
+    </RelativeLayout>
+
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topBanner"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+       <TableLayout
+               android:id="@+id/myTableLayout"
+               android:layout_width="fill_parent"
+               android:layout_height="fill_parent"
+               android:textColor="#ffffff">
+
+       </TableLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -39,6 +52,6 @@
                 style="@style/iconNavButton"
                 />
 
-    </RelativeLayout>
+     </RelativeLayout>
 
 </RelativeLayout>
