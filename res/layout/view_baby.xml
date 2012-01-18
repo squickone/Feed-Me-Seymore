@@ -162,6 +162,69 @@
                 android:text="Feeding History"
                 android:id="@+id/test"/>
 
+            <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/myTableLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    >
+                    <TableRow
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content">
+
+                         <Button android:text="Static Button"/>
+                    </TableRow>
+                    <TableRow
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content">
+
+                         <Button android:text="Static Button"/>
+                    </TableRow>
+                    <TableRow
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content">
+
+                         <Button android:text="Static Button"/>
+                    </TableRow>
+                    <TableRow
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content">
+
+                         <Button android:text="Static Button"/>
+                    </TableRow>
+                    <TableRow
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content">
+
+                         <Button android:text="Static Button"/>
+                    </TableRow>
+                    <TableRow
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content">
+
+                         <Button android:text="Static Button"/>
+                    </TableRow>
+                    <TableRow
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content">
+
+                         <Button android:text="Static Button"/>
+                    </TableRow>
+                    <TableRow
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content">
+
+                         <Button android:text="Static Button"/>
+                    </TableRow>
+
+                </TableLayout>
+
+            </ScrollView>
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -174,6 +237,27 @@
                 android:id="@+id/familyButton"
                 android:drawableTop="@drawable/icon_family"
                 android:layout_alignParentLeft="true"
+                style="@style/iconNavButton"
+                />
+
+        <Button android:text="Journal"
+                android:id="@+id/addEntryScreen"
+                android:drawableTop="@drawable/icon_pencil"
+                android:layout_toRightOf="@+id/familyButton"
+                style="@style/iconNavButton"
+                />
+
+        <Button android:text="Bottle"
+                android:id="@+id/bottleButton"
+                android:drawableTop="@drawable/icon_bottle"
+                android:layout_toLeftOf="@+id/breastfeedButton"
+                style="@style/iconNavButton"
+                />
+
+        <Button android:text="Breast"
+                android:id="@+id/breastfeedButton"
+                android:drawableTop="@drawable/icon_breastfeed"
+                android:layout_alignParentRight="true"
                 style="@style/iconNavButton"
                 />
 
