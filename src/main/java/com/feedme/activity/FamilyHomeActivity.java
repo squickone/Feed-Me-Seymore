@@ -1,6 +1,9 @@
 package com.feedme.activity;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.view.*;
 import com.feedme.R;
 import android.content.Intent;
@@ -38,7 +41,8 @@ public class FamilyHomeActivity extends Activity {
                     TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.FILL_PARENT));
 
-            Button b = new Button(this);                    //create button for child
+            final Button b = new Button(this);                    //create button for child
+            tr.setPadding(5,5,5,5);
 
             if (myList[j].getSex().equals("male")) {     //change bg color of row and button
                 tr.setBackgroundColor(0xFF7ED0FF);
@@ -54,10 +58,21 @@ public class FamilyHomeActivity extends Activity {
                     TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.FILL_PARENT));
 
+            final ImageView babyImage = new ImageView(this);
+
+            if (myList[j].getPicturePath() != null && !myList[j].getPicturePath().equals("")) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 12;
+                Bitmap bmImg = BitmapFactory.decodeFile(myList[j].getPicturePath(), options);
+                babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
+            }
+
             //button listener for each baby
             b.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
+                    intent.putExtra("babyName", b.getText());
+                    startActivityForResult(intent, 3);
                 }
             });
 
@@ -72,6 +87,27 @@ public class FamilyHomeActivity extends Activity {
             j++; //iterator
         }
 
+    }
+
+
+    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees) {
+
+        int width = bitMap.getWidth();
+        int height = bitMap.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+        matrix.postRotate(rotateInDegrees);
+
+        // recreate the new Bitmap
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
     }
 
     public void handleButtons() {
