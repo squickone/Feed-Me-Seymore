@@ -8,3 +8,5 @@ Feed-Me.iws
 Feed-Me-Seymore.iml
 Feed-Me-Seymore.ipr
 Feed-Me-Seymore.iws
+
+gen/com/feedme/R.java
