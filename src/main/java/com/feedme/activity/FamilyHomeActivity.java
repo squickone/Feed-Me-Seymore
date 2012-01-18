@@ -44,8 +44,6 @@ public class FamilyHomeActivity extends Activity {
                 startActivityForResult(intent, 2);
             }
         });
-
-
     }
 
     @Override

@@ -28,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_HEIGHT = "height";
     private static final String KEY_WEIGHT = "weight";
     private static final String KEY_DOB = "dob";
+    private static final String KEY_PICTURE = "picture";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_DATA_TABLE = "CREATE TABLE " + TABLE_DATA + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_SEX + " TEXT," + KEY_HEIGHT + " TEXT," + KEY_WEIGHT + " TEXT," + KEY_DOB + " TEXT" + ")";
+                + KEY_SEX + " TEXT," + KEY_HEIGHT + " TEXT," + KEY_WEIGHT + " TEXT," + KEY_DOB + " TEXT," + KEY_PICTURE + "TEXT)";
         db.execSQL(CREATE_DATA_TABLE);
     }
 

@@ -124,11 +124,18 @@
                 android:background="#7ed0ff"
                 android:textColor="#FFFFFF"
                 android:gravity="right">
+            <Button android:id="@+id/takePicture"
+                    android:text="@string/addPicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <Button android:id="@+id/pickPicture"
+                    android:text="@string/pickPicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save"
-                    android:id="@+id/addChildButton"
-                    ></Button>
+                    android:id="@+id/addChildButton"></Button>
         </TableRow>
 
 

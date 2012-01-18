@@ -38,6 +38,24 @@ public class AddChildActivity extends Activity {
         final EditText babyDob = (EditText) findViewById(R.id.babyDob);
         Button addChildButton = (Button)findViewById(R.id.addChildButton);
 
+        //Take Picture Button
+        Button takePicture = (Button) findViewById(R.id.takePicture);
+        takePicture.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TakePictureActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        //Select Picture Button
+        Button selectPicture = (Button) findViewById(R.id.pickPicture);
+        selectPicture.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SelectPictureActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
         addChildButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
