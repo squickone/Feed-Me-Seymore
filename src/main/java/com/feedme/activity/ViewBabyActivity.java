@@ -61,6 +61,8 @@ public class ViewBabyActivity extends Activity {
             babyWeight.setText(baby.getWeight());
             final TextView babyDob = (TextView) findViewById(R.id.babyDob);
             babyDob.setText(baby.getDob());
+            final TextView babyPicture = (TextView) findViewById(R.id.babyPicturePath);
+            babyPicture.setText(baby.getPicturePath());
         }
 
         //Add Family Button

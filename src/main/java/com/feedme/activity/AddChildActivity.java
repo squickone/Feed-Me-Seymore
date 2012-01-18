@@ -22,11 +22,13 @@ import java.util.List;
  * Time: 12:27 PM
  */
 public class AddChildActivity extends Activity {
+    
+    private static final int ADD_CHILD_ACTIVITY_ID = 5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.add_child);
         final BabyDao babyDao = new BabyDao(getApplicationContext());
 
@@ -37,9 +39,10 @@ public class AddChildActivity extends Activity {
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
         final EditText babyDob = (EditText) findViewById(R.id.babyDob);
         Button addChildButton = (Button)findViewById(R.id.addChildButton);
+        Button takePicture = (Button) findViewById(R.id.takePicture);
+        Button selectPicture = (Button) findViewById(R.id.pickPicture);
 
         //Take Picture Button
-        Button takePicture = (Button) findViewById(R.id.takePicture);
         takePicture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), TakePictureActivity.class);
@@ -48,7 +51,6 @@ public class AddChildActivity extends Activity {
         });
 
         //Select Picture Button
-        Button selectPicture = (Button) findViewById(R.id.pickPicture);
         selectPicture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SelectPictureActivity.class);
@@ -56,22 +58,31 @@ public class AddChildActivity extends Activity {
             }
         });
 
+        //Add Child Button
         addChildButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                
+                String picturePath = "";
+                if(getIntent().getExtras()!=null && getIntent().getExtras().get("picturePath")!=null){
+                    picturePath = (String) getIntent().getExtras().get("picturePath");
+                }
 
                 /**
                  * CRUD Operations
                  * */
                 // Inserting baby
                 Log.d("Insert: ", "Inserting ..");
-                babyDao.addBaby(new Baby(babyName.getText().toString(), babySex.getText().toString(), babyHeight.getText().toString(), babyWeight.getText().toString(), babyDob.getText().toString()));
+                babyDao.addBaby(new Baby(babyName.getText().toString(), babySex.getText().toString(),
+                        babyHeight.getText().toString(), babyWeight.getText().toString(), babyDob.getText().toString(), picturePath));
 
                 // Reading all babies
                 Log.d("Reading: ", "Reading all babies..");
                 List<Baby> babies = babyDao.getAllBabies();
 
                 for (Baby baby : babies) {
-                    String log = "Id: "+baby.getID()+" ,Name: " + baby.getName() + " ,Sex: " + baby.getSex() + " ,Height: " + baby.getHeight() + " ,Weight: " + baby.getWeight() + " ,DOB: " + baby.getDob();
+                    String log = "Id: "+baby.getID()+" ,Name: " + baby.getName() + " ,Sex: " + baby.getSex()
+                            + " ,Height: " + baby.getHeight() + " ,Weight: " + baby.getWeight() + " ,DOB: " + baby.getDob();
+
                     // Writing babies to log
                     Log.d("Name: ", log);
                 }
@@ -81,10 +92,12 @@ public class AddChildActivity extends Activity {
                 babyHeight.setText("");
                 babyWeight.setText("");
                 babyDob.setText("");
+                
+                Intent intent = new Intent(getApplicationContext(), FamilyHomeActivity.class);
+                startActivityForResult(intent, ADD_CHILD_ACTIVITY_ID);
              }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

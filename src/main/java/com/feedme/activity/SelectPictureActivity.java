@@ -2,8 +2,10 @@ package com.feedme.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 
 /**
  * User: dayel.ostraco
@@ -12,7 +14,7 @@ import android.os.Bundle;
  */
 public class SelectPictureActivity extends Activity {
     
-    private static final int SELECT_PICTURE_REQUEST = 11;
+    public static final int SELECT_PICTURE_ID = 11;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,23 +23,41 @@ public class SelectPictureActivity extends Activity {
         pickPicture();
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
 
-        if (requestCode == SELECT_PICTURE_REQUEST){
-            Uri photoUri = data.getData();
-            
-            if(photoUri!=null){
-                //TODO: Save picture path to the Baby table.
-            }
-            
+        if (requestCode == SELECT_PICTURE_ID){
+
             Intent intent = new Intent(getApplicationContext(), AddChildActivity.class);
-            startActivityForResult(intent, SELECT_PICTURE_REQUEST);
+
+            if(data!=null && data.getData()!=null){
+                Uri photoUri = data.getData();
+                intent.putExtra("picturePath", getPath(photoUri));
+            }
+
+            startActivityForResult(intent, SELECT_PICTURE_ID);
         }
     }
 
     private void pickPicture(){
         Intent pickPhoto = new Intent(Intent.ACTION_PICK);
         pickPhoto.setType("image/*");
-        startActivityForResult(Intent.createChooser(pickPhoto, "Choose a picture"), SELECT_PICTURE_REQUEST);
+        startActivityForResult(Intent.createChooser(pickPhoto, "Choose a picture"), SELECT_PICTURE_ID);
+    }
+
+    private String getPath(Uri uri) {
+
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+
+        if(cursor!=null) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+
+            return cursor.getString(column_index);
+
+        } else {
+            return null;
+        }
     }
 }

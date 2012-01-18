@@ -15,6 +15,7 @@ public class Baby {
     String _height;
     String _weight;
     String _dob;
+    String _picturePath;
 
     // Empty constructor
     public Baby(){
@@ -22,23 +23,26 @@ public class Baby {
     }
 
     // constructor
-    public Baby(int id, String name, String sex, String height, String weight, String dob){
+    public Baby(int id, String name, String sex, String height, String weight, String dob, String picturePath){
         this._id = id;
         this._name = name;
         this._sex = sex;
         this._height = height;
         this._weight = weight;
         this._dob = dob;
+        this._picturePath = picturePath;
    }
 
     // constructor
-    public Baby(String name, String sex, String height, String weight, String dob){
+    public Baby(String name, String sex, String height, String weight, String dob, String picturePath){
         this._name = name;
         this._sex = sex;
         this._height = height;
         this._weight = weight;
         this._dob = dob;
+        this._picturePath = picturePath;
     }
+    
     // getting ID
     public int getID(){
         return this._id;
@@ -99,4 +103,13 @@ public class Baby {
         this._dob = dob;
     }
 
+    // getting picturePath
+    public String getPicturePath() {
+        return _picturePath;
+    }
+
+    // setting picturePath
+    public void setPicturePath(String picturePath) {
+        this._picturePath = picturePath;
+    }
 }

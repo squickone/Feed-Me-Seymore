@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import com.feedme.R;
 
 /**
  * User: dayel.ostraco
@@ -17,8 +16,8 @@ import com.feedme.R;
  */
 public class TakePictureActivity extends Activity {
 
-    private static int TAKE_PICTURE = 10;
-    private Uri outputFileUri;
+    public static int TAKE_PICTURE_ID = 10;
+    private Uri pictureUri;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,11 +36,12 @@ public class TakePictureActivity extends Activity {
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
 
-        if (requestCode == TAKE_PICTURE){
+        if (requestCode == TAKE_PICTURE_ID){
 
             //TODO: Store taken picture path to Baby table.
             Intent intent = new Intent(getApplicationContext(), AddChildActivity.class);
-            startActivityForResult(intent, TAKE_PICTURE);
+            intent.putExtra("pictureUri", pictureUri);
+            startActivityForResult(intent, TAKE_PICTURE_ID);
         }
     }
 
@@ -51,10 +51,13 @@ public class TakePictureActivity extends Activity {
      */
     private void takePhoto(String babyName) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        //TODO: Create the feed-me-seymore folder on the SD card. May need to do this on the Splash Screen as a initial setup.
+
         File file = new File(Environment.getExternalStorageDirectory(), "feed-me-seymore/" + babyName + ".jpg");
 
-        outputFileUri = Uri.fromFile(file);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        startActivityForResult(intent, TAKE_PICTURE);
+        pictureUri = Uri.fromFile(file);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+        startActivityForResult(intent, TAKE_PICTURE_ID);
     }
 }

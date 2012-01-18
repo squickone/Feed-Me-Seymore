@@ -25,6 +25,7 @@ public class BabyDao {
     private static final String KEY_HEIGHT = "height";
     private static final String KEY_WEIGHT = "weight";
     private static final String KEY_DOB = "dob";
+    private static final String KEY_PICTURE = "picture";
 
     private SQLiteDatabase database;
     private DatabaseHandler databaseHandler;
@@ -56,6 +57,7 @@ public class BabyDao {
         values.put(KEY_HEIGHT, baby.getHeight()); // Baby height
         values.put(KEY_WEIGHT, baby.getWeight()); // Baby weight
         values.put(KEY_DOB, baby.getDob()); // Baby dob
+        values.put(KEY_PICTURE, baby.getPicturePath()); // Baby picturePath
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -75,7 +77,7 @@ public class BabyDao {
         open();
         
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_ID + "=?",
+                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB, KEY_PICTURE }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -99,7 +101,7 @@ public class BabyDao {
         open();
 
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB }, KEY_NAME + "=?",
+                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB, KEY_PICTURE }, KEY_NAME + "=?",
                 new String[] { String.valueOf(name) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -175,6 +177,7 @@ public class BabyDao {
         values.put(KEY_HEIGHT, baby.getHeight());
         values.put(KEY_WEIGHT, baby.getWeight());
         values.put(KEY_DOB, baby.getDob());
+        values.put(KEY_PICTURE, baby.getPicturePath());
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(baby.getID()) });
@@ -221,6 +224,6 @@ public class BabyDao {
      */
     private Baby cursorToBaby(Cursor cursor) {
         return new Baby(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
     }
 }
