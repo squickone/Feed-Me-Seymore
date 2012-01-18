@@ -20,85 +20,147 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBanner"
-        android:padding="10dp" >
-        
-        <ImageView
-            android:id="@+id/babyPicture"
-            style="@style/imageBox"
-            android:layout_alignParentLeft="true"/>
+        android:layout_below="@+id/topBanner" >
+
+        <LinearLayout
+            android:id="@+id/profileStats"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/babyPicture"
+                style="@style/imageBox"
+                android:layout_alignParentLeft="true"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/babyPicture"
+                android:paddingLeft="4dp"
+                android:paddingTop="4dp">
+
+                <LinearLayout style="@style/profileStatsRow" >
+
+                    <TextView
+                            android:text="Sex: "
+                            android:textColor="#000000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    <TextView
+                            android:text=""
+                            android:id="@+id/babySex"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/profileStatsRow" >
+
+                    <TextView
+                            android:text="Height: "
+                            android:textColor="#000000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    <TextView
+                            android:text=""
+                            android:id="@+id/babyHeight"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/profileStatsRow" >
+
+                    <TextView
+                            android:text="Weight: "
+                            android:textColor="#000000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    <TextView
+                            android:text=""
+                            android:id="@+id/babyWeight"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/profileStatsRow" >
+
+                    <TextView
+                            android:text="DOB: "
+                            android:textColor="#000000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:text=""
+                            android:id="@+id/babyDob"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/babyPicture"
-            android:paddingLeft="4dp"
-            android:paddingTop="4dp">
+            android:layout_below="@+id/profileStats">
 
-            <LinearLayout style="@style/profileStatsRow" >
+            <TextView
+                style="@style/segmentBanner"
+                android:text="Today's Feedings"
+                android:id="@+id/test"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileStats">
 
                 <TextView
-                        android:text="Sex: "
-                        android:textColor="#000000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    style="@style/segmentText"
+                    android:text="Feedings to Now:"
+                    android:id="@+id/test"/>
 
                 <TextView
-                        android:text=""
-                        android:id="@+id/babySex"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
+                    style="@style/segmentText"
+                    android:text="[Number Here]"
+                    android:id="@+id/test"/>
 
             </LinearLayout>
 
-            <LinearLayout style="@style/profileStatsRow" >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileStats">
 
                 <TextView
-                        android:text="Height: "
-                        android:textColor="#000000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    style="@style/segmentText"
+                    android:text="Next Scheduled Feeding:"
+                    android:id="@+id/test"/>
 
                 <TextView
-                        android:text=""
-                        android:id="@+id/babyHeight"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
+                    style="@style/segmentText"
+                    android:text="[Time Here]"
+                    android:id="@+id/test"/>
 
             </LinearLayout>
 
-            <LinearLayout style="@style/profileStatsRow" >
-
-                <TextView
-                        android:text="Weight: "
-                        android:textColor="#000000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                
-                <TextView
-                        android:text=""
-                        android:id="@+id/babyWeight"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout style="@style/profileStatsRow" >
-
-                <TextView
-                        android:text="DOB: "
-                        android:textColor="#000000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                
-                <TextView
-                        android:text=""
-                        android:id="@+id/babyDob"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
-
-            </LinearLayout>
+            <TextView
+                style="@style/segmentBanner"
+                android:text="Feeding History"
+                android:id="@+id/test"/>
 
         </LinearLayout>
 
