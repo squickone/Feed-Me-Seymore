@@ -28,46 +28,24 @@ public class AddEntryActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.add_entry);
-        final JournalDao journalDao = new JournalDao(getApplicationContext());
 
-        // button listener for add child button
-        final EditText entryDate = (EditText) findViewById(R.id.entryDate);
-        final EditText entryTime = (EditText) findViewById(R.id.entryTime);
-        final EditText entryMinLeft = (EditText) findViewById(R.id.entryMinLeft);
-        final EditText entryMinRight = (EditText) findViewById(R.id.entryMinRight);
-        final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
-        final EditText entryChild = (EditText) findViewById(R.id.entryChild);
-        Button addEntryButton = (Button)findViewById(R.id.addEntryButton);
-
-        addEntryButton.setOnClickListener(new View.OnClickListener() {
+        //Add Bottle Feed Entry Button
+        Button addBottleFeedButton = (Button) findViewById(R.id.addBottleFeedButton);
+        addBottleFeedButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                /**
-                 * CRUD Operations
-                 * */
-                // Inserting entry
-                Log.d("Insert: ", "Inserting ..");
-                journalDao.addEntry(new Journal(entryDate.getText().toString(), entryTime.getText().toString(), entryMinLeft.getText().toString(), entryMinRight.getText().toString(), entryOunces.getText().toString(), Integer.parseInt(entryChild.getText().toString())));
-
-                // Reading all entries
-                Log.d("Reading: ", "Reading all entries..");
-                List<Journal> entries = journalDao.getAllEntries();
-
-                for (Journal entry : entries) {
-                    String log = "Id: "+entry.getID()+" ,Date: " + entry.getDate() + " ,Time: " + entry.getTime() + " ,Left: " + entry.getMinLeft() + " ,Right: " + entry.getMinRight() + " ,Ounces: " + entry.getOunces() + " ,Child: " + entry.getChild();
-                    // Writing entries to log
-                    Log.d("Name: ", log);
-                }
-
-                entryDate.setText("");
-                entryTime.setText("");
-                entryMinLeft.setText("");
-                entryMinRight.setText("");
-                entryOunces.setText("");
-                entryChild.setText("");
-             }
+                startActivity(new Intent(AddEntryActivity.this,
+                        AddBottleFeedActivity.class));
+            }
         });
 
+        //Add Breastfeed Entry Button
+        Button addBreastFeedButton = (Button) findViewById(R.id.addBreastFeedButton);
+        addBreastFeedButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(AddEntryActivity.this,
+                        AddBreastFeedActivity.class));
+            }
+        });
     }
 
 
