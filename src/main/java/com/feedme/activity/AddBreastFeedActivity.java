@@ -54,7 +54,7 @@ public class AddBreastFeedActivity extends Activity {
                 List<Journal> entries = journalDao.getAllEntries();
 
                 for (Journal entry : entries) {
-                    String log = "Id: "+entry.getID()+" ,Date: " + entry.getDate() + " ,Time: " + entry.getTime() + " ,Left: " + entry.getMinLeft() + " ,Right: " + entry.getMinRight() + " ,Ounces: " + entry.getOunces() + " ,Child: " + entry.getChild();
+                    String log = "Id: "+entry.getID()+" ,Date: " + entry.getDate() + " ,Time: " + entry.getTime() + " ,Left: " + entry.getMinLeft() + " ,Right: " + entry.getMinRight() + " ,Child: " + entry.getChild();
                     // Writing entries to log
                     Log.d("Name: ", log);
                 }
@@ -63,7 +63,6 @@ public class AddBreastFeedActivity extends Activity {
                 entryTime.setText("");
                 entryMinLeft.setText("");
                 entryMinRight.setText("");
-                entryOunces.setText("");
                 entryChild.setText("");
              }
         });

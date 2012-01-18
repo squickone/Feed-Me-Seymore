@@ -148,21 +148,21 @@ public class JournalDao {
      *
      * @return
      */
-    public String[] getAllEntriesAsStringArray(){
+    public Journal[] getAllEntriesAsStringArray(){
         
         open();
         
         List<Journal> entries = getAllEntries();
         
-        String[] entriesAsStrings = new String[entries.size()];
+        Journal[] entryArray = new Journal[entries.size()];
         for(int i=0 ; i<entries.size() ; i++){
             Journal entry = entries.get(i);
-            entriesAsStrings[i] = entry.getDate();
+            entryArray[i] = entry;
         }
 
         close();
         
-        return entriesAsStrings;
+        return entryArray;
     }
 
     /**
