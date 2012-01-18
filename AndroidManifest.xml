@@ -16,13 +16,21 @@
                   android:label="@string/app_name"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar"/>
-        <activity android:name=".activity.SelectChildListActivity" android:label="Add a Child"/>
-        <activity android:name=".activity.AddChildActivity"/>
-        <activity android:name=".activity.FamilyHomeActivity"/>
-        <activity android:name=".activity.AddEntryActivity"/>
-        <activity android:name=".activity.ViewBabyActivity"/>
-        <activity android:name=".activity.TakePictureActivity"/>
-        <activity android:name=".activity.SelectPictureActivity"/>
+        <activity android:name=".activity.SelectChildListActivity"
+                  android:label="Add a Child"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.AddChildActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.FamilyHomeActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.AddEntryActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.ViewBabyActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.TakePictureActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.SelectPictureActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
     </application>
 
 </manifest>

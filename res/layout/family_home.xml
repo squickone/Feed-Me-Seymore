@@ -12,20 +12,33 @@
               android:layout_height="wrap_content"
               android:orientation="horizontal"
             android:background="#7ed0ff">
-    <Button
-            android:id="@+id/selectChild"
-            android:text="@string/selectChildTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dip"
-            android:layout_alignParentLeft="true" />
-    <Button
-            android:id="@+id/addChild"
-            android:text="@string/addChild"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dip"
-            android:layout_alignParentRight="true" />
+        <Button
+                android:id="@+id/selectChild"
+                android:text="@string/selectChildTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                android:layout_alignParentLeft="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/bottomBanner">
+
+        <Button android:text="@string/icon_settings"
+                android:id="@+id/settings"
+                android:drawableTop="@drawable/icon_settings"
+                android:layout_alignParentLeft="true"
+                style="@style/iconNavButton"
+                />
+
+        <Button android:text="@string/icon_add"
+                android:id="@+id/addChild"
+                android:drawableTop="@drawable/icon_baby"
+                android:layout_alignParentRight="true"
+                style="@style/iconNavButton"
+                />
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -5,70 +5,62 @@
                 android:background="#fffae8">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true">
+        android:id="@+id/topBanner"
+        style="@style/topBanner">
 
-        <TextView  android:layout_span="3"
-                   android:paddingBottom="5dp"
-                   android:paddingTop="5dp"
-                   android:paddingRight="8dp"
-                   android:layout_marginBottom="20dp"
-                   android:layout_width="fill_parent"
-                   android:layout_height="wrap_content"
-                   android:background="#7ed0ff"
-                   android:textColor="#FFFFFF"
-                   android:textSize="25dp"
-                   android:gravity="right"
+        <TextView  style="@style/rightHeadline"
                    android:text="@string/myFamily"
                    android:id="@+id/myFamily"
                 />
-        <ImageView
-            android:background="@drawable/splash"
-            android:layout_centerHorizontal="true"
-            android:layout_width="205dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:layout_below="@+id/myFamily"
-            />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#7ed0ff"
-        android:padding="4dp"
-        android:paddingBottom="6dp"
-        android:layout_alignParentBottom="true">
+        android:layout_below="@+id/topBanner">
+
+        <ImageView
+            android:background="@drawable/splash"
+            android:layout_centerHorizontal="true"
+            android:layout_width="205dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/bottomBanner">
 
         <Button android:text="@string/icon_settings"
                 android:id="@+id/settings"
                 android:drawableTop="@drawable/icon_settings"
                 android:layout_alignParentLeft="true"
-                style="@style/NavButton"
+                style="@style/iconNavButton"
                 />
 
         <Button android:text="Family"
                 android:id="@+id/familyScreen"
                 android:drawableTop="@drawable/icon_family"
                 android:layout_toRightOf="@+id/settings"
-                style="@style/NavButton"
+                style="@style/iconNavButton"
                 />
 
         <Button android:text="Journal"
                 android:id="@+id/addEntryScreen"
                 android:drawableTop="@drawable/icon_pencil"
                 android:layout_toLeftOf="@+id/addChildScreen"
-                style="@style/NavButton"
+                style="@style/iconNavButton"
                 />
 
         <Button android:text="@string/icon_add"
                 android:id="@+id/addChildScreen"
                 android:drawableTop="@drawable/icon_baby"
                 android:layout_alignParentRight="true"
-                style="@style/NavButton"
+                style="@style/iconNavButton"
                 />
 
     </RelativeLayout>

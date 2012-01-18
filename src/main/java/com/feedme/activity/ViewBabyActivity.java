@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TableRow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
@@ -53,14 +53,16 @@ public class ViewBabyActivity extends Activity {
             final TextView babySex = (TextView) findViewById(R.id.babySex);
             babySex.setText(baby.getSex());
 
-            final TableRow viewChild = (TableRow) findViewById(R.id.viewChild);
+            final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
+            final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
+            
             final Button familyButton = (Button) findViewById(R.id.familyButton);
             if ((baby.getSex()).equals("male")) {
-                viewChild.setBackgroundColor(0xFF7ED0FF);
-                familyButton.setBackgroundColor(0xFF7ED0FF);
+                topBanner.setBackgroundColor(0xFF7ED0FF);
+                bottomBanner.setBackgroundColor(0xFF7ED0FF);
             } else {
-                viewChild.setBackgroundColor(0xFFFF99CC);
-                familyButton.setBackgroundColor(0xFFFF99CC);
+                topBanner.setBackgroundColor(0xFFFF99CC);
+                bottomBanner.setBackgroundColor(0xFFFF99CC);
             }
 
             final TextView babyHeight = (TextView) findViewById(R.id.babyHeight);
@@ -69,6 +71,7 @@ public class ViewBabyActivity extends Activity {
             babyWeight.setText(baby.getWeight());
             final TextView babyDob = (TextView) findViewById(R.id.babyDob);
             babyDob.setText(baby.getDob());
+
             final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
             if (baby.getPicturePath() != null && !baby.getPicturePath().equals("")) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
