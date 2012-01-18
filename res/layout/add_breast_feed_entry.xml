@@ -23,7 +23,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="25dp"
                     android:gravity="right"
-                    android:text="@string/addEntry"
+                    android:text="@string/addBreast"
                     android:id="@+id/addEntry"
                     />
         </TableRow>
@@ -136,8 +136,7 @@
             <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save"
-                    android:id="@+id/addEntryButton"
-                    ></Button>
+                    android:id="@+id/addEntryButton" />
         </TableRow>
 
     </TableLayout>
