@@ -46,20 +46,6 @@
                 style="@style/iconNavButton"
                 />
 
-        <Button android:text="Bottle"
-                android:id="@+id/addBottleButton"
-                android:drawableTop="@drawable/icon_bottle"
-                android:layout_toLeftOf="@+id/addBreastfeedButton"
-                style="@style/iconNavButton"
-                />
-
-        <Button android:text="Breast"
-                android:id="@+id/addBreastfeedButton"
-                android:drawableTop="@drawable/icon_breastfeed"
-                android:layout_alignParentRight="true"
-                style="@style/iconNavButton"
-                />
-
      </RelativeLayout>
 
 </RelativeLayout>

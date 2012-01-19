@@ -29,24 +29,6 @@ public class AddEntryActivity extends Activity {
         
         setContentView(R.layout.add_entry);
 
-        //Add Bottle Feed Entry Button
-        Button addBottleFeedButton = (Button) findViewById(R.id.addBottleFeedButton);
-        addBottleFeedButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(AddEntryActivity.this,
-                        AddBottleFeedActivity.class));
-            }
-        });
-
-        //Add Breastfeed Entry Button
-        Button addBreastFeedButton = (Button) findViewById(R.id.addBreastFeedButton);
-        addBreastFeedButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(AddEntryActivity.this,
-                        AddBreastFeedActivity.class));
-            }
-        });
-
         //View All Entries Button
         Button viewAllEntriesButton = (Button) findViewById(R.id.viewAllEntriesButton);
         viewAllEntriesButton.setOnClickListener(new View.OnClickListener() {

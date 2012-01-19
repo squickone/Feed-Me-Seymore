@@ -33,27 +33,6 @@
 
             <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Breastfeeding Entry"
-                    android:id="@+id/addBreastFeedButton"
-                    ></Button>
-        </TableRow>
-
-        <TableRow
-                android:gravity="center">
-
-            <Button android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bottle Feeding Entry"
-                    android:id="@+id/addBottleFeedButton"
-                    ></Button>
-
-        </TableRow>
-
-        <TableRow
-                android:gravity="center">
-
-            <Button android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="View All Entries"
                     android:id="@+id/viewAllEntriesButton"
                     ></Button>

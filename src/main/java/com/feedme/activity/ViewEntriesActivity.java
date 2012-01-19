@@ -74,25 +74,7 @@ public class ViewEntriesActivity extends Activity {
 
     public void handleButtons() {
 
-        //Add entry Button
-        Button addBottleButton = (Button) findViewById(R.id.addBottleButton);
-        addBottleButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddBottleFeedActivity.class);
-                startActivityForResult(intent, 2);
-            }
-        });
-
-        //Add entry Button
-        Button addBreastfeedButton = (Button) findViewById(R.id.addBreastfeedButton);
-        addBreastfeedButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddBreastFeedActivity.class);
-                startActivityForResult(intent, 2);
-            }
-        });
-
-        //Add Settings Button
+         //Add Settings Button
         Button addSettingsButton = (Button) findViewById(R.id.settings);
         addSettingsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
