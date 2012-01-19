@@ -144,15 +144,21 @@ public class JournalDao {
     }
 
     /**
-     * Returns a String[] of all entries by date.
+     * Returns a Journal[] of all entries.
      *
      * @return
      */
     public Journal[] getAllEntriesAsArray(){
-                
+
         List<Journal> entries = getAllEntries();
-        
-        return (Journal[]) entries.toArray();
+
+        Journal[] entryArray = new Journal[entries.size()];
+        for(int i=0 ; i<entries.size() ; i++){
+            Journal entry = entries.get(i);
+            entryArray[i] = entry;
+        }
+
+        return entryArray;
     }
 
     /**
@@ -190,10 +196,16 @@ public class JournalDao {
      * @return
      */
     public Journal[] getLastFeedingsByChildAsArray(int childId, int limit){
+        
+        List<Journal> entries = getLastFeedingsByChild(childId, limit);
 
-        List<Journal> feedings = getLastFeedingsByChild(childId, limit);
+        Journal[] entryArray = new Journal[entries.size()];
+        for(int i=0 ; i<entries.size() ; i++){
+            Journal entry = entries.get(i);
+            entryArray[i] = entry;
+        }
 
-        return (Journal[]) feedings.toArray();
+        return entryArray;
     }
 
     /**
