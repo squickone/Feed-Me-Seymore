@@ -9,11 +9,11 @@
         android:id="@+id/topBanner"
         style="@style/topBanner">
 
-            <TextView
-                android:text=""
-                style="@style/rightHeadline"
-                android:id="@+id/babyName"
-                android:layout_alignParentRight="true"/>
+        <TextView
+            android:text=""
+            style="@style/rightHeadline"
+            android:id="@+id/babyName"
+            android:layout_alignParentRight="true"/>
                 
     </RelativeLayout>
 

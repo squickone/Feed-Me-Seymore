@@ -11,10 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
+import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Journal;
@@ -57,8 +54,10 @@ public class AddBottleFeedActivity extends Activity
         setContentView(R.layout.add_bottle_feed_entry);
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
-        // button listener for add child button
+        Bundle b = getIntent().getExtras();
+        final int value = b.getInt("babyId", 0);
 
+        // button listener for add child button
         final EditText entryTime = (EditText) findViewById(R.id.entryTime);
         final EditText entryMinLeft = (EditText) findViewById(R.id.entryMinLeft);
         final EditText entryMinRight = (EditText) findViewById(R.id.entryMinRight);
@@ -122,8 +121,12 @@ public class AddBottleFeedActivity extends Activity
                  * */
                 // Inserting entry
                 Log.d("Insert: ", "Inserting ..");
-                journalDao.addEntry(new Journal(entryDate.getText().toString(), entryTime.getText().toString(), " ",
-                        " ", entryOunces.getText().toString(), Integer.parseInt(entryChild.getText().toString())));
+                journalDao.addEntry(new Journal(entryDate.getText().toString(),
+                    startTime.getText().toString(),
+                    " ",
+                    " ",
+                    entryOunces.getText().toString(),
+                    value));
 
                 // Reading all entries
                 Log.d("Reading: ", "Reading all entries..");
@@ -138,12 +141,14 @@ public class AddBottleFeedActivity extends Activity
                     Log.d("Name: ", log);
                 }
 
-                entryDate.setText("");
-                entryTime.setText("");
-                entryOunces.setText("");
-                entryChild.setText("");
             }
         });
+
+        Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.feedingAmount, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        feedAmt.setAdapter(adapter);
 
     }
 
@@ -157,10 +162,12 @@ public class AddBottleFeedActivity extends Activity
                         mYear, mMonth, mDay);
             case STARTTIME_DIALOG_ID:
                 return new TimePickerDialog(this,
-                startTimeListener, startHour, startMinute, false);
+                        startTimeListener,
+                        startHour, startMinute, false);
             case ENDTIME_DIALOG_ID:
                 return new TimePickerDialog(this,
-                endTimeListener, endHour, endMinute, false);
+                        endTimeListener,
+                        endHour, endMinute, false);
         }
         return null;
     }
@@ -257,4 +264,6 @@ public class AddBottleFeedActivity extends Activity
             updateEndDisplay();
         }
     };
+
 }
+
