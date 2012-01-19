@@ -135,21 +135,9 @@ public class AddBottleFeedActivity extends Activity
                         feedQty,
                         babyId));
 
-                // Reading all entries
-                Log.d("Reading: ", "Reading all entries..");
-                List<Journal> entries = journalDao.getAllEntries();
+                Intent intent = new Intent(v.getContext(), ViewEntriesActivity.class);
+                startActivityForResult(intent, 2);
 
-                for (Journal entry : entries) {
-                    String log = "Id: " + entry.getID() + " ,Date: " + entry.getDate() + " ," +
-                            "Start Time: " + entry.getStartTime() + "End Time: " + entry.getEndTime() +
-                            "Side: " + entry.getSide() + " ,Ounces: " + entry.getOunces() + " ," +
-                            "Child: " + entry.getChild();
-                    // Writing entries to log
-                    Log.d("Name: ", log);
-                }
-
-                entryOunces.setText("");
-                entryChild.setText("");
             }
         });
 

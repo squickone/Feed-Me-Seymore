@@ -84,12 +84,12 @@ public class Journal {
         this._end_time = end_time;
     }
 
-    // getting side right
+    // getting side
     public String getSide(){
         return this._side;
     }
 
-    // setting side right
+    // setting side
     public void setSide(String side){
         this._side = side;
     }

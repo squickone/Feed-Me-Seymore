@@ -46,9 +46,10 @@ public class ViewEntryActivity extends Activity {
             entryTime.setText(entry.getStartTime());
             final TextView entryEndTime = (TextView) findViewById(R.id.entryEndTime);
             entryEndTime.setText(entry.getEndTime());
+           Log.d("Reading: ", "Reading side: " + entry.getSide());
 
-                 final TextView entrySide = (TextView) findViewById(R.id.entrySide);
-                entrySide.setText(entry.getSide());
+            final TextView entrySide = (TextView) findViewById(R.id.entrySide);
+            entrySide.setText(entry.getSide());
 
             if (entry.getOunces()!=null) {
                 final TextView entryOunces = (TextView) findViewById(R.id.entryOunces);

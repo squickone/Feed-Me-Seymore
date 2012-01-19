@@ -53,7 +53,11 @@ public class AddBreastFeedActivity extends Activity {
         setContentView(R.layout.add_breast_feed_entry);
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
-        //populate left/right spinner
+        //get baby id
+        Bundle b = getIntent().getExtras();
+        final int babyId = b.getInt("babyId");
+
+       //populate left/right spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.entrySide, android.R.layout.simple_spinner_item );
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
@@ -121,21 +125,18 @@ public class AddBreastFeedActivity extends Activity {
                  * */
                 // Inserting entry
                 Log.d("Insert: ", "Inserting ..");
-                journalDao.addEntry(new Journal(entryDate.getText().toString(), startTime.getText().toString(), endTime.getText().toString(), entrySide.getSelectedItem().toString(), entryOunces.getText().toString(), Integer.parseInt(entryChild.getText().toString())));
+                journalDao.addEntry(new Journal(entryDate.getText().toString(),
+                        startTime.getText().toString(),
+                        endTime.getText().toString(),
+                        entrySide.getSelectedItem().toString(),
+                        entryOunces.getText().toString(),
+                        babyId));
 
-                // Reading all entries
-                Log.d("Reading: ", "Reading all entries..");
-                List<Journal> entries = journalDao.getAllEntries();
+                Intent intent = new Intent(v.getContext(), ViewEntriesActivity.class);
+                startActivityForResult(intent, 2);
 
-                for (Journal entry : entries) {
-                    String log = "Id: "+entry.getID()+" ,Date: " + entry.getDate() + " ,Time: " + entry.getStartTime() + " ,Side: " + entry.getSide() + " ,Child: " + entry.getChild();
-                    // Writing entries to log
-                    Log.d("Name: ", log);
-                }
 
-                entryOunces.setText("");
-                entryChild.setText("");
-             }
+              }
         });
 
     }
