@@ -20,7 +20,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBanner" >
+        android:layout_below="@+id/topBanner"
+        android:layout_above="@+id/bottomBanner">
 
         <LinearLayout
             android:id="@+id/profileStats"
@@ -114,7 +115,8 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/profileStats">
+            android:layout_below="@+id/profileStats"
+            >
 
             <TextView
                 style="@style/segmentBanner"
@@ -164,7 +166,7 @@
 
             <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_height="wrap_content"
                         >
 
                 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
