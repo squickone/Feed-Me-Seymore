@@ -86,14 +86,6 @@ public class ViewEntriesActivity extends Activity {
 
     public void handleButtons() {
 
-         //Add Settings Button
-        Button addSettingsButton = (Button) findViewById(R.id.settings);
-        addSettingsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
-                startActivityForResult(intent, 2);
-            }
-        });
     }
 
     @Override

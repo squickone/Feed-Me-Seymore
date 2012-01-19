@@ -80,13 +80,6 @@
                 style="@style/iconNavButton"
                 />
 
-        <Button android:text="Family"
-                android:id="@+id/familyScreen"
-                android:drawableTop="@drawable/icon_family"
-                android:layout_toRightOf="@+id/settings"
-                style="@style/iconNavButton"
-                />
-
         <Button android:text="Journal"
                 android:id="@+id/addEntryScreen"
                 android:drawableTop="@drawable/icon_pencil"

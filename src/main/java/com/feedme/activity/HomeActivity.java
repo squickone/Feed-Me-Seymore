@@ -55,16 +55,6 @@ public class HomeActivity extends Activity {
                         ViewEntriesActivity.class));
             }
         });
-
-        // button listener for manage family button
-        Button familyScreen = (Button)findViewById(R.id.familyScreen);
-        familyScreen.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,
-                        FamilyHomeActivity.class));
-            }
-        });
-
     }
 
 
