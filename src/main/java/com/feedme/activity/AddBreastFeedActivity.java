@@ -67,7 +67,6 @@ public class AddBreastFeedActivity extends Activity {
        // button listener for add child button
         final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
         final Spinner entrySide = (Spinner) findViewById(R.id.entrySide);
-        final EditText entryChild = (EditText) findViewById(R.id.entryChild);
         Button addEntryButton = (Button) findViewById(R.id.addEntryButton);
 
         entryDate = (Button) findViewById(R.id.entryDate);
@@ -170,13 +169,13 @@ public class AddBreastFeedActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.family:
-                startActivity(new Intent(AddBreastFeedActivity.this,
-                        FamilyHomeActivity.class));
-                break;
             case R.id.home:
                 startActivity(new Intent(AddBreastFeedActivity.this,
                         HomeActivity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(AddBreastFeedActivity.this,
+                        SettingsActivity.class));
                 break;
         }
         return true;

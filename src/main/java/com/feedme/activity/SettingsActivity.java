@@ -81,26 +81,4 @@ public class SettingsActivity extends Activity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.family:
-                startActivity(new Intent(SettingsActivity.this,
-                        FamilyHomeActivity.class));
-                break;
-            case R.id.home:
-                startActivity(new Intent(SettingsActivity.this,
-                        HomeActivity.class));
-                break;
-        }
-        return true;
-    }
 }

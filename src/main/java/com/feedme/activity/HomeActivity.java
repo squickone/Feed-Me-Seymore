@@ -67,27 +67,6 @@ public class HomeActivity extends Activity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.family:
-                startActivity(new Intent(HomeActivity.this,
-                        FamilyHomeActivity.class));
-                break;
-            case R.id.home:
-                break;
-        }
-        return true;
-    }
-
 
     @Override
     public void onBackPressed() {

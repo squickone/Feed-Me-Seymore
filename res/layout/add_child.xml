@@ -101,12 +101,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
-                    android:id="@+id/babyDob"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+            <Button android:id="@+id/babyDob"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
         </TableRow>
     </TableLayout>
 

@@ -180,13 +180,13 @@ public class AddBottleFeedActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         switch (item.getItemId()) {
-            case R.id.family:
-                startActivity(new Intent(AddBottleFeedActivity.this,
-                        FamilyHomeActivity.class));
-                break;
             case R.id.home:
                 startActivity(new Intent(AddBottleFeedActivity.this,
                         HomeActivity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(AddBottleFeedActivity.this,
+                        SettingsActivity.class));
                 break;
         }
         return true;

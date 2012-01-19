@@ -131,25 +131,6 @@ public class FamilyHomeActivity extends Activity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.family:
-                break;
-            case R.id.home:
-                startActivity(new Intent(FamilyHomeActivity.this,
-                        HomeActivity.class));
-                break;
-        }
-        return true;
-    }
 
 }

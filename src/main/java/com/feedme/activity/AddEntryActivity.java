@@ -51,13 +51,13 @@ public class AddEntryActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.family:
-                startActivity(new Intent(AddEntryActivity.this,
-                        FamilyHomeActivity.class));
-                break;
             case R.id.home:
                 startActivity(new Intent(AddEntryActivity.this,
                         HomeActivity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(AddEntryActivity.this,
+                        SettingsActivity.class));
                 break;
         }
         return true;
