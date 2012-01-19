@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.model.Baby;
@@ -34,13 +36,20 @@ public class AddChildActivity extends Activity {
 
         // button listener for add child button
         final EditText babyName = (EditText) findViewById(R.id.babyName);
-        final EditText babySex = (EditText) findViewById(R.id.babySex);
+        final Spinner babySex = (Spinner) findViewById(R.id.babySex);
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
         final EditText babyDob = (EditText) findViewById(R.id.babyDob);
         Button addChildButton = (Button)findViewById(R.id.addChildButton);
         Button takePicture = (Button) findViewById(R.id.takePicture);
         Button selectPicture = (Button) findViewById(R.id.pickPicture);
+
+        //populate male/female spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.babySex, android.R.layout.simple_spinner_item );
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        Spinner s = (Spinner) findViewById( R.id.babySex );
+        s.setAdapter( adapter );
 
         //Take Picture Button
         takePicture.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +81,7 @@ public class AddChildActivity extends Activity {
                  * */
                 // Inserting baby
                 Log.d("Insert: ", "Inserting ..");
-                babyDao.addBaby(new Baby(babyName.getText().toString(), babySex.getText().toString(),
+                babyDao.addBaby(new Baby(babyName.getText().toString(), babySex.getSelectedItem().toString(),
                         babyHeight.getText().toString(), babyWeight.getText().toString(), babyDob.getText().toString(), picturePath));
 
                 // Reading all babies
@@ -88,7 +97,6 @@ public class AddChildActivity extends Activity {
                 }
                 
                 babyName.setText("");
-                babySex.setText("");
                 babyHeight.setText("");
                 babyWeight.setText("");
                 babyDob.setText("");

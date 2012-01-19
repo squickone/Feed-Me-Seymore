@@ -52,12 +52,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
-                    android:id="@+id/babySex"
+            <Spinner
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/babySex"
+                    >
+
+            </Spinner>
         </TableRow>
 
         <TableRow>

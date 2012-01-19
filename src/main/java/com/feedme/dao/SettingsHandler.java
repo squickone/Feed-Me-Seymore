@@ -38,9 +38,10 @@ public class SettingsHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_DATA_TABLE = "CREATE TABLE " + TABLE_DATA + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_LIQUID + " TEXT,"
-                + KEY_LENGTH + " TEXT," + KEY_SETTINGS_WEIGHT + " TEXT," + KEY_TEMPERATURE + " TEXT," + KEY_SOUND + " TEXT," + KEY_VIBRATE + " TEXT)";
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_LIQUID + " TEXT DEFAULT 'oz',"
+                + KEY_LENGTH + " TEXT DEFAULT 'in'," + KEY_SETTINGS_WEIGHT + " TEXT DEFAULT 'lbs'," + KEY_TEMPERATURE + " TEXT DEFAULT 'F'," + KEY_SOUND + " TEXT DEFAULT 'off'," + KEY_VIBRATE + " TEXT DEFAULT 'off')";
         db.execSQL(CREATE_DATA_TABLE);
+
     }
 
     // Upgrading database

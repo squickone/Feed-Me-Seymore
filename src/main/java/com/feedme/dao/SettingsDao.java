@@ -29,10 +29,10 @@ public class SettingsDao {
     private static final String KEY_VIBRATE = "vibrate";
 
     private SQLiteDatabase database;
-    private DatabaseHandler databaseHandler;
+    private SettingsHandler databaseHandler;
 
     public SettingsDao(Context context) {
-        databaseHandler = new DatabaseHandler(context);
+        databaseHandler = new SettingsHandler(context);
     }
 
     public void open() throws SQLException {
@@ -97,7 +97,7 @@ public class SettingsDao {
      *
      * @return
      */
-    public int updateSettings(Settings setting) {
+    public int updateSettings(Settings setting, int id) {
 
         open();
 
@@ -110,7 +110,7 @@ public class SettingsDao {
         values.put(KEY_VIBRATE, setting.getVibrate());
 
         // updating row
-        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(setting.getID()) });
+        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
 
         close();
 
