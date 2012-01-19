@@ -28,7 +28,19 @@ public class SelectPictureActivity extends Activity {
 
         if (requestCode == SELECT_PICTURE_ID){
 
+            //TODO: Soooo gross. There has to be a better way to handle this.
+            String babyName = (String) getIntent().getExtras().get("babyName");
+            String babySex = (String) getIntent().getExtras().get("babySex");
+            String babyHeight = (String) getIntent().getExtras().get("babyHeight");
+            String babyWeight = (String) getIntent().getExtras().get("babyWeight");
+            String babyDob = (String) getIntent().getExtras().get("babyDob");
+
             Intent intent = new Intent(getApplicationContext(), AddChildActivity.class);
+            intent.putExtra("babyName",babyName);
+            intent.putExtra("babySex", babySex);
+            intent.putExtra("babyHeight", babyHeight);
+            intent.putExtra("babyWeight", babyWeight);
+            intent.putExtra("babyDob", babyDob);
 
             if(data!=null && data.getData()!=null){
                 Uri photoUri = data.getData();

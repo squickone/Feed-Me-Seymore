@@ -51,10 +51,36 @@ public class AddChildActivity extends Activity {
         Spinner s = (Spinner) findViewById( R.id.babySex );
         s.setAdapter( adapter );
 
+        //In the even that the user clicked Take Picture or Select Picture and fired off a new Intent from the Add Child screen.
+        if(getIntent().getExtras()!=null){
+            babyName.setText((String) getIntent().getExtras().get("babyName"));
+            babyHeight.setText((String) getIntent().getExtras().get("babyHeight"));
+            babyWeight.setText((String) getIntent().getExtras().get("babyWeight"));
+            babyDob.setText((String) getIntent().getExtras().get("babyDob"));
+
+            //Set Spinner Value for Baby Sex
+            if(getIntent().getExtras().get("babySex")!=null){
+                String babySexStr = (String) getIntent().getExtras().get("babySex");
+                if(babySexStr.equals("Male")){
+                    babySex.setSelection(0);
+                } else {
+                    babySex.setSelection(1);
+                }
+            }
+        }
+
         //Take Picture Button
         takePicture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), TakePictureActivity.class);
+
+                //TODO: There has GOT to be a better way to do this. Soooo Gross
+                intent.putExtra("babyName", babyName.getText().toString());
+                intent.putExtra("babySex", babySex.getSelectedItem().toString());
+                intent.putExtra("babyHeight", babyHeight.getText().toString());
+                intent.putExtra("babyWeight", babyWeight.getText().toString());
+                intent.putExtra("babyDob", babyDob.getText().toString());
+
                 startActivityForResult(intent, 1);
             }
         });
@@ -63,6 +89,14 @@ public class AddChildActivity extends Activity {
         selectPicture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SelectPictureActivity.class);
+
+                //TODO: There has GOT to be a better way to do this. Soooo Gross
+                intent.putExtra("babyName", babyName.getText().toString());
+                intent.putExtra("babySex", babySex.getSelectedItem().toString());
+                intent.putExtra("babyHeight", babyHeight.getText().toString());
+                intent.putExtra("babyWeight", babyWeight.getText().toString());
+                intent.putExtra("babyDob", babyDob.getText().toString());
+
                 startActivityForResult(intent, 1);
             }
         });
