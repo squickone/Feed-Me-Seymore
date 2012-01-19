@@ -42,20 +42,14 @@ public class ViewEntryActivity extends Activity {
         if(entry!=null){
             final TextView entryDate = (TextView) findViewById(R.id.entryDate);
             entryDate.setText(entry.getDate());
-            Log.d("Date: ", entry.getDate());
-            final TextView entryTime = (TextView) findViewById(R.id.entryTime);
-            entryTime.setText(entry.getTime());
-            
-            if (entry.getMinLeft()!=null)
-            {
-                final TextView entryMinLeft = (TextView) findViewById(R.id.entryMinLeft);
-                entryMinLeft.setText(entry.getMinLeft());
-            }
-            if (entry.getMinRight()!=null)
-            {
-                final TextView entryMinRight = (TextView) findViewById(R.id.entryMinRight);
-                entryMinRight.setText(entry.getMinRight());
-            }
+            final TextView entryTime = (TextView) findViewById(R.id.entryStartTime);
+            entryTime.setText(entry.getStartTime());
+            final TextView entryEndTime = (TextView) findViewById(R.id.entryEndTime);
+            entryEndTime.setText(entry.getEndTime());
+
+                 final TextView entrySide = (TextView) findViewById(R.id.entrySide);
+                entrySide.setText(entry.getSide());
+
             if (entry.getOunces()!=null) {
                 final TextView entryOunces = (TextView) findViewById(R.id.entryOunces);
                 entryOunces.setText(entry.getOunces());

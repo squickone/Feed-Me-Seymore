@@ -59,9 +59,6 @@ public class AddBottleFeedActivity extends Activity
 
         // button listener for add child button
 
-        final EditText entryTime = (EditText) findViewById(R.id.entryTime);
-        final EditText entryMinLeft = (EditText) findViewById(R.id.entryMinLeft);
-        final EditText entryMinRight = (EditText) findViewById(R.id.entryMinRight);
         final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
         final EditText entryChild = (EditText) findViewById(R.id.entryChild);
         Button addEntryButton = (Button) findViewById(R.id.addEntryButton);
@@ -122,7 +119,7 @@ public class AddBottleFeedActivity extends Activity
                  * */
                 // Inserting entry
                 Log.d("Insert: ", "Inserting ..");
-                journalDao.addEntry(new Journal(entryDate.getText().toString(), entryTime.getText().toString(), " ",
+                journalDao.addEntry(new Journal(entryDate.getText().toString(), startTime.getText().toString(), endTime.getText().toString(),
                         " ", entryOunces.getText().toString(), Integer.parseInt(entryChild.getText().toString())));
 
                 // Reading all entries
@@ -131,15 +128,13 @@ public class AddBottleFeedActivity extends Activity
 
                 for (Journal entry : entries) {
                     String log = "Id: " + entry.getID() + " ,Date: " + entry.getDate() + " ," +
-                            "Time: " + entry.getTime() + " ,Left: " + entry.getMinLeft() + " ," +
-                            "Right: " + entry.getMinRight() + " ,Ounces: " + entry.getOunces() + " ," +
+                            "Start Time: " + entry.getStartTime() + "End Time: " + entry.getEndTime() +
+                            "Side: " + entry.getSide() + " ,Ounces: " + entry.getOunces() + " ," +
                             "Child: " + entry.getChild();
                     // Writing entries to log
                     Log.d("Name: ", log);
                 }
 
-                entryDate.setText("");
-                entryTime.setText("");
                 entryOunces.setText("");
                 entryChild.setText("");
             }

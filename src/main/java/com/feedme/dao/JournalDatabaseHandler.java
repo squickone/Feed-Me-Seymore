@@ -24,9 +24,9 @@ public class JournalDatabaseHandler extends SQLiteOpenHelper {
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_DATE = "date";
-    private static final String KEY_TIME = "time";
-    private static final String KEY_MIN_LEFT = "min_left";
-    private static final String KEY_MIN_RIGHT = "min_right";
+    private static final String KEY_START_TIME = "start_time";
+    private static final String KEY_END_TIME = "end_time";
+    private static final String KEY_SIDE = "side";
     private static final String KEY_OUNCES = "ounces";
     private static final String KEY_CHILD_ID = "child_id";
 
@@ -39,7 +39,7 @@ public class JournalDatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_DATA_TABLE = "CREATE TABLE " + TABLE_DATA + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE + " TEXT,"
-                + KEY_TIME + " TEXT," + KEY_MIN_LEFT + " TEXT," + KEY_MIN_RIGHT + " TEXT," + KEY_OUNCES + " TEXT," + KEY_CHILD_ID + " INTEGER" + ")";
+                + KEY_START_TIME + " TEXT," + KEY_END_TIME + " TEXT," + KEY_SIDE + " TEXT," + KEY_OUNCES + " TEXT," + KEY_CHILD_ID + " INTEGER" + ")";
         db.execSQL(CREATE_DATA_TABLE);
     }
 

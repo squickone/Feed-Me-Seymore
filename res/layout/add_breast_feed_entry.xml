@@ -5,48 +5,70 @@
                 android:layout_height="fill_parent"
                 android:background="#fffae8">
 
+    <RelativeLayout
+            android:id="@+id/topBanner"
+            style="@style/topBanner">
+
+        <TextView  style="@style/rightHeadline"
+                   android:text="@string/addBreast"
+                   android:id="@+id/addBreastFeeding"
+                />
+
+    </RelativeLayout>
+
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"
-                 android:stretchColumns="1">
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/topBanner"
+                 android:background="#cccccc">
 
-        <TableRow>
-            <TextView
-                    android:layout_span="3"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#7ed0ff"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp"
-                    android:gravity="right"
-                    android:text="@string/addBreast"
-                    android:id="@+id/addEntry"
-                    />
-        </TableRow>
-
-        <TableRow>
+        <TableRow style="@style/formRow">
             <TextView
                     android:text="Entry date: "
                     android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+
+            <Button android:id="@+id/entryDate"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Start Time: "
+                    android:textColor="#000000"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
-                    android:id="@+id/entryDate"
-                    android:layout_width="fill_parent"
+
+            <Button android:id="@+id/addStartTime"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="End Time: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-            </EditText>
+            </TextView>
+
+            <Button android:id="@+id/addEndTime"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
         </TableRow>
 
         <TableRow>
             <TextView
-                    android:text="Entry Time: "
+                    android:text="Ounces: "
                     android:textColor="#000000"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
@@ -54,7 +76,7 @@
             </TextView>
             <EditText
                     android:text=""
-                    android:id="@+id/entryTime"
+                    android:id="@+id/entryOunces"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
             </EditText>
@@ -62,43 +84,19 @@
 
         <TableRow>
             <TextView
-                    android:text="Minutes Breastfeeding "
-                    android:textColor="#000000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
-        </TableRow>
-
-        <TableRow>
-            <TextView
-                    android:text="Left: "
+                    android:text="Side: "
                     android:textColor="#000000"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
-                    android:id="@+id/entryMinLeft"
+            <Spinner
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
-        </TableRow>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/entrySide"
+                    >
 
-        <TableRow>
-            <TextView
-                    android:text="Right: "
-                    android:textColor="#000000"
-                    android:layout_column="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
-            <EditText
-                    android:text=""
-                    android:id="@+id/entryMinRight"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+            </Spinner>
         </TableRow>
 
         <TableRow>
@@ -118,27 +116,14 @@
         </TableRow>
     </TableLayout>
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="fill_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_alignParentBottom="true"
-                android:stretchColumns="1">
-       <TableRow
-                android:layout_span="3"
-                android:paddingBottom="5dp"
-                android:paddingTop="8dp"
-                android:paddingRight="5dp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#7ed0ff"
-                android:textColor="#FFFFFF"
-                android:gravity="right">
-            <Button android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Save"
-                    android:id="@+id/addEntryButton" />
-        </TableRow>
+    <RelativeLayout
+            style="@style/bottomBanner">
 
-    </TableLayout>
+        <Button android:text="Save"
+                android:id="@+id/addEntryButton"
+                android:layout_alignParentRight="true"
+                style="@style/iconNavButton"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -13,9 +13,9 @@ public class Journal {
     //private variables
     int _id;
     String _date;
-    String _time;
-    String _min_left;
-    String _min_right;
+    String _start_time;
+    String _end_time;
+    String _side;
     String _ounces;
     int _child_id;
 
@@ -24,22 +24,22 @@ public class Journal {
 
     }
     // constructor
-    public Journal(int id, String date, String time, String min_left, String min_right, String ounces, int child_id){
+    public Journal(int id, String date, String start_time, String end_time, String side, String ounces, int child_id){
         this._id = id;
         this._date = date;
-        this._time = time;
-        this._min_left = min_left;
-        this._min_right = min_right;
+        this._start_time = start_time;
+        this._end_time = end_time;
+        this._side = side;
         this._ounces = ounces;
         this._child_id = child_id;
    }
 
     // constructor
-    public Journal(String date, String time, String min_left, String min_right, String ounces, int child_id){
+    public Journal(String date, String start_time, String end_time, String side, String ounces, int child_id){
         this._date = date;
-        this._time = time;
-        this._min_left = min_left;
-        this._min_right = min_right;
+        this._start_time = start_time;
+        this._end_time = end_time;
+        this._side = side;
         this._ounces = ounces;
         this._child_id = child_id;
    }
@@ -64,34 +64,34 @@ public class Journal {
         this._date = date;
     }
 
-    // getting time
-    public String getTime(){
-        return this._time;
+    // getting start time
+    public String getStartTime(){
+        return this._start_time;
     }
 
-    // setting time
-    public void setTime(String time){
-        this._time = time;
+    // setting start time
+    public void setStartTime(String start_time){
+        this._start_time = start_time;
     }
 
-    // getting minutes left
-    public String getMinLeft(){
-        return this._min_left;
+    // getting end time
+    public String getEndTime(){
+        return this._end_time;
     }
 
-    // setting minutes left
-    public void setMinLeft(String min_left){
-        this._min_left = min_left;
+    // setting end time
+    public void setEndTime(String end_time){
+        this._end_time = end_time;
     }
 
-    // getting minutes right
-    public String getMinRight(){
-        return this._min_right;
+    // getting side right
+    public String getSide(){
+        return this._side;
     }
 
-    // setting minutes right
-    public void setMinRight(String min_right){
-        this._min_right = min_right;
+    // setting side right
+    public void setSide(String side){
+        this._side = side;
     }
 
     // getting ounces

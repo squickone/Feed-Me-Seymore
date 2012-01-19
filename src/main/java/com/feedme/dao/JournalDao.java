@@ -22,9 +22,9 @@ public class JournalDao {
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_DATE = "date";
-    private static final String KEY_TIME = "time";
-    private static final String KEY_MIN_LEFT = "min_left";
-    private static final String KEY_MIN_RIGHT = "min_right";
+    private static final String KEY_START_TIME = "start_time";
+    private static final String KEY_END_TIME = "end_time";
+    private static final String KEY_SIDE = "side";
     private static final String KEY_OUNCES = "ounces";
     private static final String KEY_CHILD_ID = "child_id";
 
@@ -54,9 +54,9 @@ public class JournalDao {
 
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, entry.getDate()); // Date
-        values.put(KEY_TIME, entry.getTime()); // Time
-        values.put(KEY_MIN_LEFT, entry.getMinLeft()); // Minutes right
-        values.put(KEY_MIN_RIGHT, entry.getMinRight()); // Minutes left
+        values.put(KEY_START_TIME, entry.getStartTime()); // Time
+        values.put(KEY_END_TIME, entry.getEndTime()); // Time
+        values.put(KEY_SIDE, entry.getSide()); // Side
         values.put(KEY_OUNCES, entry.getOunces()); // Ounces
         values.put(KEY_CHILD_ID, entry.getChild()); // Child ID
 
@@ -78,7 +78,7 @@ public class JournalDao {
         open();
         
         Cursor cursor = database.query(TABLE_DATA, new String[]{KEY_ID,
-                KEY_DATE, KEY_TIME, KEY_MIN_LEFT, KEY_MIN_RIGHT, KEY_OUNCES, KEY_CHILD_ID}, KEY_ID + "=?",
+                KEY_DATE, KEY_START_TIME, KEY_END_TIME, KEY_SIDE, KEY_OUNCES, KEY_CHILD_ID}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -104,7 +104,7 @@ public class JournalDao {
         open();
 
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_DATE, KEY_TIME, KEY_MIN_LEFT, KEY_MIN_RIGHT, KEY_OUNCES, KEY_CHILD_ID }, KEY_DATE + "=?",
+                KEY_DATE, KEY_START_TIME, KEY_END_TIME, KEY_SIDE, KEY_OUNCES, KEY_CHILD_ID }, KEY_DATE + "=?",
                 new String[] { String.valueOf(date) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -176,9 +176,9 @@ public class JournalDao {
         
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, entry.getDate());
-        values.put(KEY_TIME, entry.getTime());
-        values.put(KEY_MIN_LEFT, entry.getMinLeft());
-        values.put(KEY_MIN_RIGHT, entry.getMinRight());
+        values.put(KEY_START_TIME, entry.getStartTime());
+        values.put(KEY_END_TIME, entry.getEndTime());
+        values.put(KEY_SIDE, entry.getSide());
         values.put(KEY_OUNCES, entry.getOunces());
         values.put(KEY_CHILD_ID, entry.getChild());
 
