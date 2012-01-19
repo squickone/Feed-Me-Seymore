@@ -44,7 +44,7 @@ public class FamilyHomeActivity extends Activity {
             final Button b = new Button(this);                    //create button for child
             tr.setPadding(5,5,5,5);
 
-            if (myList[j].getSex().equals("male")) {     //change bg color of row and button
+            if (myList[j].getSex().equals("Male")) {     //change bg color of row and button
                 tr.setBackgroundColor(0xFF7ED0FF);
                 b.setBackgroundColor(0xFF7ED0FF);
             } else {

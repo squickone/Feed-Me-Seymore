@@ -61,7 +61,7 @@ public class ViewBabyActivity extends Activity {
             final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
             
             final Button familyButton = (Button) findViewById(R.id.familyButton);
-            if ((baby.getSex()).equals("male")) {
+            if ((baby.getSex()).equals("Male")) {
                 topBanner.setBackgroundColor(0xFF7ED0FF);
                 bottomBanner.setBackgroundColor(0xFF7ED0FF);
             } else {
