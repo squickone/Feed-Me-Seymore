@@ -148,21 +148,52 @@ public class JournalDao {
      *
      * @return
      */
-    public Journal[] getAllEntriesAsStringArray(){
-        
-        open();
-        
+    public Journal[] getAllEntriesAsArray(){
+                
         List<Journal> entries = getAllEntries();
         
-        Journal[] entryArray = new Journal[entries.size()];
-        for(int i=0 ; i<entries.size() ; i++){
-            Journal entry = entries.get(i);
-            entryArray[i] = entry;
+        return (Journal[]) entries.toArray();
+    }
+
+    /**
+     * Returns the last X feedings (where X=limit) based on the passed in childId in the form of a List<Journal>.
+     *
+     * @param childId
+     * @param limit
+     * @return
+     */
+    public List<Journal> getLastFeedingsByChild(int childId, int limit){
+
+        open();
+
+        List<Journal> entryList = new ArrayList<Journal>();
+
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_ID + " DESC LIMIT " + limit;
+        Cursor cursor = database.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do{
+                entryList.add(cursorToJournal(cursor));
+            } while (cursor.moveToNext());
         }
 
         close();
-        
-        return entryArray;
+
+        return entryList;
+    }
+
+    /**
+     * Returns the last X feedings (where X=limit) based on the passed in childId in the form of a Journal[].
+     *
+     * @param childId
+     * @param limit
+     * @return
+     */
+    public Journal[] getLastFeedingsByChildAsArray(int childId, int limit){
+
+        List<Journal> feedings = getLastFeedingsByChild(childId, limit);
+
+        return (Journal[]) feedings.toArray();
     }
 
     /**

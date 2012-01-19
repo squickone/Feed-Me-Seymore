@@ -14,8 +14,6 @@ import com.feedme.R;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Journal;
 
-import java.util.List;
-
 
 /**
  * User: dayel.ostraco
@@ -31,7 +29,7 @@ public class ViewEntriesActivity extends Activity {
         handleButtons();
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-        Journal[] myList = journalDao.getAllEntriesAsStringArray();
+        Journal[] myList = journalDao.getAllEntriesAsArray();
 
         TableLayout tl = (TableLayout)findViewById(R.id.myTableLayout);
 

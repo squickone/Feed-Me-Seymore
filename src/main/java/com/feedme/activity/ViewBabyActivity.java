@@ -36,20 +36,24 @@ public class ViewBabyActivity extends Activity {
 
         final BabyDao babyDao = new BabyDao(getApplicationContext());
 
-        String babyId = "";
+        String babyName = "";
         if (getIntent().getExtras() != null && getIntent().getExtras().getString("babyName") != null) {
-            babyId = getIntent().getExtras().getString("babyName");
+            babyName = getIntent().getExtras().getString("babyName");
         }
 
         Baby baby = null;
-        if (!babyId.equals("")) {
-            baby = babyDao.getBabyByName(babyId);
+        if (!babyName.equals("")) {
+            baby = babyDao.getBabyByName(babyName);
         }
 
+        final int babyId = baby.getID();
+
         // Populate Baby Data
-        if (baby != null) {
-            final TextView babyName = (TextView) findViewById(R.id.babyName);
-            babyName.setText(baby.getName());
+        if (baby != null)
+        {
+            final TextView tBabyName = (TextView) findViewById(R.id.babyName);
+            tBabyName.setText(baby.getName());
+
             final TextView babySex = (TextView) findViewById(R.id.babySex);
             babySex.setText(baby.getSex());
 
@@ -67,8 +71,10 @@ public class ViewBabyActivity extends Activity {
 
             final TextView babyHeight = (TextView) findViewById(R.id.babyHeight);
             babyHeight.setText(baby.getHeight());
+
             final TextView babyWeight = (TextView) findViewById(R.id.babyWeight);
             babyWeight.setText(baby.getWeight());
+
             final TextView babyDob = (TextView) findViewById(R.id.babyDob);
             babyDob.setText(baby.getDob());
 
@@ -93,18 +99,26 @@ public class ViewBabyActivity extends Activity {
         //Add Bottle Feeding Button`
         Button bottleButton = (Button) findViewById(R.id.bottleButton);
         bottleButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(ViewBabyActivity.this,
-                        AddBottleFeedActivity.class));
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(ViewBabyActivity.this, AddBottleFeedActivity.class);
+                Bundle b = new Bundle();
+                b.putString("babyId", String.valueOf(babyId));
+                intent.putExtras(b);
+                startActivity(intent);
             }
         });
 
         //Add Breast Feeding Button`
         Button breastfeedButton = (Button) findViewById(R.id.breastfeedButton);
         breastfeedButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(ViewBabyActivity.this,
-                        AddBreastFeedActivity.class));
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(ViewBabyActivity.this, AddBreastFeedActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("babyId", babyId);
+                intent.putExtras(b);
+                startActivity(intent);
             }
         });
 
