@@ -136,13 +136,13 @@ public class ViewBabyActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.family:
-                startActivity(new Intent(ViewBabyActivity.this,
-                        FamilyHomeActivity.class));
-                break;
             case R.id.home:
                 startActivity(new Intent(ViewBabyActivity.this,
                         HomeActivity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(ViewBabyActivity.this,
+                        SettingsActivity.class));
                 break;
         }
         return true;
