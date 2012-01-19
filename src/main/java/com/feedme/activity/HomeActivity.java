@@ -52,7 +52,7 @@ public class HomeActivity extends Activity {
         addEntryScreen.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this,
-                        AddEntryActivity.class));
+                        ViewEntriesActivity.class));
             }
         });
 

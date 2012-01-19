@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import com.feedme.R;
+import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
+import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
 
@@ -45,6 +47,16 @@ public class ViewEntriesActivity extends Activity {
             tr.setPadding(5,5,5,5);
 
             b.setText(myList[j].getDate());                     //put child's name on button
+
+            final BabyDao babyDao = new BabyDao(getApplicationContext());
+            Baby baby = babyDao.getBaby(myList[j].getChild());
+            if ((baby.getSex()).equals("Male")) {
+                tr.setBackgroundColor(0xFF7ED0FF);
+                b.setBackgroundColor(0xFF7ED0FF);
+            } else {
+                tr.setBackgroundColor(0xFFFF99CC);
+                b.setBackgroundColor(0xFFFF99CC);
+            }
 
             b.setLayoutParams(new TableRow.LayoutParams(        //set params of button
                     TableRow.LayoutParams.FILL_PARENT,
