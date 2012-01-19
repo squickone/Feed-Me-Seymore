@@ -3,6 +3,7 @@ package com.feedme.activity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import com.feedme.R;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Journal;
@@ -28,12 +30,24 @@ import java.util.List;
 public class AddBottleFeedActivity extends Activity
 {
     private Button entryDate;
+    private Button startTime;
+    private Button endTime;
 
     private int mYear;
     private int mMonth;
     private int mDay;
 
+    private int startHour;
+    private int startMinute;
+    private int startSecond;
+
+    private int endHour;
+    private int endMinute;
+    private int endSecond;
+
     static final int DATE_DIALOG_ID = 0;
+    static final int STARTTIME_DIALOG_ID = 1;
+    static final int ENDTIME_DIALOG_ID = 2;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -53,6 +67,8 @@ public class AddBottleFeedActivity extends Activity
         Button addEntryButton = (Button) findViewById(R.id.addEntryButton);
 
         entryDate = (Button) findViewById(R.id.entryDate);
+        startTime = (Button) findViewById(R.id.addStartTime);
+        endTime = (Button) findViewById(R.id.addEndTime);
 
         // add a click listener to the button
         entryDate.setOnClickListener(new View.OnClickListener()
@@ -63,20 +79,44 @@ public class AddBottleFeedActivity extends Activity
             }
         });
 
+        // add a click listener to the button
+        startTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showDialog(STARTTIME_DIALOG_ID);
+            }
+        });
+
+        // add a click listener to the button
+        endTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showDialog(ENDTIME_DIALOG_ID);
+            }
+        });
+
         // get the current date
         final Calendar c = Calendar.getInstance();
+
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
+        startHour = c.get(Calendar.HOUR_OF_DAY);
+        startMinute = c.get(Calendar.MINUTE);
+        startSecond = c.get(Calendar.SECOND);
+
+        endHour = c.get(Calendar.HOUR_OF_DAY);
+        endMinute = c.get(Calendar.MINUTE);
+        endSecond = c.get(Calendar.SECOND);
+
         // display the current date
-        updateDisplay();
+        updateDateDisplay();
+        updateStartDisplay();
+        updateEndDisplay();
 
         addEntryButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-
                 /**
                  * CRUD Operations
                  * */
@@ -115,6 +155,12 @@ public class AddBottleFeedActivity extends Activity
                 return new DatePickerDialog(this,
                         mDateSetListener,
                         mYear, mMonth, mDay);
+            case STARTTIME_DIALOG_ID:
+                return new TimePickerDialog(this,
+                startTimeListener, startHour, startMinute, false);
+            case ENDTIME_DIALOG_ID:
+                return new TimePickerDialog(this,
+                endTimeListener, endHour, endMinute, false);
         }
         return null;
     }
@@ -144,7 +190,7 @@ public class AddBottleFeedActivity extends Activity
     }
 
     // updates the date we display in the TextView
-    private void updateDisplay()
+    private void updateDateDisplay()
     {
         entryDate.setText(
                 new StringBuilder()
@@ -154,18 +200,61 @@ public class AddBottleFeedActivity extends Activity
                         .append(mYear).append(" "));
     }
 
+    // updates the date we display in the TextView
+    private void updateStartDisplay()
+    {
+        startTime.setText(
+                new StringBuilder()
+                        // Month is 0 based so add 1
+                        .append(startHour + 1).append(":")
+                        .append(startMinute).append(":")
+                        .append(startSecond));
+    }
+
+    // updates the date we display in the TextView
+    private void updateEndDisplay()
+    {
+        endTime.setText(
+                new StringBuilder()
+                        // Month is 0 based so add 1
+                        .append(endHour + 1).append(":")
+                        .append(endMinute).append(":")
+                        .append(endSecond));
+    }
+
     // the callback received when the user "sets" the date in the dialog
     private DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener()
             {
-
                 public void onDateSet(DatePicker view, int year,
                                       int monthOfYear, int dayOfMonth)
                 {
                     mYear = year;
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;
-                    updateDisplay();
+                    updateDateDisplay();
                 }
             };
+
+    // the callback received when the user "sets" the time in the dialog
+    private TimePickerDialog.OnTimeSetListener startTimeListener =
+    new TimePickerDialog.OnTimeSetListener() {
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+        {
+            startHour = hourOfDay;
+            startMinute = minute;
+            updateStartDisplay();
+        }
+    };
+
+    // the callback received when the user "sets" the time in the dialog
+    private TimePickerDialog.OnTimeSetListener endTimeListener =
+    new TimePickerDialog.OnTimeSetListener() {
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+        {
+            endHour = hourOfDay;
+            endMinute = minute;
+            updateEndDisplay();
+        }
+    };
 }
