@@ -47,6 +47,7 @@ public class ViewBabyActivity extends Activity {
         }
 
         final int babyId = baby.getID();
+        Log.d("BABYID VIEW BABY:", String.valueOf(babyId));
 
         // Populate Baby Data
         if (baby != null)
@@ -103,7 +104,7 @@ public class ViewBabyActivity extends Activity {
             {
                 Intent intent = new Intent(ViewBabyActivity.this, AddBottleFeedActivity.class);
                 Bundle b = new Bundle();
-                b.putString("babyId", String.valueOf(babyId));
+                b.putInt("babyId", babyId);
                 intent.putExtras(b);
                 startActivity(intent);
             }

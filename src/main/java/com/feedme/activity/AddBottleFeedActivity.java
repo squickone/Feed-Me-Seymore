@@ -11,10 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
+import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Journal;
@@ -49,6 +46,8 @@ public class AddBottleFeedActivity extends Activity
     static final int STARTTIME_DIALOG_ID = 1;
     static final int ENDTIME_DIALOG_ID = 2;
 
+    private String feedQty;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -58,6 +57,11 @@ public class AddBottleFeedActivity extends Activity
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
         // button listener for add child button
+
+        Bundle b = getIntent().getExtras();
+        final int babyId = b.getInt("babyId");
+        
+        Log.d("BABYID ADD BOTTLE:", String.valueOf(babyId));
 
         final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
         final EditText entryChild = (EditText) findViewById(R.id.entryChild);
@@ -119,8 +123,17 @@ public class AddBottleFeedActivity extends Activity
                  * */
                 // Inserting entry
                 Log.d("Insert: ", "Inserting ..");
-                journalDao.addEntry(new Journal(entryDate.getText().toString(), startTime.getText().toString(), endTime.getText().toString(),
-                        " ", entryOunces.getText().toString(), Integer.parseInt(entryChild.getText().toString())));
+                Log.d("INSERT ENTRY DATE: ", entryDate.getText().toString());
+                Log.d("INSERT START TIME: ", startTime.getText().toString());
+                Log.d("INSERT END TIME: ", endTime.getText().toString());
+                Log.d("INSERT FEED QTY: ", feedQty);
+                Log.d("INSERT BABY ID: ", String.valueOf(babyId));
+                journalDao.addEntry(new Journal(entryDate.getText().toString(),
+                        startTime.getText().toString(),
+                        endTime.getText().toString(),
+                        " ",
+                        feedQty,
+                        babyId));
 
                 // Reading all entries
                 Log.d("Reading: ", "Reading all entries..");
@@ -140,6 +153,13 @@ public class AddBottleFeedActivity extends Activity
             }
         });
 
+        Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+        this, R.array.feedingAmount, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        feedAmt.setAdapter(adapter);
+
+        feedAmt.setOnItemSelectedListener(new MyOnItemSelectedListener());
     }
 
     @Override
@@ -252,4 +272,19 @@ public class AddBottleFeedActivity extends Activity
             updateEndDisplay();
         }
     };
+
+
+    public class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener
+    {
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+        {
+            feedQty = parent.getItemAtPosition(pos).toString();
+        }
+
+        public void onNothingSelected(AdapterView parent)
+        {
+            // Do nothing.
+        }
+    }
+
 }
