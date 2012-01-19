@@ -107,11 +107,12 @@ public class ViewEntriesActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.family:
-                break;
             case R.id.home:
                 startActivity(new Intent(ViewEntriesActivity.this,
                         HomeActivity.class));
+           case R.id.settings:
+                startActivity(new Intent(ViewEntriesActivity.this,
+                        SettingsActivity.class));
                 break;
         }
         return true;
