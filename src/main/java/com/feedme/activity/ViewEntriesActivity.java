@@ -102,7 +102,8 @@ public class ViewEntriesActivity extends Activity {
             case R.id.home:
                 startActivity(new Intent(ViewEntriesActivity.this,
                         HomeActivity.class));
-           case R.id.settings:
+                break;
+            case R.id.settings:
                 startActivity(new Intent(ViewEntriesActivity.this,
                         SettingsActivity.class));
                 break;
