@@ -119,10 +119,11 @@
     <RelativeLayout
             style="@style/bottomBanner">
 
-        <Button android:text="Save"
-                android:id="@+id/addEntryButton"
-                android:layout_alignParentRight="true"
-                style="@style/iconNavButton"/>
+        <Button android:id="@+id/addEntryButton"
+                style="@style/iconNavButton"
+                android:text="Save"
+                android:drawableTop="@drawable/icon_save"
+                android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
 
