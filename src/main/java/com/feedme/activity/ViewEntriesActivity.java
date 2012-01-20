@@ -3,6 +3,7 @@ package com.feedme.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +14,9 @@ import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
+
+import java.util.IllegalFormatFlagsException;
+import java.util.List;
 
 
 /**
@@ -28,20 +32,31 @@ public class ViewEntriesActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entries_home);
-        handleButtons();
+
+        Bundle bundle = getIntent().getExtras();
+        final int babyId = bundle.getInt("babyId");
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-        Journal[] myList = journalDao.getAllEntriesAsArray();
+        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 10);
 
+        Log.d("BABYID ENTRIES:", String.valueOf(babyId));
+        
         TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
 
         int j = 0;
-        while (j < myList.length)
+        for (Journal journal : lsJournal)
         {
-            final String entryDate = myList[j].getDate();
+            final String entryDate = journal.getDate();
             TableRow tr1 = new TableRow(this);  //create new row
 
-            tr1.setBackgroundColor(0xFFD2EDFC);
+            if (j == 0)
+            {
+                tr1.setBackgroundColor(0xFFD2EDFC);
+            }
+            else
+            {
+                tr1.setBackgroundColor(0xFFFFFFFF);
+            }
             TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                     TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT);
@@ -49,31 +64,61 @@ public class ViewEntriesActivity extends Activity
             tr1.setClickable(true);
             tr1.setPadding(5, 5, 5, 5);
 
-//            ImageView imageView = new ImageView(this);
+            LinearLayout linearLayoutHorizontal = new LinearLayout(this);
+
+            ImageView imageView = new ImageView(this);
 //            imageView.setImageDrawable(R.drawable.);
 
-            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayoutHorizontal.addView(imageView);
 
-            LinearLayout.LayoutParams linearLayoutParams = new TableRow.LayoutParams(
-                    LinearLayout.LayoutParams.FILL_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout linearLayoutVertical = new LinearLayout(this);
 
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
+//            LinearLayout.LayoutParams linearLayoutParams = new TableRow.LayoutParams(
+//                    LinearLayout.LayoutParams.FILL_PARENT,
+//                    LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
+
+            TextView bottleBreast = new TextView(this);
+            bottleBreast.setTextColor(0xFF000000);
+            if (journal.getSide().trim().isEmpty())
+            {
+                bottleBreast.setText("Bottle");
+            }
+            else
+            {
+                bottleBreast.setText("Breastfeeding - " + journal.getSide());
+            }
+
+            linearLayoutVertical.addView(bottleBreast);
+
+            TextView entryId = new TextView(this);
+            entryId.setTextColor(0xFF000000);
+            entryId.setText("Entry ID: " + journal.getID());
+
+            linearLayoutVertical.addView(entryId);
 
             TextView feedAmount = new TextView(this);
-            feedAmount.setText(myList[j].getOunces());
+            feedAmount.setTextColor(0xFF000000);
+            feedAmount.setText(journal.getDate());
 
-            linearLayout.addView(feedAmount);
+            linearLayoutVertical.addView(feedAmount);
 
             TextView babyWake = new TextView(this);
-            babyWake.setText("Wake / Sleep");
+            babyWake.setTextColor(0xFF000000);
+            babyWake.setText(journal.getOunces());
 
-            linearLayout.addView(babyWake);
+            linearLayoutVertical.addView(babyWake);
 
             TextView babyDiaper = new TextView(this);
-            babyDiaper.setText(myList[j].getStartTime());
+            babyDiaper.setTextColor(0xFF000000);
+            babyDiaper.setText(journal.getStartTime() + " - " + journal.getEndTime());
 
-            linearLayout.addView(babyDiaper);
+            linearLayoutVertical.addView(babyDiaper);
+
+            linearLayoutHorizontal.addView(linearLayoutVertical);
+
+            tr1.addView(linearLayoutHorizontal);
 
             tr1.setOnClickListener(new View.OnClickListener()
             {
@@ -86,7 +131,7 @@ public class ViewEntriesActivity extends Activity
             });
 
             final BabyDao babyDao = new BabyDao(getApplicationContext());
-            Baby baby = babyDao.getBaby(myList[j].getChild());
+            Baby baby = babyDao.getBaby(journal.getChild());
 
 
             /* Add row to TableLayout. */
@@ -94,7 +139,11 @@ public class ViewEntriesActivity extends Activity
                     TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
-            j++; //iterator
+            j++;
+            if (j == 2)
+            {
+                j = 0;
+            }
         }
 
     }

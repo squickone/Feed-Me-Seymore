@@ -133,7 +133,7 @@ public class ViewBabyActivity extends Activity {
         journalButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                Intent intent = new Intent(ViewBabyActivity.this, AddEntryActivity.class);
+                Intent intent = new Intent(ViewBabyActivity.this, ViewEntriesActivity.class);
                 Bundle b = new Bundle();
                 b.putInt("babyId", babyId);
                 intent.putExtras(b);

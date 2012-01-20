@@ -20,10 +20,10 @@
 
 
     <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_below="@+id/topBanner"
-            android:layout_marginTop="10dp"
+            android:layout_above="@+id/bottomBanner"
             android:orientation="horizontal">
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,47 +37,23 @@
                 android:layout_height="fill_parent"
                 >
 
-                <!--<TableRow>-->
-
-                    <!--<ImageView-->
-                        <!--android:src="@drawable/icon_bottle"-->
-                        <!--android:id="@+id/feedingIcon"-->
-                        <!--style="@style/imageBox"-->
-                        <!--android:layout_alignParentLeft="true"/>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:layout_width="fill_parent"-->
-                        <!--android:layout_height="wrap_content">-->
-
-                        <!--<TextView-->
-                            <!--style="@style/rowText"-->
-                            <!--android:text="4 oz"-->
-                            <!--android:id="@+id/feedAmount"/>-->
-
-                        <!--<TextView-->
-                            <!--style="@style/rowText"-->
-                            <!--android:text="Wake"-->
-                            <!--android:id="@+id/babyWake"/>-->
-
-                        <!--<TextView-->
-                            <!--style="@style/rowText"-->
-                            <!--android:text="Dry"-->
-                            <!--android:id="@+id/babyPoop"/>-->
-
-                    <!--</LinearLayout>-->
-
-                <!--</TableRow>-->
-
             </TableLayout>
 
         </ScrollView>
 
     </RelativeLayout>
 
-    <!--<RelativeLayout-->
-            <!--android:id="@+id/bottomBanner"-->
-            <!--style="@style/bottomBanner">-->
-    <!--</RelativeLayout>-->
+    <RelativeLayout
+            android:id="@+id/bottomBanner"
+            style="@style/bottomBanner">
+
+        <Button android:text="Baby"
+                android:id="@+id/addChildScreen"
+                android:drawableTop="@drawable/icon_baby"
+                android:layout_alignParentLeft="true"
+                style="@style/iconNavButton"
+                />
+
+    </RelativeLayout>
 
 </RelativeLayout>

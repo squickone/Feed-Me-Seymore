@@ -60,6 +60,13 @@
                 style="@style/iconNavButton"
                 />
 
+        <Button android:text="Journal"
+                android:id="@+id/addEntryScreen"
+                android:drawableTop="@drawable/icon_pencil"
+                android:layout_toLeftOf="@+id/addChildScreen"
+                style="@style/iconNavButton"
+                />
+
         <Button android:text="@string/icon_add"
                 android:id="@+id/addChildScreen"
                 android:drawableTop="@drawable/icon_baby"
