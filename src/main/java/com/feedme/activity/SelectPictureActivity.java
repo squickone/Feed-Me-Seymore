@@ -34,8 +34,15 @@ public class SelectPictureActivity extends Activity {
             String babyHeight = (String) getIntent().getExtras().get("babyHeight");
             String babyWeight = (String) getIntent().getExtras().get("babyWeight");
             String babyDob = (String) getIntent().getExtras().get("babyDob");
+            Integer intentId = (Integer) getIntent().getExtras().get("intentId");
 
-            Intent intent = new Intent(getApplicationContext(), AddChildActivity.class);
+            Intent intent;
+            if(intentId==AddChildActivity.ADD_CHILD_ACTIVITY_ID){
+                intent = new Intent(getApplicationContext(), AddChildActivity.class);
+            } else {
+                intent = new Intent(getApplicationContext(), EditChildActivity.class);
+            }
+
             intent.putExtra("babyName",babyName);
             intent.putExtra("babySex", babySex);
             intent.putExtra("babyHeight", babyHeight);

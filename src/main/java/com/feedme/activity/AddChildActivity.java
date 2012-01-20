@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class AddChildActivity extends Activity {
     
-    private static final int ADD_CHILD_ACTIVITY_ID = 5;
+    public static final int ADD_CHILD_ACTIVITY_ID = 5;
 
     private int mYear;
     private int mMonth;
@@ -107,8 +107,9 @@ public class AddChildActivity extends Activity {
                 intent.putExtra("babyHeight", babyHeight.getText().toString());
                 intent.putExtra("babyWeight", babyWeight.getText().toString());
                 intent.putExtra("babyDob", babyDob.getText().toString());
+                intent.putExtra("intentId", ADD_CHILD_ACTIVITY_ID);
 
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, ADD_CHILD_ACTIVITY_ID);
             }
         });
 
@@ -123,8 +124,9 @@ public class AddChildActivity extends Activity {
                 intent.putExtra("babyHeight", babyHeight.getText().toString());
                 intent.putExtra("babyWeight", babyWeight.getText().toString());
                 intent.putExtra("babyDob", babyDob.getText().toString());
+                intent.putExtra("intentId", ADD_CHILD_ACTIVITY_ID);
 
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, ADD_CHILD_ACTIVITY_ID);
             }
         });
 
