@@ -60,6 +60,7 @@ public class EditChildActivity extends Activity {
         final Spinner babySex = (Spinner) findViewById(R.id.babySex);
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
+
         Button addChildButton = (Button)findViewById(R.id.addChildButton);
         Button takePicture = (Button) findViewById(R.id.takePicture);
         Button selectPicture = (Button) findViewById(R.id.pickPicture);
@@ -67,8 +68,9 @@ public class EditChildActivity extends Activity {
         babyName.setText(baby.getName());
         babyHeight.setText(baby.getHeight());
         babyWeight.setText(baby.getWeight());
-
         babyDob = (Button) findViewById(R.id.babyDob);
+        babyDob.setText(baby.getDob());
+
         // add a click listener to the button
         babyDob.setOnClickListener(new View.OnClickListener()
         {
@@ -85,7 +87,7 @@ public class EditChildActivity extends Activity {
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
         // display the current date
-        updateDateDisplay();
+        //updateDateDisplay();
 
         //populate male/female spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
