@@ -169,7 +169,7 @@ public class HomeActivity extends Activity {
 
         // resize the bit map
         matrix.postScale(scaleWidth, scaleHeight);
-        matrix.postRotate(rotateInDegrees);
+        //matrix.postRotate(rotateInDegrees);
 
         // recreate the new Bitmap
         Bitmap resizedBitmap = Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, false);
