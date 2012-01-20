@@ -36,15 +36,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
+
+            <Spinner
                     android:id="@+id/settingsLiquid"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/liquidMeasurements"
+                    />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:paddingTop="5dp">
             <TextView
                     android:text="Length: "
                     android:textColor="#000000"
@@ -52,15 +53,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
+            <Spinner
                     android:id="@+id/settingsLength"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/lengthMeasurements"
+                    />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:paddingTop="5dp">
             <TextView
                     android:text="Weight: "
                     android:textColor="#000000"
@@ -68,15 +69,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
+            <Spinner
                     android:id="@+id/settingsWeight"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/weightMeasurements"
+                    />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:paddingTop="5dp">
             <TextView
                     android:text="Temperature: "
                     android:textColor="#000000"
@@ -84,15 +85,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
+            <Spinner
                     android:id="@+id/settingsTemperature"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/temperatureMeasurements"
+                    />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:paddingTop="5dp">
             <TextView
                     android:text="Sound: "
                     android:textColor="#000000"
@@ -100,15 +101,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
+            <Spinner
                     android:id="@+id/settingsSound"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/soundOptions"
+                    />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:paddingTop="5dp">
             <TextView
                     android:text="Vibrate: "
                     android:textColor="#000000"
@@ -116,12 +117,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <EditText
-                    android:text=""
+            <Spinner
                     android:id="@+id/settingsVibrate"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/vibrateOptions"
+                    />
         </TableRow>
     </TableLayout>
 

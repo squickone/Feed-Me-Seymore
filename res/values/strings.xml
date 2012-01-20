@@ -33,4 +33,35 @@
         <item>7</item>
         <item>8</item>
     </string-array>
+
+    <!-- Settings Page Strings -->
+    <string-array name="liquidMeasurements">
+        <item>oz</item>
+        <item>ml</item>
+    </string-array>
+
+    <string-array name="lengthMeasurements">
+        <item>in</item>
+        <item>cm</item>
+    </string-array>
+
+    <string-array name="weightMeasurements">
+        <item>lbs</item>
+        <item>kg</item>
+    </string-array>
+
+    <string-array name="temperatureMeasurements">
+        <item>F</item>
+        <item>C</item>
+    </string-array>
+
+    <string-array name="soundOptions">
+        <item>Off</item>
+        <item>On</item>
+    </string-array>
+
+    <string-array name="vibrateOptions">
+        <item>Off</item>
+        <item>On</item>
+    </string-array>
 </resources>

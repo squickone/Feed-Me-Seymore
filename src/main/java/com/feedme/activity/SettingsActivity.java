@@ -5,16 +5,11 @@ import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.Settings;
-
-import java.util.List;
 
 /**
  * User: dayel.ostraco
@@ -31,33 +26,72 @@ public class SettingsActivity extends Activity {
 
         setContentView(R.layout.edit_settings);
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
-  
-        final TextView settingsLiquid = (TextView) findViewById(R.id.settingsLiquid);
-        final TextView settingsLength = (TextView) findViewById(R.id.settingsLength);
-        final TextView settingsWeight = (TextView) findViewById(R.id.settingsWeight);
-        final TextView settingsTemperature = (TextView) findViewById(R.id.settingsTemperature);
-        final TextView settingsSound = (TextView) findViewById(R.id.settingsSound);
-        final TextView settingsVibrate = (TextView) findViewById(R.id.settingsVibrate);
-        Settings setting = null;
+
+        final Spinner settingsLiquid = (Spinner) findViewById(R.id.settingsLiquid);
+        final Spinner settingsLength = (Spinner) findViewById(R.id.settingsLength);
+        final Spinner settingsWeight = (Spinner) findViewById(R.id.settingsWeight);
+        final Spinner settingsTemperature = (Spinner) findViewById(R.id.settingsTemperature);
+        final Spinner settingsSound = (Spinner) findViewById(R.id.settingsSound);
+        final Spinner settingsVibrate = (Spinner) findViewById(R.id.settingsVibrate);
+        Settings setting;
 
         try {
             setting = settingsDao.getSetting(1);
             Log.d("Didn't add ", " Setting" + setting.getLiquid());
-            settingsLiquid.setText(setting.getLiquid());
-            settingsLength.setText(setting.getLength());
-            settingsWeight.setText(setting.getSettingsWeight());
-            settingsTemperature.setText(setting.getTemperature());
-            settingsSound.setText(setting.getSound());
-            settingsVibrate.setText(setting.getVibrate());
+
+            //Liquid
+            ArrayAdapter adapter = (ArrayAdapter) settingsLiquid.getAdapter();
+            settingsLiquid.setSelection(getIndexFromElement(adapter, setting.getLiquid()));
+
+            //Length
+            adapter = (ArrayAdapter) settingsLength.getAdapter();
+            settingsLength.setSelection(getIndexFromElement(adapter, setting.getLength()));
+
+            //Weight
+            adapter = (ArrayAdapter) settingsWeight.getAdapter();
+            settingsWeight.setSelection(getIndexFromElement(adapter, setting.getSettingsWeight()));
+
+            //Temperature
+            adapter = (ArrayAdapter) settingsTemperature.getAdapter();
+            settingsTemperature.setSelection(getIndexFromElement(adapter, setting.getTemperature()));
+
+            //Sound
+            adapter = (ArrayAdapter) settingsSound.getAdapter();
+            settingsSound.setSelection(getIndexFromElement(adapter, setting.getSound()));
+
+            //Vibrate
+            adapter = (ArrayAdapter) settingsVibrate.getAdapter();
+            settingsVibrate.setSelection(getIndexFromElement(adapter, setting.getVibrate()));
+
         } catch (CursorIndexOutOfBoundsException ex) {
-            settingsDao.addSettings(new Settings("oz", "in", "lbs", "F", "off", "off"));
+
+            settingsDao.addSettings(new Settings("oz", "in", "lbs", "F", "Off", "Off"));
             setting = settingsDao.getSetting(1);
-            settingsLiquid.setText(setting.getLiquid());
-            settingsLength.setText(setting.getLength());
-            settingsWeight.setText(setting.getSettingsWeight());
-            settingsTemperature.setText(setting.getTemperature());
-            settingsSound.setText(setting.getSound());
-            settingsVibrate.setText(setting.getVibrate());
+
+            //Liquid
+            ArrayAdapter adapter = (ArrayAdapter) settingsLiquid.getAdapter();
+            settingsLiquid.setSelection(getIndexFromElement(adapter, setting.getLiquid()));
+
+            //Length
+            adapter = (ArrayAdapter) settingsLength.getAdapter();
+            settingsLength.setSelection(getIndexFromElement(adapter, setting.getLength()));
+
+            //Weight
+            adapter = (ArrayAdapter) settingsWeight.getAdapter();
+            settingsWeight.setSelection(getIndexFromElement(adapter, setting.getSettingsWeight()));
+
+            //Temperature
+            adapter = (ArrayAdapter) settingsTemperature.getAdapter();
+            settingsTemperature.setSelection(getIndexFromElement(adapter, setting.getTemperature()));
+
+            //Sound
+            adapter = (ArrayAdapter) settingsSound.getAdapter();
+            settingsSound.setSelection(getIndexFromElement(adapter, setting.getSound()));
+
+            //Vibrate
+            adapter = (ArrayAdapter) settingsVibrate.getAdapter();
+            settingsVibrate.setSelection(getIndexFromElement(adapter, setting.getVibrate()));
+
             Log.d("Added", " Setting");
         }
 
@@ -70,14 +104,34 @@ public class SettingsActivity extends Activity {
                  * */
                 // Inserting baby
                 Log.d("Insert: ", "Inserting ..");
-                settingsDao.updateSettings(new Settings(settingsLiquid.getText().toString(), settingsLength.getText().toString(),
-                        settingsWeight.getText().toString(), settingsTemperature.getText().toString(), settingsSound.getText().toString(), settingsVibrate.getText().toString()), 1);
+                settingsDao.updateSettings(new Settings(settingsLiquid.getSelectedItem().toString(),
+                        settingsLength.getSelectedItem().toString(),
+                        settingsWeight.getSelectedItem().toString(), settingsTemperature.getSelectedItem().toString(),
+                        settingsSound.getSelectedItem().toString(), settingsVibrate.getSelectedItem().toString()), 1);
+
                 Log.d("Insert: ", "Inserted ..");
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivityForResult(intent, ADD_SETTINGS_ACTIVITY_ID);
              }
          });
+    }
+
+    /**
+     * Returns the position in a spinner based on the passed in element.
+     *
+     * @param adapter - ArrayAdapter
+     * @param element - String
+     * @return - int position of Spinner
+     */
+    private int getIndexFromElement(ArrayAdapter adapter, String element) {
+        for(int i = 0; i < adapter.getCount(); i++) {
+            if(adapter.getItem(i).equals(element)) {
+                return i;
+            }
+        }
+
+        return 0;
     }
 
 
