@@ -67,7 +67,19 @@ public class ViewEntriesActivity extends Activity
             LinearLayout linearLayoutHorizontal = new LinearLayout(this);
 
             ImageView imageView = new ImageView(this);
-//            imageView.setImageDrawable(R.drawable.);
+            imageView.setPadding(10,10,10,10);
+//            imageView.set
+            imageView.setBackgroundResource(R.drawable.icon_border);
+
+            if (journal.getSide().trim().isEmpty())
+            {
+                imageView.setImageResource(R.drawable.icon_bottle);
+            }
+            else
+            {
+                imageView.setImageResource(R.drawable.icon_breastfeed);
+            }
+
 
             linearLayoutHorizontal.addView(imageView);
 
