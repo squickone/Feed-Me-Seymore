@@ -162,7 +162,7 @@ public class AddChildActivity extends Activity {
                 babyWeight.setText("");
                 babyDob.setText("");
                 
-                Intent intent = new Intent(getApplicationContext(), FamilyHomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivityForResult(intent, ADD_CHILD_ACTIVITY_ID);
              }
         });
