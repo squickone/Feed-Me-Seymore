@@ -48,7 +48,7 @@
             style="@style/bottomBanner">
 
         <Button android:text="Baby"
-                android:id="@+id/addChildScreen"
+                android:id="@+id/childScreen"
                 android:drawableTop="@drawable/icon_baby"
                 android:layout_alignParentLeft="true"
                 style="@style/iconNavButton"

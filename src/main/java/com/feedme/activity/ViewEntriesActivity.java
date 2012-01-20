@@ -15,7 +15,6 @@ import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
-import java.util.IllegalFormatFlagsException;
 import java.util.List;
 
 
@@ -26,6 +25,8 @@ import java.util.List;
  */
 public class ViewEntriesActivity extends Activity
 {
+    
+    public static final int VIEW_ENTRIES_ACTIVITY_ID = 50;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -35,6 +36,8 @@ public class ViewEntriesActivity extends Activity
 
         Bundle bundle = getIntent().getExtras();
         final int babyId = bundle.getInt("babyId");
+        
+        handleButtons(babyId);
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
         List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 10);
@@ -156,9 +159,19 @@ public class ViewEntriesActivity extends Activity
 
     }
 
-    public void handleButtons()
+    public void handleButtons(final int babyId)
     {
+        Button childButton = (Button) findViewById(R.id.childScreen);
+        childButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
+                final BabyDao babyDao = new BabyDao(getApplicationContext());
+
+                Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
+                intent.putExtra("babyName", babyDao.getBaby(babyId).getName());
+                startActivityForResult(intent, VIEW_ENTRIES_ACTIVITY_ID);
+            }
+        });
     }
 
     @Override

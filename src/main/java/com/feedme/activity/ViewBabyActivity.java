@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,7 +20,6 @@ import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 import com.feedme.model.Settings;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -42,6 +40,7 @@ public class ViewBabyActivity extends Activity {
         if (getIntent().getExtras() != null && getIntent().getExtras().getString("babyName") != null) {
             babyName = getIntent().getExtras().getString("babyName");
         }
+
         final String babyNameToEdit = babyName;
 
         Baby baby = null;
