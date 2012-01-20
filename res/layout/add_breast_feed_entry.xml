@@ -66,7 +66,7 @@
 
         </TableRow>
 
-        <TableRow android:visibility="gone">
+        <TableRow style="@style/formRow" android:visibility="gone">
             <TextView
                     android:text="Ounces: "
                     android:textColor="#000000"
@@ -82,7 +82,7 @@
             </EditText>
         </TableRow>
 
-        <TableRow>
+        <TableRow style="@style/formRow">
             <TextView
                     android:text="Side: "
                     android:textColor="#000000"
@@ -99,7 +99,7 @@
             </Spinner>
         </TableRow>
 
-        <TableRow android:visibility="gone">
+        <TableRow style="@style/formRow" android:visibility="gone">
             <TextView
                     android:text="Child ID: "
                     android:textColor="#000000"
