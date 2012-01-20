@@ -147,13 +147,13 @@
 
                 <TextView
                     style="@style/segmentText"
-                    android:text="Feedings to Now:"
-                    android:id="@+id/test"/>
+                    android:text="Feedings Today:"
+                    android:id="@+id/todayFeedingsLabel"/>
 
                 <TextView
                     style="@style/segmentText"
-                    android:text="[Number Here]"
-                    android:id="@+id/test"/>
+                    android:text="No Feedings Today"
+                    android:id="@+id/todayFeedings"/>
 
             </LinearLayout>
 

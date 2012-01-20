@@ -20,6 +20,8 @@ import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 import com.feedme.model.Settings;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -52,6 +54,15 @@ public class ViewBabyActivity extends Activity {
         Log.d("BABYID VIEW BABY:", String.valueOf(babyId));
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
+
+        //Get today's feedings
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy ");
+        Calendar today = Calendar.getInstance();
+        int feedingCount = journalDao.getEntriesCountByBabyAndDate(new Integer(babyId).toString(), sdf.format(today.getTime()));
+        TextView todayFeedingCount = (TextView) findViewById(R.id.todayFeedings);
+        String feedingCountStr = feedingCount==0 ? "No Feeding's Today" : feedingCount + "";
+        todayFeedingCount.setText(feedingCountStr);
+
         List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 5);
 
         TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);

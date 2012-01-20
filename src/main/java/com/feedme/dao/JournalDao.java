@@ -262,6 +262,28 @@ public class JournalDao {
     }
 
     /**
+     * Returns the total number of feedings for a baby on a given date.
+     *
+     * @param babyId
+     * @param date
+     * @return
+     */
+    public int getEntriesCountByBabyAndDate(String babyId, String date){
+        open();
+        
+        String countQuery = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID  + " = " + babyId + " AND "
+                + KEY_DATE + " = '" + date + "'";
+
+        Cursor cursor = database.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+
+        close();
+        
+        return count;
+    }
+
+    /**
      * Converts a Cursor from the Entries Table to a Journal Object.
      *
      * @param cursor - Cursor object that contains the Entry data from the Database
