@@ -51,14 +51,6 @@ public class HomeActivity extends Activity {
             }
         });
 
-        // button listener for add entry screen button
-        Button addEntryScreen = (Button)findViewById(R.id.addEntryScreen);
-        addEntryScreen.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,
-                        ViewEntriesActivity.class));
-            }
-        });
     }
 
 

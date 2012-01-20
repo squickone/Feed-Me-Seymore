@@ -84,7 +84,7 @@ public class ViewEntriesActivity extends Activity
                     startActivityForResult(intent, 3);
                 }
             });
-            
+
             final BabyDao babyDao = new BabyDao(getApplicationContext());
             Baby baby = babyDao.getBaby(myList[j].getChild());
 
