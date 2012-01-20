@@ -35,34 +35,14 @@
                 android:layout_height="fill_parent"
                 android:layout_below="@+id/familySplash"
                         >
+
                 <LinearLayout
                     android:orientation="horizontal"
+                    android:id="@+id/babyScroll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:background="@drawable/splash"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="130dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="center"
-                        />
 
-                    <ImageView
-                        android:background="@drawable/splash"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="130dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="center"
-                        />
-
-                    <ImageView
-                        android:background="@drawable/splash"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="130dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="center"
-                        />
 
                 </LinearLayout>
                 

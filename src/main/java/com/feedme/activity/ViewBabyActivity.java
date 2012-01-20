@@ -85,6 +85,16 @@ public class ViewBabyActivity extends Activity {
                 options.inSampleSize = 12;
                 Bitmap bmImg = BitmapFactory.decodeFile(baby.getPicturePath(), options);
                 babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
+                babyImage.setMaxWidth(100);
+                babyImage.setMaxHeight(100);
+                babyImage.setMinimumWidth(100);
+                babyImage.setMinimumHeight(100);
+            } else {
+                babyImage.setImageResource(R.drawable.babyicon);
+                babyImage.setMaxWidth(100);
+                babyImage.setMaxHeight(100);
+                babyImage.setMinimumWidth(100);
+                babyImage.setMinimumHeight(100);
             }
         }
 
