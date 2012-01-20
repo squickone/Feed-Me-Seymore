@@ -45,6 +45,8 @@
                   android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".activity.EditBottleFeedActivity"
                   android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.EditBreastFeedActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
  </application>
 
 </manifest>

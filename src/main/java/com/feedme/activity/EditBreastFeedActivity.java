@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,12 +24,12 @@ import java.util.Calendar;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditBottleFeedActivity extends Activity
+public class EditBreastFeedActivity extends Activity
 {
     private Button entryDate;
     private Button startTime;
     private Button endTime;
-    private Spinner entryOunces;
+    private Spinner entrySide;
 
     private int mYear;
     private int mMonth;
@@ -55,16 +54,15 @@ public class EditBottleFeedActivity extends Activity
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.edit_bottle_feed_entry);
+        setContentView(R.layout.edit_breast_feed_entry);
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
-        //populate ounces spinner
-        Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
+        //populate left/right spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.feedingAmount, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        feedAmt.setAdapter(adapter);
-
+                this, R.array.entrySide, android.R.layout.simple_spinner_item );
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        Spinner s = (Spinner) findViewById( R.id.entrySide );
+        s.setAdapter( adapter );
 
         // button listener for add child button
 
@@ -75,20 +73,25 @@ public class EditBottleFeedActivity extends Activity
         entryDate = (Button) findViewById(R.id.entryDate);
         startTime = (Button) findViewById(R.id.addStartTime);
         endTime = (Button) findViewById(R.id.addEndTime);
-        entryOunces = (Spinner) findViewById(R.id.entryOunces);
+        entrySide = (Spinner) findViewById(R.id.entrySide);
         Button editEntryButton = (Button) findViewById(R.id.editEntryButton);
 
         final int entryID = getIntent().getExtras().getInt("entryID");
         final String entryDateValue = getIntent().getExtras().getString("entryDate");
         final String entryStartTimeValue = getIntent().getExtras().getString("entryStartTime");
         final String entryEndTimeValue = getIntent().getExtras().getString("entryEndTime");
-        final String entryOuncesValue = getIntent().getExtras().getString("entryOunces");
+        final String entrySideValue = getIntent().getExtras().getString("entrySide");
         final int entryChildValue = getIntent().getExtras().getInt("entryChild");
 
         entryDate.setText(entryDateValue);
         startTime.setText(entryStartTimeValue);
         endTime.setText(entryEndTimeValue);
-        //entryOunces.setSelection(3);
+
+        if(entrySideValue.equals("Left")){
+            entrySide.setSelection(0);
+        } else {
+            entrySide.setSelection(1);
+        }
 
         // add a click listener to the button
         entryDate.setOnClickListener(new View.OnClickListener()
@@ -145,8 +148,8 @@ public class EditBottleFeedActivity extends Activity
                 journalDao.updateEntry(new Journal(entryDate.getText().toString(),
                         startTime.getText().toString(),
                         endTime.getText().toString(),
+                        entrySide.getSelectedItem().toString(),
                         " ",
-                        entryOunces.getSelectedItem().toString(),
                         entryChildValue), entryID);
 
                 final BabyDao babyDao = new BabyDao(getApplicationContext());
@@ -193,11 +196,11 @@ public class EditBottleFeedActivity extends Activity
     {
         switch (item.getItemId()) {
             case R.id.home:
-                startActivity(new Intent(EditBottleFeedActivity.this,
+                startActivity(new Intent(EditBreastFeedActivity.this,
                         HomeActivity.class));
                 break;
             case R.id.settings:
-                startActivity(new Intent(EditBottleFeedActivity.this,
+                startActivity(new Intent(EditBreastFeedActivity.this,
                         SettingsActivity.class));
                 break;
         }

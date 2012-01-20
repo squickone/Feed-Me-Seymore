@@ -100,7 +100,8 @@ public class ViewEntriesActivity extends Activity
 
             TextView bottleBreast = new TextView(this);
             bottleBreast.setTextColor(0xFF000000);
-            if (journal.getSide().trim().isEmpty())
+            final String side = journal.getSide();
+            if (side.trim().isEmpty())
             {
                 bottleBreast.setText("Bottle");
             }
@@ -141,18 +142,32 @@ public class ViewEntriesActivity extends Activity
 
             tr1.setOnClickListener(new View.OnClickListener()
             {
-                public void onClick(View v)
-                {
-                    Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
-                    intent.putExtra("entryID", entryID);
-                    intent.putExtra("entryDate", entryDate);
-                    intent.putExtra("entryStartTime", entryStartTime);
-                    intent.putExtra("entryEndTime", entryEndTime);
-                    intent.putExtra("entrySide", entrySide);
-                    intent.putExtra("entryOunces", entryOunces);
-                    intent.putExtra("entryChild", entryChildID);
-                    startActivityForResult(intent, 3);
+                public void onClick(View v)       {
 
+                    if (side.trim().isEmpty())
+                    {
+                        Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
+                        intent.putExtra("entryID", entryID);
+                        intent.putExtra("entryDate", entryDate);
+                        intent.putExtra("entryStartTime", entryStartTime);
+                        intent.putExtra("entryEndTime", entryEndTime);
+                        intent.putExtra("entrySide", entrySide);
+                        intent.putExtra("entryOunces", entryOunces);
+                        intent.putExtra("entryChild", entryChildID);
+                        startActivityForResult(intent, 3);
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(v.getContext(), EditBreastFeedActivity.class);
+                        intent.putExtra("entryID", entryID);
+                        intent.putExtra("entryDate", entryDate);
+                        intent.putExtra("entryStartTime", entryStartTime);
+                        intent.putExtra("entryEndTime", entryEndTime);
+                        intent.putExtra("entrySide", entrySide);
+                        intent.putExtra("entryOunces", entryOunces);
+                        intent.putExtra("entryChild", entryChildID);
+                        startActivityForResult(intent, 3);
+                    }
                 }
             });
 
