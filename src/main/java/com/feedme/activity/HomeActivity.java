@@ -130,6 +130,13 @@ public class HomeActivity extends Activity {
                     startActivityForResult(intent, 3);
                 }
             });
+            babyImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
+                    intent.putExtra("babyName", b.getText());
+                    startActivityForResult(intent, 3);
+                }
+            });
 
             /* Add table to linearlayout */
             ll.addView(tl);
