@@ -59,7 +59,7 @@ public class EditBottleFeedActivity extends Activity
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
         //populate ounces spinner
-        Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
+        final Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.feedingAmount, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,7 +75,6 @@ public class EditBottleFeedActivity extends Activity
         entryDate = (Button) findViewById(R.id.entryDate);
         startTime = (Button) findViewById(R.id.addStartTime);
         endTime = (Button) findViewById(R.id.addEndTime);
-        entryOunces = (Spinner) findViewById(R.id.entryOunces);
         Button editEntryButton = (Button) findViewById(R.id.editEntryButton);
 
         final int entryID = getIntent().getExtras().getInt("entryID");
@@ -88,7 +87,7 @@ public class EditBottleFeedActivity extends Activity
         entryDate.setText(entryDateValue);
         startTime.setText(entryStartTimeValue);
         endTime.setText(entryEndTimeValue);
-        //entryOunces.setSelection(3);
+        feedAmt.setSelection(Integer.parseInt(entryOuncesValue)-1);
 
         // add a click listener to the button
         entryDate.setOnClickListener(new View.OnClickListener()
@@ -146,7 +145,7 @@ public class EditBottleFeedActivity extends Activity
                         startTime.getText().toString(),
                         endTime.getText().toString(),
                         " ",
-                        entryOunces.getSelectedItem().toString(),
+                        feedAmt.getSelectedItem().toString(),
                         entryChildValue), entryID);
 
                 final BabyDao babyDao = new BabyDao(getApplicationContext());
