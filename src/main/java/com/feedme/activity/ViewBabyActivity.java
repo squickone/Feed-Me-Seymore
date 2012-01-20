@@ -18,11 +18,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
+import com.feedme.dao.JournalDao;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
+import com.feedme.model.Journal;
 import com.feedme.model.Settings;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * User: dayel.ostraco
@@ -51,6 +54,9 @@ public class ViewBabyActivity extends Activity {
 
         final int babyId = baby.getID();
         Log.d("BABYID VIEW BABY:", String.valueOf(babyId));
+
+        final JournalDao journalDao = new JournalDao(getApplicationContext());
+        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 10);
 
         // Populate Baby Data
         if (baby != null)

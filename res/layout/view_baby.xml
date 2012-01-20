@@ -12,7 +12,7 @@
         <Button
                 style="@style/leftHeadline"
                 android:id="@+id/editBaby"
-                android:text="Edit Baby"
+                android:text="« Edit Baby"
                 android:layout_alignParentLeft="true"/>
 
         <TextView

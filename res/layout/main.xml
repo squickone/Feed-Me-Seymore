@@ -60,6 +60,7 @@
                 style="@style/iconNavButton"
                 />
 
+
         <Button android:text="@string/icon_add"
                 android:id="@+id/addChildScreen"
                 android:drawableTop="@drawable/icon_baby"

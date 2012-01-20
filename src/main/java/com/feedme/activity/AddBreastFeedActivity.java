@@ -131,9 +131,10 @@ public class AddBreastFeedActivity extends Activity {
                         "",
                         babyId));
 
-                Intent intent = new Intent(v.getContext(), ViewEntriesActivity.class);
-                intent.putExtra("babyId", babyId);
-                startActivityForResult(intent, 2);
+                startActivity(new Intent(AddBreastFeedActivity.this,
+                        HomeActivity.class));
+
+
 
               }
         });

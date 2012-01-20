@@ -67,17 +67,26 @@ public class ViewEntriesActivity extends Activity
             LinearLayout linearLayoutHorizontal = new LinearLayout(this);
 
             ImageView imageView = new ImageView(this);
-//            imageView.setImageDrawable(R.drawable.);
+            imageView.setMinimumHeight(60);
+            imageView.setMinimumWidth(60);
+            imageView.setBackgroundResource(R.drawable.icon_border);
+
+            if (journal.getSide().trim().isEmpty())
+            {
+                imageView.setImageResource(R.drawable.icon_bottle);
+            }
+            else
+            {
+                imageView.setImageResource(R.drawable.icon_breastfeed);
+            }
 
             linearLayoutHorizontal.addView(imageView);
 
             LinearLayout linearLayoutVertical = new LinearLayout(this);
 
-//            LinearLayout.LayoutParams linearLayoutParams = new TableRow.LayoutParams(
-//                    LinearLayout.LayoutParams.FILL_PARENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT);
-
             linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
+
+            linearLayoutVertical.setPadding(10,0,0,0);
 
             TextView bottleBreast = new TextView(this);
             bottleBreast.setTextColor(0xFF000000);
@@ -92,11 +101,11 @@ public class ViewEntriesActivity extends Activity
 
             linearLayoutVertical.addView(bottleBreast);
 
-            TextView entryId = new TextView(this);
-            entryId.setTextColor(0xFF000000);
-            entryId.setText("Entry ID: " + journal.getID());
-
-            linearLayoutVertical.addView(entryId);
+//            TextView entryId = new TextView(this);
+//            entryId.setTextColor(0xFF000000);
+//            entryId.setText("Entry ID: " + journal.getID());
+//
+//            linearLayoutVertical.addView(entryId);
 
             TextView feedAmount = new TextView(this);
             feedAmount.setTextColor(0xFF000000);
@@ -132,7 +141,6 @@ public class ViewEntriesActivity extends Activity
 
             final BabyDao babyDao = new BabyDao(getApplicationContext());
             Baby baby = babyDao.getBaby(journal.getChild());
-
 
             /* Add row to TableLayout. */
             tl.addView(tr1, new TableLayout.LayoutParams(
