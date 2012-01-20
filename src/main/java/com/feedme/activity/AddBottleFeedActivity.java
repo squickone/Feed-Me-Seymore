@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
+import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
+import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
 import java.util.Calendar;
@@ -135,8 +137,13 @@ public class AddBottleFeedActivity extends Activity
                         feedQty,
                         babyId));
 
-                startActivity(new Intent(AddBottleFeedActivity.this,
-                        HomeActivity.class));
+                final BabyDao babyDao = new BabyDao(getApplicationContext());
+                Baby baby = babyDao.getBaby(babyId);
+                final String babyName = baby.getName();
+
+                Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
+                intent.putExtra("babyName", babyName);
+                startActivityForResult(intent, 3);
 
             }
         });
