@@ -18,7 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
+import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
+import com.feedme.model.Settings;
 
 import java.io.File;
 
@@ -79,6 +81,14 @@ public class ViewBabyActivity extends Activity {
 
             final TextView babyDob = (TextView) findViewById(R.id.babyDob);
             babyDob.setText(baby.getDob());
+
+            //populate units of measurement
+            final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
+            final TextView heightMeas = (TextView) findViewById(R.id.heightMeas);
+            final TextView weightMeas = (TextView) findViewById(R.id.weightMeas);
+            Settings setting = settingsDao.getSetting(1);
+            heightMeas.setText(" " + setting.getLength());
+            weightMeas.setText(" " + setting.getSettingsWeight());
 
             final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
             if (baby.getPicturePath() != null && !baby.getPicturePath().equals("")) {

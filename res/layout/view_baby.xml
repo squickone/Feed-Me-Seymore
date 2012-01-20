@@ -78,6 +78,11 @@
                             android:id="@+id/babyHeight"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content" />
+                    <TextView
+                            android:text=""
+                            android:id="@+id/heightMeas"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -92,6 +97,11 @@
                     <TextView
                             android:text=""
                             android:id="@+id/babyWeight"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+                    <TextView
+                            android:text=""
+                            android:id="@+id/weightMeas"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content" />
 
