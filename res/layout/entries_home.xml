@@ -26,18 +26,58 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-        <TableLayout
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/myTableLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:textColor="#ffffff">
+                >
 
-        </TableLayout>
+                <!--<TableRow>-->
+
+                    <!--<ImageView-->
+                        <!--android:src="@drawable/icon_bottle"-->
+                        <!--android:id="@+id/feedingIcon"-->
+                        <!--style="@style/imageBox"-->
+                        <!--android:layout_alignParentLeft="true"/>-->
+
+                    <!--<LinearLayout-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="wrap_content">-->
+
+                        <!--<TextView-->
+                            <!--style="@style/rowText"-->
+                            <!--android:text="4 oz"-->
+                            <!--android:id="@+id/feedAmount"/>-->
+
+                        <!--<TextView-->
+                            <!--style="@style/rowText"-->
+                            <!--android:text="Wake"-->
+                            <!--android:id="@+id/babyWake"/>-->
+
+                        <!--<TextView-->
+                            <!--style="@style/rowText"-->
+                            <!--android:text="Dry"-->
+                            <!--android:id="@+id/babyPoop"/>-->
+
+                    <!--</LinearLayout>-->
+
+                <!--</TableRow>-->
+
+            </TableLayout>
+
+        </ScrollView>
+
     </RelativeLayout>
 
-    <RelativeLayout
-            android:id="@+id/bottomBanner"
-            style="@style/bottomBanner">
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+            <!--android:id="@+id/bottomBanner"-->
+            <!--style="@style/bottomBanner">-->
+    <!--</RelativeLayout>-->
 
 </RelativeLayout>
