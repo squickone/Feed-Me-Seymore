@@ -7,9 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
@@ -22,10 +20,12 @@ import com.feedme.model.Journal;
  * Date: 1/16/12
  * Time: 12:29 PM
  */
-public class ViewEntriesActivity extends Activity {
+public class ViewEntriesActivity extends Activity
+{
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entries_home);
         handleButtons();
@@ -33,49 +33,64 @@ public class ViewEntriesActivity extends Activity {
         final JournalDao journalDao = new JournalDao(getApplicationContext());
         Journal[] myList = journalDao.getAllEntriesAsArray();
 
-        TableLayout tl = (TableLayout)findViewById(R.id.myTableLayout);
+        TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
 
         int j = 0;
-        while (j < myList.length) {
-            TableRow tr = new TableRow(this);  //create new row
+        while (j < myList.length)
+        {
+            final String entryDate = myList[j].getDate();
+            TableRow tr1 = new TableRow(this);  //create new row
 
-            tr.setLayoutParams(new TableRow.LayoutParams(    //set params of row
+            tr1.setBackgroundColor(0xFFD2EDFC);
+            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                     TableRow.LayoutParams.FILL_PARENT,
-                    TableRow.LayoutParams.FILL_PARENT));
+                    TableRow.LayoutParams.WRAP_CONTENT);
+            tr1.setLayoutParams(layoutParams);
+            tr1.setClickable(true);
+            tr1.setPadding(5, 5, 5, 5);
 
-            final Button b = new Button(this);                    //create button for child
-            tr.setPadding(5,5,5,5);
+//            ImageView imageView = new ImageView(this);
+//            imageView.setImageDrawable(R.drawable.);
 
-            b.setText(myList[j].getDate());                     //put child's name on button
+            LinearLayout linearLayout = new LinearLayout(this);
 
-            final BabyDao babyDao = new BabyDao(getApplicationContext());
-            Baby baby = babyDao.getBaby(myList[j].getChild());
-            if ((baby.getSex()).equals("Male")) {
-                tr.setBackgroundColor(0xFF7ED0FF);
-                b.setBackgroundColor(0xFF7ED0FF);
-            } else {
-                tr.setBackgroundColor(0xFFFF99CC);
-                b.setBackgroundColor(0xFFFF99CC);
-            }
+            LinearLayout.LayoutParams linearLayoutParams = new TableRow.LayoutParams(
+                    LinearLayout.LayoutParams.FILL_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            b.setLayoutParams(new TableRow.LayoutParams(        //set params of button
-                    TableRow.LayoutParams.FILL_PARENT,
-                    TableRow.LayoutParams.FILL_PARENT));
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-            //button listener for each entry
-            b.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
+            TextView feedAmount = new TextView(this);
+            feedAmount.setText(myList[j].getOunces());
+
+            linearLayout.addView(feedAmount);
+
+            TextView babyWake = new TextView(this);
+            babyWake.setText("Wake / Sleep");
+
+            linearLayout.addView(babyWake);
+
+            TextView babyDiaper = new TextView(this);
+            babyDiaper.setText(myList[j].getStartTime());
+
+            linearLayout.addView(babyDiaper);
+
+            tr1.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v)
+                {
                     Intent intent = new Intent(v.getContext(), ViewEntryActivity.class);
-                    intent.putExtra("entryDate", b.getText());
+                    intent.putExtra("entryDate", entryDate);
                     startActivityForResult(intent, 3);
                 }
             });
+            
+            final BabyDao babyDao = new BabyDao(getApplicationContext());
+            Baby baby = babyDao.getBaby(myList[j].getChild());
 
-            /* Add Button to row. */
-            tr.addView(b);
 
             /* Add row to TableLayout. */
-            tl.addView(tr,new TableLayout.LayoutParams(
+            tl.addView(tr1, new TableLayout.LayoutParams(
                     TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -84,25 +99,27 @@ public class ViewEntriesActivity extends Activity {
 
     }
 
-    public void handleButtons() {
+    public void handleButtons()
+    {
 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
         switch (item.getItemId()) {
             case R.id.home:
                 startActivity(new Intent(ViewEntriesActivity.this,
                         HomeActivity.class));
-                break;
             case R.id.settings:
                 startActivity(new Intent(ViewEntriesActivity.this,
                         SettingsActivity.class));
