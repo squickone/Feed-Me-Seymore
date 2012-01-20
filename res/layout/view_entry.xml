@@ -11,20 +11,35 @@
                  android:stretchColumns="1">
 
         <TableRow>
-            <TextView
-                    android:layout_span="3"
+            <Button
+                    android:layout_span="1"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:paddingRight="8dp"
                     android:layout_marginBottom="20dp"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#7ed0ff"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:text="« Edit Entry"
+                    android:id="@+id/editEntry"
+                    android:layout_alignParentRight="true"/>
+            <TextView
+                    android:layout_span="2"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#7ed0ff"
                     android:textColor="#FFFFFF"
                     android:textSize="25dp"
                     android:gravity="right"
                     android:id="@+id/addEntry"
-                    />
+                    android:layout_alignParentRight="true"/>
         </TableRow>
 
         <TableRow>
@@ -35,12 +50,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <TextView
+            <EditText
                     android:text=""
                     android:id="@+id/entryDate"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
-            </TextView>
+            </EditText>
         </TableRow>
 
         <TableRow>
@@ -51,12 +66,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <TextView
+            <EditText
                     android:text=""
                     android:id="@+id/entryStartTime"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
-            </TextView>
+            </EditText>
         </TableRow>
 
        <TableRow>
@@ -67,12 +82,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <TextView
+            <EditText
                     android:text=""
                     android:id="@+id/entryEndTime"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
-            </TextView>
+            </EditText>
         </TableRow>
 
         <TableRow>
@@ -83,12 +98,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <TextView
+            <EditText
                     android:text=""
                     android:id="@+id/entrySide"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
-            </TextView>
+            </EditText>
         </TableRow>
 
 
@@ -100,29 +115,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             </TextView>
-            <TextView
+            <EditText
                     android:text=""
                     android:id="@+id/entryOunces"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
-            </TextView>
+            </EditText>
         </TableRow>
 
-        <TableRow>
-            <TextView
-                    android:text="Child ID: "
-                    android:textColor="#000000"
-                    android:layout_column="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
-            <TextView
-                    android:text=""
-                    android:id="@+id/entryChild"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </TextView>
-        </TableRow>
     </TableLayout>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"

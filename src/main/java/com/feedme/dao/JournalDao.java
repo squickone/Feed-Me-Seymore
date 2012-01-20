@@ -213,7 +213,7 @@ public class JournalDao {
      *
      * @return
      */
-    public int updateEntry(Journal entry) {
+    public int updateEntry(Journal entry, int id) {
 
         open();
         
@@ -226,7 +226,7 @@ public class JournalDao {
         values.put(KEY_CHILD_ID, entry.getChild());
 
         // updating row
-        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(entry.getID()) });
+        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
         
         close();
         

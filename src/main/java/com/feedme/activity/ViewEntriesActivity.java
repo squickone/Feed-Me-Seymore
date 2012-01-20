@@ -49,7 +49,14 @@ public class ViewEntriesActivity extends Activity
         int j = 0;
         for (Journal journal : lsJournal)
         {
+            final int entryID = journal.getID();
             final String entryDate = journal.getDate();
+            final String entryStartTime = journal.getStartTime();
+            final String entryEndTime = journal.getEndTime();
+            final String entryOunces = journal.getOunces();
+            final String entrySide = journal.getSide();
+            final int entryChildID = journal.getChild();
+
             TableRow tr1 = new TableRow(this);  //create new row
 
             if (j == 0)
@@ -136,9 +143,16 @@ public class ViewEntriesActivity extends Activity
             {
                 public void onClick(View v)
                 {
-                    Intent intent = new Intent(v.getContext(), ViewEntryActivity.class);
+                    Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
+                    intent.putExtra("entryID", entryID);
                     intent.putExtra("entryDate", entryDate);
+                    intent.putExtra("entryStartTime", entryStartTime);
+                    intent.putExtra("entryEndTime", entryEndTime);
+                    intent.putExtra("entrySide", entrySide);
+                    intent.putExtra("entryOunces", entryOunces);
+                    intent.putExtra("entryChild", entryChildID);
                     startActivityForResult(intent, 3);
+
                 }
             });
 
@@ -156,6 +170,8 @@ public class ViewEntriesActivity extends Activity
                 j = 0;
             }
         }
+
+
 
     }
 

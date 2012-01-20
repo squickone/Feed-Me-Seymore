@@ -1,8 +1,12 @@
 package com.feedme.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.feedme.R;
@@ -34,31 +38,47 @@ public class ViewEntryActivity extends Activity {
         if(!entryId.equals("")){
             entry = journalDao.getEntryByDate(entryId);
         }
+        final Journal entry2 = entry;
 
         TextView viewEntry = (TextView) findViewById(R.id.addEntry);
         viewEntry.setText(entry.getDate());
 
         // Populate Baby Data
         if(entry!=null){
-            final TextView entryDate = (TextView) findViewById(R.id.entryDate);
+            final EditText entryDate = (EditText) findViewById(R.id.entryDate);
             entryDate.setText(entry.getDate());
-            final TextView entryTime = (TextView) findViewById(R.id.entryStartTime);
+            final EditText entryTime = (EditText) findViewById(R.id.entryStartTime);
             entryTime.setText(entry.getStartTime());
-            final TextView entryEndTime = (TextView) findViewById(R.id.entryEndTime);
+            final EditText entryEndTime = (EditText) findViewById(R.id.entryEndTime);
             entryEndTime.setText(entry.getEndTime());
-            final TextView entrySide = (TextView) findViewById(R.id.entrySide);
-            entrySide.setText(entry.getSide());
 
+            if (entry.getSide()!=null) {
+                final EditText entrySide = (EditText) findViewById(R.id.entrySide);
+                entrySide.setText(entry.getSide());
+            }
             if (entry.getOunces()!=null) {
-                final TextView entryOunces = (TextView) findViewById(R.id.entryOunces);
+                final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
                 entryOunces.setText(entry.getOunces());
             }
 
-            final TextView entryChild = (TextView) findViewById(R.id.entryChild);
-            int childId = entry.getChild();
-
-
-            entryChild.setText(Integer.toString(childId));
         }
+
+        //Select Edit Button
+        Button editEntry = (Button) findViewById(R.id.editEntry);
+        editEntry.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
+
+                intent.putExtra("entryID", entry2.getID());
+                intent.putExtra("entryDate", entry2.getDate());
+                intent.putExtra("entryStartTime", entry2.getStartTime());
+                intent.putExtra("entryEndTime", entry2.getEndTime());
+                intent.putExtra("entrySide", entry2.getSide());
+                intent.putExtra("entryOunces", entry2.getOunces());
+                intent.putExtra("entryChild", entry2.getChild());
+
+                startActivityForResult(intent, 3);
+            }
+        });
     }
 }
