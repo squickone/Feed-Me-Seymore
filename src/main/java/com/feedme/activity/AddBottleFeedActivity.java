@@ -135,8 +135,8 @@ public class AddBottleFeedActivity extends Activity
                         feedQty,
                         babyId));
 
-                Intent intent = new Intent(v.getContext(), ViewEntriesActivity.class);
-                startActivityForResult(intent, 2);
+                startActivity(new Intent(AddBottleFeedActivity.this,
+                        HomeActivity.class));
 
             }
         });
