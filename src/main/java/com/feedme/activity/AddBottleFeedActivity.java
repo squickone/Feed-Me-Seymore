@@ -136,6 +136,7 @@ public class AddBottleFeedActivity extends Activity
                         babyId));
 
                 Intent intent = new Intent(v.getContext(), ViewEntriesActivity.class);
+                intent.putExtra("babyId", babyId);
                 startActivityForResult(intent, 2);
 
             }

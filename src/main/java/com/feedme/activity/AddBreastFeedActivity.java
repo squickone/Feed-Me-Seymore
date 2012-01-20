@@ -128,12 +128,12 @@ public class AddBreastFeedActivity extends Activity {
                         startTime.getText().toString(),
                         endTime.getText().toString(),
                         entrySide.getSelectedItem().toString(),
-                        entryOunces.getText().toString(),
+                        "",
                         babyId));
 
                 Intent intent = new Intent(v.getContext(), ViewEntriesActivity.class);
+                intent.putExtra("babyId", babyId);
                 startActivityForResult(intent, 2);
-
 
               }
         });
