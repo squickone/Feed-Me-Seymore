@@ -86,7 +86,7 @@ public class ViewEntriesActivity extends Activity
 
             linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
 
-            linearLayoutVertical.setPadding(10,0,0,0);
+            linearLayoutVertical.setPadding(5,0,0,0);
 
             TextView bottleBreast = new TextView(this);
             bottleBreast.setTextColor(0xFF000000);

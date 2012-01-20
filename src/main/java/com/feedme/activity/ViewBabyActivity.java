@@ -12,10 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
@@ -56,7 +53,111 @@ public class ViewBabyActivity extends Activity {
         Log.d("BABYID VIEW BABY:", String.valueOf(babyId));
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 10);
+        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 5);
+
+        TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
+        
+        int j = 0;
+        for (Journal journal : lsJournal)
+        {
+            final String entryDate = journal.getDate();
+            TableRow tr1 = new TableRow(this);  //create new row
+
+            if (j == 0)
+            {
+                tr1.setBackgroundColor(0xFFD2EDFC);
+            }
+            else
+            {
+                tr1.setBackgroundColor(0xFFFFFFFF);
+            }
+            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
+                    TableRow.LayoutParams.FILL_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT);
+            tr1.setLayoutParams(layoutParams);
+            tr1.setClickable(true);
+            tr1.setPadding(5, 5, 5, 5);
+
+            LinearLayout linearLayoutHorizontal = new LinearLayout(this);
+
+            ImageView imageView = new ImageView(this);
+            imageView.setMinimumHeight(60);
+            imageView.setMinimumWidth(60);
+            imageView.setBackgroundResource(R.drawable.icon_border);
+
+            if (journal.getSide().trim().isEmpty())
+            {
+                imageView.setImageResource(R.drawable.icon_bottle);
+            }
+            else
+            {
+                imageView.setImageResource(R.drawable.icon_breastfeed);
+            }
+
+            linearLayoutHorizontal.addView(imageView);
+
+            LinearLayout linearLayoutVertical = new LinearLayout(this);
+
+            linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
+
+            linearLayoutVertical.setPadding(5,0,0,0);
+
+            TextView bottleBreast = new TextView(this);
+            bottleBreast.setTextColor(0xFF000000);
+            if (journal.getSide().trim().isEmpty())
+            {
+                bottleBreast.setText("Bottle");
+            }
+            else
+            {
+                bottleBreast.setText("Breastfeeding - " + journal.getSide());
+            }
+
+            linearLayoutVertical.addView(bottleBreast);
+
+            TextView feedAmount = new TextView(this);
+            feedAmount.setTextColor(0xFF000000);
+            feedAmount.setText(journal.getDate());
+
+            linearLayoutVertical.addView(feedAmount);
+
+            TextView babyWake = new TextView(this);
+            babyWake.setTextColor(0xFF000000);
+            babyWake.setText(journal.getOunces());
+
+            linearLayoutVertical.addView(babyWake);
+
+            TextView babyDiaper = new TextView(this);
+            babyDiaper.setTextColor(0xFF000000);
+            babyDiaper.setText(journal.getStartTime() + " - " + journal.getEndTime());
+
+            linearLayoutVertical.addView(babyDiaper);
+
+            linearLayoutHorizontal.addView(linearLayoutVertical);
+
+            tr1.addView(linearLayoutHorizontal);
+
+            tr1.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v)
+                {
+                    Intent intent = new Intent(v.getContext(), ViewEntryActivity.class);
+                    intent.putExtra("entryDate", entryDate);
+                    startActivityForResult(intent, 3);
+                }
+            });
+
+            /* Add row to TableLayout. */
+            tl.addView(tr1, new TableLayout.LayoutParams(
+                    TableRow.LayoutParams.FILL_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+
+            j++;
+            if (j == 2)
+            {
+                j = 0;
+            }
+        }
 
         // Populate Baby Data
         if (baby != null)
