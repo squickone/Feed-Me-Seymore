@@ -9,6 +9,12 @@
         android:id="@+id/topBanner"
         style="@style/topBanner">
 
+        <Button
+                style="@style/leftHeadline"
+                android:id="@+id/editBaby"
+                android:text="Edit Baby"
+                android:layout_alignParentLeft="true"/>
+
         <TextView
             android:text=""
             style="@style/rightHeadline"

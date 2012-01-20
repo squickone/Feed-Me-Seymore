@@ -41,7 +41,9 @@
                   android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".activity.ViewEntryActivity"
                   android:theme="@android:style/Theme.NoTitleBar"/>
-  </application>
+        <activity android:name=".activity.EditChildActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+ </application>
 
 </manifest>
 

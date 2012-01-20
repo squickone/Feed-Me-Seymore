@@ -40,6 +40,7 @@ public class ViewBabyActivity extends Activity {
         if (getIntent().getExtras() != null && getIntent().getExtras().getString("babyName") != null) {
             babyName = getIntent().getExtras().getString("babyName");
         }
+        final String babyNameToEdit = babyName;
 
         Baby baby = null;
         if (!babyName.equals("")) {
@@ -98,12 +99,22 @@ public class ViewBabyActivity extends Activity {
             }
         }
 
-        //Add Family Button`
+        //Add Edit Button`
+        Button editButton = (Button) findViewById(R.id.editBaby);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), EditChildActivity.class);
+                intent.putExtra("babyName", babyNameToEdit);
+                startActivityForResult(intent, 3);
+            }
+        });
+
+       //Add Family Button`
         Button familyButton = (Button) findViewById(R.id.familyButton);
         familyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(ViewBabyActivity.this,
-                        FamilyHomeActivity.class));
+                        HomeActivity.class));
             }
         });
 

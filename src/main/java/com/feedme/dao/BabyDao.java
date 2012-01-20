@@ -167,7 +167,7 @@ public class BabyDao {
      *
      * @return
      */
-    public int updateBaby(Baby baby) {
+    public int updateBaby(Baby baby, int id) {
 
         open();
 
@@ -180,7 +180,7 @@ public class BabyDao {
         values.put(KEY_PICTURE, baby.getPicturePath());
 
         // updating row
-        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(baby.getID()) });
+        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
 
         close();
 

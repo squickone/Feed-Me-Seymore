@@ -37,7 +37,6 @@
                     android:layout_height="wrap_content">
             </TextView>
             <EditText
-                    android:text=""
                     android:id="@+id/babyName"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
@@ -70,7 +69,6 @@
                     android:layout_height="wrap_content">
             </TextView>
             <EditText
-                    android:text=""
                     android:id="@+id/babyHeight"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
@@ -86,7 +84,6 @@
                     android:layout_height="wrap_content">
             </TextView>
             <EditText
-                    android:text=""
                     android:id="@+id/babyWeight"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
