@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -13,7 +14,9 @@ import android.view.View;
 import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
+import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
+import com.feedme.model.Settings;
 
 public class HomeActivity extends Activity {
 
@@ -32,6 +35,7 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.main);
 
         showBabies();
+        initializeSettings();
 
         //Add Settings Button
         Button addSettingsButton = (Button) findViewById(R.id.settings);
@@ -53,6 +57,11 @@ public class HomeActivity extends Activity {
 
     }
 
+
+    public void initializeSettings() {
+        final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
+        settingsDao.addSettings(new Settings("oz", "in", "lbs", "F", "off", "off"));
+    }
 
     public void showBabies() {
         final BabyDao babyDao = new BabyDao(getApplicationContext());

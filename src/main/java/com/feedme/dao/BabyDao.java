@@ -190,9 +190,9 @@ public class BabyDao {
     /**
      * Deletes a Baby from the Database
      */
-    public void deleteBaby(Baby baby) {
+    public void deleteBaby(Baby baby, int id) {
         open();
-        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(baby.getID())});
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(id)});
         close();
     }
 

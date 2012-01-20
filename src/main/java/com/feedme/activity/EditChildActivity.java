@@ -54,7 +54,7 @@ public class EditChildActivity extends Activity {
         final int babyId = baby.getID();
 
         TextView addChild = (TextView) findViewById(R.id.addChild);
-        addChild.setText("Edit Child");
+        addChild.setText("Edit Baby");
 
         final EditText babyName = (EditText) findViewById(R.id.babyName);
         final Spinner babySex = (Spinner) findViewById(R.id.babySex);
@@ -162,10 +162,11 @@ public class EditChildActivity extends Activity {
                     Log.d("Name: ", log);
                 }
 
-                
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivityForResult(intent, ADD_CHILD_ACTIVITY_ID);
-             }
+
+                Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
+                intent.putExtra("babyName", babyName.getText().toString());
+                startActivityForResult(intent, 3);
+            }
         });
     }
 
