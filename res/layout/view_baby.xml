@@ -157,23 +157,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/profileStats">
 
-                <TextView
-                    style="@style/segmentText"
-                    android:text="Next Scheduled Feeding:"
-                    android:id="@+id/test"/>
-
-                <TextView
-                    style="@style/segmentText"
-                    android:text="[Time Here]"
-                    android:id="@+id/test"/>
-
-            </LinearLayout>
 
             <TextView
                 style="@style/segmentBanner"
