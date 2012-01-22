@@ -165,6 +165,9 @@ public class ViewEntriesActivity extends Activity
 
                 tr1.addView(linearLayoutHorizontal);
 
+                final BabyDao babyDao = new BabyDao(getApplicationContext());
+                final Baby baby = babyDao.getBaby(journal.getChild());
+
                 tr1.setOnClickListener(new View.OnClickListener()
                 {
                     public void onClick(View v)       {
@@ -179,6 +182,7 @@ public class ViewEntriesActivity extends Activity
                             intent.putExtra("entrySide", entrySide);
                             intent.putExtra("entryOunces", entryOunces);
                             intent.putExtra("entryChild", entryChildID);
+                            intent.putExtra("babyGender", baby.getSex());
                             startActivityForResult(intent, 3);
                         }
                         else
@@ -191,15 +195,13 @@ public class ViewEntriesActivity extends Activity
                             intent.putExtra("entrySide", entrySide);
                             intent.putExtra("entryOunces", entryOunces);
                             intent.putExtra("entryChild", entryChildID);
+                            intent.putExtra("babyGender", baby.getSex());
                             startActivityForResult(intent, 3);
                         }
                     }
                 });
 
-                final BabyDao babyDao = new BabyDao(getApplicationContext());
-                Baby baby = babyDao.getBaby(journal.getChild());
-
-                /* Add row to TableLayout. */
+                  /* Add row to TableLayout. */
                 tl.addView(tr1, new TableLayout.LayoutParams(
                         TableRow.LayoutParams.FILL_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));

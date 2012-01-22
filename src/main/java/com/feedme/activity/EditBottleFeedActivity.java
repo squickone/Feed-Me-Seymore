@@ -60,7 +60,6 @@ public class EditBottleFeedActivity extends Activity
         setContentView(R.layout.edit_bottle_feed_entry);
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
-
         //get baby id
         Bundle b = getIntent().getExtras();
         final int babyId = b.getInt("babyId");
