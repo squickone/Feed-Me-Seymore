@@ -15,8 +15,10 @@ import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
+import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
+import com.feedme.model.Settings;
 
 import java.util.Calendar;
 import java.util.List;
@@ -85,6 +87,29 @@ public class AddBottleFeedActivity extends Activity
         startTime = (Button) findViewById(R.id.addStartTime);
         endTime = (Button) findViewById(R.id.addEndTime);
 
+        // prepare settings data
+        final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
+        Settings setting = settingsDao.getSetting(1);
+
+        //populate settings data
+        TextView entryUnits = (TextView) findViewById(R.id.entryUnits);
+        final Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
+
+        if (setting.getLiquid().equals("oz")) {
+            //populate ounces spinner
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    this, R.array.feedingAmountOz, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            feedAmt.setAdapter(adapter);
+            entryUnits.setText("Ounces: ");
+        } else {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    this, R.array.feedingAmountMl, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            feedAmt.setAdapter(adapter);
+            entryUnits.setText("Milliliters: ");
+        }
+
         // add a click listener to the button
         entryDate.setOnClickListener(new View.OnClickListener()
         {
@@ -140,13 +165,13 @@ public class AddBottleFeedActivity extends Activity
                 Log.d("INSERT ENTRY DATE: ", entryDate.getText().toString());
                 Log.d("INSERT START TIME: ", startTime.getText().toString());
                 Log.d("INSERT END TIME: ", endTime.getText().toString());
-                Log.d("INSERT FEED QTY: ", feedQty);
+                Log.d("INSERT FEED QTY: ", feedAmt.getSelectedItem().toString());
                 Log.d("INSERT BABY ID: ", String.valueOf(babyId));
                 journalDao.addEntry(new Journal(entryDate.getText().toString(),
                         startTime.getText().toString(),
                         endTime.getText().toString(),
                         " ",
-                        feedQty,
+                        feedAmt.getSelectedItem().toString(),
                         babyId));
 
                 final BabyDao babyDao = new BabyDao(getApplicationContext());
@@ -160,13 +185,6 @@ public class AddBottleFeedActivity extends Activity
             }
         });
 
-        Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-        this, R.array.feedingAmountOz, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        feedAmt.setAdapter(adapter);
-
-        feedAmt.setOnItemSelectedListener(new MyOnItemSelectedListener());
     }
 
     @Override
