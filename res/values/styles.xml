@@ -45,12 +45,20 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">#7ed0ff</item>
+        <item name="android:padding">4dp</item>
         <item name="android:layout_alignParentTop">true</item>
+    </style>
+    <style name="bottomBanner">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">#7ed0ff</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
     </style>
     <style name="rightHeadline">
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:padding">4dp</item>
-        <item name="android:layout_marginBottom">20dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ffffffff</item>
@@ -67,15 +75,6 @@
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">25dp</item>
         <item name="android:background">@null</item>
-    </style>
-    <style name="bottomBanner">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:background">#7ed0ff</item>
-        <item name="android:padding">4dp</item>
-        <item name="android:paddingBottom">6dp</item>
-        <item name="android:layout_alignParentBottom">true</item>
     </style>
     <style name="imageBox">
         <item name="android:layout_margin">4dp</item>
