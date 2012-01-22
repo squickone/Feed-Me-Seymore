@@ -25,7 +25,7 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:29 PM
  */
-public class ViewEntriesActivity extends Activity
+public class ViewEntriesActivity extends BaseActivity
 {
     
     public static final int VIEW_ENTRIES_ACTIVITY_ID = 50;
@@ -40,16 +40,7 @@ public class ViewEntriesActivity extends Activity
         final int babyId = bundle.getInt("babyId");
         final String babyGender = bundle.getString("babyGender");
 
-        final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
-        final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
-
-        if (babyGender.equals("Male")) {
-            topBanner.setBackgroundColor(0xFF7ED0FF);
-            bottomBanner.setBackgroundColor(0xFF7ED0FF);
-        } else {
-            topBanner.setBackgroundColor(0xFFFF99CC);
-            bottomBanner.setBackgroundColor(0xFFFF99CC);
-        }
+        styleActivity(babyGender);
         
         handleButtons(babyId);
 
@@ -80,7 +71,14 @@ public class ViewEntriesActivity extends Activity
 
                 if (j == 0)
                 {
-                    tr1.setBackgroundColor(0xFFD2EDFC);
+                    if (babyGender.equals("Male"))
+                    {
+                        tr1.setBackgroundColor(0xFFD2EDFC);
+                    }
+                    else
+                    {
+                        tr1.setBackgroundColor(0xFFFCD2d2);
+                    }
                 }
                 else
                 {
