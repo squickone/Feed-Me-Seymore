@@ -53,6 +53,17 @@ public class EditChildActivity extends Activity {
         }
         final int babyId = baby.getID();
 
+        final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
+        final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
+
+        if (baby.getSex().equals("Male")) {
+            topBanner.setBackgroundColor(0xFF7ED0FF);
+            bottomBanner.setBackgroundColor(0xFF7ED0FF);
+        } else {
+            topBanner.setBackgroundColor(0xFFFF99CC);
+            bottomBanner.setBackgroundColor(0xFFFF99CC);
+        }
+
         TextView addChild = (TextView) findViewById(R.id.addChild);
         addChild.setText("Edit Baby");
 

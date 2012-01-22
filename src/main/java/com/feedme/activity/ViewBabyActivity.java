@@ -287,6 +287,7 @@ public class ViewBabyActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EditChildActivity.class);
                 intent.putExtra("babyName", babyNameToEdit);
+                intent.putExtra("babyGender", babyGender);
                 startActivityForResult(intent, 3);
             }
         });
