@@ -20,6 +20,7 @@
                  android:layout_width="fill_parent"
                  android:layout_height="wrap_content"
                  android:layout_below="@+id/topBanner"
+                 android:stretchColumns="2"
                  android:background="#cccccc">
 
         <TableRow style="@style/formRow">
@@ -77,9 +78,8 @@
             <EditText
                     android:text=""
                     android:id="@+id/entryOunces"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-            </EditText>
+                    style="@style/textForm"
+            />
         </TableRow>
 
         <TableRow style="@style/formRow">
@@ -91,12 +91,9 @@
                     android:layout_height="wrap_content">
             </TextView>
             <Spinner
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/entrySide"
-                    >
-
-            </Spinner>
+                    style="@style/spinnerForm"
+            />
         </TableRow>
 
         <TableRow style="@style/formRow" android:visibility="gone">

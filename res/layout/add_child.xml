@@ -4,6 +4,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="#fffae8">
+    
     <RelativeLayout
             android:id="@+id/topBanner"
             style="@style/topBanner">
@@ -24,7 +25,8 @@
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
-                    android:background="#cccccc">
+                     android:background="#cccccc"
+                     android:stretchColumns="2">
 
             <TableRow style="@style/formRow">
                 <TextView
@@ -36,8 +38,7 @@
                 </TextView>
                 <EditText
                         android:id="@+id/babyName"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
+                        style="@style/textForm">
                 </EditText>
             </TableRow>
 
@@ -49,13 +50,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                 </TextView>
-                <Spinner
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/babySex"
-                        >
-
-                </Spinner>
+                <Spinner android:id="@+id/babySex"
+                         style="@style/spinnerForm" />
             </TableRow>
 
             <TableRow style="@style/formRow">
@@ -68,8 +64,7 @@
                 </TextView>
                 <EditText
                         android:id="@+id/babyHeight"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
+                        style="@style/textForm">
                 </EditText>
             </TableRow>
 
@@ -83,8 +78,7 @@
                 </TextView>
                 <EditText
                         android:id="@+id/babyWeight"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
+                        style="@style/textForm">
                 </EditText>
             </TableRow>
 

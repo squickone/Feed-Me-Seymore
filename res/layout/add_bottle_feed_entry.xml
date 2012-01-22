@@ -20,7 +20,8 @@
                  android:layout_width="fill_parent"
                  android:layout_height="wrap_content"
                  android:layout_below="@+id/topBanner"
-                android:background="#cccccc">
+                 android:stretchColumns="2"
+                 android:background="#cccccc">
 
         <TableRow style="@style/formRow">
             <TextView
@@ -78,8 +79,7 @@
 
             <Spinner
                 android:id="@+id/feedAmt"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                style="@style/spinnerForm"
             />
         </TableRow>
 
