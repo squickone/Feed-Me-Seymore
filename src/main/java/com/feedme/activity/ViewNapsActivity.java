@@ -71,7 +71,14 @@ public class ViewNapsActivity extends BaseActivity
 
                 if (j == 0)
                 {
-                    tr1.setBackgroundColor(0xFFD2EDFC);
+                    if (babyGender.equals("Male"))
+                    {
+                        tr1.setBackgroundColor(0xFFD2EDFC);
+                    }
+                    else
+                    {
+                        tr1.setBackgroundColor(0xFFFCD2d2);
+                    }
                 }
                 else
                 {
