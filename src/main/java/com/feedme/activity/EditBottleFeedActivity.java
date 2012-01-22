@@ -103,6 +103,7 @@ public class EditBottleFeedActivity extends Activity
         TextView entryUnits = (TextView) findViewById(R.id.entryUnits);
         final Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
 
+        Integer tenToInteger = 10;
         if (setting.getLiquid().equals("oz")) {
             //populate ounces spinner
              ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -110,15 +111,20 @@ public class EditBottleFeedActivity extends Activity
              adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
              feedAmt.setAdapter(adapter);
              entryUnits.setText("Ounces: ");
+             if (Integer.parseInt(entryOuncesValue)>10) {
+                 feedAmt.setSelection((Integer.parseInt(entryOuncesValue)%tenToInteger)-1);
+             } else {
+                 feedAmt.setSelection(Integer.parseInt(entryOuncesValue)-1);
+             }
         } else {
              ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                     this, R.array.feedingAmountMl, android.R.layout.simple_spinner_item);
              adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
              feedAmt.setAdapter(adapter);
              entryUnits.setText("Milliliters: ");
+             feedAmt.setSelection((Integer.parseInt(entryOuncesValue)/tenToInteger)-1);
         }
 
-        feedAmt.setSelection(Integer.parseInt(entryOuncesValue)-1);
 
 
         // add a click listener to the button
