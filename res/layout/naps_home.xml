@@ -12,7 +12,7 @@
             style="@style/topBanner">
         >
         <TextView style="@style/rightHeadline"
-                  android:text="@string/journal"
+                  android:text="@string/naps"
                   android:id="@+id/myFamily"
                 />
 
