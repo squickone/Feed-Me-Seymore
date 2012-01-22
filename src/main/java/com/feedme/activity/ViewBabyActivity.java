@@ -188,6 +188,7 @@ public class ViewBabyActivity extends Activity {
                         intent.putExtra("entrySide", entrySide);
                         intent.putExtra("entryOunces", entryOunces);
                         intent.putExtra("entryChild", entryChildID);
+                        intent.putExtra("babyGender", babyGender);
                         startActivityForResult(intent, 3);               
                     }
                     else
@@ -200,6 +201,7 @@ public class ViewBabyActivity extends Activity {
                         intent.putExtra("entrySide", entrySide);
                         intent.putExtra("entryOunces", entryOunces);
                         intent.putExtra("entryChild", entryChildID);
+                        intent.putExtra("babyGender", babyGender);
                         startActivityForResult(intent, 3);                
                     }
                 }   
