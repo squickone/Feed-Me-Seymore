@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="iconNavButton">
-        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:background">@drawable/button_states</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:width">54dp</item>
         <item name="android:height">54dp</item>
@@ -9,6 +9,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ff9090fc</item>
         <item name="android:layout_margin">4dp</item>
+        <!--<item name="android:color"></item>-->
     </style>
     <style name="topNavButton">
         <item name="android:background">@drawable/button_bg</item>
