@@ -28,7 +28,7 @@
 
             <Button android:id="@+id/entryDate"
                     android:text="Test"
-                    style="@style/spinnerForm" />
+                    style="@style/dateButton" />
 
         </TableRow>
 
