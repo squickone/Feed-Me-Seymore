@@ -17,19 +17,14 @@
     </RelativeLayout>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="fill_parent"
-                 android:layout_height="wrap_content"
                  android:layout_below="@+id/topBanner"
-                 android:stretchColumns="2"
-                 android:background="#cccccc">
+                 style='@style/formTable'>
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Entry date: "
-                    android:textColor="#000000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    android:text="Entry date:"
+                    style="@style/formTag"
+            />
 
             <Button android:id="@+id/entryDate"
                     android:text="Test"
@@ -39,12 +34,9 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Start Time: "
-                    android:textColor="#000000"
-                    android:layout_column="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    android:text="Start Time:"
+                    style="@style/formTag"
+            />
 
             <Button android:id="@+id/addStartTime"
                     android:text="Test"
@@ -54,12 +46,9 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="End Time: "
-                    android:textColor="#000000"
-                    android:layout_column="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    android:text="End Time:"
+                    style="@style/formTag"
+            />
             
             <Button android:id="@+id/addEndTime"
                     android:text="Test"
@@ -70,12 +59,9 @@
         <TableRow style="@style/formRow">
             <TextView
                     android:text="Ounces: "
-                    android:textColor="#000000"
-                    android:layout_column="0"
                     android:id="@+id/entryUnits"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    style="@style/formTag"
+            />
 
             <Spinner
                 android:id="@+id/feedAmt"

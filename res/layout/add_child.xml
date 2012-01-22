@@ -16,89 +16,64 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/topBanner"
-        android:layout_above="@+id/bottomBanner">
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_below="@+id/topBanner"
+                 style='@style/formTable'>
 
-        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                     android:layout_width="fill_parent"
-                     android:layout_height="wrap_content"
-                     android:background="#cccccc"
-                     android:stretchColumns="2">
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Baby Name:"
+                    style="@style/formTag">
+            </TextView>
+            <EditText
+                    android:id="@+id/babyName"
+                    style="@style/textForm">
+            </EditText>
+        </TableRow>
 
-            <TableRow style="@style/formRow">
-                <TextView
-                        android:text="Baby name: "
-                        android:textColor="#000000"
-                        android:layout_column="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                </TextView>
-                <EditText
-                        android:id="@+id/babyName"
-                        style="@style/textForm">
-                </EditText>
-            </TableRow>
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Sex:"
+                    style="@style/formTag">
+            </TextView>
+            <Spinner android:id="@+id/babySex"
+                     style="@style/spinnerForm" />
+        </TableRow>
 
-            <TableRow style="@style/formRow">
-                <TextView
-                        android:text="Sex: "
-                        android:textColor="#000000"
-                        android:layout_column="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                </TextView>
-                <Spinner android:id="@+id/babySex"
-                         style="@style/spinnerForm" />
-            </TableRow>
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Height:"
+                    style="@style/formTag">
+            </TextView>
+            <EditText
+                    android:id="@+id/babyHeight"
+                    style="@style/textForm">
+            </EditText>
+        </TableRow>
 
-            <TableRow style="@style/formRow">
-                <TextView
-                        android:text="Height: "
-                        android:textColor="#000000"
-                        android:layout_column="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                </TextView>
-                <EditText
-                        android:id="@+id/babyHeight"
-                        style="@style/textForm">
-                </EditText>
-            </TableRow>
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Weight:"
+                    style="@style/formTag">
+            </TextView>
+            <EditText
+                    android:id="@+id/babyWeight"
+                    style="@style/textForm">
+            </EditText>
+        </TableRow>
 
-            <TableRow style="@style/formRow">
-                <TextView
-                        android:text="Weight: "
-                        android:textColor="#000000"
-                        android:layout_column="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                </TextView>
-                <EditText
-                        android:id="@+id/babyWeight"
-                        style="@style/textForm">
-                </EditText>
-            </TableRow>
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="DOB:"
+                    style="@style/formTag">
+            </TextView>
+            <Button android:id="@+id/babyDob"
+                    android:text="Test"
+                    style="@style/dateButton" />
 
-            <TableRow style="@style/formRow">
-                <TextView
-                        android:text="DOB: "
-                        android:textColor="#000000"
-                        android:layout_column="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                </TextView>
-                <Button android:id="@+id/babyDob"
-                        android:text="Test"
-                        style="@style/dateButton" />
+        </TableRow>
 
-            </TableRow>
-            
-        </TableLayout>
-
-    </RelativeLayout>
+    </TableLayout>
 
     <RelativeLayout
         android:id="@+id/bottomBanner"

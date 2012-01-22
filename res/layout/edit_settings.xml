@@ -18,52 +18,39 @@
     </RelativeLayout>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"
                  android:layout_below="@+id/topBanner"
-                 android:layout_above="@+id/bottomBanner"
-                 android:background="#cccccc"
-                 android:stretchColumns="2">
+                 style='@style/formTable'>
 
         <TableRow style="@style/formRow">
             <TextView
                     android:text="Liquid: "
-                    android:textColor="#000000"
-                    android:layout_column="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    style="@style/formTag"
+            />
 
             <Spinner
                     android:id="@+id/settingsLiquid"
                     style="@style/spinnerForm"
                     android:entries="@array/liquidMeasurements"
-                    />
+            />
         </TableRow>
 
         <TableRow style="@style/formRow">
             <TextView
                     android:text="Length: "
-                    android:textColor="#000000"
-                    android:layout_column="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    style="@style/formTag"
+            />
             <Spinner
                     android:id="@+id/settingsLength"
                     style="@style/spinnerForm"
                     android:entries="@array/lengthMeasurements"
-                    />
+            />
         </TableRow>
 
         <TableRow style="@style/formRow">
             <TextView
                     android:text="Weight: "
-                    android:textColor="#000000"
-                    android:layout_column="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    style="@style/formTag"
+            />
             <Spinner
                     android:id="@+id/settingsWeight"
                     style="@style/spinnerForm"
@@ -74,46 +61,37 @@
         <TableRow style="@style/formRow">
             <TextView
                     android:text="Temperature: "
-                    android:textColor="#000000"
-                    android:layout_column="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    style="@style/formTag"
+            />
             <Spinner
                     android:id="@+id/settingsTemperature"
                     style="@style/spinnerForm"
                     android:entries="@array/temperatureMeasurements"
-                    />
+            />
         </TableRow>
 
         <TableRow style="@style/formRow">
             <TextView
                     android:text="Sound: "
-                    android:textColor="#000000"
-                    android:layout_column="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    style="@style/formTag"
+            />
             <Spinner
                     android:id="@+id/settingsSound"
                     style="@style/spinnerForm"
                     android:entries="@array/soundOptions"
-                    />
+            />
         </TableRow>
 
         <TableRow style="@style/formRow">
             <TextView
                     android:text="Vibrate: "
-                    android:textColor="#000000"
-                    android:layout_column="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            </TextView>
+                    style="@style/formTag"
+            />
             <Spinner
                     android:id="@+id/settingsVibrate"
                     style="@style/spinnerForm"
                     android:entries="@array/vibrateOptions"
-                    />
+            />
         </TableRow>
         
     </TableLayout>

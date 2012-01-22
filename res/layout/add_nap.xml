@@ -22,10 +22,8 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Nap date: "
-                    android:textColor="#000000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:text="Nap Date:"
+                    style="@style/formTag">
             </TextView>
 
             <Button android:id="@+id/napDate"
@@ -36,11 +34,8 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Start Time: "
-                    android:textColor="#000000"
-                    android:layout_column="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:text="Start Time:"
+                    style="@style/formTag">
             </TextView>
 
             <Button android:id="@+id/addStartTime"
@@ -51,11 +46,8 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="End Time: "
-                    android:textColor="#000000"
-                    android:layout_column="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:text="End Time:"
+                    style="@style/formTag">
             </TextView>
             
             <Button android:id="@+id/addEndTime"
@@ -66,17 +58,13 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Location: "
-                    android:textColor="#000000"
-                    android:layout_column="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:text="Location:"
+                    style="@style/formTag">
             </TextView>
 
             <EditText
                     android:id="@+id/napLocation"
-                    android:layout_width="190dp"
-                    android:layout_height="wrap_content">
+                    style="@style/textForm">
             </EditText>
         </TableRow>
 
