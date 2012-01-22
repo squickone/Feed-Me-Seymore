@@ -10,9 +10,9 @@
         style="@style/topBanner">
 
         <Button
-                style="@style/leftHeadline"
+                style="@style/topNavButton"
                 android:id="@+id/editBaby"
-                android:text="« Edit Baby"
+                android:text="Edit"
                 android:layout_alignParentLeft="true"/>
 
         <TextView

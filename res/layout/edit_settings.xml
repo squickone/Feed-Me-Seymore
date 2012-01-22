@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:theme="@android:style/Theme.NoTitleBar"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="#fffae8">
 
+    <RelativeLayout
+        android:id="@+id/topBanner"
+        style="@style/topBanner">
+
+        <TextView
+            style="@style/rightHeadline"
+            android:text="@string/settings"
+            android:id="@+id/editSettings"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:layout_width="fill_parent"
                  android:layout_height="fill_parent"
+                 android:layout_below="@+id/topBanner"
+                 android:layout_above="@+id/bottomBanner"
+                 android:background="#cccccc"
                  android:stretchColumns="2">
 
-        <TableRow>
-            <TextView
-                    android:layout_span="3"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#7ed0ff"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp"
-                    android:gravity="right"
-                    android:text="@string/settings"
-                    android:id="@+id/editSettings"
-                    />
-        </TableRow>
-
-        <TableRow>
+        <TableRow style="@style/formRow">
             <TextView
                     android:text="Liquid: "
                     android:textColor="#000000"
@@ -39,13 +36,12 @@
 
             <Spinner
                     android:id="@+id/settingsLiquid"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/spinnerForm"
                     android:entries="@array/liquidMeasurements"
                     />
         </TableRow>
 
-        <TableRow android:paddingTop="5dp">
+        <TableRow style="@style/formRow">
             <TextView
                     android:text="Length: "
                     android:textColor="#000000"
@@ -55,13 +51,12 @@
             </TextView>
             <Spinner
                     android:id="@+id/settingsLength"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/spinnerForm"
                     android:entries="@array/lengthMeasurements"
                     />
         </TableRow>
 
-        <TableRow android:paddingTop="5dp">
+        <TableRow style="@style/formRow">
             <TextView
                     android:text="Weight: "
                     android:textColor="#000000"
@@ -71,13 +66,12 @@
             </TextView>
             <Spinner
                     android:id="@+id/settingsWeight"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/spinnerForm"
                     android:entries="@array/weightMeasurements"
                     />
         </TableRow>
 
-        <TableRow android:paddingTop="5dp">
+        <TableRow style="@style/formRow">
             <TextView
                     android:text="Temperature: "
                     android:textColor="#000000"
@@ -87,13 +81,12 @@
             </TextView>
             <Spinner
                     android:id="@+id/settingsTemperature"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/spinnerForm"
                     android:entries="@array/temperatureMeasurements"
                     />
         </TableRow>
 
-        <TableRow android:paddingTop="5dp">
+        <TableRow style="@style/formRow">
             <TextView
                     android:text="Sound: "
                     android:textColor="#000000"
@@ -103,13 +96,12 @@
             </TextView>
             <Spinner
                     android:id="@+id/settingsSound"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/spinnerForm"
                     android:entries="@array/soundOptions"
                     />
         </TableRow>
 
-        <TableRow android:paddingTop="5dp">
+        <TableRow style="@style/formRow">
             <TextView
                     android:text="Vibrate: "
                     android:textColor="#000000"
@@ -119,14 +111,15 @@
             </TextView>
             <Spinner
                     android:id="@+id/settingsVibrate"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/spinnerForm"
                     android:entries="@array/vibrateOptions"
                     />
         </TableRow>
+        
     </TableLayout>
 
     <RelativeLayout
+        android:id="@+id/bottomBanner"
         style="@style/bottomBanner">
 
             <Button android:id="@+id/saveSettingsButton"
