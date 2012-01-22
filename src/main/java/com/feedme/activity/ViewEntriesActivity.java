@@ -12,8 +12,10 @@ import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
+import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
+import com.feedme.model.Settings;
 
 import java.util.List;
 
@@ -41,6 +43,10 @@ public class ViewEntriesActivity extends Activity
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
         List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 10);
+
+        // prepare settings data
+        final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
+        Settings setting = settingsDao.getSetting(1);
 
         Log.d("BABYID ENTRIES:", String.valueOf(babyId));
         
@@ -126,7 +132,13 @@ public class ViewEntriesActivity extends Activity
 
             TextView babyWake = new TextView(this);
             babyWake.setTextColor(0xFF000000);
-            babyWake.setText(journal.getOunces());
+            //if not bottle feed, don't display "oz"
+            if (side.trim().isEmpty()) {
+                babyWake.setText(journal.getOunces() + " " + setting.getLiquid());
+            }
+            else {
+                babyWake.setText(journal.getOunces());
+            }
 
             linearLayoutVertical.addView(babyWake);
 

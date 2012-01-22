@@ -15,8 +15,10 @@ import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
+import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
+import com.feedme.model.Settings;
 
 import java.util.Calendar;
 
@@ -58,25 +60,18 @@ public class EditBottleFeedActivity extends Activity
         setContentView(R.layout.edit_bottle_feed_entry);
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
-        //populate ounces spinner
-        final Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.feedingAmount, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        feedAmt.setAdapter(adapter);
 
-
-        // button listener for add child button
-
+        //get baby id
         Bundle b = getIntent().getExtras();
         final int babyId = b.getInt("babyId");
 
-
+ 
         entryDate = (Button) findViewById(R.id.entryDate);
         startTime = (Button) findViewById(R.id.addStartTime);
         endTime = (Button) findViewById(R.id.addEndTime);
         Button editEntryButton = (Button) findViewById(R.id.editEntryButton);
 
+        //get baby properties
         final int entryID = getIntent().getExtras().getInt("entryID");
         final String entryDateValue = getIntent().getExtras().getString("entryDate");
         final String entryStartTimeValue = getIntent().getExtras().getString("entryStartTime");
@@ -84,10 +79,36 @@ public class EditBottleFeedActivity extends Activity
         final String entryOuncesValue = getIntent().getExtras().getString("entryOunces");
         final int entryChildValue = getIntent().getExtras().getInt("entryChild");
 
+        // prepare settings data
+        final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
+        Settings setting = settingsDao.getSetting(1);
+
+        //populate baby data
         entryDate.setText(entryDateValue);
         startTime.setText(entryStartTimeValue);
         endTime.setText(entryEndTimeValue);
+
+        //populate settings data
+        TextView entryUnits = (TextView) findViewById(R.id.entryUnits);
+        final Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
+
+        if (setting.getLiquid().equals("oz")) {
+            //populate ounces spinner
+             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    this, R.array.feedingAmountOz, android.R.layout.simple_spinner_item);
+             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+             feedAmt.setAdapter(adapter);
+             entryUnits.setText("Ounces: ");
+        } else {
+             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    this, R.array.feedingAmountMl, android.R.layout.simple_spinner_item);
+             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+             feedAmt.setAdapter(adapter);
+             entryUnits.setText("Milliliters: ");
+        }
+
         feedAmt.setSelection(Integer.parseInt(entryOuncesValue)-1);
+
 
         // add a click listener to the button
         entryDate.setOnClickListener(new View.OnClickListener()

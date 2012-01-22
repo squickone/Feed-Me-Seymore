@@ -66,7 +66,12 @@ public class ViewBabyActivity extends Activity {
         List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 5);
 
         TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
-        
+
+        // prepare settings data
+        final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
+        Settings setting = settingsDao.getSetting(1);
+
+        //populate journal data
         int j = 0;
         for (Journal journal : lsJournal)
         {
@@ -141,7 +146,13 @@ public class ViewBabyActivity extends Activity {
 
             TextView babyWake = new TextView(this);
             babyWake.setTextColor(0xFF000000);
-            babyWake.setText(journal.getOunces());
+            
+            if (side.trim().isEmpty()) {
+                babyWake.setText(journal.getOunces() + " " + setting.getLiquid());
+            }
+            else {
+                babyWake.setText(journal.getOunces());
+            }
 
             linearLayoutVertical.addView(babyWake);
 
@@ -198,6 +209,8 @@ public class ViewBabyActivity extends Activity {
             }
         }
 
+
+ 
         // Populate Baby Data
         if (baby != null)
         {
@@ -229,10 +242,8 @@ public class ViewBabyActivity extends Activity {
             babyDob.setText(baby.getDob());
 
             //populate units of measurement
-            final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
             final TextView heightMeas = (TextView) findViewById(R.id.heightMeas);
             final TextView weightMeas = (TextView) findViewById(R.id.weightMeas);
-            Settings setting = settingsDao.getSetting(1);
             heightMeas.setText(" " + setting.getLength());
             weightMeas.setText(" " + setting.getSettingsWeight());
 

@@ -201,7 +201,14 @@
                 style="@style/iconNavButton"
                 />
 
-        <Button android:text="Bottle"
+        <Button android:text="Nap"
+                android:id="@+id/naps_Button"
+                android:drawableTop="@drawable/icon_nap"
+                android:layout_toRightOf="@+id/journalButton"
+                style="@style/iconNavButton"
+                />
+
+       <Button android:text="Bottle"
                 android:id="@+id/bottleButton"
                 android:drawableTop="@drawable/icon_bottle"
                 android:layout_toLeftOf="@+id/breastfeedButton"

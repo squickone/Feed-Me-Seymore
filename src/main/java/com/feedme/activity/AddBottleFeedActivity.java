@@ -150,7 +150,7 @@ public class AddBottleFeedActivity extends Activity
 
         Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-        this, R.array.feedingAmount, android.R.layout.simple_spinner_item);
+        this, R.array.feedingAmountOz, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         feedAmt.setAdapter(adapter);
 
