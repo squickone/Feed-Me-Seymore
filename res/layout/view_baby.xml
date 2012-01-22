@@ -137,7 +137,7 @@
             <TextView
                 style="@style/segmentBanner"
                 android:text="Today's Feedings"
-                android:id="@+id/test"/>
+                android:id="@+id/babyFeedings"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -157,12 +157,10 @@
 
             </LinearLayout>
 
-
-
             <TextView
                 style="@style/segmentBanner"
                 android:text="Feeding History"
-                android:id="@+id/test"/>
+                android:id="@+id/feedHistory"/>
 
             <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="fill_parent"

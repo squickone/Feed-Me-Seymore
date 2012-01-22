@@ -86,6 +86,7 @@
     </TableLayout>
 
     <RelativeLayout
+        android:id="@+id/bottomBanner"
         style="@style/bottomBanner">
 
             <Button android:text="Save"
