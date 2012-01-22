@@ -14,8 +14,10 @@ import android.view.View;
 import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
+import com.feedme.dao.NapDao;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
+import com.feedme.model.Nap;
 import com.feedme.model.Settings;
 
 public class HomeActivity extends Activity {
@@ -62,6 +64,7 @@ public class HomeActivity extends Activity {
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
         settingsDao.addSettings(new Settings("oz", "in", "lbs", "F", "off", "off"));
     }
+
 
     public void showBabies() {
         final BabyDao babyDao = new BabyDao(getApplicationContext());

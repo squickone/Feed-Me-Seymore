@@ -285,6 +285,16 @@ public class ViewBabyActivity extends Activity {
             }
         });
 
+        //Add Nap Button`
+        Button napButton = (Button) findViewById(R.id.naps_Button);
+        napButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewNapsActivity.class);
+                intent.putExtra("babyId", babyId);
+                startActivityForResult(intent, 3);
+            }
+        });
+
         //Journal Button`
         Button journalButton = (Button) findViewById(R.id.journalButton);
         journalButton.setOnClickListener(new View.OnClickListener() {

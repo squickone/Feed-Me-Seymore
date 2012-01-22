@@ -11,6 +11,7 @@
     <string name="addEntry">Add a Journal Entry</string>
     <string name="addBottle">Add Bottle Feeding</string>
     <string name="addBreast">Add Breast Feeding</string>
+    <string name="addNap">Add Nap</string>
     <string name="journal">My Journal Entries</string>
     <string name="takePicture">Take Picture</string>
     <string name="pickPicture">Select Picture</string>

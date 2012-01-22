@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#fffae8">
+
+    <RelativeLayout
+        android:id="@+id/topBanner"
+        style="@style/topBanner">
+
+        <TextView  style="@style/rightHeadline"
+                   android:text="@string/addNap"
+                   android:id="@+id/addNap"
+                />
+
+    </RelativeLayout>
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/topBanner"
+                android:background="#cccccc">
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Nap date: "
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+
+            <Button android:id="@+id/napDate"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Start Time: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+
+            <Button android:id="@+id/addStartTime"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="End Time: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+            
+            <Button android:id="@+id/addEndTime"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Location: "
+                    android:textColor="#000000"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+            </TextView>
+
+            <EditText
+                    android:id="@+id/napLocation"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content">
+            </EditText>
+        </TableRow>
+
+    </TableLayout>
+
+    <RelativeLayout
+        style="@style/bottomBanner">
+
+            <Button android:id="@+id/addNapButton"
+                    style="@style/iconNavButton"
+                    android:text="Save"
+                    android:drawableTop="@drawable/icon_save"
+                    android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

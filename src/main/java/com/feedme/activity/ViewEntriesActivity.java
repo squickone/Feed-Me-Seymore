@@ -52,153 +52,154 @@ public class ViewEntriesActivity extends Activity
         
         TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
 
-        int j = 0;
-        for (Journal journal : lsJournal)
-        {
-            final int entryID = journal.getID();
-            final String entryDate = journal.getDate();
-            final String entryStartTime = journal.getStartTime();
-            final String entryEndTime = journal.getEndTime();
-            final String entryOunces = journal.getOunces();
-            final String entrySide = journal.getSide();
-            final int entryChildID = journal.getChild();
-
-            TableRow tr1 = new TableRow(this);  //create new row
-
-            if (j == 0)
+        if (lsJournal.size()>0) {
+            int j = 0;
+            for (Journal journal : lsJournal)
             {
-                tr1.setBackgroundColor(0xFFD2EDFC);
-            }
-            else
-            {
-                tr1.setBackgroundColor(0xFFFFFFFF);
-            }
-            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
-                    TableRow.LayoutParams.FILL_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT);
-            tr1.setLayoutParams(layoutParams);
-            tr1.setClickable(true);
-            tr1.setPadding(5, 5, 5, 5);
+                final int entryID = journal.getID();
+                final String entryDate = journal.getDate();
+                final String entryStartTime = journal.getStartTime();
+                final String entryEndTime = journal.getEndTime();
+                final String entryOunces = journal.getOunces();
+                final String entrySide = journal.getSide();
+                final int entryChildID = journal.getChild();
 
-            LinearLayout linearLayoutHorizontal = new LinearLayout(this);
+                TableRow tr1 = new TableRow(this);  //create new row
 
-            ImageView imageView = new ImageView(this);
-            imageView.setMinimumHeight(60);
-            imageView.setMinimumWidth(60);
-            imageView.setBackgroundResource(R.drawable.icon_border);
-
-            if (journal.getSide().trim().isEmpty())
-            {
-                imageView.setImageResource(R.drawable.icon_bottle);
-            }
-            else
-            {
-                imageView.setImageResource(R.drawable.icon_breastfeed);
-            }
-
-            linearLayoutHorizontal.addView(imageView);
-
-            LinearLayout linearLayoutVertical = new LinearLayout(this);
-
-            linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
-
-            linearLayoutVertical.setPadding(5,0,0,0);
-
-            TextView bottleBreast = new TextView(this);
-            bottleBreast.setTextColor(0xFF000000);
-            final String side = journal.getSide();
-            if (side.trim().isEmpty())
-            {
-                bottleBreast.setText("Bottle");
-            }
-            else
-            {
-                bottleBreast.setText("Breastfeeding - " + journal.getSide());
-            }
-
-            linearLayoutVertical.addView(bottleBreast);
-
-//            TextView entryId = new TextView(this);
-//            entryId.setTextColor(0xFF000000);
-//            entryId.setText("Entry ID: " + journal.getID());
-//
-//            linearLayoutVertical.addView(entryId);
-
-            TextView feedAmount = new TextView(this);
-            feedAmount.setTextColor(0xFF000000);
-            feedAmount.setText(journal.getDate());
-
-            linearLayoutVertical.addView(feedAmount);
-
-            TextView babyWake = new TextView(this);
-            babyWake.setTextColor(0xFF000000);
-            //if not bottle feed, don't display "oz"
-            if (side.trim().isEmpty()) {
-                babyWake.setText(journal.getOunces() + " " + setting.getLiquid());
-            }
-            else {
-                babyWake.setText(journal.getOunces());
-            }
-
-            linearLayoutVertical.addView(babyWake);
-
-            TextView babyDiaper = new TextView(this);
-            babyDiaper.setTextColor(0xFF000000);
-            babyDiaper.setText(journal.getStartTime() + " - " + journal.getEndTime());
-
-            linearLayoutVertical.addView(babyDiaper);
-
-            linearLayoutHorizontal.addView(linearLayoutVertical);
-
-            tr1.addView(linearLayoutHorizontal);
-
-            tr1.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)       {
-
-                    if (side.trim().isEmpty())
-                    {
-                        Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
-                        intent.putExtra("entryID", entryID);
-                        intent.putExtra("entryDate", entryDate);
-                        intent.putExtra("entryStartTime", entryStartTime);
-                        intent.putExtra("entryEndTime", entryEndTime);
-                        intent.putExtra("entrySide", entrySide);
-                        intent.putExtra("entryOunces", entryOunces);
-                        intent.putExtra("entryChild", entryChildID);
-                        startActivityForResult(intent, 3);
-                    }
-                    else
-                    {
-                        Intent intent = new Intent(v.getContext(), EditBreastFeedActivity.class);
-                        intent.putExtra("entryID", entryID);
-                        intent.putExtra("entryDate", entryDate);
-                        intent.putExtra("entryStartTime", entryStartTime);
-                        intent.putExtra("entryEndTime", entryEndTime);
-                        intent.putExtra("entrySide", entrySide);
-                        intent.putExtra("entryOunces", entryOunces);
-                        intent.putExtra("entryChild", entryChildID);
-                        startActivityForResult(intent, 3);
-                    }
+                if (j == 0)
+                {
+                    tr1.setBackgroundColor(0xFFD2EDFC);
                 }
-            });
+                else
+                {
+                    tr1.setBackgroundColor(0xFFFFFFFF);
+                }
+                TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
+                        TableRow.LayoutParams.FILL_PARENT,
+                        TableRow.LayoutParams.WRAP_CONTENT);
+                tr1.setLayoutParams(layoutParams);
+                tr1.setClickable(true);
+                tr1.setPadding(5, 5, 5, 5);
 
-            final BabyDao babyDao = new BabyDao(getApplicationContext());
-            Baby baby = babyDao.getBaby(journal.getChild());
+                LinearLayout linearLayoutHorizontal = new LinearLayout(this);
 
-            /* Add row to TableLayout. */
-            tl.addView(tr1, new TableLayout.LayoutParams(
-                    TableRow.LayoutParams.FILL_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
+                ImageView imageView = new ImageView(this);
+                imageView.setMinimumHeight(60);
+                imageView.setMinimumWidth(60);
+                imageView.setBackgroundResource(R.drawable.icon_border);
 
-            j++;
-            if (j == 2)
-            {
-                j = 0;
+                if (journal.getSide().trim().isEmpty())
+                {
+                    imageView.setImageResource(R.drawable.icon_bottle);
+                }
+                else
+                {
+                    imageView.setImageResource(R.drawable.icon_breastfeed);
+                }
+
+                linearLayoutHorizontal.addView(imageView);
+
+                LinearLayout linearLayoutVertical = new LinearLayout(this);
+
+                linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
+
+                linearLayoutVertical.setPadding(5,0,0,0);
+
+                TextView bottleBreast = new TextView(this);
+                bottleBreast.setTextColor(0xFF000000);
+                final String side = journal.getSide();
+                if (side.trim().isEmpty())
+                {
+                    bottleBreast.setText("Bottle");
+                }
+                else
+                {
+                    bottleBreast.setText("Breastfeeding - " + journal.getSide());
+                }
+
+                linearLayoutVertical.addView(bottleBreast);
+
+    //            TextView entryId = new TextView(this);
+    //            entryId.setTextColor(0xFF000000);
+    //            entryId.setText("Entry ID: " + journal.getID());
+    //
+    //            linearLayoutVertical.addView(entryId);
+
+                TextView feedAmount = new TextView(this);
+                feedAmount.setTextColor(0xFF000000);
+                feedAmount.setText(journal.getDate());
+
+                linearLayoutVertical.addView(feedAmount);
+
+                TextView babyWake = new TextView(this);
+                babyWake.setTextColor(0xFF000000);
+                //if not bottle feed, don't display "oz"
+                if (side.trim().isEmpty()) {
+                    babyWake.setText(journal.getOunces() + " " + setting.getLiquid());
+                }
+                else {
+                    babyWake.setText(journal.getOunces());
+                }
+
+                linearLayoutVertical.addView(babyWake);
+
+                TextView babyDiaper = new TextView(this);
+                babyDiaper.setTextColor(0xFF000000);
+                babyDiaper.setText(journal.getStartTime() + " - " + journal.getEndTime());
+
+                linearLayoutVertical.addView(babyDiaper);
+
+                linearLayoutHorizontal.addView(linearLayoutVertical);
+
+                tr1.addView(linearLayoutHorizontal);
+
+                tr1.setOnClickListener(new View.OnClickListener()
+                {
+                    public void onClick(View v)       {
+
+                        if (side.trim().isEmpty())
+                        {
+                            Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
+                            intent.putExtra("entryID", entryID);
+                            intent.putExtra("entryDate", entryDate);
+                            intent.putExtra("entryStartTime", entryStartTime);
+                            intent.putExtra("entryEndTime", entryEndTime);
+                            intent.putExtra("entrySide", entrySide);
+                            intent.putExtra("entryOunces", entryOunces);
+                            intent.putExtra("entryChild", entryChildID);
+                            startActivityForResult(intent, 3);
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(v.getContext(), EditBreastFeedActivity.class);
+                            intent.putExtra("entryID", entryID);
+                            intent.putExtra("entryDate", entryDate);
+                            intent.putExtra("entryStartTime", entryStartTime);
+                            intent.putExtra("entryEndTime", entryEndTime);
+                            intent.putExtra("entrySide", entrySide);
+                            intent.putExtra("entryOunces", entryOunces);
+                            intent.putExtra("entryChild", entryChildID);
+                            startActivityForResult(intent, 3);
+                        }
+                    }
+                });
+
+                final BabyDao babyDao = new BabyDao(getApplicationContext());
+                Baby baby = babyDao.getBaby(journal.getChild());
+
+                /* Add row to TableLayout. */
+                tl.addView(tr1, new TableLayout.LayoutParams(
+                        TableRow.LayoutParams.FILL_PARENT,
+                        TableRow.LayoutParams.WRAP_CONTENT));
+
+                j++;
+                if (j == 2)
+                {
+                    j = 0;
+                }
             }
+
         }
-
-
 
     }
 

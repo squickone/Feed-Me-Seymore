@@ -201,7 +201,7 @@
                 style="@style/iconNavButton"
                 />
 
-        <Button android:text="Nap"
+        <Button android:text="Naps"
                 android:id="@+id/naps_Button"
                 android:drawableTop="@drawable/icon_nap"
                 android:layout_toRightOf="@+id/journalButton"

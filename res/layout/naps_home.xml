@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                android:background="#fffae8">
+
+    <RelativeLayout
+            android:id="@+id/topBanner"
+            style="@style/topBanner">
+        >
+        <TextView style="@style/rightHeadline"
+                  android:text="@string/journal"
+                  android:id="@+id/myFamily"
+                />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/topBanner"
+            android:layout_above="@+id/bottomBanner"
+            android:orientation="horizontal">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/myTableLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                >
+
+            </TableLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/bottomBanner"
+            style="@style/bottomBanner">
+
+        <Button android:text="Baby"
+                android:id="@+id/childScreen"
+                android:drawableTop="@drawable/icon_baby"
+                android:layout_alignParentLeft="true"
+                style="@style/iconNavButton"
+                />
+
+        <Button android:text="Add"
+                android:id="@+id/addNapButton"
+                android:drawableTop="@drawable/icon_nap"
+                android:layout_alignParentRight="true"
+                style="@style/iconNavButton"
+                />
+   </RelativeLayout>
+
+</RelativeLayout>

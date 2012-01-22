@@ -47,7 +47,13 @@
                   android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".activity.EditBreastFeedActivity"
                   android:theme="@android:style/Theme.NoTitleBar"/>
- </application>
+        <activity android:name=".activity.AddNapActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.EditNapActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.ViewNapsActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+</application>
 
 </manifest>
 
