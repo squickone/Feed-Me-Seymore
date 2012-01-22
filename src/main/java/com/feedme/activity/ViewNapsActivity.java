@@ -210,6 +210,7 @@ public class ViewNapsActivity extends BaseActivity
             case R.id.home:
                 startActivity(new Intent(ViewNapsActivity.this,
                         HomeActivity.class));
+                break;
             case R.id.settings:
                 startActivity(new Intent(ViewNapsActivity.this,
                         SettingsActivity.class));
