@@ -51,6 +51,7 @@ public class ViewBabyActivity extends Activity {
         }
 
         final int babyId = baby.getID();
+        final String babyGender = baby.getSex();
         Log.d("BABYID VIEW BABY:", String.valueOf(babyId));
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
@@ -87,7 +88,14 @@ public class ViewBabyActivity extends Activity {
 
             if (j == 0)
             {
-                tr1.setBackgroundColor(0xFFD2EDFC);
+                if (baby.getSex().equals("Male"))
+                {
+                    tr1.setBackgroundColor(0xFFD2EDFC);
+                }
+                else
+                {
+                    tr1.setBackgroundColor(0xFFFCD2d2);
+                }
             }
             else
             {
@@ -208,8 +216,6 @@ public class ViewBabyActivity extends Activity {
                 j = 0;
             }
         }
-
-
  
         // Populate Baby Data
         if (baby != null)
@@ -220,16 +226,23 @@ public class ViewBabyActivity extends Activity {
             final TextView babySex = (TextView) findViewById(R.id.babySex);
             babySex.setText(baby.getSex());
 
+            final Button familyButton = (Button) findViewById(R.id.familyButton);
+
             final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
             final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
-            
-            final Button familyButton = (Button) findViewById(R.id.familyButton);
+            final TextView babyFeedings = (TextView) findViewById(R.id.babyFeedings);
+            final TextView feedHistory = (TextView) findViewById(R.id.feedHistory);
+
             if ((baby.getSex()).equals("Male")) {
                 topBanner.setBackgroundColor(0xFF7ED0FF);
                 bottomBanner.setBackgroundColor(0xFF7ED0FF);
+                babyFeedings.setBackgroundColor(0xFF9090FC);
+                feedHistory.setBackgroundColor(0xFF9090FC);
             } else {
                 topBanner.setBackgroundColor(0xFFFF99CC);
                 bottomBanner.setBackgroundColor(0xFFFF99CC);
+                babyFeedings.setBackgroundColor(0xFFFC9090);
+                feedHistory.setBackgroundColor(0xFFFC9090);
             }
 
             final TextView babyHeight = (TextView) findViewById(R.id.babyHeight);
@@ -293,6 +306,7 @@ public class ViewBabyActivity extends Activity {
                 Intent intent = new Intent(ViewBabyActivity.this, ViewEntriesActivity.class);
                 Bundle b = new Bundle();
                 b.putInt("babyId", babyId);
+                b.putString("babyGender", babyGender);
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -306,6 +320,7 @@ public class ViewBabyActivity extends Activity {
                 Intent intent = new Intent(ViewBabyActivity.this, AddBottleFeedActivity.class);
                 Bundle b = new Bundle();
                 b.putInt("babyId", babyId);
+                b.putString("babyGender", babyGender);
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -319,6 +334,7 @@ public class ViewBabyActivity extends Activity {
                 Intent intent = new Intent(ViewBabyActivity.this, AddBreastFeedActivity.class);
                 Bundle b = new Bundle();
                 b.putInt("babyId", babyId);
+                b.putString("babyGender", babyGender);
                 intent.putExtras(b);
                 startActivity(intent);
             }

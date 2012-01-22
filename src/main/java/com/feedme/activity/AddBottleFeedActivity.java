@@ -62,6 +62,18 @@ public class AddBottleFeedActivity extends Activity
 
         Bundle b = getIntent().getExtras();
         final int babyId = b.getInt("babyId");
+        final String babyGender = b.getString("babyGender");
+
+        final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
+        final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
+
+        if (babyGender.equals("Male")) {
+            topBanner.setBackgroundColor(0xFF7ED0FF);
+            bottomBanner.setBackgroundColor(0xFF7ED0FF);
+        } else {
+            topBanner.setBackgroundColor(0xFFFF99CC);
+            bottomBanner.setBackgroundColor(0xFFFF99CC);
+        }
         
         Log.d("BABYID ADD BOTTLE:", String.valueOf(babyId));
 
