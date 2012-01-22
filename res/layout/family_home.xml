@@ -10,7 +10,7 @@
     <RelativeLayout
               android:id="@+id/topBanner"
               style="@style/topBanner">
->
+
         <TextView  style="@style/rightHeadline"
                   android:text="@string/selectChildTitle"
                   android:id="@+id/myFamily"

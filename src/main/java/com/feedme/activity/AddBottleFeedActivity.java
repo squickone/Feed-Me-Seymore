@@ -28,7 +28,7 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class AddBottleFeedActivity extends Activity
+public class AddBottleFeedActivity extends BaseActivity
 {
     private Button entryDate;
     private Button startTime;
@@ -64,20 +64,8 @@ public class AddBottleFeedActivity extends Activity
 
         Bundle b = getIntent().getExtras();
         final int babyId = b.getInt("babyId");
-        final String babyGender = b.getString("babyGender");
 
-        final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
-        final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
-
-        if (babyGender.equals("Male")) {
-            topBanner.setBackgroundColor(0xFF7ED0FF);
-            bottomBanner.setBackgroundColor(0xFF7ED0FF);
-        } else {
-            topBanner.setBackgroundColor(0xFFFF99CC);
-            bottomBanner.setBackgroundColor(0xFFFF99CC);
-        }
-        
-        Log.d("BABYID ADD BOTTLE:", String.valueOf(babyId));
+        styleActivity(b.getString("babyGender"));
 
         final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
         final EditText entryChild = (EditText) findViewById(R.id.entryChild);

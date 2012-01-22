@@ -25,7 +25,7 @@ import java.util.Calendar;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class AddNapActivity extends Activity
+public class AddNapActivity extends BaseActivity
 {
     private Button napDate;
     private Button napStartTime;
@@ -60,6 +60,8 @@ public class AddNapActivity extends Activity
         //get associated baby ID
         Bundle b = getIntent().getExtras();
         final int babyId = b.getInt("babyId");
+
+        styleActivity(b.getString("babyGender"));
 
         //declare fields
         Button addNapButton = (Button) findViewById(R.id.addNapButton);

@@ -129,6 +129,11 @@
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingTop">4dp</item>
     </style>
+    <style name="formTable">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#FFCCCCCC</item>
+    </style>
     <style name="formRow">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:background">#ffffff</item>

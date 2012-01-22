@@ -26,7 +26,7 @@ import java.util.Calendar;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditNapActivity extends Activity
+public class EditNapActivity extends BaseActivity
 {
     private Button napDate;
     private Button napStartTime;
@@ -64,13 +64,16 @@ public class EditNapActivity extends Activity
         Button editNapButton = (Button) findViewById(R.id.editNapButton);
 
         //get baby properties
-        final int napID = getIntent().getExtras().getInt("napID");
-        final String napDateValue = getIntent().getExtras().getString("napDate");
-        final String napStartTimeValue = getIntent().getExtras().getString("napStartTime");
-        final String napEndTimeValue = getIntent().getExtras().getString("napEndTime");
-        final String napLocationValue = getIntent().getExtras().getString("napLocation");
-        final int napChildValue = getIntent().getExtras().getInt("napChildID");
+        Bundle b = getIntent().getExtras();
 
+        final int napID = b.getInt("napID");
+        final String napDateValue = b.getString("napDate");
+        final String napStartTimeValue = b.getString("napStartTime");
+        final String napEndTimeValue = b.getString("napEndTime");
+        final String napLocationValue = b.getString("napLocation");
+        final int napChildValue = b.getInt("napChildID");
+
+        styleActivity(b.getString("babyGender"));
 
         //populate nap data
         napDate.setText(napDateValue);

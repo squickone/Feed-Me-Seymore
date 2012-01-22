@@ -27,7 +27,7 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:29 PM
  */
-public class ViewNapsActivity extends Activity
+public class ViewNapsActivity extends BaseActivity
 {
     
     public static final int VIEW_NAPS_ACTIVITY_ID = 50;
@@ -40,8 +40,11 @@ public class ViewNapsActivity extends Activity
 
         Bundle bundle = getIntent().getExtras();
         final int babyId = bundle.getInt("babyId");
+        final String babyGender = bundle.getString("babyGender");
         
-        handleButtons(babyId);
+        styleActivity(babyGender);
+
+        handleButtons(babyId, babyGender);
 
         final NapDao napsDao = new NapDao(getApplicationContext());
         List<Nap> lsNap = napsDao.getLastNapsByChild(babyId, 10);
@@ -125,14 +128,15 @@ public class ViewNapsActivity extends Activity
                 {
                     public void onClick(View v)       {
 
-                            Intent intent = new Intent(v.getContext(), EditNapActivity.class);
-                            intent.putExtra("napID", napID);
-                            intent.putExtra("napDate", napDate);
-                            intent.putExtra("napStartTime", napStartTime);
-                            intent.putExtra("napEndTime", napEndTime);
-                            intent.putExtra("napLocation", napLocation);
-                            intent.putExtra("napChildID", napChildID);
-                            startActivityForResult(intent, 3);
+                        Intent intent = new Intent(v.getContext(), EditNapActivity.class);
+                        intent.putExtra("napID", napID);
+                        intent.putExtra("napDate", napDate);
+                        intent.putExtra("napStartTime", napStartTime);
+                        intent.putExtra("napEndTime", napEndTime);
+                        intent.putExtra("napLocation", napLocation);
+                        intent.putExtra("napChildID", napChildID);
+                        intent.putExtra("babyGender", babyGender);
+                        startActivityForResult(intent, 3);
                     }
                 });
 
@@ -153,7 +157,7 @@ public class ViewNapsActivity extends Activity
 
     }
 
-    public void handleButtons(final int babyId)
+    public void handleButtons(final int babyId, final String babyGender)
     {
         Button childButton = (Button) findViewById(R.id.childScreen);
         childButton.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +167,7 @@ public class ViewNapsActivity extends Activity
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtra("babyName", babyDao.getBaby(babyId).getName());
+                intent.putExtra("babyGender", babyGender);
                 startActivityForResult(intent, VIEW_NAPS_ACTIVITY_ID);
             }
         });
@@ -175,6 +180,7 @@ public class ViewNapsActivity extends Activity
 
                 Intent intent = new Intent(v.getContext(), AddNapActivity.class);
                 intent.putExtra("babyId", babyDao.getBaby(babyId).getID());
+                intent.putExtra("babyGender", babyGender);
                 startActivityForResult(intent, VIEW_NAPS_ACTIVITY_ID);
             }
         });

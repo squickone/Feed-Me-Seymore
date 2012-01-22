@@ -24,7 +24,7 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class AddChildActivity extends Activity {
+public class AddChildActivity extends BaseActivity {
     
     public static final int ADD_CHILD_ACTIVITY_ID = 5;
 
