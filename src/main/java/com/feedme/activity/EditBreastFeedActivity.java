@@ -248,7 +248,7 @@ public class EditBreastFeedActivity extends Activity
         startTime.setText(
                 new StringBuilder()
                         // Month is 0 based so add 1
-                        .append(pad(startHour + 1)).append(":")
+                        .append(pad(startHour)).append(":")
                         .append(pad(startMinute)).append(":")
                         .append(pad(startSecond)));
     }
@@ -259,7 +259,7 @@ public class EditBreastFeedActivity extends Activity
         endTime.setText(
                 new StringBuilder()
                         // Month is 0 based so add 1
-                        .append(pad(endHour + 1)).append(":")
+                        .append(pad(endHour)).append(":")
                         .append(pad(endMinute)).append(":")
                         .append(pad(endSecond)));
     }
