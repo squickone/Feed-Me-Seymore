@@ -58,7 +58,7 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Location:"
+                    android:text="Location/notes:"
                     style="@style/formTag">
             </TextView>
 

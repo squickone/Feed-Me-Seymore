@@ -1,9 +1,7 @@
 package com.feedme.activity;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
+import android.app.*;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -114,33 +112,49 @@ public class AddNapActivity extends BaseActivity
         updateStartDisplay();
         updateEndDisplay();
 
+        //declare alert dialog
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
         addNapButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                /**
-                 * CRUD Operations
-                 * */
-                // Inserting entry
-                Log.d("Insert: ", "Inserting ..");
-                Log.d("INSERT ENTRY DATE: ", napDate.getText().toString());
-                Log.d("INSERT START TIME: ", napStartTime.getText().toString());
-                Log.d("INSERT END TIME: ", napEndTime.getText().toString());
-                Log.d("INSERT FEED QTY: ", napLocation.getText().toString());
-                Log.d("INSERT BABY ID: ", String.valueOf(babyId));
-                napDao.addNap(new Nap(napDate.getText().toString(),
-                        napStartTime.getText().toString(),
-                        napEndTime.getText().toString(),
-                        napLocation.getText().toString(),
-                        babyId));
+                //if location/notes not filled out, throw error
+                if (napLocation.getText().toString().equals("")) {
+                    alertDialog.setTitle("Oops!");
+                    alertDialog.setMessage("Please fill out the form completely.");
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
+                }  else {      // else add nap to database
 
-                final BabyDao babyDao = new BabyDao(getApplicationContext());
-                Baby baby = babyDao.getBaby(babyId);
-                final String babyName = baby.getName();
+                        /**
+                       * CRUD Operations
+                       * */
+                    // Inserting entry
+                    Log.d("Insert: ", "Inserting ..");
+                    Log.d("INSERT ENTRY DATE: ", napDate.getText().toString());
+                    Log.d("INSERT START TIME: ", napStartTime.getText().toString());
+                    Log.d("INSERT END TIME: ", napEndTime.getText().toString());
+                    Log.d("INSERT FEED QTY: ", napLocation.getText().toString());
+                    Log.d("INSERT BABY ID: ", String.valueOf(babyId));
+                    napDao.addNap(new Nap(napDate.getText().toString(),
+                            napStartTime.getText().toString(),
+                            napEndTime.getText().toString(),
+                            napLocation.getText().toString(),
+                            babyId));
 
-                Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                intent.putExtra("babyName", babyName);
-                startActivityForResult(intent, 3);
+                    final BabyDao babyDao = new BabyDao(getApplicationContext());
+                    Baby baby = babyDao.getBaby(babyId);
+                    final String babyName = baby.getName();
+
+                    Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
+                    intent.putExtra("babyName", babyName);
+                    startActivityForResult(intent, 3);
+                }
 
             }
         });
