@@ -112,7 +112,7 @@ public class ViewNapsActivity extends BaseActivity
                 TextView napLocationText = new TextView(this);
                 napLocationText.setTextColor(0xFF000000);
                 final String location = nap.getLocation();
-                napLocationText.setText("Location - " + nap.getLocation());
+                napLocationText.setText("Location/notes - " + nap.getLocation());
                 linearLayoutVertical.addView(napLocationText);
 
                 //print nap date
