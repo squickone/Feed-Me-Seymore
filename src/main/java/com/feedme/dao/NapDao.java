@@ -232,9 +232,9 @@ public class NapDao {
     /**
      * Deletes a nap from the Database
      */
-    public void deleteNap(Nap nap) {
+    public void deleteNap(int babyId) {
         open();
-        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(nap.getID())});
+        database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{String.valueOf(babyId)});
         close();
     }
 

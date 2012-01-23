@@ -1,6 +1,8 @@
 package com.feedme.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +17,7 @@ import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
+import com.feedme.dao.NapDao;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
@@ -292,6 +295,14 @@ public class ViewBabyActivity extends Activity {
             }
         });
 
+        //Add Delete Button`
+        Button deleteButton = (Button) findViewById(R.id.deleteBaby);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteBaby(babyId, babyNameToEdit);
+             }
+        });
+
        //Add Family Button`
         Button familyButton = (Button) findViewById(R.id.familyButton);
         familyButton.setOnClickListener(new View.OnClickListener() {
@@ -410,5 +421,32 @@ public class ViewBabyActivity extends Activity {
         Bitmap resizedBitmap = Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, false);
 
         return resizedBitmap;
+    }
+
+    private void deleteBaby(final int babyID, final String babyName) {
+
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(ViewBabyActivity.this);
+        myAlertDialog.setTitle("Delete \"" + babyName + "\"?");
+        myAlertDialog.setMessage("Are you sure?");
+        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+                BabyDao babyDao = new BabyDao(getApplicationContext());
+                Baby baby = babyDao.getBaby(babyID);
+                babyDao.deleteBaby(baby, babyID);
+                JournalDao journalDao = new JournalDao(getApplicationContext());
+                journalDao.deleteEntry(babyID);
+                NapDao napDao = new NapDao(getApplicationContext());
+                napDao.deleteNap(babyID);
+                startActivity(new Intent(ViewBabyActivity.this,
+                        HomeActivity.class));
+           }});
+        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }});
+        myAlertDialog.show();
+
     }
 }

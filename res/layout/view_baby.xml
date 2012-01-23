@@ -15,6 +15,12 @@
                 android:text="Edit"
                 android:layout_alignParentLeft="true"/>
 
+        <Button
+                style="@style/topNavButton"
+                android:id="@+id/deleteBaby"
+                android:text="Delete"
+                android:layout_toRightOf="@+id/editBaby"/>
+
         <TextView
             android:text=""
             style="@style/rightHeadline"

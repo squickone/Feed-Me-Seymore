@@ -236,9 +236,9 @@ public class JournalDao {
     /**
      * Deletes an entry from the Database
      */
-    public void deleteEntry(Journal entry) {
+    public void deleteEntry(int babyID) {
         open();
-        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(entry.getID())});
+        database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{String.valueOf(babyID)});
         close();
     }
 
