@@ -106,8 +106,12 @@ public class HomeActivity extends Activity {
             b.setLayoutParams(new TableRow.LayoutParams(        //set params of button
                     TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-            b.setWidth(100);
-            b.setHeight(35);
+            b.setMinWidth(150);
+            b.setMaxWidth(300);
+            b.setMinHeight(35);
+            b.setMaxHeight(65);
+            b.setTextSize(17);
+
 
             final ImageView babyImage = new ImageView(this);
 
@@ -116,16 +120,16 @@ public class HomeActivity extends Activity {
                 options.inSampleSize = 12;
                 Bitmap bmImg = BitmapFactory.decodeFile(myList[j].getPicturePath(), options);
                 babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
-                babyImage.setMaxWidth(100);
-                babyImage.setMaxHeight(100);
-                babyImage.setMinimumWidth(100);
-                babyImage.setMinimumHeight(100);
+                babyImage.setMaxWidth(300);
+                babyImage.setMaxHeight(300);
+                babyImage.setMinimumWidth(150);
+                babyImage.setMinimumHeight(150);
             } else {
                 babyImage.setImageResource(R.drawable.babyicon);
-                babyImage.setMaxWidth(100);
-                babyImage.setMaxHeight(100);
-                babyImage.setMinimumWidth(100);
-                babyImage.setMinimumHeight(100);
+                babyImage.setMaxWidth(300);
+                babyImage.setMaxHeight(300);
+                babyImage.setMinimumWidth(150);
+                babyImage.setMinimumHeight(150);
             }
 
             //button listener for each baby
