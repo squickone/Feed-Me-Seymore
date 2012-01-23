@@ -234,11 +234,20 @@ public class JournalDao {
     }
 
     /**
-     * Deletes an entry from the Database
+     * Deletes entries with babyID from the Database
      */
     public void deleteEntry(int babyID) {
         open();
         database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{String.valueOf(babyID)});
+        close();
+    }
+
+    /**
+     * Deletes entry with ID from the Database
+     */
+    public void deleteEntryByID(int ID) {
+        open();
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(ID)});
         close();
     }
 

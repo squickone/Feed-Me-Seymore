@@ -13,7 +13,14 @@
                    android:text="Edit Entry"
                    android:id="@+id/addBottleFeeding"
         />
-    </RelativeLayout>
+
+        <Button
+                style="@style/topNavButton"
+                android:id="@+id/deleteEntry"
+                android:text="Delete"
+                android:layout_alignParentLeft="true"/>
+
+   </RelativeLayout>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:layout_below="@+id/topBanner"

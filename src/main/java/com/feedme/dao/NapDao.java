@@ -230,13 +230,24 @@ public class NapDao {
     }
 
     /**
-     * Deletes a nap from the Database
+     * Deletes naps for babyId from db
      */
     public void deleteNap(int babyId) {
         open();
         database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{String.valueOf(babyId)});
         close();
     }
+
+    /**
+     * Deletes nap with ID from db
+     */
+    public void deleteNapByID(int ID) {
+        open();
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(ID)});
+        close();
+    }
+
+
 
     /**
      * Returns the total number of naps that exist in the Database.

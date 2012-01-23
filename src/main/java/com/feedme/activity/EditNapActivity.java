@@ -1,9 +1,7 @@
 package com.feedme.activity;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
+import android.app.*;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +11,7 @@ import android.view.View;
 import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
+import com.feedme.dao.JournalDao;
 import com.feedme.dao.NapDao;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
@@ -64,7 +63,7 @@ public class EditNapActivity extends BaseActivity
         Button editNapButton = (Button) findViewById(R.id.editNapButton);
 
         //get baby properties
-        Bundle b = getIntent().getExtras();
+        final Bundle b = getIntent().getExtras();
 
         final int napID = b.getInt("napID");
         final String napDateValue = b.getString("napDate");
@@ -144,8 +143,15 @@ public class EditNapActivity extends BaseActivity
                 startActivityForResult(intent, 3);
 
             }
-        });  
+        });
 
+        //Add Delete Button`
+        Button deleteButton = (Button) findViewById(R.id.deleteNap);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteNap(napID, napChildValue, b.getString("babyGender"));
+            }
+        });
     }
 
     @Override
@@ -272,4 +278,28 @@ public class EditNapActivity extends BaseActivity
     };
 
 
+    private void deleteNap(final int napID, final int babyId, final String babyGender) {
+
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditNapActivity.this);
+        myAlertDialog.setTitle("Delete Nap");
+        myAlertDialog.setMessage("Are you sure?");
+        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+                NapDao napDao = new NapDao(getApplicationContext());
+                napDao.deleteNap(napID);
+                Intent intent = new Intent(EditNapActivity.this, ViewNapsActivity.class);
+                intent.putExtra("babyId", babyId);
+                intent.putExtra("babyGender", babyGender);
+                startActivityForResult(intent, 3);
+
+            }});
+        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }});
+        myAlertDialog.show();
+
+    }
 }

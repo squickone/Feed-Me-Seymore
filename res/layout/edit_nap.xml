@@ -13,7 +13,14 @@
                    android:text="Edit Nap"
                    android:id="@+id/addNap"
         />
-    </RelativeLayout>
+
+        <Button
+                style="@style/topNavButton"
+                android:id="@+id/deleteNap"
+                android:text="Delete"
+                android:layout_alignParentLeft="true"/>
+
+   </RelativeLayout>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:layout_below="@+id/topBanner"
