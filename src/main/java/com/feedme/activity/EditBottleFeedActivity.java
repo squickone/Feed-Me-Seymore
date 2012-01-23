@@ -256,15 +256,23 @@ public class EditBottleFeedActivity extends Activity
                         .append(mYear).append(" "));
     }
 
+    // add leading zero to times
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
+    }
+
     // updates the date we display in the TextView
     private void updateStartDisplay()
     {
         startTime.setText(
                 new StringBuilder()
                         // Month is 0 based so add 1
-                        .append(startHour + 1).append(":")
-                        .append(startMinute).append(":")
-                        .append(startSecond));
+                        .append(pad(startHour + 1)).append(":")
+                        .append(pad(startMinute)).append(":")
+                        .append(pad(startSecond)));
     }
 
     // updates the date we display in the TextView
@@ -273,9 +281,9 @@ public class EditBottleFeedActivity extends Activity
         endTime.setText(
                 new StringBuilder()
                         // Month is 0 based so add 1
-                        .append(endHour + 1).append(":")
-                        .append(endMinute).append(":")
-                        .append(endSecond));
+                        .append(pad(endHour + 1)).append(":")
+                        .append(pad(endMinute)).append(":")
+                        .append(pad(endSecond)));
     }
 
     // the callback received when the user "sets" the date in the dialog
