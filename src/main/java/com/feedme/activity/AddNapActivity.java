@@ -46,6 +46,7 @@ public class AddNapActivity extends BaseActivity
     static final int STARTTIME_DIALOG_ID = 1;
     static final int ENDTIME_DIALOG_ID = 2;
 
+    public String babyGender;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -58,9 +59,10 @@ public class AddNapActivity extends BaseActivity
         //get associated baby ID
         Bundle b = getIntent().getExtras();
         final int babyId = b.getInt("babyId");
-
+        
         styleActivity(b.getString("babyGender"));
-
+        babyGender = b.getString("babyGender");
+        
         //declare fields
         Button addNapButton = (Button) findViewById(R.id.addNapButton);
 
@@ -150,10 +152,12 @@ public class AddNapActivity extends BaseActivity
                     final BabyDao babyDao = new BabyDao(getApplicationContext());
                     Baby baby = babyDao.getBaby(babyId);
                     final String babyName = baby.getName();
-
-                    Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                    intent.putExtra("babyName", babyName);
+                    
+                    Intent intent = new Intent(v.getContext(), ViewNapsActivity.class);
+                    intent.putExtra("babyId", babyId);
+                    intent.putExtra("babyGender", babyGender);
                     startActivityForResult(intent, 3);
+
                 }
 
             }

@@ -1,9 +1,7 @@
 package com.feedme.activity;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
+import android.app.*;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -48,6 +46,7 @@ public class EditBreastFeedActivity extends Activity
     static final int ENDTIME_DIALOG_ID = 2;
 
     private String feedQty;
+    private String babyName;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -64,8 +63,7 @@ public class EditBreastFeedActivity extends Activity
         Spinner s = (Spinner) findViewById( R.id.entrySide );
         s.setAdapter( adapter );
 
-        // button listener for add child button
-
+        //set colors for gender
         Bundle b = getIntent().getExtras();
         final int babyId = b.getInt("babyId");
         final String babyGender = b.getString("babyGender");
@@ -81,7 +79,7 @@ public class EditBreastFeedActivity extends Activity
             bottomBanner.setBackgroundColor(0xFFFF99CC);
         }
 
-
+        //populate entry data
         entryDate = (Button) findViewById(R.id.entryDate);
         startTime = (Button) findViewById(R.id.addStartTime);
         endTime = (Button) findViewById(R.id.addEndTime);
@@ -94,6 +92,11 @@ public class EditBreastFeedActivity extends Activity
         final String entryEndTimeValue = getIntent().getExtras().getString("entryEndTime");
         final String entrySideValue = getIntent().getExtras().getString("entrySide");
         final int entryChildValue = getIntent().getExtras().getInt("entryChild");
+
+        //get baby name
+        final BabyDao babyDao = new BabyDao(getApplicationContext());
+        Baby baby = babyDao.getBaby(entryChildValue);
+        final String babyName = baby.getName();
 
         entryDate.setText(entryDateValue);
         startTime.setText(entryStartTimeValue);
@@ -173,7 +176,15 @@ public class EditBreastFeedActivity extends Activity
                 startActivityForResult(intent, 3);
 
             }
-        });  
+        });
+
+        //Add Delete Button`
+        Button deleteButton = (Button) findViewById(R.id.deleteEntry);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteEntry(entryID, babyName);
+            }
+        });
 
     }
 
@@ -313,5 +324,31 @@ public class EditBreastFeedActivity extends Activity
             // Do nothing.
         }
     }
+
+    private void deleteEntry(final int entryID, final String babyName) {
+
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditBreastFeedActivity.this);
+        myAlertDialog.setTitle("Delete Entry");
+        myAlertDialog.setMessage("Are you sure?");
+        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+                JournalDao journalDao = new JournalDao(getApplicationContext());
+                journalDao.deleteEntryByID(entryID);
+                Intent intent = new Intent(EditBreastFeedActivity.this, ViewBabyActivity.class);
+                intent.putExtra("babyName", babyName);
+                startActivityForResult(intent, 3);
+
+            }});
+        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }});
+        myAlertDialog.show();
+
+    }
+
+
 
 }

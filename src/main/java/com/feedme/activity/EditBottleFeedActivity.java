@@ -1,9 +1,7 @@
 package com.feedme.activity;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
+import android.app.*;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +13,7 @@ import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
+import com.feedme.dao.NapDao;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
@@ -50,8 +49,9 @@ public class EditBottleFeedActivity extends Activity
     static final int STARTTIME_DIALOG_ID = 1;
     static final int ENDTIME_DIALOG_ID = 2;
 
+    private String babyName;
     private String feedQty;
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -94,7 +94,12 @@ public class EditBottleFeedActivity extends Activity
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
         Settings setting = settingsDao.getSetting(1);
 
-        //populate baby data
+        //get baby name
+        final BabyDao babyDao = new BabyDao(getApplicationContext());
+        Baby baby = babyDao.getBaby(entryChildValue);
+        final String babyName = baby.getName();
+
+        //populate entry data
         entryDate.setText(entryDateValue);
         startTime.setText(entryStartTimeValue);
         endTime.setText(entryEndTimeValue);
@@ -195,7 +200,15 @@ public class EditBottleFeedActivity extends Activity
                 startActivityForResult(intent, 3);
 
             }
-        });  
+        });
+
+        //Add Delete Button`
+        Button deleteButton = (Button) findViewById(R.id.deleteEntry);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteEntry(entryID, babyName);
+            }
+        });
 
     }
 
@@ -335,5 +348,30 @@ public class EditBottleFeedActivity extends Activity
             // Do nothing.
         }
     }
+
+    private void deleteEntry(final int entryID, final String babyName) {
+
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditBottleFeedActivity.this);
+        myAlertDialog.setTitle("Delete Entry");
+        myAlertDialog.setMessage("Are you sure?");
+        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+                JournalDao journalDao = new JournalDao(getApplicationContext());
+                journalDao.deleteEntryByID(entryID);
+                Intent intent = new Intent(EditBottleFeedActivity.this, ViewBabyActivity.class);
+                intent.putExtra("babyName", babyName);
+                startActivityForResult(intent, 3);
+
+            }});
+        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }});
+        myAlertDialog.show();
+
+    }
+
 
 }

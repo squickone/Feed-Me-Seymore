@@ -287,7 +287,7 @@ public class EditNapActivity extends BaseActivity
 
             public void onClick(DialogInterface arg0, int arg1) {
                 NapDao napDao = new NapDao(getApplicationContext());
-                napDao.deleteNap(napID);
+                napDao.deleteNapByID(napID);
                 Intent intent = new Intent(EditNapActivity.this, ViewNapsActivity.class);
                 intent.putExtra("babyId", babyId);
                 intent.putExtra("babyGender", babyGender);
