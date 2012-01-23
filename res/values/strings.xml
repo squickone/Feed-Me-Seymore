@@ -16,6 +16,7 @@
     <string name="naps">Nap Tracker</string>
     <string name="takePicture">Take Picture</string>
     <string name="pickPicture">Select Picture</string>
+    <string name="reportBug">Report a Bug</string>
 
     <string-array name="babySex">
         <item>Male</item>

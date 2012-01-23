@@ -375,6 +375,10 @@ public class ViewBabyActivity extends Activity {
                 startActivity(new Intent(ViewBabyActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(ViewBabyActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

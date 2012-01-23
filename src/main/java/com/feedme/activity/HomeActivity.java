@@ -10,6 +10,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
@@ -179,18 +182,31 @@ public class HomeActivity extends Activity {
 
         return resizedBitmap;
     }
-    
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setTitle("Exit?")
-                .setMessage("Are you sure you want to exit?")
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        HomeActivity.super.onBackPressed();
-                    }
-                }).create().show();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.home:
+                startActivity(new Intent(HomeActivity.this,
+                        HomeActivity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(HomeActivity.this,
+                        SettingsActivity.class));
+                break;
+            case R.id.report:
+                startActivity(new Intent(HomeActivity.this,
+                        ReportBugActivity.class));
+                break;
+        }
+        return true;
     }
 }

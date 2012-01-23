@@ -251,6 +251,10 @@ public class ViewEntriesActivity extends BaseActivity
                 startActivity(new Intent(ViewEntriesActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(ViewEntriesActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

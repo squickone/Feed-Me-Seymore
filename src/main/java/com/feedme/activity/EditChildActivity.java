@@ -235,6 +235,10 @@ public class EditChildActivity extends Activity {
                 startActivity(new Intent(EditChildActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(EditChildActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

@@ -213,6 +213,10 @@ public class AddBottleFeedActivity extends BaseActivity
                 startActivity(new Intent(AddBottleFeedActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(AddBottleFeedActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

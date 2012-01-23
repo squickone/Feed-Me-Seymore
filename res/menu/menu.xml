@@ -1,8 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/settings"
+          android:icon="@drawable/icon_gear"
           android:title="Settings" />
     <item android:id="@+id/home"
+          android:icon="@drawable/icon_home"
           android:title="Home" />
+    <item android:id="@+id/report"
+          android:icon="@drawable/icon_bug"
+          android:title="Report a Bug" />
 
 </menu>

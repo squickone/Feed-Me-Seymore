@@ -215,6 +215,10 @@ public class ViewNapsActivity extends BaseActivity
                 startActivity(new Intent(ViewNapsActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(ViewNapsActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

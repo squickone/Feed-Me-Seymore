@@ -237,6 +237,10 @@ public class EditBottleFeedActivity extends Activity
                 startActivity(new Intent(EditBottleFeedActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(EditBottleFeedActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

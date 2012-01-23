@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#fffae8">
+    
+    <RelativeLayout
+            android:id="@+id/topBanner"
+            style="@style/topBanner">
+
+        <TextView  style="@style/rightHeadline"
+                   android:text="@string/reportBug"
+                   android:id="@+id/reportBug"
+                />
+
+    </RelativeLayout>
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_below="@+id/topBanner"
+                 style='@style/formTable'>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Your Name:"
+                    style="@style/formTag">
+            </TextView>
+            <EditText
+                    android:id="@+id/bugName"
+                    style="@style/textForm">
+            </EditText>
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="E-mail:"
+                    style="@style/formTag">
+            </TextView>
+            <EditText
+                    android:id="@+id/bugEmail"
+                    style="@style/textForm">
+            </EditText>
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Device:"
+                    style="@style/formTag">
+            </TextView>
+            <EditText
+                    android:id="@+id/bugDevice"
+                    style="@style/textForm">
+            </EditText>
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="OS Version:"
+                    style="@style/formTag">
+            </TextView>
+            <EditText
+                    android:id="@+id/bugVersion"
+                    style="@style/textForm">
+            </EditText>
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="Description:"
+                    style="@style/formTag">
+            </TextView>
+            <EditText
+                    android:id="@+id/bugDesc"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    style="@style/textForm">
+            </EditText>
+        </TableRow>
+
+
+    </TableLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomBanner"
+        style="@style/bottomBanner">
+
+
+        <Button android:id="@+id/sendReportButton"
+                style="@style/iconNavButton"
+                android:text="Send"
+                android:drawableTop="@drawable/icon_email"
+                android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

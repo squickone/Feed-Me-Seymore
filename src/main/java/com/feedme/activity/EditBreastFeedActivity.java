@@ -215,6 +215,10 @@ public class EditBreastFeedActivity extends Activity
                 startActivity(new Intent(EditBreastFeedActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(EditBreastFeedActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

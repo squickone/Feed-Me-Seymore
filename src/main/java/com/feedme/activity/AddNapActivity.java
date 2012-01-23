@@ -176,6 +176,10 @@ public class AddNapActivity extends BaseActivity
             case ENDTIME_DIALOG_ID:
                 return new TimePickerDialog(this,
                 endTimeListener, endHour, endMinute, false);
+            case R.id.report:
+                startActivity(new Intent(AddNapActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return null;
     }

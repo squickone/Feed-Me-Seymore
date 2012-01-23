@@ -186,6 +186,10 @@ public class EditNapActivity extends BaseActivity
                 startActivity(new Intent(EditNapActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(EditNapActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

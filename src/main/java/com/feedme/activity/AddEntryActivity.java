@@ -59,6 +59,10 @@ public class AddEntryActivity extends Activity {
                 startActivity(new Intent(AddEntryActivity.this,
                         SettingsActivity.class));
                 break;
+            case R.id.report:
+                startActivity(new Intent(AddEntryActivity.this,
+                        ReportBugActivity.class));
+                break;
         }
         return true;
     }

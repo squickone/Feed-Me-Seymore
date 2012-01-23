@@ -71,6 +71,9 @@
         <activity android:name=".activity.ViewNapsActivity"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.ReportBugActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
 </application>
 
 </manifest>

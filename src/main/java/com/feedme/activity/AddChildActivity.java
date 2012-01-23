@@ -214,7 +214,11 @@ public class AddChildActivity extends BaseActivity {
                 startActivity(new Intent(AddChildActivity.this,
                         SettingsActivity.class));
                 break;
-        }
+            case R.id.report:
+                startActivity(new Intent(AddChildActivity.this,
+                        ReportBugActivity.class));
+                break;
+       }
         return true;
     }
 
