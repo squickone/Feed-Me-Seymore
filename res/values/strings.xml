@@ -14,9 +14,13 @@
     <string name="addNap">Add Nap</string>
     <string name="journal">My Journal Entries</string>
     <string name="naps">Nap Tracker</string>
-    <string name="takePicture">Take Picture</string>
-    <string name="pickPicture">Select Picture</string>
+    <string name="takePicture">Take</string>
+    <string name="pickPicture">Select</string>
     <string name="reportBug">Report a Bug</string>
+    <string name="timer">Timer</string>
+    <string name="startTimer">Start</string>
+    <string name="stopTimer">Stop</string>
+    <string name="save">Save</string>
 
     <string-array name="babySex">
         <item>Male</item>

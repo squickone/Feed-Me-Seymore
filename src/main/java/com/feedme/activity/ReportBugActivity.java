@@ -16,6 +16,9 @@ import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.model.Baby;
 
+import android.os.Build;
+import android.os.Build;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,6 +43,8 @@ public class ReportBugActivity extends BaseActivity {
         final EditText bugVersion = (EditText) findViewById(R.id.bugVersion);
         final EditText bugDesc = (EditText) findViewById(R.id.bugDesc);
 
+        bugDevice.setText(Build.CPU_ABI);
+        
         reportBug = (Button) findViewById(R.id.sendReportButton);
 
         //declare alert dialog

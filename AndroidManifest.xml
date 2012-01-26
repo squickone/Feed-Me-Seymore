@@ -74,7 +74,10 @@
         <activity android:name=".activity.ReportBugActivity"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar"/>
-</application>
+        <activity android:name=".activity.TimerActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+    </application>
 
 </manifest>
 

@@ -18,7 +18,10 @@ import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -44,6 +47,8 @@ public class AddBreastFeedActivity extends BaseActivity {
     private int endMinute;
     private int endSecond;
 
+    private SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
+
     static final int DATE_DIALOG_ID = 0;
     static final int STARTTIME_DIALOG_ID = 1;
     static final int ENDTIME_DIALOG_ID = 2;
@@ -60,6 +65,41 @@ public class AddBreastFeedActivity extends BaseActivity {
         final int babyId = b.getInt("babyId");
         final String babyGender = b.getString("babyGender");
 
+        // get the current date
+        Calendar calendar = new GregorianCalendar();
+        Calendar calendarStart = new GregorianCalendar();
+        Calendar calendarStop = new GregorianCalendar();
+
+        if (b.get("timerStart") != null)
+        {
+            final long timerStart = b.getLong("timerStart");
+            final long timerStop = b.getLong("timerStop");
+            final long duration = b.getLong("duration");
+            
+            final TextView timerDuration = (TextView) findViewById(R.id.timerDuration);
+
+            Date dateStart = new Date(timerStart);
+            Date dateStop = new Date(timerStop);
+            Date dateDuration = new Date(duration);
+            
+            timerDuration.setText(simpleTimeFormat.format(dateDuration));
+
+            calendarStart.setTime(dateStart);
+            calendarStop.setTime(dateStop);
+        }
+
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        startHour = calendarStart.get(Calendar.HOUR_OF_DAY);
+        startMinute = calendarStart.get(Calendar.MINUTE);
+        startSecond = calendarStart.get(Calendar.SECOND);
+
+        endHour = calendarStop.get(Calendar.HOUR_OF_DAY);
+        endMinute = calendarStop.get(Calendar.MINUTE);
+        endSecond = calendarStop.get(Calendar.SECOND);
+
         styleActivity(b.getString("babyGender"));
 
        //populate left/right spinner
@@ -70,9 +110,9 @@ public class AddBreastFeedActivity extends BaseActivity {
         s.setAdapter( adapter );
 
        // button listener for add child button
-        final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
         final Spinner entrySide = (Spinner) findViewById(R.id.entrySide);
         Button addEntryButton = (Button) findViewById(R.id.addEntryButton);
+        Button startTimer = (Button) findViewById(R.id.startTimer);
 
         entryDate = (Button) findViewById(R.id.entryDate);
         startTime = (Button) findViewById(R.id.addStartTime);
@@ -101,32 +141,15 @@ public class AddBreastFeedActivity extends BaseActivity {
             }
         });
 
-        // get the current date
-        final Calendar c = Calendar.getInstance();
-
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        startHour = c.get(Calendar.HOUR_OF_DAY);
-        startMinute = c.get(Calendar.MINUTE);
-        startSecond = c.get(Calendar.SECOND);
-
-        endHour = c.get(Calendar.HOUR_OF_DAY);
-        endMinute = c.get(Calendar.MINUTE);
-        endSecond = c.get(Calendar.SECOND);
-
         // display the current date
         updateDateDisplay();
         updateStartDisplay();
         updateEndDisplay();
         
-        addEntryButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                /**
-                 * CRUD Operations
-                 * */
+        addEntryButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 // Inserting entry
                 Log.d("Insert: ", "Inserting ..");
                 journalDao.addEntry(new Journal(entryDate.getText().toString(),
@@ -143,8 +166,17 @@ public class AddBreastFeedActivity extends BaseActivity {
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtra("babyName", babyName);
                 startActivityForResult(intent, 3);
-
               }
+        });
+
+        startTimer.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(v.getContext(), TimerActivity.class);
+                intent.putExtra("babyGender", babyGender);
+                startActivityForResult(intent, 3);
+            }
         });
 
     }

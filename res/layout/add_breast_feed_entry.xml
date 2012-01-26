@@ -41,7 +41,6 @@
             <Button android:id="@+id/addStartTime"
                     android:text="Test"
                     style="@style/dateButton" />
-
         </TableRow>
 
         <TableRow style="@style/formRow">
@@ -53,17 +52,16 @@
             <Button android:id="@+id/addEndTime"
                     android:text="Test"
                     style="@style/dateButton" />
-
         </TableRow>
 
-        <TableRow style="@style/formRow" android:visibility="gone">
+        <TableRow style="@style/formRow" >
             <TextView
-                    android:text="Ounces: "
+                    android:text="Feeding Time: "
                     style="@style/formTag">
             </TextView>
-            <EditText
+            <TextView
                     android:text=""
-                    android:id="@+id/entryOunces"
+                    android:id="@+id/timerDuration"
                     style="@style/textForm"
             />
         </TableRow>
@@ -102,6 +100,12 @@
                 android:text="Save"
                 android:drawableTop="@drawable/icon_save"
                 android:layout_alignParentRight="true"/>
+
+        <Button android:id="@+id/startTimer"
+                style="@style/iconNavButton"
+                android:text="Timer"
+                android:drawableTop="@drawable/icon_clock"
+                android:layout_alignParentLeft="true"/>
 
     </RelativeLayout>
 

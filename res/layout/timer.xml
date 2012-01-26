@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#fffae8">
+
+    <RelativeLayout
+            android:id="@+id/topBanner"
+            style="@style/topBanner">
+
+        <TextView  style="@style/rightHeadline"
+                   android:text="@string/timer"
+                   android:id="@+id/timerHeadline"
+                />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/topBanner"
+        android:layout_above="@+id/bottomBanner">
+
+        <TextView  style="@style/timerText"
+                   android:text="00:00:00"
+                   android:id="@+id/timerLabel"
+        />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/bottomBanner"
+            style="@style/bottomBanner">
+
+        <Button android:id="@+id/startTimer"
+                style="@style/iconNavButton"
+                android:text="@string/startTimer"
+                android:drawableTop="@drawable/icon_start"
+                android:layout_alignParentRight="true"
+                android:visibility="visible"
+                />
+
+        <Button android:id="@+id/resetTimer"
+                style="@style/iconNavButton"
+                android:text="Reset"
+                android:drawableTop="@drawable/icon_reset"
+                android:visibility="invisible"
+                android:layout_alignParentLeft="true"/>
+
+        <Button android:id="@+id/pauseTimer"
+                style="@style/iconNavButton"
+                android:text="Pause"
+                android:drawableTop="@drawable/icon_pause"
+                android:visibility="invisible"
+                android:layout_toLeftOf="@+id/stopTimer"/>
+
+        <Button android:id="@+id/restartTimer"
+                style="@style/iconNavButton"
+                android:text="Restart"
+                android:drawableTop="@drawable/icon_start"
+                android:visibility="invisible"
+                android:layout_toLeftOf="@+id/stopTimer"/>
+
+        <Button android:id="@+id/stopTimer"
+                style="@style/iconNavButton"
+                android:text="@string/stopTimer"
+                android:drawableTop="@drawable/icon_stop"
+                android:layout_alignParentRight="true"
+                android:visibility="invisible"
+                />
+
+    </RelativeLayout>
+
+</RelativeLayout>
