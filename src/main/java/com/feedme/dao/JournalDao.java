@@ -24,12 +24,16 @@ public class JournalDao {
     private static final String KEY_DATE = "date";
     private static final String KEY_START_TIME = "start_time";
     private static final String KEY_END_TIME = "end_time";
+    private static final String KEY_FEED_TIME = "feed_time";
     private static final String KEY_SIDE = "side";
     private static final String KEY_OUNCES = "ounces";
     private static final String KEY_CHILD_ID = "child_id";
 
     private SQLiteDatabase database;
     private JournalDatabaseHandler databaseHandler;
+
+    private String[] columns = new String[] { KEY_ID, KEY_DATE, KEY_START_TIME, KEY_END_TIME, KEY_FEED_TIME, KEY_SIDE, KEY_OUNCES, KEY_CHILD_ID };
+
 
     public JournalDao(Context context) {
         databaseHandler = new JournalDatabaseHandler(context);
@@ -56,6 +60,7 @@ public class JournalDao {
         values.put(KEY_DATE, entry.getDate()); // Date
         values.put(KEY_START_TIME, entry.getStartTime()); // Time
         values.put(KEY_END_TIME, entry.getEndTime()); // Time
+        values.put(KEY_FEED_TIME, entry.getEndTime()); // Feed Time
         values.put(KEY_SIDE, entry.getSide()); // Side
         values.put(KEY_OUNCES, entry.getOunces()); // Ounces
         values.put(KEY_CHILD_ID, entry.getChild()); // Child ID
@@ -77,8 +82,7 @@ public class JournalDao {
 
         open();
         
-        Cursor cursor = database.query(TABLE_DATA, new String[]{KEY_ID,
-                KEY_DATE, KEY_START_TIME, KEY_END_TIME, KEY_SIDE, KEY_OUNCES, KEY_CHILD_ID}, KEY_ID + "=?",
+        Cursor cursor = database.query(TABLE_DATA, columns, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -103,8 +107,7 @@ public class JournalDao {
 
         open();
 
-        Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_DATE, KEY_START_TIME, KEY_END_TIME, KEY_SIDE, KEY_OUNCES, KEY_CHILD_ID }, KEY_DATE + "=?",
+        Cursor cursor = database.query(TABLE_DATA, columns, KEY_DATE + "=?",
                 new String[] { String.valueOf(date) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -221,6 +224,7 @@ public class JournalDao {
         values.put(KEY_DATE, entry.getDate());
         values.put(KEY_START_TIME, entry.getStartTime());
         values.put(KEY_END_TIME, entry.getEndTime());
+        values.put(KEY_FEED_TIME, entry.getFeedTime());
         values.put(KEY_SIDE, entry.getSide());
         values.put(KEY_OUNCES, entry.getOunces());
         values.put(KEY_CHILD_ID, entry.getChild());
@@ -301,6 +305,12 @@ public class JournalDao {
      */
     private Journal cursorToJournal(Cursor cursor) {
         return new Journal(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), Integer.parseInt(cursor.getString(6)));
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5),
+                cursor.getString(6),
+                Integer.parseInt(cursor.getString(7)));
     }
 }

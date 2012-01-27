@@ -188,6 +188,7 @@ public class EditBottleFeedActivity extends Activity
                         startTime.getText().toString(),
                         endTime.getText().toString(),
                         " ",
+                        " ",
                         feedAmt.getSelectedItem().toString(),
                         entryChildValue), entryID);
 

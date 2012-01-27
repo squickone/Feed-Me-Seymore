@@ -1,5 +1,7 @@
 package com.feedme.model;
 
+import java.net.IDN;
+
 /**
  * Created by IntelliJ IDEA.
  * User: root
@@ -15,6 +17,7 @@ public class Journal {
     String _date;
     String _start_time;
     String _end_time;
+    String _feed_time;
     String _side;
     String _ounces;
     int _child_id;
@@ -24,21 +27,36 @@ public class Journal {
 
     }
     // constructor
-    public Journal(int id, String date, String start_time, String end_time, String side, String ounces, int child_id){
+    public Journal(int id,
+                   String date,
+                   String start_time,
+                   String end_time,
+                   String feed_time,
+                   String side,
+                   String ounces,
+                   int child_id){
         this._id = id;
         this._date = date;
         this._start_time = start_time;
         this._end_time = end_time;
+        this._feed_time = feed_time;
         this._side = side;
         this._ounces = ounces;
         this._child_id = child_id;
    }
 
     // constructor
-    public Journal(String date, String start_time, String end_time, String side, String ounces, int child_id){
+    public Journal(String date,
+                   String start_time,
+                   String end_time,
+                   String feed_time,
+                   String side,
+                   String ounces,
+                   int child_id){
         this._date = date;
         this._start_time = start_time;
         this._end_time = end_time;
+        this._feed_time = feed_time;
         this._side = side;
         this._ounces = ounces;
         this._child_id = child_id;
@@ -84,6 +102,16 @@ public class Journal {
         this._end_time = end_time;
     }
 
+    // getting feed start time
+    public String getFeedTime(){
+        return this._feed_time;
+    }
+
+    // setting feed end time
+    public void setFeedTime(String feed_time){
+        this._feed_time = feed_time;
+    }
+
     // getting side
     public String getSide(){
         return this._side;
@@ -114,4 +142,17 @@ public class Journal {
         this._child_id = child_id;
     }
 
+    public String dump()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: " + _id + " - ");
+        sb.append("DATE: " + _date + " - ");
+        sb.append("START TIME: " + _start_time + " - ");
+        sb.append("END TIME: " + _end_time + " - ");
+        sb.append("FEED TIME: " + _feed_time + " - ");
+        sb.append("SIDE: " + _side + " - ");
+        sb.append("OZ: " + _ounces + " - ");
+        sb.append("CHILD ID: " + _child_id);
+        return sb.toString();
+    }
 }

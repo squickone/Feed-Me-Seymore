@@ -63,6 +63,18 @@
             />
         </TableRow>
 
+        <TableRow style="@style/formRow" >
+            <TextView
+                    android:text="Feeding Time: "
+                    style="@style/formTag">
+            </TextView>
+            <TextView
+                    android:text=""
+                    android:id="@+id/timerDuration"
+                    style="@style/textForm"
+            />
+        </TableRow>
+
         <TableRow style="@style/formRow">
             <TextView
                     android:text="Side: "

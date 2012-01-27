@@ -35,6 +35,8 @@ public class TimerActivity extends BaseActivity
         //get baby id
         Bundle b = getIntent().getExtras();
         final String babyGender = b.getString("babyGender");
+        final int entrySide = b.getInt("entrySide");
+        final int babyId = b.getInt("babyId");
 
         styleActivity(babyGender);
 
@@ -43,16 +45,32 @@ public class TimerActivity extends BaseActivity
         final Button pauseTimer = (Button) findViewById(R.id.pauseTimer);
         final Button resetTimer = (Button) findViewById(R.id.resetTimer);
         final Button restartTimer = (Button) findViewById(R.id.restartTimer);
+        final Button addBreast = (Button) findViewById(R.id.addBreast);
 
         startTimer.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 startTimer.setVisibility(View.INVISIBLE);
+                addBreast.setVisibility(View.INVISIBLE);
                 stopTimer.setVisibility(View.VISIBLE);
                 pauseTimer.setVisibility(View.VISIBLE);
                 resetTimer.setVisibility(View.VISIBLE);
                 startTimer();
+            }
+        });
+
+        addBreast.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(v.getContext(), AddBreastFeedActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("babyGender", babyGender);
+                bundle.putInt("entrySide", entrySide);
+                bundle.putInt("babyId", babyId);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 3);
             }
         });
 
@@ -83,6 +101,7 @@ public class TimerActivity extends BaseActivity
             public void onClick(View v)
             {
                 startTimer.setVisibility(View.VISIBLE);
+                addBreast.setVisibility(View.VISIBLE);
                 stopTimer.setVisibility(View.INVISIBLE);
                 pauseTimer.setVisibility(View.INVISIBLE);
                 resetTimer.setVisibility(View.INVISIBLE);
@@ -108,6 +127,8 @@ public class TimerActivity extends BaseActivity
                 bundle.putLong("timerStart", startTime);
                 bundle.putLong("timerStop", stopTime);
                 bundle.putLong("duration", duration);
+                bundle.putInt("entrySide", entrySide);
+                bundle.putInt("babyId", babyId);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
             }
@@ -137,7 +158,7 @@ public class TimerActivity extends BaseActivity
     private void stopTimer()
     {
         timer.cancel();
-        duration = calendar.getTimeInMillis();
+        duration = calendar.getTimeInMillis() - 1000L;
         stopTime = System.currentTimeMillis();
     }
 

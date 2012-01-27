@@ -41,6 +41,14 @@
                 android:visibility="visible"
                 />
 
+        <Button android:id="@+id/addBreast"
+                style="@style/iconNavButton"
+                android:text="Breast"
+                android:drawableTop="@drawable/icon_breastfeed"
+                android:layout_alignParentLeft="true"
+                android:visibility="visible"
+                />
+
         <Button android:id="@+id/resetTimer"
                 style="@style/iconNavButton"
                 android:text="Reset"

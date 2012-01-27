@@ -11,6 +11,8 @@ public class SplashActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+//        getApplicationContext().deleteDatabase("babyData");
+        
         /** set time to splash out */
         final int welcomeScreenDisplay = 4000;
         /** create a thread to show splash up to splash time */

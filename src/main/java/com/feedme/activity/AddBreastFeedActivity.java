@@ -34,6 +34,8 @@ public class AddBreastFeedActivity extends BaseActivity {
     private Button entryDate;
     private Button startTime;
     private Button endTime;
+    private TextView timerDuration;
+    private Spinner entrySide;
 
     private int mYear;
     private int mMonth;
@@ -65,24 +67,33 @@ public class AddBreastFeedActivity extends BaseActivity {
         final int babyId = b.getInt("babyId");
         final String babyGender = b.getString("babyGender");
 
+        timerDuration = (TextView) findViewById(R.id.timerDuration);
+        entrySide = (Spinner) findViewById(R.id.entrySide);
+
         // get the current date
         Calendar calendar = new GregorianCalendar();
         Calendar calendarStart = new GregorianCalendar();
         Calendar calendarStop = new GregorianCalendar();
+
+       //populate left/right spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.entrySide, android.R.layout.simple_spinner_item );
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        Spinner s = (Spinner) findViewById( R.id.entrySide );
+        s.setAdapter( adapter );
 
         if (b.get("timerStart") != null)
         {
             final long timerStart = b.getLong("timerStart");
             final long timerStop = b.getLong("timerStop");
             final long duration = b.getLong("duration");
-            
-            final TextView timerDuration = (TextView) findViewById(R.id.timerDuration);
 
             Date dateStart = new Date(timerStart);
             Date dateStop = new Date(timerStop);
             Date dateDuration = new Date(duration);
             
             timerDuration.setText(simpleTimeFormat.format(dateDuration));
+            entrySide.setSelection(b.getInt("entrySide"));
 
             calendarStart.setTime(dateStart);
             calendarStop.setTime(dateStop);
@@ -101,13 +112,6 @@ public class AddBreastFeedActivity extends BaseActivity {
         endSecond = calendarStop.get(Calendar.SECOND);
 
         styleActivity(b.getString("babyGender"));
-
-       //populate left/right spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.entrySide, android.R.layout.simple_spinner_item );
-        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-        Spinner s = (Spinner) findViewById( R.id.entrySide );
-        s.setAdapter( adapter );
 
        // button listener for add child button
         final Spinner entrySide = (Spinner) findViewById(R.id.entrySide);
@@ -151,13 +155,14 @@ public class AddBreastFeedActivity extends BaseActivity {
             public void onClick(View v)
             {
                 // Inserting entry
-                Log.d("Insert: ", "Inserting ..");
-                journalDao.addEntry(new Journal(entryDate.getText().toString(),
-                        startTime.getText().toString(),
-                        endTime.getText().toString(),
-                        entrySide.getSelectedItem().toString(),
-                        "",
-                        babyId));
+                Journal journal = new Journal(entryDate.getText().toString(),
+                                                startTime.getText().toString(),
+                                                endTime.getText().toString(),
+                                                timerDuration.getText().toString(),
+                                                entrySide.getSelectedItem().toString(),
+                                                " ",
+                                                babyId);
+                journalDao.addEntry(journal);
 
                 final BabyDao babyDao = new BabyDao(getApplicationContext());
                 Baby baby = babyDao.getBaby(babyId);
@@ -174,7 +179,12 @@ public class AddBreastFeedActivity extends BaseActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(v.getContext(), TimerActivity.class);
-                intent.putExtra("babyGender", babyGender);
+                Bundle bundle = new Bundle();
+                bundle.putString("babyGender", babyGender);
+
+                bundle.putInt("entrySide", entrySide.getSelectedItemPosition());
+                bundle.putInt("babyId", babyId);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
             }
         });

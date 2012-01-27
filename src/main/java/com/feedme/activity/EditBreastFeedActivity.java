@@ -27,6 +27,7 @@ public class EditBreastFeedActivity extends Activity
     private Button entryDate;
     private Button startTime;
     private Button endTime;
+    private TextView timerDuration;
     private Spinner entrySide;
 
     private int mYear;
@@ -83,6 +84,8 @@ public class EditBreastFeedActivity extends Activity
         entryDate = (Button) findViewById(R.id.entryDate);
         startTime = (Button) findViewById(R.id.addStartTime);
         endTime = (Button) findViewById(R.id.addEndTime);
+        timerDuration = (TextView) findViewById(R.id.timerDuration);
+
         entrySide = (Spinner) findViewById(R.id.entrySide);
         Button editEntryButton = (Button) findViewById(R.id.editEntryButton);
 
@@ -90,6 +93,7 @@ public class EditBreastFeedActivity extends Activity
         final String entryDateValue = getIntent().getExtras().getString("entryDate");
         final String entryStartTimeValue = getIntent().getExtras().getString("entryStartTime");
         final String entryEndTimeValue = getIntent().getExtras().getString("entryEndTime");
+        final String entryFeedTime = getIntent().getExtras().getString("entryFeedTime");
         final String entrySideValue = getIntent().getExtras().getString("entrySide");
         final int entryChildValue = getIntent().getExtras().getInt("entryChild");
 
@@ -101,6 +105,8 @@ public class EditBreastFeedActivity extends Activity
         entryDate.setText(entryDateValue);
         startTime.setText(entryStartTimeValue);
         endTime.setText(entryEndTimeValue);
+        timerDuration.setText(entryFeedTime);
+
 
         if(entrySideValue.equals("Left")){
             entrySide.setSelection(0);
@@ -163,6 +169,7 @@ public class EditBreastFeedActivity extends Activity
                 journalDao.updateEntry(new Journal(entryDate.getText().toString(),
                         startTime.getText().toString(),
                         endTime.getText().toString(),
+                        " ",
                         entrySide.getSelectedItem().toString(),
                         " ",
                         entryChildValue), entryID);
