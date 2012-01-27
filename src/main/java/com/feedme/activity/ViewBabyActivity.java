@@ -83,6 +83,7 @@ public class ViewBabyActivity extends Activity {
             final String entryDate = journal.getDate();
             final String entryStartTime = journal.getStartTime();
             final String entryEndTime = journal.getEndTime();
+            final String entryFeedTime = journal.getFeedTime();
             final String entryOunces = journal.getOunces();
             final String entrySide = journal.getSide();
             final int entryChildID = journal.getChild();
@@ -188,6 +189,7 @@ public class ViewBabyActivity extends Activity {
                         intent.putExtra("entryDate", entryDate);
                         intent.putExtra("entryStartTime", entryStartTime);
                         intent.putExtra("entryEndTime", entryEndTime);
+                        intent.putExtra("entryFeedTime", entryFeedTime);
                         intent.putExtra("entrySide", entrySide);
                         intent.putExtra("entryOunces", entryOunces);
                         intent.putExtra("entryChild", entryChildID);
@@ -201,6 +203,7 @@ public class ViewBabyActivity extends Activity {
                         intent.putExtra("entryDate", entryDate);
                         intent.putExtra("entryStartTime", entryStartTime);
                         intent.putExtra("entryEndTime", entryEndTime);
+                        intent.putExtra("entryFeedTime", entryFeedTime);
                         intent.putExtra("entrySide", entrySide);
                         intent.putExtra("entryOunces", entryOunces);
                         intent.putExtra("entryChild", entryChildID);

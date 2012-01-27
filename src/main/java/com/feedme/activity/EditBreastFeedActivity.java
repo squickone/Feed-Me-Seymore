@@ -22,7 +22,7 @@ import java.util.Calendar;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditBreastFeedActivity extends Activity
+public class EditBreastFeedActivity extends BaseActivity
 {
     private Button entryDate;
     private Button startTime;
@@ -69,16 +69,7 @@ public class EditBreastFeedActivity extends Activity
         final int babyId = b.getInt("babyId");
         final String babyGender = b.getString("babyGender");
 
-        final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
-        final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
-
-        if (babyGender.equals("Male")) {
-            topBanner.setBackgroundColor(0xFF7ED0FF);
-            bottomBanner.setBackgroundColor(0xFF7ED0FF);
-        } else {
-            topBanner.setBackgroundColor(0xFFFF99CC);
-            bottomBanner.setBackgroundColor(0xFFFF99CC);
-        }
+        styleActivity(b.getString("babyGender"));
 
         //populate entry data
         entryDate = (Button) findViewById(R.id.entryDate);
@@ -169,7 +160,7 @@ public class EditBreastFeedActivity extends Activity
                 journalDao.updateEntry(new Journal(entryDate.getText().toString(),
                         startTime.getText().toString(),
                         endTime.getText().toString(),
-                        " ",
+                        timerDuration.getText().toString(),
                         entrySide.getSelectedItem().toString(),
                         " ",
                         entryChildValue), entryID);

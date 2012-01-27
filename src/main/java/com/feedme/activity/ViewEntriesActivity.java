@@ -63,6 +63,7 @@ public class ViewEntriesActivity extends BaseActivity
                 final String entryDate = journal.getDate();
                 final String entryStartTime = journal.getStartTime();
                 final String entryEndTime = journal.getEndTime();
+                final String entryFeedTime = journal.getFeedTime();
                 final String entryOunces = journal.getOunces();
                 final String entrySide = journal.getSide();
                 final int entryChildID = journal.getChild();
@@ -129,12 +130,6 @@ public class ViewEntriesActivity extends BaseActivity
 
                 linearLayoutVertical.addView(bottleBreast);
 
-    //            TextView entryId = new TextView(this);
-    //            entryId.setTextColor(0xFF000000);
-    //            entryId.setText("Entry ID: " + journal.getID());
-    //
-    //            linearLayoutVertical.addView(entryId);
-
                 TextView feedAmount = new TextView(this);
                 feedAmount.setTextColor(0xFF000000);
                 feedAmount.setText(journal.getDate());
@@ -177,6 +172,7 @@ public class ViewEntriesActivity extends BaseActivity
                             intent.putExtra("entryDate", entryDate);
                             intent.putExtra("entryStartTime", entryStartTime);
                             intent.putExtra("entryEndTime", entryEndTime);
+                            intent.putExtra("entryFeedTime", entryFeedTime);
                             intent.putExtra("entrySide", entrySide);
                             intent.putExtra("entryOunces", entryOunces);
                             intent.putExtra("entryChild", entryChildID);
@@ -190,6 +186,7 @@ public class ViewEntriesActivity extends BaseActivity
                             intent.putExtra("entryDate", entryDate);
                             intent.putExtra("entryStartTime", entryStartTime);
                             intent.putExtra("entryEndTime", entryEndTime);
+                            intent.putExtra("entryFeedTime", entryFeedTime);
                             intent.putExtra("entrySide", entrySide);
                             intent.putExtra("entryOunces", entryOunces);
                             intent.putExtra("entryChild", entryChildID);
