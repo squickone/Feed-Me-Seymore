@@ -131,15 +131,15 @@ public class AddBreastFeedActivity extends FeedActivity
             public void onClick(View v)
             {
                 // Inserting entry
-                Journal journal = new Journal(entryDate.getText().toString(),
-                        startTime.getText().toString(),
-                        endTime.getText().toString(),
-                        String.valueOf(dur),
-                        entrySide.getSelectedItem().toString(),
-                        "",
-                        baby.getID());
-                Log.d("Add Journal: ", journal.dump());
-                journalDao.addEntry(journal);
+                Journal insertJournal = new Journal(entryDate.getText().toString(),
+                                                    startTime.getText().toString(),
+                                                    endTime.getText().toString(),
+                                                    String.valueOf(dur),
+                                                    entrySide.getSelectedItem().toString(),
+                                                    "",
+                                                    baby.getID());
+                Log.d("JOURNAL-ADD: ", insertJournal.dump());
+                journalDao.addEntry(insertJournal);
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtras(bundle);

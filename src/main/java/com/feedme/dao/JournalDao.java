@@ -60,7 +60,7 @@ public class JournalDao {
         values.put(KEY_DATE, entry.getDate()); // Date
         values.put(KEY_START_TIME, entry.getStartTime()); // Time
         values.put(KEY_END_TIME, entry.getEndTime()); // Time
-        values.put(KEY_FEED_TIME, entry.getEndTime()); // Feed Time
+        values.put(KEY_FEED_TIME, entry.getFeedTime()); // Feed Time
         values.put(KEY_SIDE, entry.getSide()); // Side
         values.put(KEY_OUNCES, entry.getOunces()); // Ounces
         values.put(KEY_CHILD_ID, entry.getChild()); // Child ID

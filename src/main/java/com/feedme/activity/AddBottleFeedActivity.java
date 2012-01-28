@@ -92,19 +92,15 @@ public class AddBottleFeedActivity extends FeedActivity
         {
             public void onClick(View v)
             {
-                Log.d("Insert: ", "Inserting ..");
-                Log.d("INSERT ENTRY DATE: ", entryDate.getText().toString());
-                Log.d("INSERT START TIME: ", startTime.getText().toString());
-                Log.d("INSERT END TIME: ", endTime.getText().toString());
-                Log.d("INSERT FEED QTY: ", feedAmt.getSelectedItem().toString());
-                Log.d("INSERT BABY ID: ", String.valueOf(baby.getID()));
-                journalDao.addEntry(new Journal(entryDate.getText().toString(),
-                        startTime.getText().toString(),
-                        endTime.getText().toString(),
-                        " ",
-                        " ",
-                        feedAmt.getSelectedItem().toString(),
-                        baby.getID()));
+                Journal insertJournal = new Journal(entryDate.getText().toString(),
+                                                    startTime.getText().toString(),
+                                                    endTime.getText().toString(),
+                                                    "",
+                                                    "",
+                                                    feedAmt.getSelectedItem().toString(),
+                                                    baby.getID());
+                Log.d("JOURNAL-ADD:", insertJournal.dump());
+                journalDao.addEntry(insertJournal);
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtras(bundle);

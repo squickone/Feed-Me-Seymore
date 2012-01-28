@@ -59,6 +59,8 @@ public class ViewBabyActivity extends Activity
         }
         final Baby baby = tempBaby;
 
+        Log.d("BABY:", baby.dump());
+
         final Bundle bundle = new Bundle();
         bundle.putSerializable("baby", baby);
 
@@ -81,7 +83,9 @@ public class ViewBabyActivity extends Activity
 
         //populate journal data
         int j = 0;
-        for (Journal journal : lsJournal) {
+        for (Journal journal : lsJournal)
+        {
+            Log.d("BABY:JOURNAL:", journal.dump());
 
             TableRow tr1 = new TableRow(this);  //create new row
 
@@ -124,7 +128,9 @@ public class ViewBabyActivity extends Activity
 
             TextView bottleBreast = new TextView(this);
             bottleBreast.setTextColor(0xFF000000);
+
             final String side = journal.getSide();
+
             if (side.trim().isEmpty()) {
                 bottleBreast.setText("Bottle");
             } else {
@@ -158,8 +164,10 @@ public class ViewBabyActivity extends Activity
                 TextView feedTime = new TextView(this);
                 feedTime.setTextColor(0xFF000000);
                 
-//                Date dateDuration = new Date(Long.valueOf());
-                feedTime.setText(journal.getFeedTime());
+                Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
+                feedTime.setText(simpleTimeFormat.format(dateDuration));
+
+                linearLayoutVertical.addView(feedTime);
             }
 
             TextView babyDiaper = new TextView(this);
