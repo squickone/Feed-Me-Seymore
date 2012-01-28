@@ -28,6 +28,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.feedme.ui.JournalTable;
+
 /**
  * User: dayel.ostraco
  * Date: 1/16/12
@@ -35,8 +37,7 @@ import java.util.List;
  */
 public class ViewBabyActivity extends Activity
 {
-
-    public SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
+    private JournalTable journalTable = new JournalTable();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -75,140 +76,14 @@ public class ViewBabyActivity extends Activity
 
         List<Journal> lsJournal = journalDao.getLastFeedingsByChild(baby.getID(), 5);
 
-        TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.myTableLayout);
 
         // prepare settings data
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
         Settings setting = settingsDao.getSetting(1);
 
         //populate journal data
-        int j = 0;
-        for (Journal journal : lsJournal)
-        {
-            Log.d("BABY:JOURNAL:", journal.dump());
-
-            TableRow tr1 = new TableRow(this);  //create new row
-
-            if (j == 0) {
-                if (baby.getSex().equals("Male")) {
-                    tr1.setBackgroundColor(0xFFD2EDFC);
-                } else {
-                    tr1.setBackgroundColor(0xFFFCD2d2);
-                }
-            } else {
-                tr1.setBackgroundColor(0xFFFFFFFF);
-            }
-            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
-                    TableRow.LayoutParams.FILL_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT);
-            tr1.setLayoutParams(layoutParams);
-            tr1.setClickable(true);
-            tr1.setPadding(5, 5, 5, 5);
-
-            LinearLayout linearLayoutHorizontal = new LinearLayout(this);
-
-            ImageView imageView = new ImageView(this);
-            imageView.setMinimumHeight(60);
-            imageView.setMinimumWidth(60);
-            imageView.setBackgroundResource(R.drawable.icon_border);
-
-            if (journal.getSide().trim().isEmpty()) {
-                imageView.setImageResource(R.drawable.icon_bottle);
-            } else {
-                imageView.setImageResource(R.drawable.icon_breastfeed);
-            }
-
-            linearLayoutHorizontal.addView(imageView);
-
-            LinearLayout linearLayoutVertical = new LinearLayout(this);
-
-            linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
-
-            linearLayoutVertical.setPadding(5, 0, 0, 0);
-
-            TextView bottleBreast = new TextView(this);
-            bottleBreast.setTextColor(0xFF000000);
-
-            final String side = journal.getSide();
-
-            if (side.trim().isEmpty()) {
-                bottleBreast.setText("Bottle");
-            } else {
-                bottleBreast.setText("Breastfeeding - " + journal.getSide());
-            }
-
-            linearLayoutVertical.addView(bottleBreast);
-
-            TextView feedDate = new TextView(this);
-            feedDate.setTextColor(0xFF000000);
-            feedDate.setText(journal.getDate());
-
-            linearLayoutVertical.addView(feedDate);
-
-            if (!journal.getOunces().isEmpty())
-            {
-                TextView feedAmt = new TextView(this);
-                feedAmt.setTextColor(0xFF000000);
-
-                if (side.trim().isEmpty()) {
-                    feedAmt.setText(journal.getOunces() + " " + setting.getLiquid());
-                } else {
-                    feedAmt.setText(journal.getOunces());
-                }
-
-                linearLayoutVertical.addView(feedAmt);
-            }
-
-            if (!journal.getFeedTime().isEmpty())
-            {
-                TextView feedTime = new TextView(this);
-                feedTime.setTextColor(0xFF000000);
-                
-                Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
-                feedTime.setText(simpleTimeFormat.format(dateDuration));
-
-                linearLayoutVertical.addView(feedTime);
-            }
-
-            TextView babyDiaper = new TextView(this);
-            babyDiaper.setTextColor(0xFF000000);
-            babyDiaper.setText(journal.getStartTime() + " - " + journal.getEndTime());
-
-            linearLayoutVertical.addView(babyDiaper);
-
-            linearLayoutHorizontal.addView(linearLayoutVertical);
-
-            tr1.addView(linearLayoutHorizontal);
-
-            final Bundle jBundle = new Bundle();
-            jBundle.putSerializable("baby", baby);
-            jBundle.putSerializable("journal", journal);
-
-            tr1.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)
-                {
-                    Intent intent;
-                    if (side.trim().isEmpty()) {
-                        intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
-                    } else {
-                        intent = new Intent(v.getContext(), EditBreastFeedActivity.class);
-                    }
-                    intent.putExtras(jBundle);
-                    startActivityForResult(intent, 3);
-                }
-            });
-
-            /* Add row to TableLayout. */
-            tl.addView(tr1, new TableLayout.LayoutParams(
-                    TableRow.LayoutParams.FILL_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-
-            j++;
-            if (j == 2) {
-                j = 0;
-            }
-        }
+        journalTable.buildRows(this, lsJournal, baby, tableLayout);
 
         // Populate Baby Data
         if (baby != null) {
