@@ -1,12 +1,15 @@
 package com.feedme.model;
 
+import java.io.Serializable;
+
 /**
  * User: root
  * Date: 1/16/12
  * Time: 1:22 PM
  */
 
-public class Baby {
+public class Baby implements Serializable
+{
 
     //private variables
     int _id;
@@ -18,12 +21,14 @@ public class Baby {
     String _picturePath;
 
     // Empty constructor
-    public Baby(){
+    public Baby()
+    {
 
     }
 
     // constructor
-    public Baby(int id, String name, String sex, String height, String weight, String dob, String picturePath){
+    public Baby(int id, String name, String sex, String height, String weight, String dob, String picturePath)
+    {
         this._id = id;
         this._name = name;
         this._sex = sex;
@@ -31,10 +36,11 @@ public class Baby {
         this._weight = weight;
         this._dob = dob;
         this._picturePath = picturePath;
-   }
+    }
 
     // constructor
-    public Baby(String name, String sex, String height, String weight, String dob, String picturePath){
+    public Baby(String name, String sex, String height, String weight, String dob, String picturePath)
+    {
         this._name = name;
         this._sex = sex;
         this._height = height;
@@ -42,74 +48,101 @@ public class Baby {
         this._dob = dob;
         this._picturePath = picturePath;
     }
-    
+
     // getting ID
-    public int getID(){
+    public int getID()
+    {
         return this._id;
     }
 
     // setting id
-    public void setID(int id){
+    public void setID(int id)
+    {
         this._id = id;
     }
 
     // getting name
-    public String getName(){
+    public String getName()
+    {
         return this._name;
     }
 
     // setting name
-    public void setName(String name){
+    public void setName(String name)
+    {
         this._name = name;
     }
 
     // getting sex
-    public String getSex(){
+    public String getSex()
+    {
         return this._sex;
     }
 
     // setting sex
-    public void setSex(String sex){
+    public void setSex(String sex)
+    {
         this._sex = sex;
     }
 
     // getting height
-    public String getHeight(){
+    public String getHeight()
+    {
         return this._height;
     }
 
     // setting height
-    public void setHeight(String height){
+    public void setHeight(String height)
+    {
         this._height = height;
     }
 
     // getting weight
-    public String getWeight(){
+    public String getWeight()
+    {
         return this._weight;
     }
 
     // setting weight
-    public void setWeight(String weight){
+    public void setWeight(String weight)
+    {
         this._weight = weight;
     }
 
     // getting dob
-    public String getDob(){
+    public String getDob()
+    {
         return this._dob;
     }
 
     // setting dob
-    public void setDob(String dob){
+    public void setDob(String dob)
+    {
         this._dob = dob;
     }
 
     // getting picturePath
-    public String getPicturePath() {
+    public String getPicturePath()
+    {
         return _picturePath;
     }
 
     // setting picturePath
-    public void setPicturePath(String picturePath) {
+    public void setPicturePath(String picturePath)
+    {
         this._picturePath = picturePath;
+    }
+
+    public String dump()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: " + _id + " - ");
+        sb.append("NAME: " + _name + " - ");
+        sb.append("SEX: " + _sex + " - ");
+        sb.append("HEIGHT: " + _height + " - ");
+        sb.append("WEIGHT: " + _weight + " - ");
+        sb.append("DOB: " + _dob + " - ");
+        sb.append("PICTURE PATH: " + _picturePath);
+        return sb.toString();
     }
 }

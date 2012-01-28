@@ -26,217 +26,113 @@ import java.util.Calendar;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditBottleFeedActivity extends Activity
+public class EditBottleFeedActivity extends FeedActivity
 {
-    private Button entryDate;
-    private Button startTime;
-    private Button endTime;
-    private Spinner entryOunces;
 
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-
-    private int startHour;
-    private int startMinute;
-    private int startSecond;
-
-    private int endHour;
-    private int endMinute;
-    private int endSecond;
-
-    static final int DATE_DIALOG_ID = 0;
-    static final int STARTTIME_DIALOG_ID = 1;
-    static final int ENDTIME_DIALOG_ID = 2;
-
-    private String babyName;
-    private String feedQty;
-    
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.edit_bottle_feed_entry);
+
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
-        //get baby id
-        Bundle b = getIntent().getExtras();
-        final int babyId = b.getInt("babyId");
-        final String babyGender = b.getString("babyGender");
+        final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
+        final Journal journal = (Journal) getIntent().getSerializableExtra("journal");
 
-        final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
-        final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
+        final Bundle bundle = new Bundle();
+        bundle.putSerializable("baby", baby);
 
-        if (babyGender.equals("Male")) {
-            topBanner.setBackgroundColor(0xFF7ED0FF);
-            bottomBanner.setBackgroundColor(0xFF7ED0FF);
-        } else {
-            topBanner.setBackgroundColor(0xFFFF99CC);
-            bottomBanner.setBackgroundColor(0xFFFF99CC);
-        }
+        styleActivity(baby.getSex());
 
- 
         entryDate = (Button) findViewById(R.id.entryDate);
         startTime = (Button) findViewById(R.id.addStartTime);
         endTime = (Button) findViewById(R.id.addEndTime);
-        Button editEntryButton = (Button) findViewById(R.id.editEntryButton);
 
-        //get baby properties
-        final int entryID = getIntent().getExtras().getInt("entryID");
-        final String entryDateValue = getIntent().getExtras().getString("entryDate");
-        final String entryStartTimeValue = getIntent().getExtras().getString("entryStartTime");
-        final String entryEndTimeValue = getIntent().getExtras().getString("entryEndTime");
-        final String entryOuncesValue = getIntent().getExtras().getString("entryOunces");
-        final int entryChildValue = getIntent().getExtras().getInt("entryChild");
+        Button editEntryButton = (Button) findViewById(R.id.editEntryButton);
 
         // prepare settings data
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
         Settings setting = settingsDao.getSetting(1);
 
-        //get baby name
-        final BabyDao babyDao = new BabyDao(getApplicationContext());
-        Baby baby = babyDao.getBaby(entryChildValue);
-        final String babyName = baby.getName();
-
         //populate entry data
-        entryDate.setText(entryDateValue);
-        startTime.setText(entryStartTimeValue);
-        endTime.setText(entryEndTimeValue);
+        entryDate.setText(journal.getDate());
+        startTime.setText(journal.getStartTime());
+        endTime.setText(journal.getEndTime());
 
         //populate settings data
         TextView entryUnits = (TextView) findViewById(R.id.entryUnits);
         final Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
 
         Integer tenToInteger = 10;
+        int ounces = Integer.parseInt(journal.getOunces());
+
         if (setting.getLiquid().equals("oz")) {
             //populate ounces spinner
-             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                     this, R.array.feedingAmountOz, android.R.layout.simple_spinner_item);
-             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-             feedAmt.setAdapter(adapter);
-             entryUnits.setText("Ounces: ");
-             if (Integer.parseInt(entryOuncesValue)>10) {
-                 feedAmt.setSelection((Integer.parseInt(entryOuncesValue)%tenToInteger)-1);
-             } else {
-                 feedAmt.setSelection(Integer.parseInt(entryOuncesValue)-1);
-             }
-        } else {
-             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            feedAmt.setAdapter(adapter);
+            entryUnits.setText("Ounces: ");
+            if (ounces > 10)
+            {
+                feedAmt.setSelection((ounces % tenToInteger) - 1);
+            }
+            else
+            {
+                feedAmt.setSelection(ounces - 1);
+            }
+        }
+        else
+        {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                     this, R.array.feedingAmountMl, android.R.layout.simple_spinner_item);
-             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-             feedAmt.setAdapter(adapter);
-             entryUnits.setText("Milliliters: ");
-             feedAmt.setSelection((Integer.parseInt(entryOuncesValue)/tenToInteger)-1);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            feedAmt.setAdapter(adapter);
+            entryUnits.setText("Milliliters: ");
+            feedAmt.setSelection((ounces / tenToInteger) - 1);
         }
 
-
+        // add a click listener to the button
+        entryDate.setOnClickListener(showDateDialog());
 
         // add a click listener to the button
-        entryDate.setOnClickListener(new View.OnClickListener()
+        startTime.setOnClickListener(showStartTimeDialog());
+
+        // add a click listener to the button
+        endTime.setOnClickListener(showEndTimeDialog());
+
+        setupCalendar();
+
+        editEntryButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                showDialog(DATE_DIALOG_ID);
-            }
-        });
-
-        // add a click listener to the button
-        startTime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(STARTTIME_DIALOG_ID);
-            }
-        });
-
-        // add a click listener to the button
-        endTime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(ENDTIME_DIALOG_ID);
-            }
-        });
-
-        // get the current date
-        final Calendar c = Calendar.getInstance();
-
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        startHour = c.get(Calendar.HOUR_OF_DAY);
-        startMinute = c.get(Calendar.MINUTE);
-        startSecond = c.get(Calendar.SECOND);
-
-        endHour = c.get(Calendar.HOUR_OF_DAY);
-        endMinute = c.get(Calendar.MINUTE);
-        endSecond = c.get(Calendar.SECOND);
-
-        // display the current date
-        //updateDateDisplay();
-        //updateStartDisplay();
-        //updateEndDisplay();
-
-       editEntryButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                /**
-                 * CRUD Operations
-                 * */
-                // Inserting entry
-
                 journalDao.updateEntry(new Journal(entryDate.getText().toString(),
                         startTime.getText().toString(),
                         endTime.getText().toString(),
                         " ",
                         " ",
                         feedAmt.getSelectedItem().toString(),
-                        entryChildValue), entryID);
-
-                final BabyDao babyDao = new BabyDao(getApplicationContext());
-                Baby baby = babyDao.getBaby(entryChildValue);
-                final String babyName = baby.getName();
+                        baby.getID()), journal.getID());
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                intent.putExtra("babyName", babyName);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
-
             }
         });
 
         //Add Delete Button`
         Button deleteButton = (Button) findViewById(R.id.deleteEntry);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                deleteEntry(entryID, babyName);
+        deleteButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                deleteEntry(journal.getID(), baby.getName());
             }
         });
 
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id)
-    {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                return new DatePickerDialog(this,
-                        mDateSetListener,
-                        mYear, mMonth, mDay);
-            case STARTTIME_DIALOG_ID:
-                return new TimePickerDialog(this,
-                startTimeListener, startHour, startMinute, false);
-            case ENDTIME_DIALOG_ID:
-                return new TimePickerDialog(this,
-                endTimeListener, endHour, endMinute, false);
-        }
-        return null;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
     }
 
     @Override
@@ -259,117 +155,32 @@ public class EditBottleFeedActivity extends Activity
         return true;
     }
 
-    // updates the date we display in the TextView
-    private void updateDateDisplay()
+    private void deleteEntry(final int entryID, final String babyName)
     {
-        entryDate.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(mMonth + 1).append("-")
-                        .append(mDay).append("-")
-                        .append(mYear).append(" "));
-    }
-
-    // add leading zero to times
-    private static String pad(int c) {
-        if (c >= 10)
-            return String.valueOf(c);
-        else
-            return "0" + String.valueOf(c);
-    }
-
-    // updates the date we display in the TextView
-    private void updateStartDisplay()
-    {
-        startTime.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(pad(startHour)).append(":")
-                        .append(pad(startMinute)).append(":")
-                        .append(pad(startSecond)));
-    }
-
-    // updates the date we display in the TextView
-    private void updateEndDisplay()
-    {
-        endTime.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(pad(endHour)).append(":")
-                        .append(pad(endMinute)).append(":")
-                        .append(pad(endSecond)));
-    }
-
-    // the callback received when the user "sets" the date in the dialog
-    private DatePickerDialog.OnDateSetListener mDateSetListener =
-            new DatePickerDialog.OnDateSetListener()
-            {
-                public void onDateSet(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth)
-                {
-                    mYear = year;
-                    mMonth = monthOfYear;
-                    mDay = dayOfMonth;
-                    updateDateDisplay();
-                }
-            };
-
-    // the callback received when the user "sets" the time in the dialog
-    private TimePickerDialog.OnTimeSetListener startTimeListener =
-    new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute)
-        {
-            startHour = hourOfDay;
-            startMinute = minute;
-            updateStartDisplay();
-        }
-    };
-
-    // the callback received when the user "sets" the time in the dialog
-    private TimePickerDialog.OnTimeSetListener endTimeListener =
-    new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute)
-        {
-            endHour = hourOfDay;
-            endMinute = minute;
-            updateEndDisplay();
-        }
-    };
-
-
-    public class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener
-    {
-        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-        {
-            feedQty = parent.getItemAtPosition(pos).toString();
-        }
-
-        public void onNothingSelected(AdapterView parent)
-        {
-            // Do nothing.
-        }
-    }
-
-    private void deleteEntry(final int entryID, final String babyName) {
 
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditBottleFeedActivity.this);
         myAlertDialog.setTitle("Delete Entry");
         myAlertDialog.setMessage("Are you sure?");
-        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface arg0, int arg1) {
+        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface arg0, int arg1)
+            {
                 JournalDao journalDao = new JournalDao(getApplicationContext());
                 journalDao.deleteEntryByID(entryID);
                 Intent intent = new Intent(EditBottleFeedActivity.this, ViewBabyActivity.class);
                 intent.putExtra("babyName", babyName);
                 startActivityForResult(intent, 3);
 
-            }});
-        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            }
+        });
+        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
 
-            public void onClick(DialogInterface arg0, int arg1) {
+            public void onClick(DialogInterface arg0, int arg1)
+            {
 
-            }});
+            }
+        });
         myAlertDialog.show();
 
     }

@@ -6,8 +6,8 @@ package com.feedme.model;
  * Time: 1:22 PM
  */
 
-public class Settings {
-
+public class Settings
+{
     //private variables
     int _id;
     String _liquid;
@@ -18,12 +18,15 @@ public class Settings {
     String _vibrate;
 
     // Empty constructor
-    public Settings(){
+    public Settings()
+    {
 
     }
 
     // constructor
-    public Settings(int id, String liquid, String length, String weight, String temperature, String sound, String vibrate){
+    public Settings(int id, String liquid, String length, String weight, String temperature, String sound,
+                    String vibrate)
+    {
         this._id = id;
         this._liquid = liquid;
         this._length = length;
@@ -31,10 +34,11 @@ public class Settings {
         this._temperature = temperature;
         this._sound = sound;
         this._vibrate = vibrate;
-   }
+    }
 
     // constructor
-    public Settings(String liquid, String length, String weight, String temperature, String sound, String vibrate){
+    public Settings(String liquid, String length, String weight, String temperature, String sound, String vibrate)
+    {
         this._liquid = liquid;
         this._length = length;
         this._weight = weight;
@@ -42,74 +46,88 @@ public class Settings {
         this._sound = sound;
         this._vibrate = vibrate;
     }
-    
+
     // getting ID
-    public int getID(){
+    public int getID()
+    {
         return this._id;
     }
 
     // setting id
-    public void setID(int id){
+    public void setID(int id)
+    {
         this._id = id;
     }
 
     // getting liquid
-    public String getLiquid(){
+    public String getLiquid()
+    {
         return this._liquid;
     }
 
     // setting liquid
-    public void setLiquid(String liquid){
+    public void setLiquid(String liquid)
+    {
         this._liquid = liquid;
     }
 
     // getting length
-    public String getLength(){
+    public String getLength()
+    {
         return this._length;
     }
 
     // setting length
-    public void setLength(String length){
+    public void setLength(String length)
+    {
         this._length = length;
     }
 
     // getting weight
-    public String getSettingsWeight(){
+    public String getSettingsWeight()
+    {
         return this._weight;
     }
 
     // setting weight
-    public void setSettingsWeight(String weight){
+    public void setSettingsWeight(String weight)
+    {
         this._weight = weight;
     }
 
     // getting temperature
-    public String getTemperature(){
+    public String getTemperature()
+    {
         return this._temperature;
     }
 
     // setting temperature
-    public void setTemperature(String temperature){
+    public void setTemperature(String temperature)
+    {
         this._temperature = temperature;
     }
 
     // getting sound
-    public String getSound() {
+    public String getSound()
+    {
         return _sound;
     }
 
     // setting sound
-    public void setSound(String sound) {
+    public void setSound(String sound)
+    {
         this._sound = sound;
     }
 
     // getting vibrate
-    public String getVibrate() {
+    public String getVibrate()
+    {
         return _vibrate;
     }
 
     // setting vibrate
-    public void Vibrate(String vibrate) {
+    public void Vibrate(String vibrate)
+    {
         this._vibrate = vibrate;
     }
 }

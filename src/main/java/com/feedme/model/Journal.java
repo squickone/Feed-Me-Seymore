@@ -1,5 +1,6 @@
 package com.feedme.model;
 
+import java.io.Serializable;
 import java.net.IDN;
 
 /**
@@ -10,7 +11,8 @@ import java.net.IDN;
  * To change this template use File | Settings | File Templates.
  */
 
-public class Journal {
+public class Journal implements Serializable
+{
 
     //private variables
     int _id;
@@ -23,9 +25,11 @@ public class Journal {
     int _child_id;
 
     // Empty constructor
-    public Journal(){
+    public Journal()
+    {
 
     }
+
     // constructor
     public Journal(int id,
                    String date,
@@ -34,7 +38,8 @@ public class Journal {
                    String feed_time,
                    String side,
                    String ounces,
-                   int child_id){
+                   int child_id)
+    {
         this._id = id;
         this._date = date;
         this._start_time = start_time;
@@ -43,7 +48,7 @@ public class Journal {
         this._side = side;
         this._ounces = ounces;
         this._child_id = child_id;
-   }
+    }
 
     // constructor
     public Journal(String date,
@@ -52,7 +57,8 @@ public class Journal {
                    String feed_time,
                    String side,
                    String ounces,
-                   int child_id){
+                   int child_id)
+    {
         this._date = date;
         this._start_time = start_time;
         this._end_time = end_time;
@@ -60,85 +66,101 @@ public class Journal {
         this._side = side;
         this._ounces = ounces;
         this._child_id = child_id;
-   }
+    }
 
     // getting ID
-    public int getID(){
+    public int getID()
+    {
         return this._id;
     }
 
     // setting id
-    public void setID(int id){
+    public void setID(int id)
+    {
         this._id = id;
     }
 
     // getting date
-    public String getDate(){
+    public String getDate()
+    {
         return this._date;
     }
 
     // setting date
-    public void setDate(String date){
+    public void setDate(String date)
+    {
         this._date = date;
     }
 
     // getting start time
-    public String getStartTime(){
+    public String getStartTime()
+    {
         return this._start_time;
     }
 
     // setting start time
-    public void setStartTime(String start_time){
+    public void setStartTime(String start_time)
+    {
         this._start_time = start_time;
     }
 
     // getting end time
-    public String getEndTime(){
+    public String getEndTime()
+    {
         return this._end_time;
     }
 
     // setting end time
-    public void setEndTime(String end_time){
+    public void setEndTime(String end_time)
+    {
         this._end_time = end_time;
     }
 
     // getting feed start time
-    public String getFeedTime(){
+    public String getFeedTime()
+    {
         return this._feed_time;
     }
 
     // setting feed end time
-    public void setFeedTime(String feed_time){
+    public void setFeedTime(String feed_time)
+    {
         this._feed_time = feed_time;
     }
 
     // getting side
-    public String getSide(){
+    public String getSide()
+    {
         return this._side;
     }
 
     // setting side
-    public void setSide(String side){
+    public void setSide(String side)
+    {
         this._side = side;
     }
 
     // getting ounces
-    public String getOunces(){
+    public String getOunces()
+    {
         return this._ounces;
     }
 
     // setting ounces
-    public void setOunces(String ounces){
+    public void setOunces(String ounces)
+    {
         this._ounces = ounces;
     }
 
     // getting child
-    public int getChild(){
+    public int getChild()
+    {
         return this._child_id;
     }
 
     // setting child
-    public void setChild(int child_id){
+    public void setChild(int child_id)
+    {
         this._child_id = child_id;
     }
 

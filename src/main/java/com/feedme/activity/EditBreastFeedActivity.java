@@ -4,6 +4,7 @@ import android.app.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,8 +44,8 @@ public class EditBreastFeedActivity extends BaseActivity
     private int endSecond;
 
     static final int DATE_DIALOG_ID = 0;
-    static final int STARTTIME_DIALOG_ID = 1;
-    static final int ENDTIME_DIALOG_ID = 2;
+    static final int START_TIME_DIALOG_ID = 1;
+    static final int END_TIME_DIALOG_ID = 2;
 
     private String feedQty;
     private String babyName;
@@ -64,12 +65,12 @@ public class EditBreastFeedActivity extends BaseActivity
         Spinner s = (Spinner) findViewById( R.id.entrySide );
         s.setAdapter( adapter );
 
-        //set colors for gender
-        Bundle b = getIntent().getExtras();
-        final int babyId = b.getInt("babyId");
-        final String babyGender = b.getString("babyGender");
+        final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
+        final Journal journal = (Journal) getIntent().getSerializableExtra("journal");
 
-        styleActivity(b.getString("babyGender"));
+        Log.d("FEED: ", journal.dump());
+
+        styleActivity(baby.getSex());
 
         //populate entry data
         entryDate = (Button) findViewById(R.id.entryDate);
@@ -80,26 +81,12 @@ public class EditBreastFeedActivity extends BaseActivity
         entrySide = (Spinner) findViewById(R.id.entrySide);
         Button editEntryButton = (Button) findViewById(R.id.editEntryButton);
 
-        final int entryID = getIntent().getExtras().getInt("entryID");
-        final String entryDateValue = getIntent().getExtras().getString("entryDate");
-        final String entryStartTimeValue = getIntent().getExtras().getString("entryStartTime");
-        final String entryEndTimeValue = getIntent().getExtras().getString("entryEndTime");
-        final String entryFeedTime = getIntent().getExtras().getString("entryFeedTime");
-        final String entrySideValue = getIntent().getExtras().getString("entrySide");
-        final int entryChildValue = getIntent().getExtras().getInt("entryChild");
+        entryDate.setText(journal.getDate());
+        startTime.setText(journal.getStartTime());
+        endTime.setText(journal.getEndTime());
+        timerDuration.setText(journal.getFeedTime());
 
-        //get baby name
-        final BabyDao babyDao = new BabyDao(getApplicationContext());
-        Baby baby = babyDao.getBaby(entryChildValue);
-        final String babyName = baby.getName();
-
-        entryDate.setText(entryDateValue);
-        startTime.setText(entryStartTimeValue);
-        endTime.setText(entryEndTimeValue);
-        timerDuration.setText(entryFeedTime);
-
-
-        if(entrySideValue.equals("Left")){
+        if(journal.getSide().equals("Left")){
             entrySide.setSelection(0);
         } else {
             entrySide.setSelection(1);
@@ -117,14 +104,14 @@ public class EditBreastFeedActivity extends BaseActivity
         // add a click listener to the button
         startTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                showDialog(STARTTIME_DIALOG_ID);
+                showDialog(START_TIME_DIALOG_ID);
             }
         });
 
         // add a click listener to the button
         endTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                showDialog(ENDTIME_DIALOG_ID);
+                showDialog(END_TIME_DIALOG_ID);
             }
         });
 
@@ -143,36 +130,24 @@ public class EditBreastFeedActivity extends BaseActivity
         endMinute = c.get(Calendar.MINUTE);
         endSecond = c.get(Calendar.SECOND);
 
-        // display the current date
-        //updateDateDisplay();
-        //updateStartDisplay();
-        //updateEndDisplay();
-
-       editEntryButton.setOnClickListener(new View.OnClickListener()
+        editEntryButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                /**
-                 * CRUD Operations
-                 * */
-                // Inserting entry
-
                 journalDao.updateEntry(new Journal(entryDate.getText().toString(),
                         startTime.getText().toString(),
                         endTime.getText().toString(),
                         timerDuration.getText().toString(),
                         entrySide.getSelectedItem().toString(),
                         " ",
-                        entryChildValue), entryID);
+                        baby.getID()), journal.getID());
 
-                final BabyDao babyDao = new BabyDao(getApplicationContext());
-                Baby baby = babyDao.getBaby(entryChildValue);
-                final String babyName = baby.getName();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("baby", baby);
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                intent.putExtra("babyName", babyName);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
-
             }
         });
 
@@ -180,7 +155,7 @@ public class EditBreastFeedActivity extends BaseActivity
         Button deleteButton = (Button) findViewById(R.id.deleteEntry);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                deleteEntry(entryID, babyName);
+                deleteEntry(journal.getID(), baby.getName());
             }
         });
 
@@ -194,10 +169,10 @@ public class EditBreastFeedActivity extends BaseActivity
                 return new DatePickerDialog(this,
                         mDateSetListener,
                         mYear, mMonth, mDay);
-            case STARTTIME_DIALOG_ID:
+            case START_TIME_DIALOG_ID:
                 return new TimePickerDialog(this,
                 startTimeListener, startHour, startMinute, false);
-            case ENDTIME_DIALOG_ID:
+            case END_TIME_DIALOG_ID:
                 return new TimePickerDialog(this,
                 endTimeListener, endHour, endMinute, false);
         }
@@ -309,7 +284,6 @@ public class EditBreastFeedActivity extends BaseActivity
         }
     };
 
-
     public class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener
     {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -346,7 +320,5 @@ public class EditBreastFeedActivity extends BaseActivity
         myAlertDialog.show();
 
     }
-
-
 
 }

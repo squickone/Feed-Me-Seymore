@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.feedme.R;
+import com.feedme.model.Baby;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -32,13 +33,13 @@ public class TimerActivity extends BaseActivity
 
         setContentView(R.layout.timer);
 
-        //get baby id
-        Bundle b = getIntent().getExtras();
-        final String babyGender = b.getString("babyGender");
-        final int entrySide = b.getInt("entrySide");
-        final int babyId = b.getInt("babyId");
+        final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
-        styleActivity(babyGender);
+        final Bundle bundle = new Bundle();
+        bundle.putSerializable("baby", baby);
+        bundle.putInt("entrySide", getIntent().getExtras().getInt("entrySide"));
+
+        styleActivity(baby.getSex());
 
         final Button startTimer = (Button) findViewById(R.id.startTimer);
         final Button stopTimer = (Button) findViewById(R.id.stopTimer);
@@ -65,10 +66,6 @@ public class TimerActivity extends BaseActivity
             public void onClick(View v)
             {
                 Intent intent = new Intent(v.getContext(), AddBreastFeedActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("babyGender", babyGender);
-                bundle.putInt("entrySide", entrySide);
-                bundle.putInt("babyId", babyId);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
             }
@@ -122,13 +119,9 @@ public class TimerActivity extends BaseActivity
                 stopTimer();
 
                 Intent intent = new Intent(v.getContext(), AddBreastFeedActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("babyGender", babyGender);
                 bundle.putLong("timerStart", startTime);
                 bundle.putLong("timerStop", stopTime);
                 bundle.putLong("duration", duration);
-                bundle.putInt("entrySide", entrySide);
-                bundle.putInt("babyId", babyId);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
             }

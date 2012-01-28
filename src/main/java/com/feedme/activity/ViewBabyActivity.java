@@ -32,42 +32,43 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 4:34 PM
  */
-public class ViewBabyActivity extends Activity {
+public class ViewBabyActivity extends Activity
+{
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_baby);
 
         final BabyDao babyDao = new BabyDao(getApplicationContext());
-
-        String babyName = "";
-        if (getIntent().getExtras() != null && getIntent().getExtras().getString("babyName") != null) {
-            babyName = getIntent().getExtras().getString("babyName");
-        }
-
-        final String babyNameToEdit = babyName;
-
-        Baby baby = null;
-        if (!babyName.equals("")) {
-            baby = babyDao.getBabyByName(babyName);
-        }
-
-        final int babyId = baby.getID();
-        final String babyGender = baby.getSex();
-        Log.d("BABYID VIEW BABY:", String.valueOf(babyId));
-
         final JournalDao journalDao = new JournalDao(getApplicationContext());
+
+        Baby tempBaby;
+
+        if(getIntent().getSerializableExtra("baby") != null)
+        {
+            tempBaby = (Baby) getIntent().getSerializableExtra("baby");
+        }
+        else
+        {
+            tempBaby = babyDao.getBabyByName(getIntent().getExtras().getString("babyName"));
+        }
+        final Baby baby = tempBaby;
+
+        final Bundle bundle = new Bundle();
+        bundle.putSerializable("baby", baby);
 
         //Get today's feedings
         SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy ");
         Calendar today = Calendar.getInstance();
-        int feedingCount = journalDao.getEntriesCountByBabyAndDate(new Integer(babyId).toString(), sdf.format(today.getTime()));
+        int feedingCount = journalDao.getEntriesCountByBabyAndDate(new Integer(baby.getID()).toString(),
+                sdf.format(today.getTime()));
         TextView todayFeedingCount = (TextView) findViewById(R.id.todayFeedings);
-        String feedingCountStr = feedingCount==0 ? "No Feeding's Today" : feedingCount + "";
+        String feedingCountStr = feedingCount == 0 ? "No Feeding's Today" : feedingCount + "";
         todayFeedingCount.setText(feedingCountStr);
 
-        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(babyId, 5);
+        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(baby.getID(), 5);
 
         TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
 
@@ -77,32 +78,17 @@ public class ViewBabyActivity extends Activity {
 
         //populate journal data
         int j = 0;
-        for (Journal journal : lsJournal)
-        {
-            final int entryID = journal.getID();
-            final String entryDate = journal.getDate();
-            final String entryStartTime = journal.getStartTime();
-            final String entryEndTime = journal.getEndTime();
-            final String entryFeedTime = journal.getFeedTime();
-            final String entryOunces = journal.getOunces();
-            final String entrySide = journal.getSide();
-            final int entryChildID = journal.getChild();
-            
-           TableRow tr1 = new TableRow(this);  //create new row
+        for (Journal journal : lsJournal) {
 
-            if (j == 0)
-            {
-                if (baby.getSex().equals("Male"))
-                {
+            TableRow tr1 = new TableRow(this);  //create new row
+
+            if (j == 0) {
+                if (baby.getSex().equals("Male")) {
                     tr1.setBackgroundColor(0xFFD2EDFC);
-                }
-                else
-                {
+                } else {
                     tr1.setBackgroundColor(0xFFFCD2d2);
                 }
-            }
-            else
-            {
+            } else {
                 tr1.setBackgroundColor(0xFFFFFFFF);
             }
             TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -119,12 +105,9 @@ public class ViewBabyActivity extends Activity {
             imageView.setMinimumWidth(60);
             imageView.setBackgroundResource(R.drawable.icon_border);
 
-            if (journal.getSide().trim().isEmpty())
-            {
+            if (journal.getSide().trim().isEmpty()) {
                 imageView.setImageResource(R.drawable.icon_bottle);
-            }
-            else
-            {
+            } else {
                 imageView.setImageResource(R.drawable.icon_breastfeed);
             }
 
@@ -134,17 +117,14 @@ public class ViewBabyActivity extends Activity {
 
             linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
 
-            linearLayoutVertical.setPadding(5,0,0,0);
+            linearLayoutVertical.setPadding(5, 0, 0, 0);
 
             TextView bottleBreast = new TextView(this);
             bottleBreast.setTextColor(0xFF000000);
             final String side = journal.getSide();
-            if (side.trim().isEmpty())
-            {
+            if (side.trim().isEmpty()) {
                 bottleBreast.setText("Bottle");
-            }
-            else
-            {
+            } else {
                 bottleBreast.setText("Breastfeeding - " + journal.getSide());
             }
 
@@ -158,11 +138,10 @@ public class ViewBabyActivity extends Activity {
 
             TextView babyWake = new TextView(this);
             babyWake.setTextColor(0xFF000000);
-            
+
             if (side.trim().isEmpty()) {
                 babyWake.setText(journal.getOunces() + " " + setting.getLiquid());
-            }
-            else {
+            } else {
                 babyWake.setText(journal.getOunces());
             }
 
@@ -178,39 +157,23 @@ public class ViewBabyActivity extends Activity {
 
             tr1.addView(linearLayoutHorizontal);
 
+            final Bundle jBundle = new Bundle();
+            jBundle.putSerializable("baby", baby);
+            jBundle.putSerializable("journal", journal);
+
             tr1.setOnClickListener(new View.OnClickListener()
             {
-                public void onClick(View v)       {
-     
-                    if (side.trim().isEmpty())
-                    {
-                        Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
-                        intent.putExtra("entryID", entryID);
-                        intent.putExtra("entryDate", entryDate);
-                        intent.putExtra("entryStartTime", entryStartTime);
-                        intent.putExtra("entryEndTime", entryEndTime);
-                        intent.putExtra("entryFeedTime", entryFeedTime);
-                        intent.putExtra("entrySide", entrySide);
-                        intent.putExtra("entryOunces", entryOunces);
-                        intent.putExtra("entryChild", entryChildID);
-                        intent.putExtra("babyGender", babyGender);
-                        startActivityForResult(intent, 3);               
+                public void onClick(View v)
+                {
+                    Intent intent;
+                    if (side.trim().isEmpty()) {
+                        intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
+                    } else {
+                        intent = new Intent(v.getContext(), EditBreastFeedActivity.class);
                     }
-                    else
-                    {
-                        Intent intent = new Intent(v.getContext(), EditBreastFeedActivity.class);
-                        intent.putExtra("entryID", entryID);
-                        intent.putExtra("entryDate", entryDate);
-                        intent.putExtra("entryStartTime", entryStartTime);
-                        intent.putExtra("entryEndTime", entryEndTime);
-                        intent.putExtra("entryFeedTime", entryFeedTime);
-                        intent.putExtra("entrySide", entrySide);
-                        intent.putExtra("entryOunces", entryOunces);
-                        intent.putExtra("entryChild", entryChildID);
-                        intent.putExtra("babyGender", babyGender);
-                        startActivityForResult(intent, 3);                
-                    }
-                }   
+                    intent.putExtras(jBundle);
+                    startActivityForResult(intent, 3);
+                }
             });
 
             /* Add row to TableLayout. */
@@ -219,22 +182,18 @@ public class ViewBabyActivity extends Activity {
                     TableRow.LayoutParams.WRAP_CONTENT));
 
             j++;
-            if (j == 2)
-            {
+            if (j == 2) {
                 j = 0;
             }
         }
- 
+
         // Populate Baby Data
-        if (baby != null)
-        {
+        if (baby != null) {
             final TextView tBabyName = (TextView) findViewById(R.id.babyName);
             tBabyName.setText(baby.getName());
 
             final TextView babySex = (TextView) findViewById(R.id.babySex);
             babySex.setText(baby.getSex());
-
-            final Button familyButton = (Button) findViewById(R.id.familyButton);
 
             final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
             final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
@@ -289,27 +248,32 @@ public class ViewBabyActivity extends Activity {
 
         //Add Edit Button`
         Button editButton = (Button) findViewById(R.id.editBaby);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        editButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), EditChildActivity.class);
-                intent.putExtra("babyName", babyNameToEdit);
-                intent.putExtra("babyGender", babyGender);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
             }
         });
 
         //Add Delete Button`
         Button deleteButton = (Button) findViewById(R.id.deleteBaby);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                deleteBaby(babyId, babyNameToEdit);
-             }
+        deleteButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                deleteBaby(baby.getID(), baby.getName());
+            }
         });
 
-       //Add Family Button`
+        //Add Family Button`
         Button familyButton = (Button) findViewById(R.id.familyButton);
-        familyButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        familyButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 startActivity(new Intent(ViewBabyActivity.this,
                         HomeActivity.class));
             }
@@ -317,53 +281,48 @@ public class ViewBabyActivity extends Activity {
 
         //Add Nap Button`
         Button napButton = (Button) findViewById(R.id.naps_Button);
-        napButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        napButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), ViewNapsActivity.class);
-                intent.putExtra("babyId", babyId);
-                intent.putExtra("babyGender", babyGender);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
             }
         });
 
         //Journal Button`
         Button journalButton = (Button) findViewById(R.id.journalButton);
-        journalButton.setOnClickListener(new View.OnClickListener() {
+        journalButton.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View v)
             {
                 Intent intent = new Intent(ViewBabyActivity.this, ViewEntriesActivity.class);
-                Bundle b = new Bundle();
-                b.putInt("babyId", babyId);
-                b.putString("babyGender", babyGender);
-                intent.putExtras(b);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
 
         //Add Bottle Feeding Button`
         Button bottleButton = (Button) findViewById(R.id.bottleButton);
-        bottleButton.setOnClickListener(new View.OnClickListener() {
+        bottleButton.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View v)
             {
                 Intent intent = new Intent(ViewBabyActivity.this, AddBottleFeedActivity.class);
-                Bundle b = new Bundle();
-                b.putInt("babyId", babyId);
-                b.putString("babyGender", babyGender);
-                intent.putExtras(b);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
 
         //Add Breast Feeding Button`
         Button breastfeedButton = (Button) findViewById(R.id.breastfeedButton);
-        breastfeedButton.setOnClickListener(new View.OnClickListener() {
+        breastfeedButton.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View v)
             {
                 Intent intent = new Intent(ViewBabyActivity.this, AddBreastFeedActivity.class);
-                Bundle b = new Bundle();
-                b.putInt("babyId", babyId);
-                b.putString("babyGender", babyGender);
-                intent.putExtras(b);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -371,14 +330,16 @@ public class ViewBabyActivity extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
         switch (item.getItemId()) {
             case R.id.home:
@@ -406,7 +367,8 @@ public class ViewBabyActivity extends Activity {
      * @param rotateInDegrees
      * @return
      */
-    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees) {
+    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees)
+    {
 
         int width = bitMap.getWidth();
         int height = bitMap.getHeight();
@@ -426,14 +388,17 @@ public class ViewBabyActivity extends Activity {
         return resizedBitmap;
     }
 
-    private void deleteBaby(final int babyID, final String babyName) {
+    private void deleteBaby(final int babyID, final String babyName)
+    {
 
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(ViewBabyActivity.this);
         myAlertDialog.setTitle("Delete \"" + babyName + "\"?");
         myAlertDialog.setMessage("Are you sure?");
-        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
 
-            public void onClick(DialogInterface arg0, int arg1) {
+            public void onClick(DialogInterface arg0, int arg1)
+            {
                 BabyDao babyDao = new BabyDao(getApplicationContext());
                 Baby baby = babyDao.getBaby(babyID);
                 babyDao.deleteBaby(baby, babyID);
@@ -443,12 +408,16 @@ public class ViewBabyActivity extends Activity {
                 napDao.deleteNap(babyID);
                 startActivity(new Intent(ViewBabyActivity.this,
                         HomeActivity.class));
-           }});
-        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            }
+        });
+        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
 
-            public void onClick(DialogInterface arg0, int arg1) {
+            public void onClick(DialogInterface arg0, int arg1)
+            {
 
-            }});
+            }
+        });
         myAlertDialog.show();
 
     }
