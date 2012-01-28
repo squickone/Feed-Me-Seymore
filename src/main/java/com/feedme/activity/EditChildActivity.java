@@ -25,8 +25,8 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditChildActivity extends Activity {
-    
+public class EditChildActivity extends BaseActivity
+{
     public static final int EDIT_CHILD_ACTIVITY_ID = 6;
 
     private int mYear;
@@ -38,33 +38,16 @@ public class EditChildActivity extends Activity {
     static final int DATE_DIALOG_ID = 0;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.add_child);
         final BabyDao babyDao = new BabyDao(getApplicationContext());
 
-        String name = "";
-        if (getIntent().getExtras() != null && getIntent().getExtras().getString("babyName") != null) {
-            name = getIntent().getExtras().getString("babyName");
-        }
+        final Baby editBaby = (Baby) getIntent().getSerializableExtra("baby");
 
-        Baby baby = null;
-        if (!name.equals("")) {
-            baby = babyDao.getBabyByName(name);
-        }
-        final int babyId = baby.getID();
-
-        final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
-        final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
-
-        if (baby.getSex().equals("Male")) {
-            topBanner.setBackgroundColor(0xFF7ED0FF);
-            bottomBanner.setBackgroundColor(0xFF7ED0FF);
-        } else {
-            topBanner.setBackgroundColor(0xFFFF99CC);
-            bottomBanner.setBackgroundColor(0xFFFF99CC);
-        }
+        styleActivity(editBaby.getSex());
 
         TextView addChild = (TextView) findViewById(R.id.addChild);
         addChild.setText("Edit Baby");
@@ -74,15 +57,15 @@ public class EditChildActivity extends Activity {
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
 
-        Button addChildButton = (Button)findViewById(R.id.addChildButton);
+        Button addChildButton = (Button) findViewById(R.id.addChildButton);
         Button takePicture = (Button) findViewById(R.id.takePicture);
         Button selectPicture = (Button) findViewById(R.id.pickPicture);
 
-        babyName.setText(baby.getName());
-        babyHeight.setText(baby.getHeight());
-        babyWeight.setText(baby.getWeight());
+        babyName.setText(editBaby.getName());
+        babyHeight.setText(editBaby.getHeight());
+        babyWeight.setText(editBaby.getWeight());
         babyDob = (Button) findViewById(R.id.babyDob);
-        babyDob.setText(baby.getDob());
+        babyDob.setText(editBaby.getDob());
 
         // add a click listener to the button
         babyDob.setOnClickListener(new View.OnClickListener()
@@ -104,47 +87,57 @@ public class EditChildActivity extends Activity {
 
         //populate male/female spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.babySex, android.R.layout.simple_spinner_item );
-        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-        Spinner s = (Spinner) findViewById( R.id.babySex );
-        s.setAdapter( adapter );
+                this, R.array.babySex, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner s = (Spinner) findViewById(R.id.babySex);
+        s.setAdapter(adapter);
 
         //Set Spinner Value for Baby Sex
-        if(baby.getSex().equals("Male")){
+        if (editBaby.getSex().equals("Male")) {
             babySex.setSelection(0);
         } else {
             babySex.setSelection(1);
         }
 
         //Take Picture Button
-        takePicture.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        takePicture.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), TakePictureActivity.class);
 
-                //TODO: There has GOT to be a better way to do this. Soooo Gross
-                intent.putExtra("babyName", babyName.getText().toString());
-                intent.putExtra("babySex", babySex.getSelectedItem().toString());
-                intent.putExtra("babyHeight", babyHeight.getText().toString());
-                intent.putExtra("babyWeight", babyWeight.getText().toString());
-                intent.putExtra("babyDob", babyDob.getText().toString());
-                intent.putExtra("intentId", EDIT_CHILD_ACTIVITY_ID);
+                Baby tempBaby = new Baby(babyName.getText().toString(),
+                        babySex.getSelectedItem().toString(),
+                        babyHeight.getText().toString(),
+                        babyWeight.getText().toString(),
+                        babyDob.getText().toString(),
+                        "");
+                Bundle b = new Bundle();
+                b.putSerializable("baby", tempBaby);
+                b.putInt("intentId", EDIT_CHILD_ACTIVITY_ID);
+                intent.putExtras(b);
 
                 startActivityForResult(intent, 1);
             }
         });
 
         //Select Picture Button
-        selectPicture.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        selectPicture.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), SelectPictureActivity.class);
 
-                //TODO: There has GOT to be a better way to do this. Soooo Gross
-                intent.putExtra("babyName", babyName.getText().toString());
-                intent.putExtra("babySex", babySex.getSelectedItem().toString());
-                intent.putExtra("babyHeight", babyHeight.getText().toString());
-                intent.putExtra("babyWeight", babyWeight.getText().toString());
-                intent.putExtra("babyDob", babyDob.getText().toString());
-                intent.putExtra("intentId", EDIT_CHILD_ACTIVITY_ID);
+                Baby tempBaby = new Baby(babyName.getText().toString(),
+                        babySex.getSelectedItem().toString(),
+                        babyHeight.getText().toString(),
+                        babyWeight.getText().toString(),
+                        babyDob.getText().toString(),
+                        "");
+                Bundle b = new Bundle();
+                b.putSerializable("baby", tempBaby);
+                b.putInt("intentId", EDIT_CHILD_ACTIVITY_ID);
+                intent.putExtras(b);
 
                 startActivityForResult(intent, EDIT_CHILD_ACTIVITY_ID);
             }
@@ -152,54 +145,54 @@ public class EditChildActivity extends Activity {
 
         //declare alert dialog
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        
-        // button listener for add child button
-        addChildButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
 
+        // button listener for add child button
+        addChildButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 //if name, weight, and height aren't filled out, throw an alert
-                if (babyName.getText().toString().equals("") || babyHeight.getText().toString().equals("") || babyWeight.getText().toString().equals("")) {
+                if (babyName.getText().toString().equals("") || babyHeight.getText().toString().equals("") ||
+                        babyWeight.getText().toString().equals(""))
+                {
                     alertDialog.setTitle("Oops!");
                     alertDialog.setMessage("Please fill out the form completely.");
-                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int which)
+                        {
                             dialog.dismiss();
                         }
                     });
                     alertDialog.show();
-              }  else {      // else add child to database
-                
+                }
+                else
+                {      // else add child to database
                     String picturePath = "";
-                    if(getIntent().getExtras()!=null && getIntent().getExtras().get("picturePath")!=null){
-                        picturePath = (String) getIntent().getExtras().get("picturePath");
+                    if (getIntent().getExtras() != null && getIntent().getExtras().get("picturePath") != null) {
+                        picturePath = getIntent().getExtras().getString("picturePath");
                     }
 
-                    /**
-                     * CRUD Operations
-                     * */
-                    // Inserting baby
-                    Log.d("Insert: ", "Inserting ..");
-                    babyDao.updateBaby(new Baby(babyName.getText().toString(), babySex.getSelectedItem().toString(),
-                            babyHeight.getText().toString(), babyWeight.getText().toString(), babyDob.getText().toString(), picturePath), babyId);
+                    Log.d("UPDATE: ", "Updating ..");
+                    Baby updateBaby = new Baby(editBaby.getID(),
+                            babyName.getText().toString(),
+                            babySex.getSelectedItem().toString(),
+                            babyHeight.getText().toString(),
+                            babyWeight.getText().toString(),
+                            babyDob.getText().toString(),
+                            picturePath);
 
-                    // Reading all babies
-                    Log.d("Reading: ", "Reading all babies..");
-                    List<Baby> babies = babyDao.getAllBabies();
-
-                    for (Baby baby : babies) {
-                        String log = "Id: "+baby.getID()+" ,Name: " + baby.getName() + " ,Sex: " + baby.getSex()
-                                + " ,Height: " + baby.getHeight() + " ,Weight: " + baby.getWeight() + " ,DOB: " + baby.getDob();
-
-                        // Writing babies to log
-                        Log.d("Name: ", log);
-                    }
-
+                    babyDao.updateBaby(updateBaby, editBaby.getID());
 
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                    intent.putExtra("babyName", babyName.getText().toString());
+
+                    Bundle b = new Bundle();
+                    b.putSerializable("baby", updateBaby);
+                    intent.putExtras(b);
+
                     startActivityForResult(intent, 3);
                 }
-                
+
             }
         });
     }
@@ -212,19 +205,21 @@ public class EditChildActivity extends Activity {
                 return new DatePickerDialog(this,
                         mDateSetListener,
                         mYear, mMonth, mDay);
-          }
+        }
         return null;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
         switch (item.getItemId()) {
             case R.id.home:
@@ -269,5 +264,5 @@ public class EditChildActivity extends Activity {
                 }
             };
 
-    }
+}
 

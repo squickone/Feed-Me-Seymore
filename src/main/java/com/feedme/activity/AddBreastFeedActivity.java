@@ -64,11 +64,17 @@ public class AddBreastFeedActivity extends FeedActivity
 
         Bundle b = getIntent().getExtras();
 
+        long timerStart = 0L;
+        long timerStop = 0L;
+        long duration = 0L;
+        
         if (b.get("timerStart") != null)
         {
-            final long timerStart = b.getLong("timerStart");
-            final long timerStop = b.getLong("timerStop");
-            final long duration = b.getLong("duration");
+            timerStart = b.getLong("timerStart");
+            timerStop = b.getLong("timerStop");
+            duration = b.getLong("duration");
+
+            Log.d("Journal: ", String.valueOf(duration));
 
             Date dateStart = new Date(timerStart);
             Date dateStop = new Date(timerStop);
@@ -118,6 +124,8 @@ public class AddBreastFeedActivity extends FeedActivity
         updateStartDisplay();
         updateEndDisplay();
 
+        final long dur = duration;
+
         addEntryButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -126,10 +134,11 @@ public class AddBreastFeedActivity extends FeedActivity
                 Journal journal = new Journal(entryDate.getText().toString(),
                         startTime.getText().toString(),
                         endTime.getText().toString(),
-                        timerDuration.getText().toString(),
+                        String.valueOf(dur),
                         entrySide.getSelectedItem().toString(),
-                        " ",
+                        "",
                         baby.getID());
+                Log.d("Add Journal: ", journal.dump());
                 journalDao.addEntry(journal);
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
@@ -144,6 +153,7 @@ public class AddBreastFeedActivity extends FeedActivity
             {
                 Intent intent = new Intent(v.getContext(), TimerActivity.class);
                 intent.putExtras(bundle);
+                intent.putExtra("entrySide", entrySide.getSelectedItemPosition());
                 startActivityForResult(intent, 3);
             }
         });

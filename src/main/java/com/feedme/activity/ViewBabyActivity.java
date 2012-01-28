@@ -25,6 +25,7 @@ import com.feedme.model.Settings;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +35,8 @@ import java.util.List;
  */
 public class ViewBabyActivity extends Activity
 {
+
+    public SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -130,22 +133,34 @@ public class ViewBabyActivity extends Activity
 
             linearLayoutVertical.addView(bottleBreast);
 
-            TextView feedAmount = new TextView(this);
-            feedAmount.setTextColor(0xFF000000);
-            feedAmount.setText(journal.getDate());
+            TextView feedDate = new TextView(this);
+            feedDate.setTextColor(0xFF000000);
+            feedDate.setText(journal.getDate());
 
-            linearLayoutVertical.addView(feedAmount);
+            linearLayoutVertical.addView(feedDate);
 
-            TextView babyWake = new TextView(this);
-            babyWake.setTextColor(0xFF000000);
+            if (!journal.getOunces().isEmpty())
+            {
+                TextView feedAmt = new TextView(this);
+                feedAmt.setTextColor(0xFF000000);
 
-            if (side.trim().isEmpty()) {
-                babyWake.setText(journal.getOunces() + " " + setting.getLiquid());
-            } else {
-                babyWake.setText(journal.getOunces());
+                if (side.trim().isEmpty()) {
+                    feedAmt.setText(journal.getOunces() + " " + setting.getLiquid());
+                } else {
+                    feedAmt.setText(journal.getOunces());
+                }
+
+                linearLayoutVertical.addView(feedAmt);
             }
 
-            linearLayoutVertical.addView(babyWake);
+            if (!journal.getFeedTime().isEmpty())
+            {
+                TextView feedTime = new TextView(this);
+                feedTime.setTextColor(0xFF000000);
+                
+//                Date dateDuration = new Date(Long.valueOf());
+                feedTime.setText(journal.getFeedTime());
+            }
 
             TextView babyDiaper = new TextView(this);
             babyDiaper.setTextColor(0xFF000000);
