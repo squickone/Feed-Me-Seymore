@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class ViewNapsActivity extends BaseActivity
 {
-    
+
     public static final int VIEW_NAPS_ACTIVITY_ID = 50;
 
     @Override
@@ -38,50 +38,36 @@ public class ViewNapsActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.naps_home);
 
-        Bundle bundle = getIntent().getExtras();
-        final int babyId = bundle.getInt("babyId");
-        final String babyGender = bundle.getString("babyGender");
-        
-        styleActivity(babyGender);
+        final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
-        handleButtons(babyId, babyGender);
+        styleActivity(baby.getSex());
+
+        final Bundle bundle = new Bundle();
+        bundle.putSerializable("baby", baby);
+
+        handleButtons(bundle);
 
         final NapDao napsDao = new NapDao(getApplicationContext());
-        List<Nap> lsNap = napsDao.getLastNapsByChild(babyId, 10);
-
-        // prepare settings data
-        final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
-        Settings setting = settingsDao.getSetting(1);
-
+        List<Nap> lsNap = napsDao.getLastNapsByChild(baby.getID(), 10);
 
         TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
 
-        if (lsNap.size()>0) {
+        if (lsNap.size() > 0)
+        {
             int j = 0;
             for (Nap nap : lsNap)
             {
-                final int napID = nap.getID();
-                final String napDate = nap.getDate();
-                final String napStartTime = nap.getStartTime();
-                final String napEndTime = nap.getEndTime();
-                final String napLocation = nap.getLocation();
-                final int napChildID = nap.getChild();
+                bundle.putSerializable("nap", nap);
 
                 TableRow tr1 = new TableRow(this);  //create new row
 
-                if (j == 0)
-                {
-                    if (babyGender.equals("Male"))
-                    {
+                if (j == 0) {
+                    if (baby.getSex().equals("Male")) {
                         tr1.setBackgroundColor(0xFFD2EDFC);
-                    }
-                    else
-                    {
+                    } else {
                         tr1.setBackgroundColor(0xFFFCD2d2);
                     }
-                }
-                else
-                {
+                } else {
                     tr1.setBackgroundColor(0xFFFFFFFF);
                 }
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -105,13 +91,12 @@ public class ViewNapsActivity extends BaseActivity
 
                 linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
 
-                linearLayoutVertical.setPadding(5,0,0,0);
-
+                linearLayoutVertical.setPadding(5, 0, 0, 0);
 
                 //print nap location
                 TextView napLocationText = new TextView(this);
                 napLocationText.setTextColor(0xFF000000);
-                final String location = nap.getLocation();
+
                 napLocationText.setText("Location/notes - " + nap.getLocation());
                 linearLayoutVertical.addView(napLocationText);
 
@@ -133,20 +118,13 @@ public class ViewNapsActivity extends BaseActivity
 
                 tr1.setOnClickListener(new View.OnClickListener()
                 {
-                    public void onClick(View v)       {
-
+                    public void onClick(View v)
+                    {
                         Intent intent = new Intent(v.getContext(), EditNapActivity.class);
-                        intent.putExtra("napID", napID);
-                        intent.putExtra("napDate", napDate);
-                        intent.putExtra("napStartTime", napStartTime);
-                        intent.putExtra("napEndTime", napEndTime);
-                        intent.putExtra("napLocation", napLocation);
-                        intent.putExtra("napChildID", napChildID);
-                        intent.putExtra("babyGender", babyGender);
+                        intent.putExtras(bundle);
                         startActivityForResult(intent, 3);
                     }
                 });
-
 
                 /* Add row to TableLayout. */
                 tl.addView(tr1, new TableLayout.LayoutParams(
@@ -154,8 +132,7 @@ public class ViewNapsActivity extends BaseActivity
                         TableRow.LayoutParams.WRAP_CONTENT));
 
                 j++;
-                if (j == 2)
-                {
+                if (j == 2) {
                     j = 0;
                 }
             }
@@ -164,30 +141,26 @@ public class ViewNapsActivity extends BaseActivity
 
     }
 
-    public void handleButtons(final int babyId, final String babyGender)
+    public void handleButtons(final Bundle bundle)
     {
         Button childButton = (Button) findViewById(R.id.childScreen);
-        childButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                final BabyDao babyDao = new BabyDao(getApplicationContext());
-
+        childButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                intent.putExtra("babyName", babyDao.getBaby(babyId).getName());
-                intent.putExtra("babyGender", babyGender);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, VIEW_NAPS_ACTIVITY_ID);
             }
         });
 
         Button addNapButton = (Button) findViewById(R.id.addNapButton);
-        addNapButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                final BabyDao babyDao = new BabyDao(getApplicationContext());
-
+        addNapButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), AddNapActivity.class);
-                intent.putExtra("babyId", babyDao.getBaby(babyId).getID());
-                intent.putExtra("babyGender", babyGender);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, VIEW_NAPS_ACTIVITY_ID);
             }
         });

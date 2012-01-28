@@ -120,4 +120,15 @@ public class Nap implements Serializable
         this._child_id = child_id;
     }
 
+    public String dump()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: " + _id + " - ");
+        sb.append("DATE: " + _date + " - ");
+        sb.append("START TIME: " + _start_time + " - ");
+        sb.append("END TIME: " + _end_time + " - ");
+        sb.append("LOCATION: " + _location + " - ");
+        sb.append("CHILD ID: " + _child_id);
+        return sb.toString();
+    }
 }

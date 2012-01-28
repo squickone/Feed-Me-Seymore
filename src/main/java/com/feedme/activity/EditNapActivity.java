@@ -25,28 +25,8 @@ import java.util.Calendar;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditNapActivity extends BaseActivity
+public class EditNapActivity extends NapActivity
 {
-    private Button napDate;
-    private Button napStartTime;
-    private Button napEndTime;
-    private EditText napLocation;
-
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-
-    private int startHour;
-    private int startMinute;
-    private int startSecond;
-
-    private int endHour;
-    private int endMinute;
-    private int endSecond;
-
-    static final int DATE_DIALOG_ID = 0;
-    static final int STARTTIME_DIALOG_ID = 1;
-    static final int ENDTIME_DIALOG_ID = 2;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -62,46 +42,28 @@ public class EditNapActivity extends BaseActivity
         napLocation = (EditText) findViewById(R.id.napLocation);
         Button editNapButton = (Button) findViewById(R.id.editNapButton);
 
-        //get baby properties
-        final Bundle b = getIntent().getExtras();
+        final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
+        final Nap nap = (Nap) getIntent().getSerializableExtra("nap");
 
-        final int napID = b.getInt("napID");
-        final String napDateValue = b.getString("napDate");
-        final String napStartTimeValue = b.getString("napStartTime");
-        final String napEndTimeValue = b.getString("napEndTime");
-        final String napLocationValue = b.getString("napLocation");
-        final int napChildValue = b.getInt("napChildID");
+        final Bundle bundle = new Bundle();
+        bundle.putSerializable("baby", baby);
 
-        styleActivity(b.getString("babyGender"));
+        styleActivity(baby.getSex());
 
         //populate nap data
-        napDate.setText(napDateValue);
-        napStartTime.setText(napStartTimeValue);
-        napEndTime.setText(napEndTimeValue);
-        napLocation.setText(napLocationValue);
+        napDate.setText(nap.getDate());
+        napStartTime.setText(nap.getStartTime());
+        napEndTime.setText(nap.getEndTime());
+        napLocation.setText(nap.getLocation());
 
         // add a click listener to the button
-        napDate.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                showDialog(DATE_DIALOG_ID);
-            }
-        });
+        napDate.setOnClickListener(showDateDialog());
 
         // add a click listener to the button
-        napStartTime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(STARTTIME_DIALOG_ID);
-            }
-        });
+        napStartTime.setOnClickListener(showStartTimeDialog());
 
         // add a click listener to the button
-        napEndTime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(ENDTIME_DIALOG_ID);
-            }
-        });
+        napEndTime.setOnClickListener(showEndTimeDialog());
 
         // get the current date
         final Calendar c = Calendar.getInstance();
@@ -132,14 +94,10 @@ public class EditNapActivity extends BaseActivity
                         napStartTime.getText().toString(),
                         napEndTime.getText().toString(),
                         napLocation.getText().toString(),
-                        napChildValue), napID);
-
-                final BabyDao babyDao = new BabyDao(getApplicationContext());
-                Baby baby = babyDao.getBaby(napChildValue);
-                final String babyName = baby.getName();
+                        baby.getID()), nap.getID());
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                intent.putExtra("babyName", babyName);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
 
             }
@@ -149,136 +107,12 @@ public class EditNapActivity extends BaseActivity
         Button deleteButton = (Button) findViewById(R.id.deleteNap);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                deleteNap(napID, napChildValue, b.getString("babyGender"));
+                deleteNap(nap.getID(), baby);
             }
         });
     }
 
-    @Override
-    protected Dialog onCreateDialog(int id)
-    {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                return new DatePickerDialog(this,
-                        mDateSetListener,
-                        mYear, mMonth, mDay);
-            case STARTTIME_DIALOG_ID:
-                return new TimePickerDialog(this,
-                startTimeListener, startHour, startMinute, false);
-            case ENDTIME_DIALOG_ID:
-                return new TimePickerDialog(this,
-                endTimeListener, endHour, endMinute, false);
-        }
-        return null;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId()) {
-            case R.id.home:
-                startActivity(new Intent(EditNapActivity.this,
-                        HomeActivity.class));
-                break;
-            case R.id.settings:
-                startActivity(new Intent(EditNapActivity.this,
-                        SettingsActivity.class));
-                break;
-            case R.id.report:
-                startActivity(new Intent(EditNapActivity.this,
-                        ReportBugActivity.class));
-                break;
-        }
-        return true;
-    }
-
-    // updates the date we display in the TextView
-    private void updateDateDisplay()
-    {
-        napDate.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(mMonth + 1).append("-")
-                        .append(mDay).append("-")
-                        .append(mYear).append(" "));
-    }
-
-    // add leading zero to times
-    private static String pad(int c) {
-        if (c >= 10)
-            return String.valueOf(c);
-        else
-            return "0" + String.valueOf(c);
-    }
-
-    // updates the date we display in the TextView
-    private void updateStartDisplay()
-    {
-        napStartTime.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(pad(startHour)).append(":")
-                        .append(pad(startMinute)).append(":")
-                        .append(pad(startSecond)));
-    }
-
-    // updates the date we display in the TextView
-    private void updateEndDisplay()
-    {
-        napEndTime.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(pad(endHour)).append(":")
-                        .append(pad(endMinute)).append(":")
-                        .append(pad(endSecond)));
-    }
-
-    // the callback received when the user "sets" the date in the dialog
-    private DatePickerDialog.OnDateSetListener mDateSetListener =
-            new DatePickerDialog.OnDateSetListener()
-            {
-                public void onDateSet(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth)
-                {
-                    mYear = year;
-                    mMonth = monthOfYear;
-                    mDay = dayOfMonth;
-                    updateDateDisplay();
-                }
-            };
-
-    // the callback received when the user "sets" the time in the dialog
-    private TimePickerDialog.OnTimeSetListener startTimeListener =
-    new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute)
-        {
-            startHour = hourOfDay;
-            startMinute = minute;
-            updateStartDisplay();
-        }
-    };
-
-    // the callback received when the user "sets" the time in the dialog
-    private TimePickerDialog.OnTimeSetListener endTimeListener =
-    new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute)
-        {
-            endHour = hourOfDay;
-            endMinute = minute;
-            updateEndDisplay();
-        }
-    };
-
-
-    private void deleteNap(final int napID, final int babyId, final String babyGender) {
+    private void deleteNap(final int napID, final Baby baby) {
 
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditNapActivity.this);
         myAlertDialog.setTitle("Delete Nap");
@@ -289,8 +123,9 @@ public class EditNapActivity extends BaseActivity
                 NapDao napDao = new NapDao(getApplicationContext());
                 napDao.deleteNapByID(napID);
                 Intent intent = new Intent(EditNapActivity.this, ViewNapsActivity.class);
-                intent.putExtra("babyId", babyId);
-                intent.putExtra("babyGender", babyGender);
+                Bundle b = new Bundle();
+                b.putSerializable("baby", baby);
+                intent.putExtras(b);
                 startActivityForResult(intent, 3);
 
             }});
