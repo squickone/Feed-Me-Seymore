@@ -89,7 +89,6 @@ public class EditChildActivity extends ChildActivity
         //Take Picture Button
         takePicture.setOnClickListener(takePictureListener(editBaby, EDIT_CHILD_ACTIVITY_ID));
 
-        //EDIT_CHILD_ACTIVITY_ID
         //Select Picture Button
         selectPicture.setOnClickListener(selectPictureListener(editBaby, EDIT_CHILD_ACTIVITY_ID));
 

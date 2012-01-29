@@ -26,8 +26,9 @@ public abstract class ChildActivity extends BaseActivity
                 Intent intent = new Intent(v.getContext(), TakePictureActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("baby", baby);
+                bundle.putInt("intentId", activity_id);
 
-                intent.putExtra("intentId", activity_id);
+                intent.putExtras(bundle);
 
                 startActivityForResult(intent, activity_id);
             }
@@ -43,8 +44,9 @@ public abstract class ChildActivity extends BaseActivity
                 Intent intent = new Intent(v.getContext(), SelectPictureActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("baby", baby);
+                bundle.putInt("intentId", activity_id);
                 
-                intent.putExtra("intentId", activity_id);
+                intent.putExtras(bundle);
 
                 startActivityForResult(intent, activity_id);
             }

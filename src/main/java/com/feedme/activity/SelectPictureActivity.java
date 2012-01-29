@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import com.feedme.model.Baby;
 
 /**
@@ -15,14 +16,12 @@ import com.feedme.model.Baby;
  */
 public class SelectPictureActivity extends Activity
 {
-
     public static final int SELECT_PICTURE_ID = 11;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         pickPicture();
     }
 
@@ -32,7 +31,9 @@ public class SelectPictureActivity extends Activity
 
         if (requestCode == SELECT_PICTURE_ID)
         {
-            final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
+            Baby baby = (Baby) getIntent().getSerializableExtra("baby");
+
+            Log.d("BABY:PIC:", baby.dump());
 
             Integer intentId = (Integer) getIntent().getExtras().get("intentId");
 
@@ -44,13 +45,14 @@ public class SelectPictureActivity extends Activity
             }
             
             Bundle b = new Bundle();
+            b.putSerializable("baby", baby);
 
-            if (data != null && data.getData() != null) {
+            if (data != null && data.getData() != null)
+            {
                 Uri photoUri = data.getData();
-                baby.setPicturePath(getPath(photoUri));
+                b.putString("picturePath", getPath(photoUri));
             }
 
-            b.putSerializable("baby", baby);
             intent.putExtras(b);
 
             startActivityForResult(intent, SELECT_PICTURE_ID);
@@ -66,7 +68,6 @@ public class SelectPictureActivity extends Activity
 
     private String getPath(Uri uri)
     {
-
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
 

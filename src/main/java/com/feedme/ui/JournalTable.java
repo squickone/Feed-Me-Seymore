@@ -59,8 +59,8 @@ public class JournalTable
             LinearLayout linearLayoutHorizontal = new LinearLayout(activity.getApplicationContext());
 
             ImageView imageView = new ImageView(activity.getApplicationContext());
-            imageView.setMinimumHeight(60);
-            imageView.setMinimumWidth(60);
+            imageView.setMinimumHeight(80);
+            imageView.setMinimumWidth(80);
             imageView.setBackgroundResource(R.drawable.icon_border);
 
             if (journal.getSide().trim().isEmpty()) {
@@ -117,10 +117,9 @@ public class JournalTable
                 TextView feedTime = new TextView(activity.getApplicationContext());
                 feedTime.setTextColor(0xFF000000);
 
-//                Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
-//                feedTime.setText(simpleTimeFormat.format(dateDuration));
+                Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
+                feedTime.setText(simpleTimeFormat.format(dateDuration));
 
-                feedTime.setText(journal.getFeedTime());
                 linearLayoutVertical.addView(feedTime);
             }
 

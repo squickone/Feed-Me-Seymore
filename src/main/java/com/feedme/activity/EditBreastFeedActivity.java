@@ -64,10 +64,10 @@ public class EditBreastFeedActivity extends FeedActivity
         startTime.setText(journal.getStartTime());
         endTime.setText(journal.getEndTime());
 
-        if (journal.getFeedTime().length() > 0)
+        if (journal.getFeedTime().trim().length() > 0)
         {
-//            Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
-            timerDuration.setText(journal.getFeedTime());
+            Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
+            timerDuration.setText(simpleTimeFormat.format(dateDuration));
         }
 
         if (journal.getSide().equals("Left")) {
@@ -107,7 +107,7 @@ public class EditBreastFeedActivity extends FeedActivity
                 journalDao.updateEntry(new Journal(entryDate.getText().toString(),
                         startTime.getText().toString(),
                         endTime.getText().toString(),
-                        timerDuration.getText().toString(),
+                        journal.getFeedTime(),
                         entrySide.getSelectedItem().toString(),
                         "",
                         baby.getID()), journal.getID());
