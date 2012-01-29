@@ -119,7 +119,7 @@ public class EditChildActivity extends ChildActivity
                 {      // else add child to database
                     String picturePath = "";
                     if (getIntent().getExtras() != null && getIntent().getExtras().get("picturePath") != null) {
-                        picturePath = getIntent().getExtras().getString("picturePath");
+                        editBaby.setPicturePath(getIntent().getExtras().getString("picturePath"));
                     }
 
                     Log.d("UPDATE: ", "Updating ..");
@@ -129,7 +129,7 @@ public class EditChildActivity extends ChildActivity
                             babyHeight.getText().toString(),
                             babyWeight.getText().toString(),
                             babyDob.getText().toString(),
-                            picturePath);
+                            editBaby.getPicturePath());
 
                     babyDao.updateBaby(updateBaby, editBaby.getID());
 
