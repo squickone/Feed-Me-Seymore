@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import com.feedme.model.Baby;
+import com.feedme.database.JournalColumn;
 import com.feedme.model.Journal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -17,26 +19,27 @@ import java.util.List;
 public class JournalDao {
 
     // Contacts table name
-    private static final String TABLE_DATA = "entries";
+    private static final String TABLE_DATA = JournalColumn.TABLE_NAME;
 
     // Contacts Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_DATE = "date";
-    private static final String KEY_START_TIME = "start_time";
-    private static final String KEY_END_TIME = "end_time";
-    private static final String KEY_FEED_TIME = "feed_time";
-    private static final String KEY_SIDE = "side";
-    private static final String KEY_OUNCES = "ounces";
-    private static final String KEY_CHILD_ID = "child_id";
+    private static final String KEY_ID = JournalColumn.ID.columnName();
+    private static final String KEY_DATE = JournalColumn.DATE.columnName();
+    private static final String KEY_START_TIME = JournalColumn.START_TIME.columnName();
+    private static final String KEY_END_TIME = JournalColumn.END_TIME.columnName();
+    private static final String KEY_FEED_TIME = JournalColumn.FEED_TIME.columnName();
+    private static final String KEY_SIDE = JournalColumn.SIDE.columnName();
+    private static final String KEY_OUNCES = JournalColumn.OUNCES.columnName();
+    private static final String KEY_CHILD_ID = JournalColumn.CHILD_ID.columnName();
+    private static final String KEY_LATITUDE = JournalColumn.LATITUDE.columnName();
+    private static final String KEY_LONGITUDE = JournalColumn.LONGITUDE.columnName();
+    private static final String KEY_CREATED_DATE = JournalColumn.CREATED_DATE.columnName();
+    private static final String KEY_LAST_MOD_DATE = JournalColumn.LAST_MOD_DATE.columnName();
 
     private SQLiteDatabase database;
-    private JournalDatabaseHandler databaseHandler;
-
-    private String[] columns = new String[] { KEY_ID, KEY_DATE, KEY_START_TIME, KEY_END_TIME, KEY_FEED_TIME, KEY_SIDE, KEY_OUNCES, KEY_CHILD_ID };
-
+    private DatabaseHandler databaseHandler;
 
     public JournalDao(Context context) {
-        databaseHandler = new JournalDatabaseHandler(context);
+        databaseHandler = new DatabaseHandler(context);
     }
 
     public void open() throws SQLException {
@@ -53,6 +56,9 @@ public class JournalDao {
      * @param entry - Journal POJO
      */
     public void addEntry(Journal entry) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        Calendar now = Calendar.getInstance();
         
         open();
 
@@ -64,6 +70,10 @@ public class JournalDao {
         values.put(KEY_SIDE, entry.getSide()); // Side
         values.put(KEY_OUNCES, entry.getOunces()); // Ounces
         values.put(KEY_CHILD_ID, entry.getChild()); // Child ID
+        values.put(KEY_LATITUDE, entry.getLatitude());
+        values.put(KEY_LONGITUDE, entry.getLongitude());
+        values.put(KEY_CREATED_DATE, sdf.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -82,7 +92,7 @@ public class JournalDao {
 
         open();
         
-        Cursor cursor = database.query(TABLE_DATA, columns, KEY_ID + "=?",
+        Cursor cursor = database.query(TABLE_DATA, JournalColumn.getColumnNames(), KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -107,7 +117,7 @@ public class JournalDao {
 
         open();
 
-        Cursor cursor = database.query(TABLE_DATA, columns, KEY_DATE + "=?",
+        Cursor cursor = database.query(TABLE_DATA, JournalColumn.getColumnNames(), KEY_DATE + "=?",
                 new String[] { String.valueOf(date) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -218,6 +228,9 @@ public class JournalDao {
      */
     public int updateEntry(Journal entry, int id) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        Calendar now = Calendar.getInstance();
+
         open();
         
         ContentValues values = new ContentValues();
@@ -228,6 +241,7 @@ public class JournalDao {
         values.put(KEY_SIDE, entry.getSide());
         values.put(KEY_OUNCES, entry.getOunces());
         values.put(KEY_CHILD_ID, entry.getChild());
+        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
@@ -239,6 +253,8 @@ public class JournalDao {
 
     /**
      * Deletes entries with babyID from the Database
+     *
+     * @param babyID
      */
     public void deleteEntry(int babyID) {
         open();
@@ -311,6 +327,10 @@ public class JournalDao {
                 cursor.getString(4),
                 cursor.getString(5),
                 cursor.getString(6),
-                Integer.parseInt(cursor.getString(7)));
+                Integer.parseInt(cursor.getString(7)),
+                cursor.getString(8),
+                cursor.getString(9),
+                cursor.getString(10),
+                cursor.getString(11));
     }
 }

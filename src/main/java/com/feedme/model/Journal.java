@@ -1,14 +1,11 @@
 package com.feedme.model;
 
 import java.io.Serializable;
-import java.net.IDN;
 
 /**
- * Created by IntelliJ IDEA.
  * User: root
  * Date: 1/16/12
  * Time: 1:22 PM
- * To change this template use File | Settings | File Templates.
  */
 
 public class Journal implements Serializable
@@ -23,6 +20,10 @@ public class Journal implements Serializable
     String _side;
     String _ounces;
     int _child_id;
+    String _latitude;
+    String _longitude;
+    String _createdDate;
+    String _lastModDate;
 
     // Empty constructor
     public Journal()
@@ -66,6 +67,23 @@ public class Journal implements Serializable
         this._side = side;
         this._ounces = ounces;
         this._child_id = child_id;
+    }
+
+    public Journal(int id, String date, String startTime, String endTime, String feedTime, String side,
+                   String ounces, int childId, String latitude, String longitude, String createdDate,
+                   String lastModDate) {
+        this._id = id;
+        this._date = date;
+        this._start_time = startTime;
+        this._end_time = endTime;
+        this._feed_time = feedTime;
+        this._side = side;
+        this._ounces = ounces;
+        this._child_id = childId;
+        this._latitude = latitude;
+        this._longitude = longitude;
+        this._createdDate = createdDate;
+        this._lastModDate = lastModDate;
     }
 
     // getting ID
@@ -164,6 +182,38 @@ public class Journal implements Serializable
         this._child_id = child_id;
     }
 
+    public String getLastModDate() {
+        return _lastModDate;
+    }
+
+    public void setLastModDate(String lastModDate) {
+        this._lastModDate = lastModDate;
+    }
+
+    public String getCreatedDate() {
+        return _createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this._createdDate = createdDate;
+    }
+
+    public String getLongitude() {
+        return _longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this._longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return _latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this._latitude = latitude;
+    }
+
     public String dump()
     {
         StringBuilder sb = new StringBuilder();
@@ -174,7 +224,11 @@ public class Journal implements Serializable
         sb.append("FEED TIME: " + _feed_time + " - ");
         sb.append("SIDE: " + _side + " - ");
         sb.append("OZ: " + _ounces + " - ");
-        sb.append("CHILD ID: " + _child_id);
+        sb.append("CHILD ID: " + _child_id + " - ");
+        sb.append("LATITUDE: " + _latitude + " - ");
+        sb.append("LONGITUDE: " + _longitude + " - ");
+        sb.append("CREATED_DATE: " + _createdDate + " - ");
+        sb.append("LAST_MOD_DATE: " + _lastModDate);
         return sb.toString();
     }
 }

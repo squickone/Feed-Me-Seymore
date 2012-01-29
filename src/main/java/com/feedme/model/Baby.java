@@ -195,10 +195,10 @@ public class Baby implements Serializable
         sb.append("HEIGHT: " + _height + " - ");
         sb.append("WEIGHT: " + _weight + " - ");
         sb.append("DOB: " + _dob + " - ");
-        sb.append("PICTURE PATH: " + _picturePath);
-        sb.append("LATITUDE: " + _latitude);
-        sb.append("LONGITUDE: " + _longitude);
-        sb.append("CREATED_DATE: " + _createdDate);
+        sb.append("PICTURE PATH: " + _picturePath + " - ");
+        sb.append("LATITUDE: " + _latitude + " - ");
+        sb.append("LONGITUDE: " + _longitude + " - ");
+        sb.append("CREATED_DATE: " + _createdDate + " - ");
         sb.append("LAST_MOD_DATE: " + _lastModDate);
         
         return sb.toString();

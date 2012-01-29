@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.feedme.database.BabyColumn;
+import com.feedme.database.JournalColumn;
 
 /**
  * User: root
@@ -27,8 +28,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String babiesTableStatement = BabyColumn.createTableStatement();
+        String journalTableStatement = JournalColumn.createTableStatement();
 
         db.execSQL(babiesTableStatement);
+        db.execSQL(journalTableStatement);
     }
 
     // Upgrading database
@@ -37,6 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // Drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + BabyColumn.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + JournalColumn.TABLE_NAME);
 
         // Create tables again
         onCreate(db);

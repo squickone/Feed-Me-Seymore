@@ -90,9 +90,7 @@ public class BabyDao {
 
         open();
         
-        Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB, KEY_PICTURE, KEY_LATITUDE, KEY_LONGITUDE,
-                KEY_CREATED_DATE, KEY_LAST_MOD_DATE}, KEY_ID + "=?",
+        Cursor cursor = database.query(TABLE_DATA, BabyColumn.getColumnNames(), KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
 
         if (cursor != null){
@@ -117,9 +115,7 @@ public class BabyDao {
 
         open();
 
-        Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB, KEY_PICTURE, KEY_LATITUDE, KEY_LONGITUDE,
-                KEY_CREATED_DATE, KEY_LAST_MOD_DATE}, KEY_NAME + "=?",
+        Cursor cursor = database.query(TABLE_DATA, BabyColumn.getColumnNames(), KEY_NAME + "=?",
                 new String[] { String.valueOf(name) }, null, null, null, null);
 
         if (cursor != null){
