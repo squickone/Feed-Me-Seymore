@@ -36,10 +36,10 @@ public class EditNapActivity extends NapActivity
         setContentView(R.layout.edit_nap);
         final NapDao napDao = new NapDao(getApplicationContext());
 
-        napDate = (Button) findViewById(R.id.napDate);
-        napStartTime = (Button) findViewById(R.id.napStartTime);
-        napEndTime = (Button) findViewById(R.id.napEndTime);
-        napLocation = (EditText) findViewById(R.id.napLocation);
+        entryDate = (Button) findViewById(R.id.entryDate);
+        startTime = (Button) findViewById(R.id.startTime);
+        endTime = (Button) findViewById(R.id.endTime);
+        location = (EditText) findViewById(R.id.location);
         Button editNapButton = (Button) findViewById(R.id.editNapButton);
 
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
@@ -51,19 +51,19 @@ public class EditNapActivity extends NapActivity
         styleActivity(baby.getSex());
 
         //populate nap data
-        napDate.setText(nap.getDate());
-        napStartTime.setText(nap.getStartTime());
-        napEndTime.setText(nap.getEndTime());
-        napLocation.setText(nap.getLocation());
+        entryDate.setText(nap.getDate());
+        startTime.setText(nap.getStartTime());
+        endTime.setText(nap.getEndTime());
+        location.setText(nap.getLocation());
 
         // add a click listener to the button
-        napDate.setOnClickListener(showDateDialog());
+        entryDate.setOnClickListener(showDateDialog());
 
         // add a click listener to the button
-        napStartTime.setOnClickListener(showStartTimeDialog());
+        startTime.setOnClickListener(showStartTimeDialog());
 
         // add a click listener to the button
-        napEndTime.setOnClickListener(showEndTimeDialog());
+        endTime.setOnClickListener(showEndTimeDialog());
 
         // get the current date
         final Calendar c = Calendar.getInstance();
@@ -90,10 +90,10 @@ public class EditNapActivity extends NapActivity
                  * */
                 // Inserting entry
 
-                napDao.updateNap(new Nap(napDate.getText().toString(),
-                        napStartTime.getText().toString(),
-                        napEndTime.getText().toString(),
-                        napLocation.getText().toString(),
+                napDao.updateNap(new Nap(entryDate.getText().toString(),
+                        startTime.getText().toString(),
+                        endTime.getText().toString(),
+                        location.getText().toString(),
                         baby.getID()), nap.getID());
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);

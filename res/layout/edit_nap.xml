@@ -32,7 +32,7 @@
                     style="@style/formTag"
             />
 
-            <Button android:id="@+id/napDate"
+            <Button android:id="@+id/entryDate"
                     android:text="Test"
                     style="@style/dateButton"
             />
@@ -44,7 +44,7 @@
                     style="@style/formTag"
             />
 
-            <Button android:id="@+id/napStartTime"
+            <Button android:id="@+id/startTime"
                     android:text="Test"
                     style="@style/dateButton"
             />
@@ -56,7 +56,7 @@
                     style="@style/formTag"
             />
             
-            <Button android:id="@+id/napEndTime"
+            <Button android:id="@+id/endTime"
                     android:text="Test"
                     style="@style/dateButton"
             />
@@ -69,7 +69,7 @@
             />
 
             <EditText
-                    android:id="@+id/napLocation"
+                    android:id="@+id/location"
                     style="@style/textForm">
             </EditText>
         </TableRow>

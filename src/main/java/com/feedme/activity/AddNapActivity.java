@@ -44,19 +44,19 @@ public class AddNapActivity extends NapActivity
         //declare fields
         Button addNapButton = (Button) findViewById(R.id.addNapButton);
 
-        napDate = (Button) findViewById(R.id.napDate);
-        napStartTime = (Button) findViewById(R.id.addStartTime);
-        napEndTime = (Button) findViewById(R.id.addEndTime);
-        napLocation = (EditText) findViewById(R.id.napLocation);
+        entryDate = (Button) findViewById(R.id.entryDate);
+        startTime = (Button) findViewById(R.id.startTime);
+        endTime = (Button) findViewById(R.id.endTime);
+        location = (EditText) findViewById(R.id.location);
 
         // add a click listener to the button
-        napDate.setOnClickListener(showDateDialog());
+        entryDate.setOnClickListener(showDateDialog());
 
         // add a click listener to the button
-        napStartTime.setOnClickListener(showStartTimeDialog());
+        startTime.setOnClickListener(showStartTimeDialog());
 
         // add a click listener to the button
-        napEndTime.setOnClickListener(showEndTimeDialog());
+        endTime.setOnClickListener(showEndTimeDialog());
 
         // get the current date
         final Calendar c = Calendar.getInstance();
@@ -86,7 +86,7 @@ public class AddNapActivity extends NapActivity
             public void onClick(View v)
             {
                 //if location/notes not filled out, throw error
-                if (napLocation.getText().toString().equals("")) {
+                if (location.getText().toString().equals("")) {
                     alertDialog.setTitle("Oops!");
                     alertDialog.setMessage("Please fill out the form completely.");
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -103,10 +103,10 @@ public class AddNapActivity extends NapActivity
                     // Inserting entry
                     Log.d("Insert: ", "Inserting ..");
 
-                    Nap nap = new Nap(napDate.getText().toString(),
-                                        napStartTime.getText().toString(),
-                                        napEndTime.getText().toString(),
-                                        napLocation.getText().toString(),
+                    Nap nap = new Nap(entryDate.getText().toString(),
+                                        startTime.getText().toString(),
+                                        endTime.getText().toString(),
+                                        location.getText().toString(),
                                         baby.getID());
                     Log.d("NAP-INSERT:", nap.dump());
                     
