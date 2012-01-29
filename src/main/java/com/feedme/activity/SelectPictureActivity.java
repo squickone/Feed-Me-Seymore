@@ -33,8 +33,6 @@ public class SelectPictureActivity extends Activity
         {
             Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
-            Log.d("BABY:PIC:", baby.dump());
-
             Integer intentId = (Integer) getIntent().getExtras().get("intentId");
 
             Intent intent;

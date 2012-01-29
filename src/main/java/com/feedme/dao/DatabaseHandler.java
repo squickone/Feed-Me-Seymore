@@ -3,6 +3,7 @@ package com.feedme.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.feedme.database.BabyColumn;
 
 /**
  * User: root
@@ -11,24 +12,11 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    // All Static variables
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "babyData";
-
-    // Contacts table name
-    private static final String TABLE_DATA = "babies";
-
-    // Contacts Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_SEX = "sex";
-    private static final String KEY_HEIGHT = "height";
-    private static final String KEY_WEIGHT = "weight";
-    private static final String KEY_DOB = "dob";
-    private static final String KEY_PICTURE = "picture";
+    private static final String DATABASE_NAME = "FEED_ME";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,17 +25,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_DATA_TABLE = "CREATE TABLE " + TABLE_DATA + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_SEX + " TEXT," + KEY_HEIGHT + " TEXT," + KEY_WEIGHT + " TEXT," + KEY_DOB + " TEXT," + KEY_PICTURE + " TEXT)";
-        db.execSQL(CREATE_DATA_TABLE);
+
+        String babiesTableStatement = BabyColumn.createTableStatement();
+
+        db.execSQL(babiesTableStatement);
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DATA);
+
+        // Drop older tables
+        db.execSQL("DROP TABLE IF EXISTS " + BabyColumn.TABLE_NAME);
 
         // Create tables again
         onCreate(db);

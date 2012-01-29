@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import com.feedme.database.BabyColumn;
 import com.feedme.model.Baby;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -15,17 +18,21 @@ import java.util.List;
  */
 public class BabyDao {
 
-    // Contacts table name
-    private static final String TABLE_DATA = "babies";
+    // Babies table name
+    private static final String TABLE_DATA = BabyColumn.TABLE_NAME;
 
-    // Contacts Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_SEX = "sex";
-    private static final String KEY_HEIGHT = "height";
-    private static final String KEY_WEIGHT = "weight";
-    private static final String KEY_DOB = "dob";
-    private static final String KEY_PICTURE = "picture";
+    // Babies Table Columns names
+    private static final String KEY_ID = BabyColumn.ID.columnName();
+    private static final String KEY_NAME = BabyColumn.NAME.columnName();
+    private static final String KEY_SEX = BabyColumn.SEX.columnName();
+    private static final String KEY_HEIGHT = BabyColumn.HEIGHT.columnName();
+    private static final String KEY_WEIGHT = BabyColumn.WEIGHT.columnName();
+    private static final String KEY_DOB = BabyColumn.DOB.columnName();
+    private static final String KEY_PICTURE = BabyColumn.PICTURE.columnName();
+    private static final String KEY_LATITUDE = BabyColumn.LATITUDE.columnName();
+    private static final String KEY_LONGITUDE = BabyColumn.LONGITUDE.columnName();
+    private static final String KEY_CREATED_DATE = BabyColumn.CREATED_DATE.columnName();
+    private static final String KEY_LAST_MOD_DATE = BabyColumn.LAST_MOD_DATE.columnName();
 
     private SQLiteDatabase database;
     private DatabaseHandler databaseHandler;
@@ -49,6 +56,9 @@ public class BabyDao {
      */
     public void addBaby(Baby baby) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        Calendar now = Calendar.getInstance();
+
         open();
         
         ContentValues values = new ContentValues();
@@ -58,6 +68,10 @@ public class BabyDao {
         values.put(KEY_WEIGHT, baby.getWeight()); // Baby weight
         values.put(KEY_DOB, baby.getDob()); // Baby dob
         values.put(KEY_PICTURE, baby.getPicturePath()); // Baby picturePath
+        values.put(KEY_LATITUDE, baby.getLatitude());
+        values.put(KEY_LONGITUDE, baby.getLongitude());
+        values.put(KEY_CREATED_DATE, sdf.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -77,10 +91,13 @@ public class BabyDao {
         open();
         
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB, KEY_PICTURE }, KEY_ID + "=?",
+                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB, KEY_PICTURE, KEY_LATITUDE, KEY_LONGITUDE,
+                KEY_CREATED_DATE, KEY_LAST_MOD_DATE}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
+
+        if (cursor != null){
             cursor.moveToFirst();
+        }
 
         Baby baby =  cursorToBaby(cursor);
 
@@ -101,10 +118,13 @@ public class BabyDao {
         open();
 
         Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB, KEY_PICTURE }, KEY_NAME + "=?",
+                KEY_NAME, KEY_SEX, KEY_HEIGHT, KEY_WEIGHT, KEY_DOB, KEY_PICTURE, KEY_LATITUDE, KEY_LONGITUDE,
+                KEY_CREATED_DATE, KEY_LAST_MOD_DATE}, KEY_NAME + "=?",
                 new String[] { String.valueOf(name) }, null, null, null, null);
-        if (cursor != null)
+
+        if (cursor != null){
             cursor.moveToFirst();
+        }
 
         Baby baby =  cursorToBaby(cursor);
 
@@ -165,9 +185,14 @@ public class BabyDao {
     /**
      * Updates an existing Baby in the database.
      *
+     * @param baby
+     * @param id
      * @return
      */
     public int updateBaby(Baby baby, int id) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        Calendar now = Calendar.getInstance();
 
         open();
 
@@ -178,6 +203,7 @@ public class BabyDao {
         values.put(KEY_WEIGHT, baby.getWeight());
         values.put(KEY_DOB, baby.getDob());
         values.put(KEY_PICTURE, baby.getPicturePath());
+        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
@@ -189,6 +215,9 @@ public class BabyDao {
 
     /**
      * Deletes a Baby from the Database
+     *
+     * @param baby
+     * @param id
      */
     public void deleteBaby(Baby baby, int id) {
         open();
@@ -229,6 +258,10 @@ public class BabyDao {
                 cursor.getString(3),
                 cursor.getString(4),
                 cursor.getString(5),
-                cursor.getString(6));
+                cursor.getString(6),
+                cursor.getString(7),
+                cursor.getString(8),
+                cursor.getString(9),
+                cursor.getString(10));
     }
 }
