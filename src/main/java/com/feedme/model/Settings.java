@@ -45,6 +45,21 @@ public class Settings extends BaseObject {
         this._vibrate = vibrate;
     }
 
+    // constructor
+    public Settings(int id, String liquid, String length, String weight, String temperature, String sound,
+                    String vibrate, String createdDate, String lastModDate) {
+
+        this._id = id;
+        this._liquid = liquid;
+        this._length = length;
+        this._weight = weight;
+        this._temperature = temperature;
+        this._sound = sound;
+        this._vibrate = vibrate;
+        this._createdDate = createdDate;
+        this._lastModDate = lastModDate;
+    }
+
     public String getLiquid() {
         return this._liquid;
     }

@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import com.feedme.database.SettingsColumn;
 import com.feedme.model.Settings;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * This DAO class handles all CRUD operations on the Babies table in the SQLLite database.
@@ -13,22 +17,24 @@ import com.feedme.model.Settings;
 public class SettingsDao {
 
     // Contacts table name
-    private static final String TABLE_DATA = "settings";
+    private static final String TABLE_DATA = SettingsColumn.TABLE_NAME;
 
     // Contacts Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_LIQUID = "liquid";
-    private static final String KEY_LENGTH = "length";
-    private static final String KEY_SETTINGS_WEIGHT = "weight";
-    private static final String KEY_TEMPERATURE = "temperature";
-    private static final String KEY_SOUND = "sound";
-    private static final String KEY_VIBRATE = "vibrate";
+    private static final String KEY_ID = SettingsColumn.ID.columnName();
+    private static final String KEY_LIQUID = SettingsColumn.LIQUID.columnName();
+    private static final String KEY_LENGTH = SettingsColumn.LENGTH.columnName();
+    private static final String KEY_SETTINGS_WEIGHT = SettingsColumn.WEIGHT.columnName();
+    private static final String KEY_TEMPERATURE = SettingsColumn.TEMPERATURE.columnName();
+    private static final String KEY_SOUND = SettingsColumn.SOUND.columnName();
+    private static final String KEY_VIBRATE = SettingsColumn.VIBRATE.columnName();
+    private static final String KEY_CREATED_DATE = SettingsColumn.CREATED_DATE.columnName();
+    private static final String KEY_LAST_MOD_DATE = SettingsColumn.LAST_MOD_DATE.columnName();
 
     private SQLiteDatabase database;
-    private SettingsHandler databaseHandler;
+    private DatabaseHandler databaseHandler;
 
     public SettingsDao(Context context) {
-        databaseHandler = new SettingsHandler(context);
+        databaseHandler = new DatabaseHandler(context);
     }
 
     public void open() throws SQLException {
@@ -46,6 +52,9 @@ public class SettingsDao {
      */
     public void addSettings(Settings settings) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        Calendar now = Calendar.getInstance();
+
         open();
         
         ContentValues values = new ContentValues();
@@ -55,6 +64,8 @@ public class SettingsDao {
         values.put(KEY_TEMPERATURE, settings.getTemperature());
         values.put(KEY_SOUND, settings.getSound());
         values.put(KEY_VIBRATE, settings.getVibrate());
+        values.put(KEY_CREATED_DATE, sdf.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -73,8 +84,7 @@ public class SettingsDao {
 
         open();
         
-        Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID, KEY_LIQUID,
-                KEY_LENGTH, KEY_SETTINGS_WEIGHT, KEY_TEMPERATURE, KEY_SOUND, KEY_VIBRATE }, KEY_ID + "=?",
+        Cursor cursor = database.query(TABLE_DATA, SettingsColumn.getColumnNames(), KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -95,6 +105,9 @@ public class SettingsDao {
      */
     public int updateSettings(Settings setting, int id) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        Calendar now = Calendar.getInstance();
+
         open();
 
         ContentValues values = new ContentValues();
@@ -104,6 +117,7 @@ public class SettingsDao {
         values.put(KEY_TEMPERATURE, setting.getTemperature());
         values.put(KEY_SOUND, setting.getSound());
         values.put(KEY_VIBRATE, setting.getVibrate());
+        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
@@ -132,6 +146,13 @@ public class SettingsDao {
      */
     private Settings cursorToSetting(Cursor cursor) {
         return new Settings(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5),
+                cursor.getString(6),
+                cursor.getString(7),
+                cursor.getString(8));
     }
 }
