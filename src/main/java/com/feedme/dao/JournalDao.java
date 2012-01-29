@@ -157,6 +157,34 @@ public class JournalDao {
     }
 
     /**
+     * Returns all Feedings for a Child sorted by date in Descending Order by the passed in childId.
+     *
+     * @param childId
+     * @return
+     */
+    public List<Journal> getAllEntriesForChild(int childId) {
+
+        open();
+
+        List<Journal> entryList = new ArrayList<Journal>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_CHILD_ID + " DESC";
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                entryList.add(cursorToJournal(cursor));
+            } while (cursor.moveToNext());
+        }
+
+        close();
+
+        return entryList;
+    }
+
+    /**
      * Returns a Journal[] of all entries.
      *
      * @return

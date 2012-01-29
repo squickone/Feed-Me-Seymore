@@ -95,4 +95,8 @@
         <item>Off</item>
         <item>On</item>
     </string-array>
+
+    <!-- Export Email -->
+    <string name="exportEmailSubject">Feed Me So\'more Export for </string>
+    <string name="exportEmailText">Attached is your child\'s feeding history in Excel format. Enjoy!</string>
 </resources>

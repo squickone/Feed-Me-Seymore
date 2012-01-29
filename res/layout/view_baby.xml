@@ -21,6 +21,12 @@
                 android:text="Delete"
                 android:layout_toRightOf="@+id/editBaby"/>
 
+        <Button
+                style="@style/topNavButton"
+                android:id="@+id/exportBaby"
+                android:text="Export"
+                android:layout_toRightOf="@+id/deleteBaby"/>
+
         <TextView
             android:text=""
             style="@style/rightHeadline"

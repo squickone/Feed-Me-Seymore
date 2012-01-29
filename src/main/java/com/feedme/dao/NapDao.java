@@ -198,6 +198,32 @@ public class NapDao {
     }
 
     /**
+     * Returns the last X naps (where X=limit) based on the passed in childId in the form of a List<Nap>.
+     *
+     * @param childId
+     * @return
+     */
+    public List<Nap> getAllNapsByChild(int childId){
+
+        open();
+
+        List<Nap> napList = new ArrayList<Nap>();
+
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_ID + " DESC";
+        Cursor cursor = database.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do{
+                napList.add(cursorToNap(cursor));
+            } while (cursor.moveToNext());
+        }
+
+        close();
+
+        return napList;
+    }
+
+    /**
      * Returns the last X naps (where X=limit) based on the passed in childId in the form of a Nap[].
      *
      * @param childId
