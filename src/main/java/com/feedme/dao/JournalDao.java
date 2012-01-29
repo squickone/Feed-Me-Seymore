@@ -76,7 +76,7 @@ public class JournalDao {
         values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // Inserting Row
-        database.insert(TABLE_DATA, null, values);
+        long result = database.insert(TABLE_DATA, null, values);
         
         close();
     }

@@ -56,7 +56,7 @@ public class BabyAdapter extends ArrayAdapter {
 
         //Assign the appropriate data from our baby object above
         babyName.setText(baby.getName());
-//        babyId.setText(baby.getID()); //TODO: Figure out why this is not working.
+//        babyId.setText(baby.getId()); //TODO: Figure out why this is not working.
 
         return babyView;
     }

@@ -8,25 +8,17 @@ import java.io.Serializable;
  * Time: 1:22 PM
  */
 
-public class Baby implements Serializable
-{
-
+public class Baby extends TrackableObject {
     //private variables
-    int _id;
     String _name;
     String _sex;
     String _height;
     String _weight;
     String _dob;
     String _picturePath;
-    String _latitude;
-    String _longitude;
-    String _createdDate;
-    String _lastModDate;
 
     // Empty constructor
-    public Baby()
-    {
+    public Baby() {
 
     }
 
@@ -70,124 +62,55 @@ public class Baby implements Serializable
         this._lastModDate = lastModDate;
     }
 
-    // getting ID
-    public int getID()
-    {
-        return this._id;
-    }
-
-    // setting id
-    public void setID(int id)
-    {
-        this._id = id;
-    }
-
-    // getting name
-    public String getName()
-    {
+    public String getName() {
         return this._name;
     }
 
-    // setting name
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this._name = name;
     }
 
-    // getting sex
-    public String getSex()
-    {
+    public String getSex() {
         return this._sex;
     }
 
-    // setting sex
-    public void setSex(String sex)
-    {
+    public void setSex(String sex) {
         this._sex = sex;
     }
 
-    // getting height
-    public String getHeight()
-    {
+    public String getHeight() {
         return this._height;
     }
 
-    // setting height
-    public void setHeight(String height)
-    {
+    public void setHeight(String height) {
         this._height = height;
     }
 
-    // getting weight
-    public String getWeight()
-    {
+    public String getWeight() {
         return this._weight;
     }
 
-    // setting weight
-    public void setWeight(String weight)
-    {
+    public void setWeight(String weight) {
         this._weight = weight;
     }
 
-    // getting dob
-    public String getDob()
-    {
+    public String getDob() {
         return this._dob;
     }
 
-    // setting dob
-    public void setDob(String dob)
-    {
+    public void setDob(String dob) {
         this._dob = dob;
     }
 
-    // getting picturePath
-    public String getPicturePath()
-    {
+    public String getPicturePath() {
         return _picturePath;
     }
 
-    // setting picturePath
-    public void setPicturePath(String picturePath)
-    {
+    public void setPicturePath(String picturePath) {
         this._picturePath = picturePath;
     }
 
-    public String getLastModDate() {
-        return _lastModDate;
-    }
-
-    public void setLastModDate(String lastModDate) {
-        this._lastModDate = lastModDate;
-    }
-
-    public String getCreatedDate() {
-        return _createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
-        this._createdDate = createdDate;
-    }
-
-    public String getLongitude() {
-        return _longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this._longitude = longitude;
-    }
-
-    public String getLatitude() {
-        return _latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this._latitude = latitude;
-    }
-
-    public String dump()
-    {
+    public String dump() {
         StringBuilder sb = new StringBuilder();
         sb.append("ID: " + _id + " - ");
         sb.append("NAME: " + _name + " - ");
@@ -200,7 +123,7 @@ public class Baby implements Serializable
         sb.append("LONGITUDE: " + _longitude + " - ");
         sb.append("CREATED_DATE: " + _createdDate + " - ");
         sb.append("LAST_MOD_DATE: " + _lastModDate);
-        
+
         return sb.toString();
     }
 }

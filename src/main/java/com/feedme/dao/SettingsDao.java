@@ -5,11 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import com.feedme.model.Baby;
 import com.feedme.model.Settings;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This DAO class handles all CRUD operations on the Babies table in the SQLLite database.
@@ -122,7 +118,7 @@ public class SettingsDao {
      */
     public void deleteSettings(Settings setting) {
         open();
-        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(setting.getID())});
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(setting.getId())});
         close();
     }
 

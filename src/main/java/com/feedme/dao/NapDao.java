@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import com.feedme.database.NapColumn;
 import com.feedme.model.Nap;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -16,21 +19,25 @@ import java.util.List;
 public class NapDao {
 
     // Contacts table name
-    private static final String TABLE_DATA = "naps";
+    private static final String TABLE_DATA = NapColumn.TABLE_NAME;
 
     // Contacts Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_DATE = "date";
-    private static final String KEY_START_TIME = "start_time";
-    private static final String KEY_END_TIME = "end_time";
-    private static final String KEY_LOCATION = "location";
-    private static final String KEY_CHILD_ID = "child_id";
+    private static final String KEY_ID = NapColumn.ID.columnName();
+    private static final String KEY_DATE = NapColumn.DATE.columnName();
+    private static final String KEY_START_TIME = NapColumn.START_TIME.columnName();
+    private static final String KEY_END_TIME = NapColumn.END_TIME.columnName();
+    private static final String KEY_LOCATION = NapColumn.LOCATION.columnName();
+    private static final String KEY_CHILD_ID = NapColumn.CHILD_ID.columnName();
+    private static final String KEY_LATITUDE = NapColumn.LATITUDE.columnName();
+    private static final String KEY_LONGITUDE = NapColumn.LONGITUDE.columnName();
+    private static final String KEY_CREATED_DATE = NapColumn.CREATED_DATE.columnName();
+    private static final String KEY_LAST_MOD_DATE = NapColumn.LAST_MOD_DATE.columnName();
 
     private SQLiteDatabase database;
-    private NapDatabaseHandler databaseHandler;
+    private DatabaseHandler databaseHandler;
 
     public NapDao(Context context) {
-        databaseHandler = new NapDatabaseHandler(context);
+        databaseHandler = new DatabaseHandler(context);
     }
 
     public void open() throws SQLException {
@@ -48,6 +55,9 @@ public class NapDao {
      */
     public void addNap(Nap nap) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        Calendar now = Calendar.getInstance();
+
         open();
 
         ContentValues values = new ContentValues();
@@ -56,6 +66,10 @@ public class NapDao {
         values.put(KEY_END_TIME, nap.getEndTime()); // Time
         values.put(KEY_LOCATION, nap.getLocation()); // Location
         values.put(KEY_CHILD_ID, nap.getChild()); // Child ID
+        values.put(KEY_LATITUDE, nap.getLatitude());
+        values.put(KEY_LONGITUDE, nap.getLongitude());
+        values.put(KEY_CREATED_DATE, sdf.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -74,8 +88,7 @@ public class NapDao {
 
         open();
 
-        Cursor cursor = database.query(TABLE_DATA, new String[]{KEY_ID,
-                KEY_DATE, KEY_START_TIME, KEY_END_TIME, KEY_LOCATION, KEY_CHILD_ID}, KEY_ID + "=?",
+        Cursor cursor = database.query(TABLE_DATA, NapColumn.getColumnNames(), KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -100,8 +113,7 @@ public class NapDao {
 
         open();
 
-        Cursor cursor = database.query(TABLE_DATA, new String[] { KEY_ID,
-                KEY_DATE, KEY_START_TIME, KEY_END_TIME, KEY_LOCATION, KEY_CHILD_ID }, KEY_DATE + "=?",
+        Cursor cursor = database.query(TABLE_DATA, NapColumn.getColumnNames(), KEY_DATE + "=?",
                 new String[] { String.valueOf(date) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -212,6 +224,9 @@ public class NapDao {
      */
     public int updateNap(Nap entry, int id) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        Calendar now = Calendar.getInstance();
+
         open();
 
         ContentValues values = new ContentValues();
@@ -220,6 +235,7 @@ public class NapDao {
         values.put(KEY_END_TIME, entry.getEndTime());
         values.put(KEY_LOCATION, entry.getLocation());
         values.put(KEY_CHILD_ID, entry.getChild());
+        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
@@ -299,6 +315,14 @@ public class NapDao {
      */
     private Nap cursorToNap(Cursor cursor) {
         return new Nap(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), Integer.parseInt(cursor.getString(5)));
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                Integer.parseInt(cursor.getString(5)),
+                cursor.getString(6),
+                cursor.getString(7),
+                cursor.getString(8),
+                cursor.getString(9));
     }
 }

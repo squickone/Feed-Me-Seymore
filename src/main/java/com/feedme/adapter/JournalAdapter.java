@@ -56,7 +56,7 @@ public class JournalAdapter extends ArrayAdapter {
 
         //Assign the appropriate data from our journal object above
         entryDate.setText(entry.getDate());
-//        entryId.setText(entry.getID()); //TODO: Figure out why this is not working.
+//        entryId.setText(entry.getId()); //TODO: Figure out why this is not working.
 
         return entryView;
     }

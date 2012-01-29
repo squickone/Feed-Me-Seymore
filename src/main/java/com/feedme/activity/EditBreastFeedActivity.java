@@ -5,13 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
-import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
@@ -110,7 +107,7 @@ public class EditBreastFeedActivity extends FeedActivity
                         journal.getFeedTime(),
                         entrySide.getSelectedItem().toString(),
                         "",
-                        baby.getID()), journal.getID());
+                        baby.getId()), journal.getId());
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("baby", baby);
@@ -127,7 +124,7 @@ public class EditBreastFeedActivity extends FeedActivity
         {
             public void onClick(View v)
             {
-                deleteEntry(journal.getID(), baby.getName());
+                deleteEntry(journal.getId(), baby.getName());
             }
         });
     }

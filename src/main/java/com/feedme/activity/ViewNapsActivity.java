@@ -1,23 +1,16 @@
 package com.feedme.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
-import com.feedme.dao.BabyDao;
-import com.feedme.dao.JournalDao;
 import com.feedme.dao.NapDao;
-import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
-import com.feedme.model.Journal;
 import com.feedme.model.Nap;
-import com.feedme.model.Settings;
 
 import java.util.List;
 
@@ -48,7 +41,7 @@ public class ViewNapsActivity extends BaseActivity
         handleButtons(bundle);
 
         final NapDao napsDao = new NapDao(getApplicationContext());
-        List<Nap> lsNap = napsDao.getLastNapsByChild(baby.getID(), 10);
+        List<Nap> lsNap = napsDao.getLastNapsByChild(baby.getId(), 10);
 
         TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
 

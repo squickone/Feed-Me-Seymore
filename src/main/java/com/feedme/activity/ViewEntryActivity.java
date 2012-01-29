@@ -3,16 +3,12 @@ package com.feedme.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.feedme.R;
-import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
-import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
 /**
@@ -69,7 +65,7 @@ public class ViewEntryActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
 
-                intent.putExtra("entryID", entry2.getID());
+                intent.putExtra("entryID", entry2.getId());
                 intent.putExtra("entryDate", entry2.getDate());
                 intent.putExtra("entryStartTime", entry2.getStartTime());
                 intent.putExtra("entryEndTime", entry2.getEndTime());

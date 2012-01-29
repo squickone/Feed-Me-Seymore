@@ -1,9 +1,7 @@
 package com.feedme.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,10 +40,10 @@ public class ViewEntriesActivity extends BaseActivity
 
         styleActivity(baby.getSex());
         
-        handleButtons(baby.getID());
+        handleButtons(baby.getId());
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(baby.getID(), 10);
+        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(baby.getId(), 10);
 
         // prepare settings data
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());

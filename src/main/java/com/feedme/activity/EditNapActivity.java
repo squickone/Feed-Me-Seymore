@@ -4,19 +4,12 @@ import android.app.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
-import com.feedme.dao.BabyDao;
-import com.feedme.dao.JournalDao;
 import com.feedme.dao.NapDao;
-import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Nap;
-import com.feedme.model.Settings;
 
 import java.util.Calendar;
 
@@ -94,7 +87,7 @@ public class EditNapActivity extends NapActivity
                         startTime.getText().toString(),
                         endTime.getText().toString(),
                         location.getText().toString(),
-                        baby.getID()), nap.getID());
+                        baby.getId()), nap.getId());
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtras(bundle);
@@ -107,7 +100,7 @@ public class EditNapActivity extends NapActivity
         Button deleteButton = (Button) findViewById(R.id.deleteNap);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                deleteNap(nap.getID(), baby);
+                deleteNap(nap.getId(), baby);
             }
         });
     }

@@ -1,28 +1,19 @@
 package com.feedme.activity;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
-import com.feedme.dao.BabyDao;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * User: dayel.ostraco
@@ -137,7 +128,7 @@ public class AddBreastFeedActivity extends FeedActivity
                                                     String.valueOf(dur),
                                                     entrySide.getSelectedItem().toString(),
                                                     "",
-                                                    baby.getID());
+                                                    baby.getId());
                 Log.d("JOURNAL-ADD: ", insertJournal.dump());
                 journalDao.addEntry(insertJournal);
 

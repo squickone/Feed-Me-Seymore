@@ -5,13 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
-import com.feedme.dao.BabyDao;
 import com.feedme.dao.NapDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Nap;
@@ -107,7 +104,7 @@ public class AddNapActivity extends NapActivity
                                         startTime.getText().toString(),
                                         endTime.getText().toString(),
                                         location.getText().toString(),
-                                        baby.getID());
+                                        baby.getId());
                     Log.d("NAP-INSERT:", nap.dump());
                     
                     napDao.addNap(nap);

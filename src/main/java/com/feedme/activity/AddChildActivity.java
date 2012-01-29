@@ -134,7 +134,7 @@ public class AddChildActivity extends ChildActivity
                     List<Baby> babies = babyDao.getAllBabies();
 
                     for (Baby baby : babies) {
-                        String log = "Id: " + baby.getID() + " ,Name: " + baby.getName() + " ,Sex: " + baby.getSex()
+                        String log = "Id: " + baby.getId() + " ,Name: " + baby.getName() + " ,Sex: " + baby.getSex()
                                 + " ,Height: " + baby.getHeight() + " ,Weight: " + baby.getWeight() + " ," +
                                 "DOB: " + baby.getDob();
 

@@ -3,18 +3,14 @@ package com.feedme.model;
 import java.io.Serializable;
 
 /**
- * Created by IntelliJ IDEA.
  * User: root
  * Date: 1/16/12
  * Time: 1:22 PM
- * To change this template use File | Settings | File Templates.
  */
 
-public class Nap implements Serializable
-{
+public class Nap extends TrackableObject {
 
     //private variables
-    int _id;
     String _date;
     String _start_time;
     String _end_time;
@@ -22,14 +18,12 @@ public class Nap implements Serializable
     int _child_id;
 
     // Empty constructor
-    public Nap()
-    {
+    public Nap() {
 
     }
 
     // constructor
-    public Nap(int id, String date, String start_time, String end_time, String location, int child_id)
-    {
+    public Nap(int id, String date, String start_time, String end_time, String location, int child_id) {
         this._id = id;
         this._date = date;
         this._start_time = start_time;
@@ -39,8 +33,7 @@ public class Nap implements Serializable
     }
 
     // constructor
-    public Nap(String date, String start_time, String end_time, String location, int child_id)
-    {
+    public Nap(String date, String start_time, String end_time, String location, int child_id) {
         this._date = date;
         this._start_time = start_time;
         this._end_time = end_time;
@@ -48,87 +41,82 @@ public class Nap implements Serializable
         this._child_id = child_id;
     }
 
-    // getting ID
-    public int getID()
-    {
+    // constructor
+    public Nap(int id, String date, String start_time, String end_time, String location, int childId, String latitude,
+               String longitude, String createdDate, String lastModDate) {
+
+        this._id = id;
+        this._date = date;
+        this._start_time = start_time;
+        this._end_time = end_time;
+        this._location = location;
+        this._child_id = childId;
+        this._latitude = latitude;
+        this._longitude = longitude;
+        this._createdDate = createdDate;
+        this._lastModDate = lastModDate;
+    }
+
+    public int getId() {
         return this._id;
     }
 
-    // setting id
-    public void setID(int id)
-    {
+    public void setId(int id) {
         this._id = id;
     }
 
-    // getting date
-    public String getDate()
-    {
+    public String getDate() {
         return this._date;
     }
 
-    // setting date
-    public void setDate(String date)
-    {
+    public void setDate(String date) {
         this._date = date;
     }
 
-    // getting start time
-    public String getStartTime()
-    {
+    public String getStartTime() {
         return this._start_time;
     }
 
-    // setting start time
-    public void setStartTime(String start_time)
-    {
+    public void setStartTime(String start_time) {
         this._start_time = start_time;
     }
 
-    // getting end time
-    public String getEndTime()
-    {
+    public String getEndTime() {
         return this._end_time;
     }
 
-    // setting end time
-    public void setEndTime(String end_time)
-    {
+    public void setEndTime(String end_time) {
         this._end_time = end_time;
     }
 
-    // getting location
-    public String getLocation()
-    {
+    public String getLocation() {
         return this._location;
     }
 
-    // setting location
-    public void setLocation(String location)
-    {
+    public void setLocation(String location) {
         this._location = location;
     }
 
-    // getting child
-    public int getChild()
-    {
+    public int getChild() {
         return this._child_id;
     }
 
-    // setting child
-    public void setChild(int child_id)
-    {
+    public void setChild(int child_id) {
         this._child_id = child_id;
     }
 
-    public String dump()
-    {
+    public String dump() {
         StringBuilder sb = new StringBuilder();
         sb.append("ID: " + _id + " - ");
         sb.append("DATE: " + _date + " - ");
         sb.append("START TIME: " + _start_time + " - ");
         sb.append("END TIME: " + _end_time + " - ");
         sb.append("LOCATION: " + _location + " - ");
-        sb.append("CHILD ID: " + _child_id);
+        sb.append("CHILD ID: " + _child_id + " - ");
+        sb.append("LATITUDE: " + _latitude + " - ");
+        sb.append("LONGITUDE: " + _longitude + " - ");
+        sb.append("CREATED_DATE: " + _createdDate + " - ");
+        sb.append("LAST_MOD_DATE: " + _lastModDate);
         return sb.toString();
     }
 }

@@ -1,6 +1,5 @@
 package com.feedme.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -18,7 +17,6 @@ import com.feedme.dao.BabyDao;
 import com.feedme.model.Baby;
 
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * User: dayel.ostraco
@@ -123,7 +121,7 @@ public class EditChildActivity extends ChildActivity
                     }
 
                     Log.d("UPDATE: ", "Updating ..");
-                    Baby updateBaby = new Baby(editBaby.getID(),
+                    Baby updateBaby = new Baby(editBaby.getId(),
                             babyName.getText().toString(),
                             babySex.getSelectedItem().toString(),
                             babyHeight.getText().toString(),
@@ -131,7 +129,7 @@ public class EditChildActivity extends ChildActivity
                             babyDob.getText().toString(),
                             editBaby.getPicturePath());
 
-                    babyDao.updateBaby(updateBaby, editBaby.getID());
+                    babyDao.updateBaby(updateBaby, editBaby.getId());
 
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
 

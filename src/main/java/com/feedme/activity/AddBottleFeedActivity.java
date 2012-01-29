@@ -1,13 +1,8 @@
 package com.feedme.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
@@ -17,8 +12,6 @@ import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 import com.feedme.model.Settings;
-
-import java.util.Calendar;
 
 /**
  * User: dayel.ostraco
@@ -98,7 +91,7 @@ public class AddBottleFeedActivity extends FeedActivity
                                                     "",
                                                     "",
                                                     feedAmt.getSelectedItem().toString(),
-                                                    baby.getID());
+                                                    baby.getId());
                 Log.d("JOURNAL-ADD:", insertJournal.dump());
                 journalDao.addEntry(insertJournal);
 
