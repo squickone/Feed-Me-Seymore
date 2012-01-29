@@ -25,17 +25,10 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditChildActivity extends BaseActivity
+public class EditChildActivity extends ChildActivity
 {
-    public static final int EDIT_CHILD_ACTIVITY_ID = 6;
-
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-
+    
     private Button babyDob;
-
-    static final int DATE_DIALOG_ID = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -68,13 +61,7 @@ public class EditChildActivity extends BaseActivity
         babyDob.setText(editBaby.getDob());
 
         // add a click listener to the button
-        babyDob.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                showDialog(DATE_DIALOG_ID);
-            }
-        });
+        babyDob.setOnClickListener(showDateDialog());
 
         // get the current date
         final Calendar c = Calendar.getInstance();
@@ -100,48 +87,11 @@ public class EditChildActivity extends BaseActivity
         }
 
         //Take Picture Button
-        takePicture.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(v.getContext(), TakePictureActivity.class);
+        takePicture.setOnClickListener(takePictureListener(editBaby, EDIT_CHILD_ACTIVITY_ID));
 
-                Baby tempBaby = new Baby(babyName.getText().toString(),
-                        babySex.getSelectedItem().toString(),
-                        babyHeight.getText().toString(),
-                        babyWeight.getText().toString(),
-                        babyDob.getText().toString(),
-                        "");
-                Bundle b = new Bundle();
-                b.putSerializable("baby", tempBaby);
-                b.putInt("intentId", EDIT_CHILD_ACTIVITY_ID);
-                intent.putExtras(b);
-
-                startActivityForResult(intent, 1);
-            }
-        });
-
+        //EDIT_CHILD_ACTIVITY_ID
         //Select Picture Button
-        selectPicture.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(v.getContext(), SelectPictureActivity.class);
-
-                Baby tempBaby = new Baby(babyName.getText().toString(),
-                        babySex.getSelectedItem().toString(),
-                        babyHeight.getText().toString(),
-                        babyWeight.getText().toString(),
-                        babyDob.getText().toString(),
-                        "");
-                Bundle b = new Bundle();
-                b.putSerializable("baby", tempBaby);
-                b.putInt("intentId", EDIT_CHILD_ACTIVITY_ID);
-                intent.putExtras(b);
-
-                startActivityForResult(intent, EDIT_CHILD_ACTIVITY_ID);
-            }
-        });
+        selectPicture.setOnClickListener(selectPictureListener(editBaby, EDIT_CHILD_ACTIVITY_ID));
 
         //declare alert dialog
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();

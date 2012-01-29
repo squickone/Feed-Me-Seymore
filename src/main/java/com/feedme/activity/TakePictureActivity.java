@@ -11,19 +11,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import com.feedme.model.Baby;
 
 /**
  * User: dayel.ostraco
  * Date: 1/17/12
  * Time: 8:26 PM
  */
-public class TakePictureActivity extends Activity {
+public class TakePictureActivity extends Activity
+{
 
     public static int TAKE_PICTURE_ID = 10;
     private Uri picturePath;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         takePhoto();
@@ -37,36 +40,33 @@ public class TakePictureActivity extends Activity {
      * @param resultCode
      * @param data
      */
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
 
-        if (requestCode == TAKE_PICTURE_ID){
+        if (requestCode == TAKE_PICTURE_ID) {
+
+            final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
             
-            //TODO: Soooo gross. There has to be a better way to handle this.
-            String babyName = (String) getIntent().getExtras().get("babyName");
-            String babySex = (String) getIntent().getExtras().get("babySex");
-            String babyHeight = (String) getIntent().getExtras().get("babyHeight");
-            String babyWeight = (String) getIntent().getExtras().get("babyWeight");
-            String babyDob = (String) getIntent().getExtras().get("babyDob");
             Integer intentId = (Integer) getIntent().getExtras().get("intentId");
 
             Intent intent;
-            if(intentId==AddChildActivity.ADD_CHILD_ACTIVITY_ID){
-               intent = new Intent(getApplicationContext(), AddChildActivity.class);
+            if (intentId == AddChildActivity.ADD_CHILD_ACTIVITY_ID) {
+                intent = new Intent(getApplicationContext(), AddChildActivity.class);
             } else {
                 intent = new Intent(getApplicationContext(), EditChildActivity.class);
             }
+
+            Bundle b = new Bundle();
+            b.putSerializable("baby", baby);
+            intent.putExtras(b);
             
-            intent.putExtra("babyName",babyName);
-            intent.putExtra("babySex", babySex);
-            intent.putExtra("babyHeight", babyHeight);
-            intent.putExtra("babyWeight", babyWeight);
-            intent.putExtra("babyDob", babyDob);
             intent.putExtra("picturePath", getPath(picturePath));
             startActivityForResult(intent, TAKE_PICTURE_ID);
         }
     }
 
-    private void takePhoto() {
+    private void takePhoto()
+    {
 
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, Calendar.getInstance().getTimeInMillis() + ".jpg");
@@ -77,12 +77,13 @@ public class TakePictureActivity extends Activity {
         startActivityForResult(intent, TAKE_PICTURE_ID);
     }
 
-    private String getPath(Uri uri) {
+    private String getPath(Uri uri)
+    {
 
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
 
-        if(cursor!=null) {
+        if (cursor != null) {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
 

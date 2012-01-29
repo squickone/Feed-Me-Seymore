@@ -41,10 +41,6 @@ public abstract class FeedActivity extends BaseActivity
 
     public SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 
-    static final int DATE_DIALOG_ID = 0;
-    static final int START_TIME_DIALOG_ID = 1;
-    static final int END_TIME_DIALOG_ID = 2;
-
     public String feedQty;
 
 

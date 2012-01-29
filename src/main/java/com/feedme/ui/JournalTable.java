@@ -117,9 +117,10 @@ public class JournalTable
                 TextView feedTime = new TextView(activity.getApplicationContext());
                 feedTime.setTextColor(0xFF000000);
 
-                Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
-                feedTime.setText(simpleTimeFormat.format(dateDuration));
+//                Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
+//                feedTime.setText(simpleTimeFormat.format(dateDuration));
 
+                feedTime.setText(journal.getFeedTime());
                 linearLayoutVertical.addView(feedTime);
             }
 

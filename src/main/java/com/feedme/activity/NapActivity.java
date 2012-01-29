@@ -37,10 +37,6 @@ public abstract class NapActivity extends BaseActivity
     public int endMinute;
     public int endSecond;
 
-    public static final int DATE_DIALOG_ID = 0;
-    public static final int START_TIME_DIALOG_ID = 1;
-    public static final int END_TIME_DIALOG_ID = 2;
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

@@ -12,6 +12,11 @@ import com.feedme.R;
 
 public abstract class BaseActivity extends Activity
 {
+    public static final int DATE_DIALOG_ID = 0;
+    public static final int START_TIME_DIALOG_ID = 1;
+    public static final int END_TIME_DIALOG_ID = 2;
+    public static final int ADD_CHILD_ACTIVITY_ID = 5;
+    public static final int EDIT_CHILD_ACTIVITY_ID = 6;
 
     public void styleActivity(String babyGender)
     {
