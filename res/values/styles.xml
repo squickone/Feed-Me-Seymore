@@ -58,6 +58,17 @@
         <item name="android:paddingBottom">6dp</item>
         <item name="android:layout_alignParentBottom">true</item>
     </style>
+    <style name="babyName">
+        <item name="android:background">@drawable/button_states</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:minWidth">62dp</item>
+        <item name="android:height">30dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ff9090fc</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
     <style name="rightHeadline">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_width">wrap_content</item>
@@ -78,7 +89,6 @@
         <item name="android:background">@null</item>
     </style>
     <style name="imageBox">
-        <item name="android:layout_margin">4dp</item>
         <item name="android:background">@drawable/image_border</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -87,14 +97,16 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">2dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
     </style>
     <style name="segmentBanner">
         <item name="android:orientation">horizontal</item>
         <item name="android:background">#9090fc</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">4dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
         <item name="android:textSize">14dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#ffffffff</item>

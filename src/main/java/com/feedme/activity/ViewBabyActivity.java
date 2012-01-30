@@ -154,14 +154,6 @@ public class ViewBabyActivity extends Activity {
             }
         });
 
-        //Delete Button`
-        Button deleteButton = (Button) findViewById(R.id.deleteBaby);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                deleteBaby(baby.getId(), baby.getName());
-            }
-        });
-
         //Export Button
         Button exportButton = (Button) findViewById(R.id.exportBaby);
         exportButton.setOnClickListener(new View.OnClickListener() {
@@ -278,35 +270,6 @@ public class ViewBabyActivity extends Activity {
         Bitmap resizedBitmap = Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, false);
 
         return resizedBitmap;
-    }
-
-    private void deleteBaby(final int babyID, final String babyName) {
-
-        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(ViewBabyActivity.this);
-        myAlertDialog.setTitle("Delete \"" + babyName + "\"?");
-        myAlertDialog.setMessage("Are you sure?");
-        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface arg0, int arg1) {
-                BabyDao babyDao = new BabyDao(getApplicationContext());
-                Baby baby = babyDao.getBaby(babyID);
-                babyDao.deleteBaby(baby, babyID);
-                JournalDao journalDao = new JournalDao(getApplicationContext());
-                journalDao.deleteEntry(babyID);
-                NapDao napDao = new NapDao(getApplicationContext());
-                napDao.deleteNap(babyID);
-                startActivity(new Intent(ViewBabyActivity.this,
-                        HomeActivity.class));
-            }
-        });
-        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface arg0, int arg1) {
-
-            }
-        });
-
-        myAlertDialog.show();
     }
 
     /**

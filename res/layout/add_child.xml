@@ -12,7 +12,15 @@
         <TextView  style="@style/rightHeadline"
                    android:text="@string/addChild"
                    android:id="@+id/addChild"
-                />
+        />
+
+        <Button
+                style="@style/topNavButton"
+                android:id="@+id/deleteBaby"
+                android:visibility="invisible"
+                android:text="Delete"
+                android:layout_alignParentLeft="true"
+        />
 
     </RelativeLayout>
 

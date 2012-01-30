@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
+import com.feedme.dao.JournalDao;
+import com.feedme.dao.NapDao;
 import com.feedme.model.Baby;
 
 import java.util.Calendar;
@@ -47,6 +49,9 @@ public class EditChildActivity extends ChildActivity
         final Spinner babySex = (Spinner) findViewById(R.id.babySex);
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
+        final Button deleteBaby = (Button) findViewById(R.id.deleteBaby);
+
+        deleteBaby.setVisibility(View.VISIBLE);
 
         Button addChildButton = (Button) findViewById(R.id.addChildButton);
         Button takePicture = (Button) findViewById(R.id.takePicture);
@@ -92,6 +97,14 @@ public class EditChildActivity extends ChildActivity
 
         //declare alert dialog
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        //Delete Button`
+        Button deleteButton = (Button) findViewById(R.id.deleteBaby);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteBaby(editBaby.getId(), editBaby.getName());
+            }
+        });
 
         // button listener for add child button
         addChildButton.setOnClickListener(new View.OnClickListener()
@@ -185,6 +198,34 @@ public class EditChildActivity extends ChildActivity
         return true;
     }
 
+    private void deleteBaby(final int babyID, final String babyName) {
+
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditChildActivity.this);
+        myAlertDialog.setTitle("Delete \"" + babyName + "\"?");
+        myAlertDialog.setMessage("Are you sure?");
+        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+                BabyDao babyDao = new BabyDao(getApplicationContext());
+                Baby baby = babyDao.getBaby(babyID);
+                babyDao.deleteBaby(baby, babyID);
+                JournalDao journalDao = new JournalDao(getApplicationContext());
+                journalDao.deleteEntry(babyID);
+                NapDao napDao = new NapDao(getApplicationContext());
+                napDao.deleteNap(babyID);
+                startActivity(new Intent(EditChildActivity.this,
+                        HomeActivity.class));
+            }
+        });
+        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        myAlertDialog.show();
+    }
 
     // updates the date we display in the TextView
     private void updateDateDisplay()

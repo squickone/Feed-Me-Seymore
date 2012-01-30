@@ -17,15 +17,9 @@
 
         <Button
                 style="@style/topNavButton"
-                android:id="@+id/deleteBaby"
-                android:text="Delete"
-                android:layout_toRightOf="@+id/editBaby"/>
-
-        <Button
-                style="@style/topNavButton"
                 android:id="@+id/exportBaby"
                 android:text="Export"
-                android:layout_toRightOf="@+id/deleteBaby"/>
+                android:layout_toRightOf="@+id/editBaby"/>
 
         <TextView
             android:text=""
@@ -58,8 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/babyPicture"
-                android:paddingLeft="4dp"
-                android:paddingTop="4dp">
+                android:paddingLeft="4dp">
 
                 <LinearLayout style="@style/profileStatsRow" >
 
@@ -154,13 +147,14 @@
 
             <TextView
                 style="@style/segmentBanner"
-                android:text="Today's Feedings"
+                android:text="Feedings"
                 android:id="@+id/babyFeedings"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="6dp"
                 android:layout_below="@+id/profileStats">
 
                 <TextView
@@ -177,7 +171,7 @@
 
             <TextView
                 style="@style/segmentBanner"
-                android:text="Feeding History"
+                android:text="History"
                 android:id="@+id/feedHistory"/>
 
             <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"

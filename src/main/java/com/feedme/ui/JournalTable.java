@@ -63,6 +63,12 @@ public class JournalTable
             imageView.setMinimumWidth(80);
             imageView.setBackgroundResource(R.drawable.icon_border);
 
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.WRAP_CONTENT, 
+                                            LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(10, 10, 10, 10);
+            imageView.setLayoutParams(lp);
+
             if (journal.getSide().trim().isEmpty()) {
                 imageView.setImageResource(R.drawable.icon_bottle);
             } else {
@@ -75,7 +81,7 @@ public class JournalTable
 
             linearLayoutVertical.setOrientation(LinearLayout.VERTICAL);
 
-            linearLayoutVertical.setPadding(5, 0, 0, 0);
+            linearLayoutVertical.setPadding(5, 5, 5, 5);
 
             TextView bottleBreast = new TextView(activity.getApplicationContext());
             bottleBreast.setTextColor(0xFF000000);
