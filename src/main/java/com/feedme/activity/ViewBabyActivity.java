@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,7 +68,7 @@ public class ViewBabyActivity extends Activity {
         //Get today's feedings
         SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy ");
         Calendar today = Calendar.getInstance();
-        int feedingCount = journalDao.getEntriesCountByBabyAndDate(new Integer(baby.getId()).toString(),
+        int feedingCount = journalDao.getEntriesCountByBabyAndDate(Integer.toString(baby.getId()),
                 sdf.format(today.getTime()));
         TextView todayFeedingCount = (TextView) findViewById(R.id.todayFeedings);
         String feedingCountStr = feedingCount == 0 ? "No Feeding's Today" : feedingCount + "";
@@ -310,6 +309,12 @@ public class ViewBabyActivity extends Activity {
         myAlertDialog.show();
     }
 
+    /**
+     * Creates an email with a file attachment. The attached file is the babyName.xls.
+     *
+     * @param context
+     * @param babyName
+     */
     private void emailExport(Context context, String babyName) {
 
         final Intent emailIntent = new Intent(Intent.ACTION_SEND);

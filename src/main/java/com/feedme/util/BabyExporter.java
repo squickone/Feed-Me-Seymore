@@ -19,9 +19,19 @@ import java.util.List;
  * User: dayel.ostraco
  * Date: 1/29/12
  * Time: 11:18 AM
+ *
+ * Util class that creates Excel or CSV files with all data for a Baby.
  */
 public class BabyExporter {
-    
+
+    /**
+     * Creates an Excel spreadsheet with all Baby data for the passed in baby. This file is stored on the external
+     * storage.
+     *
+     * @param context
+     * @param baby
+     * @return
+     */
     public static boolean exportBabyToXls(Context context, Baby baby) {
 
         boolean success = false;
@@ -160,6 +170,8 @@ public class BabyExporter {
             cell = row.createCell(3);
             cell.setCellValue(nap.getLocation());
         }
+
+        //TODO: Diapers
 
         //Write Workbook to External Storage
         File file = new File(context.getExternalFilesDir(null), baby.getName() + ".xls");
