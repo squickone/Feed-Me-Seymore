@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * This DAO class handles all CRUD operations on the Babies table in the SQLLite database.
+ * This DAO class handles all CRUD operations on the Settings table in the SQLLite database.
  */
 public class SettingsDao {
 

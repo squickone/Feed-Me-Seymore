@@ -3,10 +3,7 @@ package com.feedme.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.feedme.database.BabyColumn;
-import com.feedme.database.JournalColumn;
-import com.feedme.database.NapColumn;
-import com.feedme.database.SettingsColumn;
+import com.feedme.database.*;
 
 /**
  * User: root
@@ -33,11 +30,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String journalTableStatement = JournalColumn.createTableStatement();
         String napTableStatement = NapColumn.createTableStatement();
         String settingsTableStatement = SettingsColumn.createTableStatement();
+        String diapersTableStatement = DiaperColumn.createTableStatement();
 
         db.execSQL(babiesTableStatement);
         db.execSQL(journalTableStatement);
         db.execSQL(napTableStatement);
         db.execSQL(settingsTableStatement);
+        db.execSQL(diapersTableStatement);
     }
 
     // Upgrading database
@@ -49,6 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + JournalColumn.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + NapColumn.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + SettingsColumn.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DiaperColumn.TABLE_NAME);
 
         // Create tables again
         onCreate(db);
