@@ -28,8 +28,8 @@ public class BabyExporter {
      * Creates an Excel spreadsheet with all Baby data for the passed in baby. This file is stored on the external
      * storage.
      *
-     * @param context
-     * @param baby
+     * @param context - Android Context
+     * @param baby - Baby Pojo
      * @return
      */
     public static boolean exportBabyToXls(Context context, Baby baby) {
