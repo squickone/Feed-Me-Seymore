@@ -12,6 +12,7 @@ public enum DiaperColumn {
     CONSISTENCY("CONSISTENCY", "TEXT"),
     COLOR("COLOR", "TEXT"),
     DATE("DATE", "TEXT"),
+    TIME("TIME", "TEXT"),
     CHILD_ID("CHILD_ID", "TEXT"),
     LATITUDE("LATITUDE", "TEXT"),
     LONGITUDE("LONGITUDE", "TEXT"),

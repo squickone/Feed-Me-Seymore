@@ -17,6 +17,9 @@ public abstract class BaseActivity extends Activity
     public static final int END_TIME_DIALOG_ID = 2;
     public static final int ADD_CHILD_ACTIVITY_ID = 5;
     public static final int EDIT_CHILD_ACTIVITY_ID = 6;
+    public static final int ADD_DIAPER_ACTIVITY_ID = 7;
+    public static final int EDIT_DIAPER_ACTIVITY_ID = 8;
+    public static final int VIEW_DIAPER_ACTIVITY_ID = 9;
 
     public void styleActivity(String babyGender)
     {

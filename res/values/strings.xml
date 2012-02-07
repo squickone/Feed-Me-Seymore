@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Feed-Me-Somore</string>
+    <string name="app_name">Feed-Me-Seymore</string>
     <string name="selectChildTitle">Select a Child</string>
     <string name="icon_settings">Settings</string>
     <string name="icon_add">Add</string>
@@ -21,6 +21,8 @@
     <string name="startTimer">Start</string>
     <string name="stopTimer">Stop</string>
     <string name="save">Save</string>
+    <string name="addDiaper">Add Diaper</string>
+    <string name="diaperHeader">Diaper Tracker</string>
 
     <string-array name="babySex">
         <item>Male</item>
@@ -64,6 +66,21 @@
         <item>190</item>
         <item>200</item>
    </string-array>
+
+    <!-- Add Diaper Screen -->
+    <string-array name="diaperType">
+        <item>Wet</item>
+        <item>Poop</item>
+    </string-array>
+    <string-array name="diaperConsistency">
+        <item>Loose</item>
+        <item>Solid</item>
+    </string-array>
+    <string-array name="diaperColor">
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Brown</item>
+    </string-array>
 
     <!-- Settings Page Strings -->
     <string-array name="liquidMeasurements">
