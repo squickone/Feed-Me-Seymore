@@ -24,6 +24,11 @@
     <string name="addDiaper">Add Diaper</string>
     <string name="diaperHeader">Diaper Tracker</string>
 
+    <string-array name="feedingType">
+        <item>Bottle Feeding</item>
+        <item>Breast Feeding</item>
+    </string-array>
+
     <string-array name="babySex">
         <item>Male</item>
         <item>Female</item>

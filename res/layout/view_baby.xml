@@ -218,16 +218,16 @@
                 style="@style/iconNavButton"
                 />
 
-       <Button android:text="Bottle"
-                android:id="@+id/bottleButton"
-                android:drawableTop="@drawable/icon_bottle"
-                android:layout_toLeftOf="@+id/breastfeedButton"
-                style="@style/iconNavButton"
-                />
+       <!--<Button android:text="Bottle"-->
+                <!--android:id="@+id/bottleButton"-->
+                <!--android:drawableTop="@drawable/icon_bottle"-->
+                <!--android:layout_toLeftOf="@+id/breastfeedButton"-->
+                <!--style="@style/iconNavButton"-->
+                <!--/>-->
 
-        <Button android:text="Breast"
-                android:id="@+id/breastfeedButton"
-                android:drawableTop="@drawable/icon_breastfeed"
+        <Button android:text="Feeding"
+                    android:id="@+id/feedingTypeButton"
+                android:drawableTop="@drawable/icon_bottle"
                 android:layout_alignParentRight="true"
                 style="@style/iconNavButton"
                 />

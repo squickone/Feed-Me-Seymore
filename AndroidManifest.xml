@@ -82,12 +82,15 @@
         <activity android:name=".activity.TimerActivity"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".activity.FeedTypeActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".activity.AddDiaperActivity"/>
         <activity android:name=".activity.EditDiaperActivity"/>
         <activity android:name=".activity.ViewDiapersActivity">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
     </application>
