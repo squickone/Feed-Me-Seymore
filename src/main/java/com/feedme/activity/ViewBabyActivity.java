@@ -1,7 +1,10 @@
 package com.feedme.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -42,6 +45,8 @@ public class ViewBabyActivity extends Activity
 
     private JournalTable journalTable = new JournalTable();
 
+    final Bundle bundle = new Bundle();
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -62,7 +67,6 @@ public class ViewBabyActivity extends Activity
 
         Log.d("BABY:", baby.dump());
 
-        final Bundle bundle = new Bundle();
         bundle.putSerializable("baby", baby);
 
         //Get today's feedings
@@ -210,12 +214,37 @@ public class ViewBabyActivity extends Activity
         {
             public void onClick(View v)
             {
-                Intent intent = new Intent(ViewBabyActivity.this, FeedTypeActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                showDialog(0);
             }
         });
 
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id)
+    {
+        return new AlertDialog.Builder(ViewBabyActivity.this)
+            .setTitle("Choose Feeding Type")
+            .setItems(R.array.feedingType, new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    if (which == 0)
+                    {
+                        Intent intent = new Intent(ViewBabyActivity.this, AddBottleFeedActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+            
+                    if (which == 1)
+                    {
+                        Intent intent = new Intent(ViewBabyActivity.this, AddBreastFeedActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                }
+            })
+            .create();
     }
 
     @Override

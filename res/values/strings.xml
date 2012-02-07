@@ -23,8 +23,8 @@
     <string name="save">Save</string>
 
     <string-array name="feedingType">
-        <item>Bottle</item>
-        <item>Breast</item>
+        <item>Bottle Feeding</item>
+        <item>Breast Feeding</item>
     </string-array>
 
     <string-array name="babySex">
