@@ -1,9 +1,7 @@
 package com.feedme.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,13 +36,15 @@ import com.feedme.util.BabyExporter;
  * Date: 1/16/12
  * Time: 4:34 PM
  */
-public class ViewBabyActivity extends Activity {
+public class ViewBabyActivity extends Activity
+{
     private static final int VIEW_BABY_ACTIVITY_ID = 3;
 
     private JournalTable journalTable = new JournalTable();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_baby);
 
@@ -101,13 +101,13 @@ public class ViewBabyActivity extends Activity {
             if ((baby.getSex()).equals("Male")) {
                 topBanner.setBackgroundColor(0xFF7ED0FF);
                 bottomBanner.setBackgroundColor(0xFF7ED0FF);
-                babyFeedings.setBackgroundColor(0xFF9090FC);
-                feedHistory.setBackgroundColor(0xFF9090FC);
+                babyFeedings.setBackgroundColor(0xFF7ED0FF);
+                feedHistory.setBackgroundColor(0xFF7ED0FF);
             } else {
                 topBanner.setBackgroundColor(0xFFFF99CC);
                 bottomBanner.setBackgroundColor(0xFFFF99CC);
-                babyFeedings.setBackgroundColor(0xFFFC9090);
-                feedHistory.setBackgroundColor(0xFFFC9090);
+                babyFeedings.setBackgroundColor(0xFFFF99CC);
+                feedHistory.setBackgroundColor(0xFFFF99CC);
             }
 
             final TextView babyHeight = (TextView) findViewById(R.id.babyHeight);
@@ -146,8 +146,10 @@ public class ViewBabyActivity extends Activity {
 
         //Add Edit Button`
         Button editButton = (Button) findViewById(R.id.editBaby);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        editButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), EditChildActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, VIEW_BABY_ACTIVITY_ID);
@@ -156,8 +158,10 @@ public class ViewBabyActivity extends Activity {
 
         //Export Button
         Button exportButton = (Button) findViewById(R.id.exportBaby);
-        exportButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        exportButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
 
                 //Run Exporter and save the Xls file
                 BabyExporter.exportBabyToXls(v.getContext(), baby);
@@ -167,8 +171,10 @@ public class ViewBabyActivity extends Activity {
 
         //Add Family Button`
         Button familyButton = (Button) findViewById(R.id.familyButton);
-        familyButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        familyButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 startActivity(new Intent(ViewBabyActivity.this,
                         HomeActivity.class));
             }
@@ -176,8 +182,10 @@ public class ViewBabyActivity extends Activity {
 
         //Add Nap Button`
         Button napButton = (Button) findViewById(R.id.naps_Button);
-        napButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        napButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), ViewNapsActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
@@ -186,29 +194,23 @@ public class ViewBabyActivity extends Activity {
 
         //Journal Button`
         Button journalButton = (Button) findViewById(R.id.journalButton);
-        journalButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        journalButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(ViewBabyActivity.this, ViewEntriesActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
 
-        //Add Bottle Feeding Button`
-        Button bottleButton = (Button) findViewById(R.id.bottleButton);
-        bottleButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ViewBabyActivity.this, AddBottleFeedActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        //Add Breast Feeding Button`
-        Button breastfeedButton = (Button) findViewById(R.id.breastfeedButton);
-        breastfeedButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ViewBabyActivity.this, AddBreastFeedActivity.class);
+        //Add Feeding Button`
+        Button feedButton = (Button) findViewById(R.id.feedingTypeButton);
+        feedButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(ViewBabyActivity.this, FeedTypeActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -217,14 +219,16 @@ public class ViewBabyActivity extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
         switch (item.getItemId()) {
             case R.id.home:
@@ -252,7 +256,8 @@ public class ViewBabyActivity extends Activity {
      * @param rotateInDegrees
      * @return
      */
-    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees) {
+    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees)
+    {
 
         int width = bitMap.getWidth();
         int height = bitMap.getHeight();
@@ -278,11 +283,13 @@ public class ViewBabyActivity extends Activity {
      * @param context
      * @param babyName
      */
-    private void emailExport(Context context, String babyName) {
+    private void emailExport(Context context, String babyName)
+    {
 
         final Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("text/plain");
-        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.exportEmailSubject) + " " + babyName);
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.exportEmailSubject) + " " +
+                babyName);
         emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.exportEmailText));
 
         Uri uri = Uri.fromFile(new File(context.getExternalFilesDir(null), babyName + ".xls"));
