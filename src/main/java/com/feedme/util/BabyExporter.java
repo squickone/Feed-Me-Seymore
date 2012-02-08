@@ -2,9 +2,11 @@ package com.feedme.util;
 
 import android.content.Context;
 import android.util.Log;
+import com.feedme.dao.DiaperDao;
 import com.feedme.dao.JournalDao;
 import com.feedme.dao.NapDao;
 import com.feedme.model.Baby;
+import com.feedme.model.Diaper;
 import com.feedme.model.Journal;
 import com.feedme.model.Nap;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -38,6 +40,7 @@ public class BabyExporter {
 
         JournalDao journalDao = new JournalDao(context);
         NapDao napDao = new NapDao(context);
+        DiaperDao diaperDao = new DiaperDao(context);
 
         // check if available and not read only
         if (!FeedMeUtil.isExternalStorageAvailable() || FeedMeUtil.isExternalStorageReadOnly()) {
@@ -129,7 +132,7 @@ public class BabyExporter {
         List<Nap> allNaps = napDao.getAllNapsByChild(baby.getId());
         Sheet naps = wb.createSheet("Naps");
 
-        //Feedings Headings
+        //Naps Headings
         row = naps.createRow((short)0);
         
         cell = row.createCell(0);
@@ -171,7 +174,59 @@ public class BabyExporter {
             cell.setCellValue(nap.getLocation());
         }
 
-        //TODO: Diapers
+        //Diapers Sheet
+        List<Diaper> allDiapers = diaperDao.getAllDiapersByChild(baby.getId());
+        Sheet diapers = wb.createSheet("Diapers");
+
+        //Diapers Headings
+        row = diapers.createRow((short)0);
+
+        cell = row.createCell(0);
+        cell.setCellValue("Date");
+        cell.setCellStyle(headerStyle);
+
+        cell = row.createCell(1);
+        cell.setCellValue("Time");
+        cell.setCellStyle(headerStyle);
+
+        cell = row.createCell(2);
+        cell.setCellValue("Type");
+        cell.setCellStyle(headerStyle);
+
+        cell = row.createCell(3);
+        cell.setCellValue("Consistency");
+        cell.setCellStyle(headerStyle);
+
+        cell = row.createCell(4);
+        cell.setCellValue("Color");
+        cell.setCellStyle(headerStyle);
+
+        //Feedings Data
+        for(int i=0 ; i<allDiapers.size() ; i++){
+            Diaper diaper = allDiapers.get(i);
+
+            row = diapers.createRow((short)i+1);
+
+            //Date
+            cell = row.createCell(0);
+            cell.setCellValue(diaper.getDate());
+
+            //Time
+            cell = row.createCell(1);
+            cell.setCellValue(diaper.getTime());
+
+            //Type
+            cell = row.createCell(2);
+            cell.setCellValue(diaper.getType());
+
+            //Consistency
+            cell = row.createCell(3);
+            cell.setCellValue(diaper.getConsistency());
+
+            //Color
+            cell = row.createCell(4);
+            cell.setCellValue(diaper.getColor());
+        }
 
         //Write Workbook to External Storage
         File file = new File(context.getExternalFilesDir(null), baby.getName() + ".xls");
