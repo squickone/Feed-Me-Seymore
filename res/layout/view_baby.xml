@@ -220,7 +220,7 @@
 
         <Button android:text="@string/diaperButtonLabel"
                 android:id="@+id/diapersButton"
-                android:drawableTop="@drawable/icon_bug"
+                android:drawableTop="@drawable/icon_diaper"
                 android:layout_toLeftOf="@+id/feedingTypeButton"
                 style="@style/iconNavButton"
                 />
