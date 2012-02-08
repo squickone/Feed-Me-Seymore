@@ -11,17 +11,17 @@ import com.feedme.dao.NapDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Nap;
 
+import java.util.Calendar;
+
 /**
  * User: dayel.ostraco
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditNapActivity extends NapActivity
-{
+public class EditNapActivity extends NapActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_nap);
 
@@ -59,11 +59,23 @@ public class EditNapActivity extends NapActivity
         // add a click listener to the button
         endTime.setOnClickListener(showEndTimeDialog());
 
+        // get the current date
+        final Calendar calendar = Calendar.getInstance();
 
-       editNapButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        startHour = calendar.get(Calendar.HOUR_OF_DAY);
+        startMinute = calendar.get(Calendar.MINUTE);
+        startSecond = calendar.get(Calendar.SECOND);
+
+        endHour = calendar.get(Calendar.HOUR_OF_DAY);
+        endMinute = calendar.get(Calendar.MINUTE);
+        endSecond = calendar.get(Calendar.SECOND);
+
+        editNapButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 /**
                  * CRUD Operations
                  * */
@@ -107,12 +119,14 @@ public class EditNapActivity extends NapActivity
                 intent.putExtras(b);
                 startActivityForResult(intent, 3);
 
-            }});
+            }
+        });
         myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface arg0, int arg1) {
 
-            }});
+            }
+        });
         myAlertDialog.show();
 
     }

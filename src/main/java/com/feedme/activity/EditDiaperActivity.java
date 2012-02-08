@@ -13,6 +13,8 @@ import com.feedme.dao.DiaperDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Diaper;
 
+import java.util.Calendar;
+
 /**
  * User: dayelostraco
  * Date: 2/4/12
@@ -44,9 +46,23 @@ public class EditDiaperActivity extends DiaperActivity {
         startTime = (Button) findViewById(R.id.editDiaperTime);
         entryDate.setText(diaper.getDate());
         startTime.setText(diaper.getTime());
-        //TODO: Fix this Bug
         entryDate.setOnClickListener(showDateDialog());
         startTime.setOnClickListener(showStartTimeDialog());
+
+        // get/set the current date
+        final Calendar calendar = Calendar.getInstance();
+
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        startHour = calendar.get(Calendar.HOUR_OF_DAY);
+        startMinute = calendar.get(Calendar.MINUTE);
+        startSecond = calendar.get(Calendar.SECOND);
+
+        endHour = calendar.get(Calendar.HOUR_OF_DAY);
+        endMinute = calendar.get(Calendar.MINUTE);
+        endSecond = calendar.get(Calendar.SECOND);
 
         //Spinners
         final Spinner diaperType = (Spinner) findViewById(R.id.editDiaperType);
@@ -70,7 +86,7 @@ public class EditDiaperActivity extends DiaperActivity {
                 deleteDiaper(diaper.getId(), baby);
             }
         });
-        
+
         //Save Button
         Button saveButton = (Button) findViewById(R.id.updateDiaperButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +133,7 @@ public class EditDiaperActivity extends DiaperActivity {
 
             }
         });
-        
+
         myAlertDialog.show();
 
     }
