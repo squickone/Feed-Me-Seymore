@@ -27,6 +27,7 @@ public class DiaperDao {
     private static final String KEY_CONSISTENCY = DiaperColumn.CONSISTENCY.columnName();
     private static final String KEY_COLOR = DiaperColumn.COLOR.columnName();
     private static final String KEY_DATE = DiaperColumn.DATE.columnName();
+    private static final String KEY_TIME = DiaperColumn.TIME.columnName();
     private static final String KEY_CHILD_ID = DiaperColumn.CHILD_ID.columnName();
     private static final String KEY_LATITUDE = DiaperColumn.LATITUDE.columnName();
     private static final String KEY_LONGITUDE = DiaperColumn.LONGITUDE.columnName();
@@ -65,6 +66,7 @@ public class DiaperDao {
         values.put(KEY_CONSISTENCY, diaper.getConsistency());
         values.put(KEY_COLOR, diaper.getColor());
         values.put(KEY_DATE, diaper.getDate());
+        values.put(KEY_TIME, diaper.getTime());
         values.put(KEY_CHILD_ID, diaper.getChildId());
         values.put(KEY_LATITUDE, diaper.getLatitude());
         values.put(KEY_LONGITUDE, diaper.getLongitude());
@@ -247,7 +249,7 @@ public class DiaperDao {
      *
      * @return
      */
-    public int updateDiaper(Diaper entry, int id) {
+    public int updateDiaper(Diaper diaper, int id) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
         Calendar now = Calendar.getInstance();
@@ -255,11 +257,12 @@ public class DiaperDao {
         open();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_TYPE, entry.getType());
-        values.put(KEY_CONSISTENCY, entry.getConsistency());
-        values.put(KEY_COLOR, entry.getColor());
-        values.put(KEY_DATE, entry.getDate());
-        values.put(KEY_CHILD_ID, entry.getChildId());
+        values.put(KEY_TYPE, diaper.getType());
+        values.put(KEY_CONSISTENCY, diaper.getConsistency());
+        values.put(KEY_COLOR, diaper.getColor());
+        values.put(KEY_DATE, diaper.getDate());
+        values.put(KEY_TIME, diaper.getTime());
+        values.put(KEY_CHILD_ID, diaper.getChildId());
         values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 
         // updating row
@@ -342,10 +345,11 @@ public class DiaperDao {
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
-                Integer.parseInt(cursor.getString(5)),
-                cursor.getString(6),
+                cursor.getString(5),
+                Integer.parseInt(cursor.getString(6)),
                 cursor.getString(7),
                 cursor.getString(8),
-                cursor.getString(9));
+                cursor.getString(9),
+                cursor.getString(10));
     }
 }

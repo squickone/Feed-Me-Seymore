@@ -38,7 +38,8 @@ public class ViewDiapersActivity extends BaseActivity {
         
         final DiaperDao diaperDao = new DiaperDao(getApplicationContext());
         List<Diaper> allDiapers = diaperDao.getLastDiapersByChild(baby.getId(), 10);
-        System.out.println(allDiapers);
+
+        //TODO: Populate Diaper Table
     }
 
     public void handleButtons(final Bundle bundle)

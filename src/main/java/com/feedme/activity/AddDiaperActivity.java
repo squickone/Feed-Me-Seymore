@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import com.feedme.R;
 import com.feedme.dao.DiaperDao;
 import com.feedme.model.Baby;
+import com.feedme.model.Diaper;
 
 import java.util.Calendar;
 
@@ -38,23 +40,36 @@ public class AddDiaperActivity extends DiaperActivity {
         startTime.setOnClickListener(showStartTimeDialog());
 
         //Get the Current Time and set the Date and Time Buttons
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-        startHour = c.get(Calendar.HOUR_OF_DAY);
-        startMinute = c.get(Calendar.MINUTE);
-        startSecond = c.get(Calendar.SECOND);
+        final Calendar currentTime = Calendar.getInstance();
+        mYear = currentTime.get(Calendar.YEAR);
+        mMonth = currentTime.get(Calendar.MONTH);
+        mDay = currentTime.get(Calendar.DAY_OF_MONTH);
+        startHour = currentTime.get(Calendar.HOUR_OF_DAY);
+        startMinute = currentTime.get(Calendar.MINUTE);
+        startSecond = currentTime.get(Calendar.SECOND);
 
         updateDateDisplay();
         updateStartDisplay();
+        
+        //Spinners
+        final Spinner diaperType = (Spinner) findViewById(R.id.addDiaperType);
+        final Spinner diaperConsistency = (Spinner) findViewById(R.id.addDiaperConsistency);
+        final Spinner diaperColor = (Spinner) findViewById(R.id.addDiaperColor);
 
         //Save Diaper Button
         Button addDiaperButton = (Button) findViewById(R.id.addDiaperButton);
         addDiaperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                //TODO: Save Diaper to DAO
+                Diaper diaper = new Diaper();
+                diaper.setChildId(baby.getId());
+                diaper.setDate(entryDate.getText().toString());
+                diaper.setTime(startTime.getText().toString());
+                diaper.setType(diaperType.getSelectedItem().toString());
+                diaper.setConsistency(diaperConsistency.getSelectedItem().toString());
+                diaper.setColor(diaperColor.getSelectedItem().toString());
+
+                diaperDao.addDiaper(diaper);
 
                 Intent intent = new Intent(v.getContext(), ViewDiapersActivity.class);
                 intent.putExtras(bundle);
