@@ -73,7 +73,7 @@ public class ViewDiapersActivity extends BaseActivity {
                 imageView.setMinimumHeight(60);
                 imageView.setMinimumWidth(60);
                 imageView.setBackgroundResource(R.drawable.icon_border);
-                imageView.setImageResource(R.drawable.icon_bug);
+                imageView.setImageResource(R.drawable.icon_diaper);
 
                 linearLayoutHorizontal.addView(imageView);
 
