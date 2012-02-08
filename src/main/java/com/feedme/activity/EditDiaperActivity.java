@@ -8,8 +8,15 @@ import android.os.Bundle;
  * Date: 2/4/12
  * Time: 1:35 PM
  */
-public class EditDiaperActivity extends DiaperActivity {
-    public void onCreate(Bundle savedInstanceState) {
+public class EditDiaperActivity extends DiaperActivity
+{
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Edit-Diaper");
+
+
     }
 }

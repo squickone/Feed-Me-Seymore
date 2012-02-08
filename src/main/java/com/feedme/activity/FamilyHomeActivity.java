@@ -20,18 +20,24 @@ import java.util.Iterator;
  * Date: 1/16/12
  * Time: 12:29 PM
  */
-public class FamilyHomeActivity extends Activity {
+public class FamilyHomeActivity extends BaseActivity
+{
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.family_home);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Famil-Home");
+
         handleButtons();
 
         final BabyDao babyDao = new BabyDao(getApplicationContext());
         Baby[] myList = babyDao.getAllBabiesAsStringArray();
 
-        TableLayout tl = (TableLayout)findViewById(R.id.myTableLayout);
+        TableLayout tl = (TableLayout) findViewById(R.id.myTableLayout);
 
         int j = 0;
         while (j < myList.length) {
@@ -42,7 +48,7 @@ public class FamilyHomeActivity extends Activity {
                     TableRow.LayoutParams.FILL_PARENT));
 
             final Button b = new Button(this);                    //create button for child
-            tr.setPadding(5,5,5,5);
+            tr.setPadding(5, 5, 5, 5);
 
             if (myList[j].getSex().equals("Male")) {     //change bg color of row and button
                 tr.setBackgroundColor(0xFF7ED0FF);
@@ -68,8 +74,10 @@ public class FamilyHomeActivity extends Activity {
             }
 
             //button listener for each baby
-            b.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
+            b.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v)
+                {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                     intent.putExtra("babyName", b.getText());
                     startActivityForResult(intent, 3);
@@ -80,7 +88,7 @@ public class FamilyHomeActivity extends Activity {
             tr.addView(b);
 
             /* Add row to TableLayout. */
-            tl.addView(tr,new TableLayout.LayoutParams(
+            tl.addView(tr, new TableLayout.LayoutParams(
                     TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -90,7 +98,8 @@ public class FamilyHomeActivity extends Activity {
     }
 
 
-    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees) {
+    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees)
+    {
 
         int width = bitMap.getWidth();
         int height = bitMap.getHeight();
@@ -110,12 +119,15 @@ public class FamilyHomeActivity extends Activity {
         return resizedBitmap;
     }
 
-    public void handleButtons() {
+    public void handleButtons()
+    {
 
         //Add Baby Button
         Button addChild = (Button) findViewById(R.id.addChild);
-        addChild.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        addChild.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), AddChildActivity.class);
                 startActivityForResult(intent, 2);
             }
@@ -123,14 +135,15 @@ public class FamilyHomeActivity extends Activity {
 
         //Add Settings Button
         Button addSettingsButton = (Button) findViewById(R.id.settings);
-        addSettingsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        addSettingsButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), SettingsActivity.class);
                 startActivityForResult(intent, 2);
             }
         });
     }
-
 
 
 }
