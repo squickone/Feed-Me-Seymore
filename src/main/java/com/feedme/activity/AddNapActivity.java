@@ -27,8 +27,12 @@ public class AddNapActivity extends NapActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.add_nap);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Add-Nap");
+
+
         final NapDao napDao = new NapDao(getApplicationContext());
 
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
