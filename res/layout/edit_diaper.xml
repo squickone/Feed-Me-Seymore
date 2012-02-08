@@ -32,7 +32,7 @@
                     style="@style/formTag">
             </TextView>
 
-            <Button android:id="@+id/diaperDate"
+            <Button android:id="@+id/editDiaperDate"
                     android:text="Test"
                     style="@style/dateButton" />
 
@@ -44,7 +44,7 @@
                     style="@style/formTag">
             </TextView>
 
-            <Button android:id="@+id/diaperTime"
+            <Button android:id="@+id/editDiaperTime"
                     android:text="Test"
                     style="@style/dateButton" />
 
@@ -57,7 +57,7 @@
             </TextView>
 
             <Spinner
-                    android:id="@+id/addDiaperType"
+                    android:id="@+id/editDiaperType"
                     style="@style/spinnerForm"
                     android:entries="@array/diaperType"
                     />
@@ -71,7 +71,7 @@
             </TextView>
 
             <Spinner
-                    android:id="@+id/addDiaperConsistency"
+                    android:id="@+id/editDiaperConsistency"
                     style="@style/spinnerForm"
                     android:entries="@array/diaperConsistency"
                     />
@@ -84,7 +84,7 @@
             </TextView>
 
             <Spinner
-                    android:id="@+id/addDiaperColor"
+                    android:id="@+id/editDiaperColor"
                     style="@style/spinnerForm"
                     android:entries="@array/diaperColor"
                     />
@@ -96,7 +96,7 @@
         android:id="@+id/bottomBanner"
         style="@style/bottomBanner">
 
-            <Button android:id="@+id/addDiaperButton"
+            <Button android:id="@+id/updateDiaperButton"
                     style="@style/iconNavButton"
                     android:text="@string/saveDiaperButtonLabel"
                     android:drawableTop="@drawable/icon_save"

@@ -11,8 +11,6 @@ import com.feedme.dao.NapDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Nap;
 
-import java.util.Calendar;
-
 /**
  * User: dayel.ostraco
  * Date: 1/16/12
@@ -60,21 +58,6 @@ public class EditNapActivity extends NapActivity
 
         // add a click listener to the button
         endTime.setOnClickListener(showEndTimeDialog());
-
-        // get the current date
-        final Calendar c = Calendar.getInstance();
-
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        startHour = c.get(Calendar.HOUR_OF_DAY);
-        startMinute = c.get(Calendar.MINUTE);
-        startSecond = c.get(Calendar.SECOND);
-
-        endHour = c.get(Calendar.HOUR_OF_DAY);
-        endMinute = c.get(Calendar.MINUTE);
-        endSecond = c.get(Calendar.SECOND);
 
 
        editNapButton.setOnClickListener(new View.OnClickListener()

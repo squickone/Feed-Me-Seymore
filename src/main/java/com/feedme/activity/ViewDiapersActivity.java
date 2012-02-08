@@ -18,22 +18,23 @@ import java.util.List;
  */
 public class ViewDiapersActivity extends BaseActivity {
 
-    final Bundle bundle = new Bundle();
-
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+        //Analytics
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/View-Diapers");
 
         //Baby Data
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
-        bundle.putSerializable("baby", baby);
 
         //Layout
         setContentView(R.layout.diaper_home);
         styleActivity(baby.getSex());
+
+        final Bundle bundle = new Bundle();
+        bundle.putSerializable("baby", baby);
 
         //Buttons
         handleButtons(bundle);
@@ -46,7 +47,7 @@ public class ViewDiapersActivity extends BaseActivity {
         if (allDiapers.size() > 0) {
             int j = 0;
             for (Diaper diaper : allDiapers) {
-                bundle.putSerializable("diaper", diaper);
+                final Diaper currentDiaper = diaper;
 
                 TableRow tableRow = new TableRow(this);  //create new row
 
@@ -104,9 +105,9 @@ public class ViewDiapersActivity extends BaseActivity {
 
                 tableRow.addView(linearLayoutHorizontal);
 
-                //TODO: The same diaper keeps being passed in the bundle. Fix this.
                 tableRow.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+                        bundle.putSerializable("diaper", currentDiaper);
                         Intent intent = new Intent(v.getContext(), EditDiaperActivity.class);
                         intent.putExtras(bundle);
                         startActivityForResult(intent, VIEW_DIAPER_ACTIVITY_ID);

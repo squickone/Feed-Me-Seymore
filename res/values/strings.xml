@@ -74,6 +74,10 @@
    </string-array>
 
     <!-- Diaper Screens -->
+    <string name="deleteDiaperDialogTitle">Delete Diaper</string>
+    <string name="deleteDiaperDialogMsg">Are you sure?</string>
+    <string name="deleteDiaperDialogPositiveButton">Yes</string>
+    <string name="deleteDiaperDialogNegativeButton">Cancel</string>
     <string name="deleteDiaperButtonLabel">Delete</string>
     <string name="diaperDateLabel">Date:</string>
     <string name="diaperTimeLabel">Time:</string>

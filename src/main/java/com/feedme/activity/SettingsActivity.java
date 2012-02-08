@@ -141,6 +141,4 @@ public class SettingsActivity extends BaseActivity
 
         return 0;
     }
-
-
 }
