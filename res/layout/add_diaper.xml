@@ -10,8 +10,8 @@
         style="@style/topBanner">
 
         <TextView  style="@style/rightHeadline"
-                   android:text="@string/addDiaper"
-                   android:id="@+id/addNap"
+                   android:text="@string/addDiaperHeader"
+                   android:id="@+id/addDiaper"
                 />
 
     </RelativeLayout>
@@ -22,11 +22,11 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Date:"
+                    android:text="@string/diaperDateLabel"
                     style="@style/formTag">
             </TextView>
 
-            <Button android:id="@+id/entryDate"
+            <Button android:id="@+id/diaperDate"
                     android:text="Test"
                     style="@style/dateButton" />
 
@@ -34,11 +34,11 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Time:"
+                    android:text="@string/diaperTimeLabel"
                     style="@style/formTag">
             </TextView>
 
-            <Button android:id="@+id/startTime"
+            <Button android:id="@+id/diaperTime"
                     android:text="Test"
                     style="@style/dateButton" />
 
@@ -46,38 +46,42 @@
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Type:"
+                    android:text="@string/diaperTypeLabel"
                     style="@style/formTag">
             </TextView>
-            
-            <Button android:id="@+id/endTime"
-                    android:text="Test"
-                    style="@style/dateButton" />
+
+            <Spinner
+                    android:id="@+id/addDiaperType"
+                    style="@style/spinnerForm"
+                    android:entries="@array/diaperType"
+                    />
 
         </TableRow>
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Consistency:"
+                    android:text="@string/diaperConsistencyLabel"
                     style="@style/formTag">
             </TextView>
 
-            <EditText
-                    android:id="@+id/location"
-                    style="@style/textForm">
-            </EditText>
+            <Spinner
+                    android:id="@+id/addDiaperConsistency"
+                    style="@style/spinnerForm"
+                    android:entries="@array/diaperConsistency"
+                    />
         </TableRow>
 
         <TableRow style="@style/formRow">
             <TextView
-                    android:text="Color:"
+                    android:text="@string/diaperColorLabel"
                     style="@style/formTag">
             </TextView>
 
-            <EditText
-                    android:id="@+id/location"
-                    style="@style/textForm">
-            </EditText>
+            <Spinner
+                    android:id="@+id/addDiaperColor"
+                    style="@style/spinnerForm"
+                    android:entries="@array/diaperColor"
+                    />
         </TableRow>
 
     </TableLayout>
@@ -88,7 +92,7 @@
 
             <Button android:id="@+id/addDiaperButton"
                     style="@style/iconNavButton"
-                    android:text="Save"
+                    android:text="@string/saveDiaperButtonLabel"
                     android:drawableTop="@drawable/icon_save"
                     android:layout_alignParentRight="true"/>
 

@@ -21,7 +21,7 @@
     <string name="startTimer">Start</string>
     <string name="stopTimer">Stop</string>
     <string name="save">Save</string>
-    <string name="addDiaper">Add Diaper</string>
+    <string name="addDiaperHeader">Add Diaper</string>
     <string name="diaperHeader">Diaper Tracker</string>
 
     <string-array name="feedingType">
@@ -72,7 +72,16 @@
         <item>200</item>
    </string-array>
 
-    <!-- Add Diaper Screen -->
+    <!-- Diaper Screens -->
+    <string name="diaperDateLabel">Date:</string>
+    <string name="diaperTimeLabel">Time:</string>
+    <string name="diaperTypeLabel">Type:</string>
+    <string name="diaperConsistencyLabel">Consistency:</string>
+    <string name="diaperColorLabel">Color:</string>
+    <string name="saveDiaperButtonLabel">Save</string>
+    <string name="babyButtonLabel">Baby</string>
+    <string name="addDiaperLabel">Add</string>
+    <string name="diaperButtonLabel">Diapers</string>
     <string-array name="diaperType">
         <item>Wet</item>
         <item>Poop</item>

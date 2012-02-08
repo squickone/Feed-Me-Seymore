@@ -218,6 +218,13 @@
                 style="@style/iconNavButton"
                 />
 
+        <Button android:text="@string/diaperButtonLabel"
+                android:id="@+id/diapersButton"
+                android:drawableTop="@drawable/icon_bug"
+                android:layout_toLeftOf="@+id/feedingTypeButton"
+                style="@style/iconNavButton"
+                />
+
        <!--<Button android:text="Bottle"-->
                 <!--android:id="@+id/bottleButton"-->
                 <!--android:drawableTop="@drawable/icon_bottle"-->
@@ -226,7 +233,7 @@
                 <!--/>-->
 
         <Button android:text="Feeding"
-                    android:id="@+id/feedingTypeButton"
+                android:id="@+id/feedingTypeButton"
                 android:drawableTop="@drawable/icon_bottle"
                 android:layout_alignParentRight="true"
                 style="@style/iconNavButton"

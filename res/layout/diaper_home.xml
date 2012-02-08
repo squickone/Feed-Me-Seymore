@@ -47,16 +47,16 @@
             android:id="@+id/bottomBanner"
             style="@style/bottomBanner">
 
-        <Button android:text="Baby"
+        <Button android:text="@string/babyButtonLabel"
                 android:id="@+id/diaperToChildScreen"
                 android:drawableTop="@drawable/icon_baby"
                 android:layout_alignParentLeft="true"
                 style="@style/iconNavButton"
                 />
 
-        <Button android:text="Add"
+        <Button android:text="@string/addDiaperLabel"
                 android:id="@+id/addDiaperButton"
-                android:drawableTop="@drawable/icon_nap"
+                android:drawableTop="@drawable/icon_bug"
                 android:layout_alignParentRight="true"
                 style="@style/iconNavButton"
                 />

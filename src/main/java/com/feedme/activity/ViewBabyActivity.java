@@ -218,6 +218,18 @@ public class ViewBabyActivity extends Activity
             }
         });
 
+        //Add Diaper Button
+        Button diaperButton = (Button) findViewById(R.id.diapersButton);
+        diaperButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(ViewBabyActivity.this, ViewDiapersActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
