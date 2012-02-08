@@ -1,9 +1,11 @@
 package com.feedme.activity;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.RelativeLayout;
 import com.feedme.R;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 /**
  * User: steve quick
  * Date: 1/22/12
@@ -12,9 +14,13 @@ import com.feedme.R;
 
 public abstract class BaseActivity extends Activity
 {
+    public GoogleAnalyticsTracker googleAnalyticsTracker = GoogleAnalyticsTracker.getInstance();
+    public static final String TRACKING_ID = "UA-29019171-1";
+
     public static final int DATE_DIALOG_ID = 0;
     public static final int START_TIME_DIALOG_ID = 1;
     public static final int END_TIME_DIALOG_ID = 2;
+    public static final int VIEW_BABY_ACTIVITY_ID = 3;
     public static final int ADD_CHILD_ACTIVITY_ID = 5;
     public static final int EDIT_CHILD_ACTIVITY_ID = 6;
     public static final int ADD_DIAPER_ACTIVITY_ID = 7;
@@ -34,5 +40,7 @@ public abstract class BaseActivity extends Activity
             bottomBanner.setBackgroundColor(0xFFFF99CC);
         }
     }
+
+    
     
 }

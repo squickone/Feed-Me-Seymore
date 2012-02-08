@@ -23,38 +23,48 @@ import com.feedme.model.Baby;
 import com.feedme.model.Nap;
 import com.feedme.model.Settings;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends BaseActivity
+{
 
     private static String TAG = "Feed-Me";
 
     /**
      * Called when the activity is first created.
+     *
      * @param savedInstanceState If the activity is being re-initialized after
-     * previously being shut down then this Bundle contains the data it most 
-     * recently supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it is null.</b>
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it is null.</b>
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
         setContentView(R.layout.main);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Home");
 
         showBabies();
         initializeSettings();
 
         //Add Settings Button
         Button addSettingsButton = (Button) findViewById(R.id.settings);
-        addSettingsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        addSettingsButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), SettingsActivity.class);
                 startActivityForResult(intent, 2);
             }
         });
 
         // button listener for add child screen button
-        Button addChildScreen = (Button)findViewById(R.id.addChildScreen);
-        addChildScreen.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        Button addChildScreen = (Button) findViewById(R.id.addChildScreen);
+        addChildScreen.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 startActivity(new Intent(HomeActivity.this,
                         AddChildActivity.class));
             }
@@ -63,18 +73,20 @@ public class HomeActivity extends Activity {
     }
 
 
-    public void initializeSettings() {
+    public void initializeSettings()
+    {
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
         settingsDao.addSettings(new Settings("oz", "in", "lbs", "F", "off", "off"));
     }
 
 
-    public void showBabies() {
+    public void showBabies()
+    {
         final BabyDao babyDao = new BabyDao(getApplicationContext());
         Baby[] myList = babyDao.getAllBabiesAsStringArray();
 
 
-        LinearLayout ll = (LinearLayout)findViewById(R.id.babyScroll);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.babyScroll);
 
         int j = 0;
         while (j < myList.length) {
@@ -84,7 +96,7 @@ public class HomeActivity extends Activity {
             TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(
                     TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT);
-            tableRowParams.setMargins(5,5,5,5);
+            tableRowParams.setMargins(5, 5, 5, 5);
             tl.setLayoutParams(tableRowParams);
             tr.setLayoutParams(new TableRow.LayoutParams(    //set params of row
                     TableRow.LayoutParams.WRAP_CONTENT,
@@ -96,9 +108,9 @@ public class HomeActivity extends Activity {
             final Button b = new Button(this);                    //create button for child
 
             if (myList[j].getSex().equals("Male")) {     //change bg color of row and button
-                 b.setBackgroundColor(0xFF7ED0FF);
+                b.setBackgroundColor(0xFF7ED0FF);
             } else {
-                 b.setBackgroundColor(0xFFFF99CC);
+                b.setBackgroundColor(0xFFFF99CC);
             }
 
             b.setText(myList[j].getName());                     //put child's name on button
@@ -133,15 +145,19 @@ public class HomeActivity extends Activity {
             }
 
             //button listener for each baby
-            b.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
+            b.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v)
+                {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                     intent.putExtra("babyName", b.getText());
                     startActivityForResult(intent, 3);
                 }
             });
-            babyImage.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
+            babyImage.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v)
+                {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                     intent.putExtra("babyName", b.getText());
                     startActivityForResult(intent, 3);
@@ -156,10 +172,10 @@ public class HomeActivity extends Activity {
             tr2.addView(babyImage);
 
             /* Add row to TableLayout. */
-            tl.addView(tr,new TableLayout.LayoutParams(
+            tl.addView(tr, new TableLayout.LayoutParams(
                     TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-            tl.addView(tr2,new TableLayout.LayoutParams(
+            tl.addView(tr2, new TableLayout.LayoutParams(
                     TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -167,7 +183,8 @@ public class HomeActivity extends Activity {
         }
     }
 
-    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees) {
+    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees)
+    {
 
         int width = bitMap.getWidth();
         int height = bitMap.getHeight();
@@ -188,14 +205,16 @@ public class HomeActivity extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
         switch (item.getItemId()) {
             case R.id.home:

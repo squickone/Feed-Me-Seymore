@@ -16,22 +16,27 @@ import com.feedme.model.Journal;
  * Date: 1/17/12
  * Time: 11:23 AM
  */
-public class ViewEntryActivity extends Activity {
+public class ViewEntryActivity extends BaseActivity
+{
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_entry);
 
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/View-Entry");
+
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-        
+
         String entryId = "";
-        if(getIntent().getExtras()!=null && getIntent().getExtras().getString("entryDate")!=null){
+        if (getIntent().getExtras() != null && getIntent().getExtras().getString("entryDate") != null) {
             entryId = getIntent().getExtras().getString("entryDate");
         }
 
         Journal entry = null;
-        if(!entryId.equals("")){
+        if (!entryId.equals("")) {
             entry = journalDao.getEntryByDate(entryId);
         }
         final Journal entry2 = entry;
@@ -40,7 +45,7 @@ public class ViewEntryActivity extends Activity {
         viewEntry.setText(entry.getDate());
 
         // Populate Baby Data
-        if(entry!=null){
+        if (entry != null) {
             final EditText entryDate = (EditText) findViewById(R.id.entryDate);
             entryDate.setText(entry.getDate());
             final EditText entryTime = (EditText) findViewById(R.id.entryStartTime);
@@ -48,11 +53,11 @@ public class ViewEntryActivity extends Activity {
             final EditText entryEndTime = (EditText) findViewById(R.id.entryEndTime);
             entryEndTime.setText(entry.getEndTime());
 
-            if (entry.getSide()!=null) {
+            if (entry.getSide() != null) {
                 final EditText entrySide = (EditText) findViewById(R.id.entrySide);
                 entrySide.setText(entry.getSide());
             }
-            if (entry.getOunces()!=null) {
+            if (entry.getOunces() != null) {
                 final EditText entryOunces = (EditText) findViewById(R.id.entryOunces);
                 entryOunces.setText(entry.getOunces());
             }
@@ -61,8 +66,10 @@ public class ViewEntryActivity extends Activity {
 
         //Select Edit Button
         Button editEntry = (Button) findViewById(R.id.editEntry);
-        editEntry.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        editEntry.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
 
                 intent.putExtra("entryID", entry2.getId());

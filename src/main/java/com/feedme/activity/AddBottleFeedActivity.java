@@ -25,8 +25,12 @@ public class AddBottleFeedActivity extends FeedActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.add_bottle_feed_entry);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Add-Bottle-Feeding");
+
+
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");

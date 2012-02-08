@@ -18,7 +18,7 @@ import com.feedme.model.Baby;
  * Date: 1/17/12
  * Time: 8:26 PM
  */
-public class TakePictureActivity extends Activity
+public class TakePictureActivity extends BaseActivity
 {
 
     public static int TAKE_PICTURE_ID = 10;
@@ -28,6 +28,9 @@ public class TakePictureActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Take-Picture");
 
         takePhoto();
     }

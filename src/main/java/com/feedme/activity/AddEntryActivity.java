@@ -21,18 +21,24 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class AddEntryActivity extends Activity {
+public class AddEntryActivity extends BaseActivity
+{
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        
         setContentView(R.layout.add_entry);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Add-Entry");
 
         //View All Entries Button
         Button viewAllEntriesButton = (Button) findViewById(R.id.viewAllEntriesButton);
-        viewAllEntriesButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        viewAllEntriesButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 startActivity(new Intent(AddEntryActivity.this,
                         ViewEntriesActivity.class));
             }
@@ -41,14 +47,16 @@ public class AddEntryActivity extends Activity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
         switch (item.getItemId()) {
             case R.id.home:

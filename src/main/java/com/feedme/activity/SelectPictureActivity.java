@@ -14,7 +14,7 @@ import com.feedme.model.Baby;
  * Date: 1/17/12
  * Time: 9:31 PM
  */
-public class SelectPictureActivity extends Activity
+public class SelectPictureActivity extends BaseActivity
 {
     public static final int SELECT_PICTURE_ID = 11;
 
@@ -22,6 +22,10 @@ public class SelectPictureActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Select-Picture");
+
         pickPicture();
     }
 
