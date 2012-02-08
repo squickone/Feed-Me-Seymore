@@ -30,8 +30,10 @@ public class TimerActivity extends BaseActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.timer);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Timer");
 
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 

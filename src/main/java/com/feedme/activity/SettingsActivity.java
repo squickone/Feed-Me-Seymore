@@ -16,13 +16,18 @@ import com.feedme.model.Settings;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class SettingsActivity extends Activity {
-    
+public class SettingsActivity extends BaseActivity
+{
+
     private static final int ADD_SETTINGS_ACTIVITY_ID = 6;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/Settings");
 
         setContentView(R.layout.edit_settings);
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
@@ -95,11 +100,13 @@ public class SettingsActivity extends Activity {
             Log.d("Added", " Setting");
         }
 
-         // button listener for edit settings button
-         Button saveSettingsButton = (Button)findViewById(R.id.saveSettingsButton);
-         saveSettingsButton.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
-                  /**
+        // button listener for edit settings button
+        Button saveSettingsButton = (Button) findViewById(R.id.saveSettingsButton);
+        saveSettingsButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                /**
                  * CRUD Operations
                  * */
                 // Inserting baby
@@ -113,8 +120,8 @@ public class SettingsActivity extends Activity {
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivityForResult(intent, ADD_SETTINGS_ACTIVITY_ID);
-             }
-         });
+            }
+        });
     }
 
     /**
@@ -124,9 +131,10 @@ public class SettingsActivity extends Activity {
      * @param element - String
      * @return - int position of Spinner
      */
-    private int getIndexFromElement(ArrayAdapter adapter, String element) {
-        for(int i = 0; i < adapter.getCount(); i++) {
-            if(adapter.getItem(i).equals(element)) {
+    private int getIndexFromElement(ArrayAdapter adapter, String element)
+    {
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if (adapter.getItem(i).equals(element)) {
                 return i;
             }
         }

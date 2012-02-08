@@ -14,22 +14,27 @@ import com.feedme.adapter.BabyAdapter;
  * Date: 1/16/12
  * Time: 11:29 AM
  */
-public class SelectChildListActivity extends ListActivity {
+public class SelectChildListActivity extends ListActivity
+{
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         final BabyDao babyDao = new BabyDao(getApplicationContext());
 
-        setListAdapter(new BabyAdapter(getApplicationContext(), R.layout.select_child_list_item, babyDao.getAllBabies()));
+        setListAdapter(new BabyAdapter(getApplicationContext(), R.layout.select_child_list_item,
+                babyDao.getAllBabies()));
 
         ListView lv = getListView();
         lv.setTextFilterEnabled(true);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+                                    int position, long id)
+            {
 
                 TextView babyName = (TextView) view.findViewById(R.id.babyItem);
 //                TextView babyId = (TextView) view.findViewById(R.id.babyPk);

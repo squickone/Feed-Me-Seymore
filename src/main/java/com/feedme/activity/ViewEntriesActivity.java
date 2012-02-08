@@ -36,6 +36,9 @@ public class ViewEntriesActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entries_home);
 
+        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
+        googleAnalyticsTracker.trackPageView("/View-Entries");
+
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
         styleActivity(baby.getSex());
