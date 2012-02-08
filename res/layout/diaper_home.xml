@@ -32,7 +32,7 @@
                     >
 
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/myTableLayout"
+                android:id="@+id/diaperTableLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 >

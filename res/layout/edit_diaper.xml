@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#fffae8">
+
+    <RelativeLayout
+            android:id="@+id/topBanner"
+            style="@style/topBanner">
+
+        <TextView  style="@style/rightHeadline"
+                   android:text="@string/editDiaperHeader"
+                   android:id="@+id/addNap"
+                />
+
+        <Button
+                style="@style/topNavButton"
+                android:id="@+id/deleteDiaper"
+                android:text="@string/deleteDiaperButtonLabel"
+                android:layout_alignParentLeft="true"/>
+
+    </RelativeLayout>
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_below="@+id/topBanner"
+                 style='@style/formTable'>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="@string/diaperDateLabel"
+                    style="@style/formTag">
+            </TextView>
+
+            <Button android:id="@+id/diaperDate"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="@string/diaperTimeLabel"
+                    style="@style/formTag">
+            </TextView>
+
+            <Button android:id="@+id/diaperTime"
+                    android:text="Test"
+                    style="@style/dateButton" />
+
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="@string/diaperTypeLabel"
+                    style="@style/formTag">
+            </TextView>
+
+            <Spinner
+                    android:id="@+id/addDiaperType"
+                    style="@style/spinnerForm"
+                    android:entries="@array/diaperType"
+                    />
+
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="@string/diaperConsistencyLabel"
+                    style="@style/formTag">
+            </TextView>
+
+            <Spinner
+                    android:id="@+id/addDiaperConsistency"
+                    style="@style/spinnerForm"
+                    android:entries="@array/diaperConsistency"
+                    />
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
+                    android:text="@string/diaperColorLabel"
+                    style="@style/formTag">
+            </TextView>
+
+            <Spinner
+                    android:id="@+id/addDiaperColor"
+                    style="@style/spinnerForm"
+                    android:entries="@array/diaperColor"
+                    />
+        </TableRow>
+
+    </TableLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomBanner"
+        style="@style/bottomBanner">
+
+            <Button android:id="@+id/addDiaperButton"
+                    style="@style/iconNavButton"
+                    android:text="@string/saveDiaperButtonLabel"
+                    android:drawableTop="@drawable/icon_save"
+                    android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

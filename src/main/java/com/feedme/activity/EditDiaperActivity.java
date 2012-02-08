@@ -2,6 +2,8 @@ package com.feedme.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import com.feedme.R;
+import com.feedme.model.Diaper;
 
 /**
  * User: dayelostraco
@@ -9,7 +11,12 @@ import android.os.Bundle;
  * Time: 1:35 PM
  */
 public class EditDiaperActivity extends DiaperActivity {
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.edit_diaper);
+
+        final Diaper diaper = (Diaper) getIntent().getSerializableExtra("diaper");
+        System.out.println("diaper = " + diaper);
     }
 }

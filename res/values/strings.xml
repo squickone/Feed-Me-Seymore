@@ -22,6 +22,7 @@
     <string name="stopTimer">Stop</string>
     <string name="save">Save</string>
     <string name="addDiaperHeader">Add Diaper</string>
+    <string name="editDiaperHeader">Edit Diaper</string>
     <string name="diaperHeader">Diaper Tracker</string>
 
     <string-array name="feedingType">
@@ -73,6 +74,7 @@
    </string-array>
 
     <!-- Diaper Screens -->
+    <string name="deleteDiaperButtonLabel">Delete</string>
     <string name="diaperDateLabel">Date:</string>
     <string name="diaperTimeLabel">Time:</string>
     <string name="diaperTypeLabel">Type:</string>
