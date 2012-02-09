@@ -118,10 +118,10 @@ public class AddChildActivity extends ChildActivity
         }
 
         //Take Picture Button
-        takePicture.setOnClickListener(takePictureListener(baby.getId(), ADD_CHILD_ACTIVITY_ID));
+        takePicture.setOnClickListener(takePictureListener(0, ADD_CHILD_ACTIVITY_ID));
 
         //Select Picture Button
-        selectPicture.setOnClickListener(selectPictureListener(baby.getId(), ADD_CHILD_ACTIVITY_ID));
+        selectPicture.setOnClickListener(selectPictureListener(0, ADD_CHILD_ACTIVITY_ID));
 
         //declare alert dialog
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
