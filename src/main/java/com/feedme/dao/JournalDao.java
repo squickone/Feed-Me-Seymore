@@ -128,14 +128,37 @@ public class JournalDao {
 
         Cursor cursor = database.query(TABLE_DATA, JournalColumn.getColumnNames(), KEY_DATE + "=?",
                 new String[] { String.valueOf(date) }, null, null, null, null);
-        if (cursor != null)
+        if (cursor != null) {
             cursor.moveToFirst();
+        }
 
         Journal entry =  cursorToJournal(cursor);
 
         close();
 
         return entry;
+    }
+    
+    public List<Journal> getEntriesForChildByDate(int childId, String date){
+        
+        open();
+
+        List<Journal> entries = new ArrayList<Journal>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " AND "
+                + KEY_DATE + " = '" + date + "'";
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                entries.add(cursorToJournal(cursor));
+            } while (cursor.moveToNext());
+        }
+
+        close();
+
+        return entries;
     }
 
     /**

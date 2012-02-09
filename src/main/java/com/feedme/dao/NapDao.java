@@ -232,6 +232,27 @@ public class NapDao {
 
         return napList;
     }
+    
+    public List<Nap> getNapsForChildByDate(int childId, String date){
+
+        open();
+
+        List<Nap> napList = new ArrayList<Nap>();
+
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " AND "
+                + KEY_DATE + " = '" + date + "'";
+        Cursor cursor = database.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do{
+                napList.add(cursorToNap(cursor));
+            } while (cursor.moveToNext());
+        }
+
+        close();
+
+        return napList;
+    }
 
     /**
      * Returns the last X naps (where X=limit) based on the passed in childId in the form of a Nap[].

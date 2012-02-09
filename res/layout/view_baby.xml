@@ -171,7 +171,7 @@
 
             <TextView
                 style="@style/segmentBanner"
-                android:text="History"
+                android:text="Today's History"
                 android:id="@+id/feedHistory"/>
 
             <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"

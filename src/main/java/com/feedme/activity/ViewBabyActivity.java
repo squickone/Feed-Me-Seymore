@@ -19,7 +19,6 @@ import com.feedme.R;
 import com.feedme.dao.*;
 import com.feedme.model.Baby;
 import com.feedme.model.BaseObject;
-import com.feedme.model.Journal;
 import com.feedme.model.Settings;
 
 import java.io.File;
@@ -81,10 +80,9 @@ public class ViewBabyActivity extends BaseActivity
 
         //Set History Table
         //TODO: Swap out lsJournal and replace it with history
-        List<BaseObject> history = getHistory(baby, getApplicationContext());
-        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(baby.getId(), 5);
+        List<BaseObject> history = getTodaysHistory(baby, getApplicationContext());
         TableLayout tableLayout = (TableLayout) findViewById(R.id.myTableLayout);
-        journalTable.buildRows(this, lsJournal, baby, tableLayout);
+        journalTable.buildRows(this, history, baby, tableLayout);
 
         // prepare settings data
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
@@ -352,16 +350,19 @@ public class ViewBabyActivity extends BaseActivity
      * @param context
      * @return
      */
-    private List<BaseObject> getHistory(Baby baby, Context context){
+    private List<BaseObject> getTodaysHistory(Baby baby, Context context){
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy ");
         
         JournalDao journalDao = new JournalDao(context);
         DiaperDao diaperDao = new DiaperDao(context);
         NapDao napDao = new NapDao(context);
         
         List<BaseObject> history = new ArrayList<BaseObject>();
-        history.addAll(journalDao.getLastFeedingsByChild(baby.getId(), 20));
-        history.addAll(diaperDao.getLastDiapersByChild(baby.getId(), 20));
-        history.addAll(napDao.getLastNapsByChild(baby.getId(), 20));
+        history.addAll(journalDao.getEntriesForChildByDate(baby.getId(), androidFormat.format(calendar.getTime())));
+        history.addAll(diaperDao.getDiapersForChildByDate(baby.getId(), androidFormat.format(calendar.getTime())));
+        history.addAll(napDao.getNapsForChildByDate(baby.getId(), androidFormat.format(calendar.getTime())));
 
         Collections.sort(history, new BaseObjectComparator());
         Collections.reverse(history);

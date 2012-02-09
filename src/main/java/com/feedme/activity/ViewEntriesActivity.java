@@ -1,5 +1,6 @@
 package com.feedme.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,14 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
-import com.feedme.dao.BabyDao;
-import com.feedme.dao.JournalDao;
-import com.feedme.dao.SettingsDao;
+import com.feedme.dao.*;
 import com.feedme.model.Baby;
-import com.feedme.model.Journal;
-import com.feedme.model.Settings;
+import com.feedme.model.BaseObject;
 import com.feedme.ui.JournalTable;
+import com.feedme.util.BaseObjectComparator;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -24,15 +25,13 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:29 PM
  */
-public class ViewEntriesActivity extends BaseActivity
-{
+public class ViewEntriesActivity extends BaseActivity {
     private JournalTable journalTable = new JournalTable();
-    
+
     public static final int VIEW_ENTRIES_ACTIVITY_ID = 50;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entries_home);
 
@@ -42,27 +41,20 @@ public class ViewEntriesActivity extends BaseActivity
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
         styleActivity(baby.getSex());
-        
+
         handleButtons(baby.getId());
 
-        final JournalDao journalDao = new JournalDao(getApplicationContext());
-        List<Journal> lsJournal = journalDao.getLastFeedingsByChild(baby.getId(), 10);
 
-        // prepare settings data
-        final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
-        Settings setting = settingsDao.getSetting(1);
-
+        List<BaseObject> history = getHistory(baby, getApplicationContext());
         TableLayout tableLayout = (TableLayout) findViewById(R.id.myTableLayout);
 
-        if (lsJournal.size() > 0)
-        {
-            journalTable.buildRows(this, lsJournal, baby, tableLayout);
+        if (history.size() > 0) {
+            journalTable.buildRows(this, history, baby, tableLayout);
         }
 
     }
 
-    public void handleButtons(final int babyId)
-    {
+    public void handleButtons(final int babyId) {
         Button childButton = (Button) findViewById(R.id.childScreen);
         childButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -77,16 +69,14 @@ public class ViewEntriesActivity extends BaseActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.home:
@@ -105,4 +95,27 @@ public class ViewEntriesActivity extends BaseActivity
         return true;
     }
 
+    /**
+     * Returns a List containing Diapers, Naps and Feedings sorted by Date and then StartTime.
+     *
+     * @param baby
+     * @param context
+     * @return
+     */
+    private List<BaseObject> getHistory(Baby baby, Context context) {
+
+        JournalDao journalDao = new JournalDao(context);
+        DiaperDao diaperDao = new DiaperDao(context);
+        NapDao napDao = new NapDao(context);
+
+        List<BaseObject> history = new ArrayList<BaseObject>();
+        history.addAll(journalDao.getLastFeedingsByChild(baby.getId(), 20));
+        history.addAll(diaperDao.getLastDiapersByChild(baby.getId(), 20));
+        history.addAll(napDao.getLastNapsByChild(baby.getId(), 20));
+
+        Collections.sort(history, new BaseObjectComparator());
+        Collections.reverse(history);
+
+        return history;
+    }
 }

@@ -207,6 +207,27 @@ public class DiaperDao {
 
         return diaperList;
     }
+    
+    public List<Diaper> getDiapersForChildByDate(int childId, String date){
+
+        open();
+
+        List<Diaper> diaperList = new ArrayList<Diaper>();
+
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " AND "
+                + KEY_DATE + " = '" + date + "'";
+        Cursor cursor = database.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do{
+                diaperList.add(cursorToDiaper(cursor));
+            } while (cursor.moveToNext());
+        }
+
+        close();
+
+        return diaperList;
+    }
 
     /**
      * Returns all diapers based on the passed in childId in the form of a List<Diaper>.
