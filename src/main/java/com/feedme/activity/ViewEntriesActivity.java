@@ -178,6 +178,21 @@ public class ViewEntriesActivity extends BaseActivity {
         return history;
     }
 
+    /**
+     * Allows the ScrollView and the Gestures to peacefully coexist.
+     *
+     * @param ev
+     * @return
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+
+        super.dispatchTouchEvent(ev);
+
+        return gestureDetector.onTouchEvent(ev);
+
+    }
+
     class SlideGesture extends GestureDetector.SimpleOnGestureListener {
 
         @Override
