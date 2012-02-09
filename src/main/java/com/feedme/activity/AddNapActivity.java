@@ -118,7 +118,7 @@ public class AddNapActivity extends NapActivity
                         Log.d("AddNapActivity", "Could not parse Date and StartTime into an ISO8601");
                     }
                     
-                    Intent intent = new Intent(v.getContext(), ViewNapsActivity.class);
+                    Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 3);
 

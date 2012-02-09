@@ -80,7 +80,7 @@ public class AddDiaperActivity extends DiaperActivity {
                     Log.d("AddDiaperActivity", "Could not parse Date and StartTime into a ISO8601 format");
                 }
 
-                Intent intent = new Intent(v.getContext(), ViewDiapersActivity.class);
+                Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, ADD_DIAPER_ACTIVITY_ID);
             }

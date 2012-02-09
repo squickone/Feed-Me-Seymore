@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -192,7 +191,7 @@ public class ViewBabyActivity extends BaseActivity
             public void onClick(View v)
             {
                 googleAnalyticsTracker.trackEvent("Clicks","Button","NapsButton", 0);
-                Intent intent = new Intent(v.getContext(), ViewNapsActivity.class);
+                Intent intent = new Intent(v.getContext(), AddNapActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
             }
@@ -228,7 +227,7 @@ public class ViewBabyActivity extends BaseActivity
         {
             public void onClick(View v)
             {
-                Intent intent = new Intent(ViewBabyActivity.this, ViewDiapersActivity.class);
+                Intent intent = new Intent(ViewBabyActivity.this, AddDiaperActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
