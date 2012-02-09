@@ -263,6 +263,8 @@ public class DiaperDao {
     public int updateDiaper(Diaper diaper, int id) throws ParseException {
 
         Calendar now = Calendar.getInstance();
+
+        //NOTE: DateTime is a combination of Date and StartTime converted into ISO8601 format. Used for date sorting.
         Date dateTime = ANDROID_TIME.parse(diaper.getDate().trim() + ":" + diaper.getStartTime());
 
         open();

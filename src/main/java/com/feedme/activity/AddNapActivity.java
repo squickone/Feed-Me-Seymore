@@ -13,6 +13,7 @@ import com.feedme.dao.NapDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Nap;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 /**
@@ -110,8 +111,12 @@ public class AddNapActivity extends NapActivity
                                         location.getText().toString(),
                                         baby.getId());
                     Log.d("NAP-INSERT:", nap.dump());
-                    
-                    napDao.addNap(nap);
+
+                    try {
+                        napDao.addNap(nap);
+                    } catch (ParseException e) {
+                        Log.d("AddNapActivity", "Could not parse Date and StartTime into an ISO8601");
+                    }
                     
                     Intent intent = new Intent(v.getContext(), ViewNapsActivity.class);
                     intent.putExtras(bundle);

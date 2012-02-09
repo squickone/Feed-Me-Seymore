@@ -4,6 +4,7 @@ import android.app.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
@@ -11,6 +12,7 @@ import com.feedme.dao.NapDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Nap;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 /**
@@ -81,11 +83,15 @@ public class EditNapActivity extends NapActivity {
                  * */
                 // Inserting entry
 
-                napDao.updateNap(new Nap(entryDate.getText().toString(),
-                        startTime.getText().toString(),
-                        endTime.getText().toString(),
-                        location.getText().toString(),
-                        baby.getId()), nap.getId());
+                try {
+                    napDao.updateNap(new Nap(entryDate.getText().toString(),
+                            startTime.getText().toString(),
+                            endTime.getText().toString(),
+                            location.getText().toString(),
+                            baby.getId()), nap.getId());
+                } catch (ParseException e) {
+                    Log.d("EditNapActivity", "Could not parse Date and StartTime into an ISO8601");
+                }
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtras(bundle);

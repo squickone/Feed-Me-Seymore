@@ -21,11 +21,12 @@ public class Nap extends TrackableObject {
     }
 
     // constructor
-    public Nap(int id, String date, String start_time, String end_time, String location, int child_id) {
+    public Nap(int id, String date, String start_time, String end_time, String dateTime, String location, int child_id) {
         this._id = id;
         this._date = date;
         this._start_time = start_time;
         this._end_time = end_time;
+        this._dateTime = dateTime;
         this._location = location;
         this._child_id = child_id;
     }
@@ -40,13 +41,14 @@ public class Nap extends TrackableObject {
     }
 
     // constructor
-    public Nap(int id, String date, String start_time, String end_time, String location, int childId, String latitude,
-               String longitude, String createdDate, String lastModDate) {
+    public Nap(int id, String date, String start_time, String end_time, String dateTime, String location, int childId,
+               String latitude, String longitude, String createdDate, String lastModDate) {
 
         this._id = id;
         this._date = date;
         this._start_time = start_time;
         this._end_time = end_time;
+        this._dateTime = dateTime;
         this._location = location;
         this._child_id = childId;
         this._latitude = latitude;
