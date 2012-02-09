@@ -12,6 +12,7 @@ public abstract class BaseObject implements Serializable {
     int _id;
     String _date;
     String _start_time;
+    String _dateTime;
     String _createdDate;
     String _lastModDate;
     
@@ -38,7 +39,15 @@ public abstract class BaseObject implements Serializable {
     public void setStartTime(String start_time) {
         this._start_time = start_time;
     }
-    
+
+    public String getDateTime() {
+        return _dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this._dateTime = dateTime;
+    }
+
     public String getCreatedDate() {
         return _createdDate;
     }

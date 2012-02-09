@@ -11,6 +11,7 @@ public enum NapColumn {
     DATE ("DATE", "TEXT"),
     START_TIME("START_TIME", "TEXT"),
     END_TIME("END_TIME", "TEXT"),
+    DATE_TIME("DATE_TIME", "TEXT"),
     LOCATION("LOCATION", "TEXT"),
     CHILD_ID("CHILD_ID", "INTEGER"),
     LATITUDE("LATITUDE", "TEXT"),
@@ -66,7 +67,7 @@ public enum NapColumn {
 
     public static String[] getColumnNames(){
         return new String[] { ID.columnName(), DATE.columnName(), START_TIME.columnName(), END_TIME.columnName(),
-                LOCATION.columnName(), CHILD_ID.columnName(), LATITUDE.columnName(), LONGITUDE.columnName(),
-                CREATED_DATE.columnName(), LAST_MOD_DATE.columnName()};
+                DATE_TIME.columnName, LOCATION.columnName(), CHILD_ID.columnName(), LATITUDE.columnName(),
+                LONGITUDE.columnName(), CREATED_DATE.columnName(), LAST_MOD_DATE.columnName()};
     }
 }

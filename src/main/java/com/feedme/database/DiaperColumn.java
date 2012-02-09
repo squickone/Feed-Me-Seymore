@@ -13,6 +13,7 @@ public enum DiaperColumn {
     COLOR("COLOR", "TEXT"),
     DATE("DATE", "TEXT"),
     TIME("TIME", "TEXT"),
+    DATE_TIME("DATE_TIME", "TEXT"),
     CHILD_ID("CHILD_ID", "TEXT"),
     LATITUDE("LATITUDE", "TEXT"),
     LONGITUDE("LONGITUDE", "TEXT"),
@@ -67,7 +68,7 @@ public enum DiaperColumn {
 
     public static String[] getColumnNames(){
         return new String[] { ID.columnName(), TYPE.columnName(), CONSISTENCY.columnName(), COLOR.columnName(),
-                DATE.columnName(), LATITUDE.columnName(), LONGITUDE.columnName(), CREATED_DATE.columnName(),
-                LAST_MOD_DATE.columnName()};
+                DATE.columnName(), TIME.columnName(), DATE_TIME.columnName(), LATITUDE.columnName(),
+                LONGITUDE.columnName(), CREATED_DATE.columnName(), LAST_MOD_DATE.columnName()};
     }
 }

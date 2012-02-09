@@ -8,15 +8,20 @@ import android.database.sqlite.SQLiteDatabase;
 import com.feedme.database.DiaperColumn;
 import com.feedme.model.Diaper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
  * This DAO class handles all CRUD operations on the Diapers table in the SQLLite database.
  */
 public class DiaperDao {
+
+    private static final SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    private static final SimpleDateFormat ANDROID_TIME = new SimpleDateFormat("M-d-yyyy:hh:mm:ss");
 
     // Contacts table name
     private static final String TABLE_DATA = DiaperColumn.TABLE_NAME;
@@ -28,6 +33,7 @@ public class DiaperDao {
     private static final String KEY_COLOR = DiaperColumn.COLOR.columnName();
     private static final String KEY_DATE = DiaperColumn.DATE.columnName();
     private static final String KEY_TIME = DiaperColumn.TIME.columnName();
+    private static final String KEY_DATE_TIME = DiaperColumn.DATE_TIME.columnName();
     private static final String KEY_CHILD_ID = DiaperColumn.CHILD_ID.columnName();
     private static final String KEY_LATITUDE = DiaperColumn.LATITUDE.columnName();
     private static final String KEY_LONGITUDE = DiaperColumn.LONGITUDE.columnName();
@@ -54,10 +60,12 @@ public class DiaperDao {
      *
      * @param diaper - Diaper POJO
      */
-    public void addDiaper(Diaper diaper) {
+    public void addDiaper(Diaper diaper) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
         Calendar now = Calendar.getInstance();
+
+        //NOTE: DateTime is a combination of Date and StartTime converted into ISO8601 format. Used for date sorting.
+        Date dateTime = ANDROID_TIME.parse(diaper.getDate().trim() + ":" + diaper.getStartTime());
 
         open();
 
@@ -67,11 +75,12 @@ public class DiaperDao {
         values.put(KEY_COLOR, diaper.getColor());
         values.put(KEY_DATE, diaper.getDate());
         values.put(KEY_TIME, diaper.getStartTime());
+        values.put(KEY_DATE_TIME, ISO8601.format(dateTime));
         values.put(KEY_CHILD_ID, diaper.getChildId());
         values.put(KEY_LATITUDE, diaper.getLatitude());
         values.put(KEY_LONGITUDE, diaper.getLongitude());
-        values.put(KEY_CREATED_DATE, sdf.format(now.getTime()));
-        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
+        values.put(KEY_CREATED_DATE, ISO8601.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, ISO8601.format(now.getTime()));
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -185,7 +194,7 @@ public class DiaperDao {
         List<Diaper> diaperList = new ArrayList<Diaper>();
 
         String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY "
-                + KEY_DATE + " DESC LIMIT " + limit;
+                + KEY_DATE_TIME + " DESC LIMIT " + limit;
         Cursor cursor = database.rawQuery(query, null);
 
         if(cursor.moveToFirst()) {
@@ -211,7 +220,8 @@ public class DiaperDao {
 
         List<Diaper> diaperList = new ArrayList<Diaper>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_ID + " DESC";
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY "
+                + KEY_DATE_TIME + " DESC";
         Cursor cursor = database.rawQuery(query, null);
 
         if(cursor.moveToFirst()) {
@@ -250,10 +260,10 @@ public class DiaperDao {
      *
      * @return
      */
-    public int updateDiaper(Diaper diaper, int id) {
+    public int updateDiaper(Diaper diaper, int id) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
         Calendar now = Calendar.getInstance();
+        Date dateTime = ANDROID_TIME.parse(diaper.getDate().trim() + ":" + diaper.getStartTime());
 
         open();
 
@@ -263,8 +273,9 @@ public class DiaperDao {
         values.put(KEY_COLOR, diaper.getColor());
         values.put(KEY_DATE, diaper.getDate());
         values.put(KEY_TIME, diaper.getStartTime());
+        values.put(KEY_DATE_TIME, ISO8601.format(dateTime));
         values.put(KEY_CHILD_ID, diaper.getChildId());
-        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, ISO8601.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
@@ -347,10 +358,11 @@ public class DiaperDao {
                 cursor.getString(3),
                 cursor.getString(4),
                 cursor.getString(5),
-                Integer.parseInt(cursor.getString(6)),
-                cursor.getString(7),
+                cursor.getString(6),
+                Integer.parseInt(cursor.getString(7)),
                 cursor.getString(8),
                 cursor.getString(9),
-                cursor.getString(10));
+                cursor.getString(10),
+                cursor.getString(11));
     }
 }

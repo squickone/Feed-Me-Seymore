@@ -2,6 +2,7 @@ package com.feedme.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -10,6 +11,7 @@ import com.feedme.dao.DiaperDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Diaper;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 /**
@@ -72,7 +74,11 @@ public class AddDiaperActivity extends DiaperActivity {
                 diaper.setConsistency(diaperConsistency.getSelectedItem().toString());
                 diaper.setColor(diaperColor.getSelectedItem().toString());
 
-                diaperDao.addDiaper(diaper);
+                try {
+                    diaperDao.addDiaper(diaper);
+                } catch (ParseException e){
+                    Log.d("AddDiaperActivity", "Could not parse Date and StartTime into a ISO8601 format");
+                }
 
                 Intent intent = new Intent(v.getContext(), ViewDiapersActivity.class);
                 intent.putExtras(bundle);

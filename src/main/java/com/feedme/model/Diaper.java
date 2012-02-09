@@ -20,29 +20,31 @@ public class Diaper extends TrackableObject {
     }
 
     // constructor
-    public Diaper(int id, String type, String consistency, String color, String date, String time, int childId) {
+    public Diaper(int id, String type, String consistency, String color, String date, String time, String dateTime, int childId) {
         this._id = id;
         this._type = type;
         this._consistency = consistency;
         this._color = color;
         this._date = date;
         this._start_time = time;
+        this._dateTime = dateTime;
         this._child_id = childId;
     }
 
     // constructor
-    public Diaper(String type, String consistency, String color, String date, String time, int childId) {
+    public Diaper(String type, String consistency, String color, String date, String time, String dateTime, int childId) {
         this._type = type;
         this._consistency = consistency;
         this._color = color;
         this._date = date;
         this._start_time = time;
+        this._dateTime = dateTime;
         this._child_id = childId;
     }
 
     // constructor
-    public Diaper(int id, String type, String consistency, String color, String date, String time, int childId, String latitude,
-                  String longitude, String createdDate, String lastModDate) {
+    public Diaper(int id, String type, String consistency, String color, String date, String time, String dateTime,
+                  int childId, String latitude, String longitude, String createdDate, String lastModDate) {
 
         this._id = id;
         this._type = type;
@@ -50,6 +52,7 @@ public class Diaper extends TrackableObject {
         this._color = color;
         this._date = date;
         this._start_time = time;
+        this._dateTime = dateTime;
         this._child_id = childId;
         this._latitude = latitude;
         this._longitude = longitude;

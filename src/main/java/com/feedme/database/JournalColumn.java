@@ -11,6 +11,7 @@ public enum JournalColumn {
     DATE ("DATE", "TEXT"),
     START_TIME("START_TIME", "TEXT"),
     END_TIME("END_TIME", "TEXT"),
+    DATE_TIME("DATE_TIME", "TEXT"),
     FEED_TIME("FEED_TIME", "TEXT"),
     SIDE("SIDE", "TEXT"),
     OUNCES("OUNCES", "TEXT"),
@@ -68,7 +69,8 @@ public enum JournalColumn {
     
     public static String[] getColumnNames(){
         return new String[] { ID.columnName(), DATE.columnName(), START_TIME.columnName(), END_TIME.columnName(),
-                FEED_TIME.columnName(), SIDE.columnName(), OUNCES.columnName(), CHILD_ID.columnName(),
-                LATITUDE.columnName(), LONGITUDE.columnName(), CREATED_DATE.columnName(), LAST_MOD_DATE.columnName()};
+                DATE_TIME.columnName(), FEED_TIME.columnName(), SIDE.columnName(), OUNCES.columnName(),
+                CHILD_ID.columnName(), LATITUDE.columnName(), LONGITUDE.columnName(), CREATED_DATE.columnName(),
+                LAST_MOD_DATE.columnName()};
     }
 }
