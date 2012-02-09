@@ -98,7 +98,7 @@ public class ViewDiapersActivity extends BaseActivity {
                 //print diaper time
                 TextView diaperTime = new TextView(this);
                 diaperTime.setTextColor(0xFF000000);
-                diaperTime.setText(diaper.getTime() + " - " + diaper.getTime());
+                diaperTime.setText(diaper.getStartTime());
                 linearLayoutVertical.addView(diaperTime);
 
                 linearLayoutHorizontal.addView(linearLayoutVertical);

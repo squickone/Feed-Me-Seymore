@@ -11,8 +11,6 @@ import java.io.Serializable;
 public class Nap extends TrackableObject {
 
     //private variables
-    String _date;
-    String _start_time;
     String _end_time;
     String _location;
     int _child_id;
@@ -63,22 +61,6 @@ public class Nap extends TrackableObject {
 
     public void setId(int id) {
         this._id = id;
-    }
-
-    public String getDate() {
-        return this._date;
-    }
-
-    public void setDate(String date) {
-        this._date = date;
-    }
-
-    public String getStartTime() {
-        return this._start_time;
-    }
-
-    public void setStartTime(String start_time) {
-        this._start_time = start_time;
     }
 
     public String getEndTime() {

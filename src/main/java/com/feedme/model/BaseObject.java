@@ -10,6 +10,8 @@ import java.io.Serializable;
 public abstract class BaseObject implements Serializable {
 
     int _id;
+    String _date;
+    String _start_time;
     String _createdDate;
     String _lastModDate;
     
@@ -21,6 +23,22 @@ public abstract class BaseObject implements Serializable {
         this._id = id;
     }
 
+    public String getDate() {
+        return this._date;
+    }
+
+    public void setDate(String date) {
+        this._date = date;
+    }
+
+    public String getStartTime() {
+        return this._start_time;
+    }
+
+    public void setStartTime(String start_time) {
+        this._start_time = start_time;
+    }
+    
     public String getCreatedDate() {
         return _createdDate;
     }

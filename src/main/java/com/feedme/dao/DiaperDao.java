@@ -66,7 +66,7 @@ public class DiaperDao {
         values.put(KEY_CONSISTENCY, diaper.getConsistency());
         values.put(KEY_COLOR, diaper.getColor());
         values.put(KEY_DATE, diaper.getDate());
-        values.put(KEY_TIME, diaper.getTime());
+        values.put(KEY_TIME, diaper.getStartTime());
         values.put(KEY_CHILD_ID, diaper.getChildId());
         values.put(KEY_LATITUDE, diaper.getLatitude());
         values.put(KEY_LONGITUDE, diaper.getLongitude());
@@ -184,7 +184,8 @@ public class DiaperDao {
 
         List<Diaper> diaperList = new ArrayList<Diaper>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_ID + " DESC LIMIT " + limit;
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY "
+                + KEY_DATE + " DESC LIMIT " + limit;
         Cursor cursor = database.rawQuery(query, null);
 
         if(cursor.moveToFirst()) {
@@ -261,7 +262,7 @@ public class DiaperDao {
         values.put(KEY_CONSISTENCY, diaper.getConsistency());
         values.put(KEY_COLOR, diaper.getColor());
         values.put(KEY_DATE, diaper.getDate());
-        values.put(KEY_TIME, diaper.getTime());
+        values.put(KEY_TIME, diaper.getStartTime());
         values.put(KEY_CHILD_ID, diaper.getChildId());
         values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
 

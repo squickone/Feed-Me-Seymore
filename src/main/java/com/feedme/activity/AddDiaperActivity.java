@@ -67,7 +67,7 @@ public class AddDiaperActivity extends DiaperActivity {
                 Diaper diaper = new Diaper();
                 diaper.setChildId(baby.getId());
                 diaper.setDate(entryDate.getText().toString());
-                diaper.setTime(startTime.getText().toString());
+                diaper.setStartTime(startTime.getText().toString());
                 diaper.setType(diaperType.getSelectedItem().toString());
                 diaper.setConsistency(diaperConsistency.getSelectedItem().toString());
                 diaper.setColor(diaperColor.getSelectedItem().toString());

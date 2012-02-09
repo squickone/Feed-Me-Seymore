@@ -1,6 +1,5 @@
 package com.feedme.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,30 +10,29 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.feedme.R;
-import com.feedme.dao.BabyDao;
-import com.feedme.dao.JournalDao;
-import com.feedme.dao.NapDao;
-import com.feedme.dao.SettingsDao;
+import com.feedme.dao.*;
 import com.feedme.model.Baby;
+import com.feedme.model.BaseObject;
 import com.feedme.model.Journal;
 import com.feedme.model.Settings;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import com.feedme.ui.JournalTable;
 import com.feedme.util.BabyExporter;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.feedme.util.BaseObjectComparator;
 
 /**
  * User: dayel.ostraco
@@ -60,7 +58,6 @@ public class ViewBabyActivity extends BaseActivity
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
         Baby tempBaby;
-
         if (getIntent().getSerializableExtra("baby") != null)
         {
             tempBaby = (Baby) getIntent().getSerializableExtra("baby");
@@ -82,16 +79,16 @@ public class ViewBabyActivity extends BaseActivity
         String feedingCountStr = feedingCount == 0 ? "No Feeding's Today" : feedingCount + "";
         todayFeedingCount.setText(feedingCountStr);
 
+        //Set History Table
+        //TODO: Swap out lsJournal and replace it with history
+        List<BaseObject> history = getHistory(baby, getApplicationContext());
         List<Journal> lsJournal = journalDao.getLastFeedingsByChild(baby.getId(), 5);
-
         TableLayout tableLayout = (TableLayout) findViewById(R.id.myTableLayout);
+        journalTable.buildRows(this, lsJournal, baby, tableLayout);
 
         // prepare settings data
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
         Settings setting = settingsDao.getSetting(1);
-
-        //populate journal data
-        journalTable.buildRows(this, lsJournal, baby, tableLayout);
 
         // Populate Baby Data
         if (baby != null) {
@@ -347,5 +344,28 @@ public class ViewBabyActivity extends BaseActivity
         emailIntent.putExtra(android.content.Intent.EXTRA_STREAM, uri);
 
         context.startActivity(Intent.createChooser(emailIntent, "Export to Email..."));
+    }
+
+    /**
+     * Returns a List containing Diapers, Naps and Feedings sorted by Date and then StartTime.
+     * @param baby
+     * @param context
+     * @return
+     */
+    private List<BaseObject> getHistory(Baby baby, Context context){
+        
+        JournalDao journalDao = new JournalDao(context);
+        DiaperDao diaperDao = new DiaperDao(context);
+        NapDao napDao = new NapDao(context);
+        
+        List<BaseObject> history = new ArrayList<BaseObject>();
+        history.addAll(journalDao.getLastFeedingsByChild(baby.getId(), 20));
+        history.addAll(diaperDao.getLastDiapersByChild(baby.getId(), 20));
+        history.addAll(napDao.getLastNapsByChild(baby.getId(), 20));
+
+        Collections.sort(history, new BaseObjectComparator());
+        Collections.reverse(history);
+
+        return history;
     }
 }

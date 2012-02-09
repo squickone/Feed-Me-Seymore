@@ -11,8 +11,6 @@ import java.io.Serializable;
 public class Journal extends TrackableObject {
 
     //private variables
-    String _date;
-    String _start_time;
     String _end_time;
     String _feed_time;
     String _side;
@@ -75,22 +73,6 @@ public class Journal extends TrackableObject {
         this._longitude = longitude;
         this._createdDate = createdDate;
         this._lastModDate = lastModDate;
-    }
-
-    public String getDate() {
-        return this._date;
-    }
-
-    public void setDate(String date) {
-        this._date = date;
-    }
-
-    public String getStartTime() {
-        return this._start_time;
-    }
-
-    public void setStartTime(String start_time) {
-        this._start_time = start_time;
     }
 
     public String getEndTime() {

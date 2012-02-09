@@ -12,8 +12,6 @@ public class Diaper extends TrackableObject {
     String _type;
     String _consistency;
     String _color;
-    String _date;
-    String _time;
     int _child_id;
 
     // Empty constructor
@@ -28,7 +26,7 @@ public class Diaper extends TrackableObject {
         this._consistency = consistency;
         this._color = color;
         this._date = date;
-        this._time = time;
+        this._start_time = time;
         this._child_id = childId;
     }
 
@@ -38,7 +36,7 @@ public class Diaper extends TrackableObject {
         this._consistency = consistency;
         this._color = color;
         this._date = date;
-        this._time = time;
+        this._start_time = time;
         this._child_id = childId;
     }
 
@@ -51,7 +49,7 @@ public class Diaper extends TrackableObject {
         this._consistency = consistency;
         this._color = color;
         this._date = date;
-        this._time = time;
+        this._start_time = time;
         this._child_id = childId;
         this._latitude = latitude;
         this._longitude = longitude;
@@ -83,22 +81,6 @@ public class Diaper extends TrackableObject {
         this._color = color;
     }
 
-    public String getDate() {
-        return _date;
-    }
-
-    public void setDate(String date) {
-        this._date = date;
-    }
-
-    public String getTime() {
-        return _time;
-    }
-
-    public void setTime(String time) {
-        this._time = time;
-    }
-
     public int getChildId() {
         return _child_id;
     }
@@ -115,7 +97,7 @@ public class Diaper extends TrackableObject {
         sb.append("CONSISTENCY: " + _consistency + " - ");
         sb.append("COLOR: " + _color + " - ");
         sb.append("DATE: " + _date + " - ");
-        sb.append("TIME: " + _time + " - ");
+        sb.append("TIME: " + _start_time + " - ");
         sb.append("LATITUDE: " + _latitude + " - ");
         sb.append("LONGITUDE: " + _longitude + " - ");
         sb.append("CREATED_DATE: " + _createdDate + " - ");

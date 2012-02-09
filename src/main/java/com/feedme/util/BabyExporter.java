@@ -213,7 +213,7 @@ public class BabyExporter {
 
             //Time
             cell = row.createCell(1);
-            cell.setCellValue(diaper.getTime());
+            cell.setCellValue(diaper.getStartTime());
 
             //Type
             cell = row.createCell(2);

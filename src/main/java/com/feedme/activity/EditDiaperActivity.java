@@ -45,7 +45,7 @@ public class EditDiaperActivity extends DiaperActivity {
         entryDate = (Button) findViewById(R.id.editDiaperDate);
         startTime = (Button) findViewById(R.id.editDiaperTime);
         entryDate.setText(diaper.getDate());
-        startTime.setText(diaper.getTime());
+        startTime.setText(diaper.getStartTime());
         entryDate.setOnClickListener(showDateDialog());
         startTime.setOnClickListener(showStartTimeDialog());
 
@@ -93,7 +93,7 @@ public class EditDiaperActivity extends DiaperActivity {
             @Override
             public void onClick(View view) {
                 diaper.setDate(entryDate.getText().toString());
-                diaper.setTime(startTime.getText().toString());
+                diaper.setStartTime(startTime.getText().toString());
                 diaper.setType(diaperType.getSelectedItem().toString());
                 diaper.setConsistency(diaperConsistency.getSelectedItem().toString());
                 diaper.setColor(diaperColor.getSelectedItem().toString());
