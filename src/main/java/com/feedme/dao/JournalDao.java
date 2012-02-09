@@ -357,22 +357,21 @@ public class JournalDao {
     /**
      * Returns the total number of feedings for a baby on a given date.
      *
-     * @param babyId
+     * @param childId
      * @param date
      * @return
      */
-    public int getEntriesCountByBabyAndDate(String babyId, String date){
-        open();
-        
-        String countQuery = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID  + " = " + babyId + " AND "
-                + KEY_DATE + " = '" + date + "'";
+    public int getEntriesCountByBabyAndDate(int childId, String date){
 
-        Cursor cursor = database.rawQuery(countQuery, null);
+        open();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " AND "
+                + KEY_DATE + " = '" + date + "'";
+        Cursor cursor = database.rawQuery(selectQuery, null);
         int count = cursor.getCount();
-        cursor.close();
 
         close();
-        
+
         return count;
     }
 

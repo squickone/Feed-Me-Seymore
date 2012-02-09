@@ -70,16 +70,14 @@ public class ViewBabyActivity extends BaseActivity
         bundle.putSerializable("baby", baby);
 
         //Get today's feedings
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy ");
-        Calendar today = Calendar.getInstance();
-        int feedingCount = journalDao.getEntriesCountByBabyAndDate(Integer.toString(baby.getId()),
-                sdf.format(today.getTime()));
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy ");
+        int feedingCount = journalDao.getEntriesCountByBabyAndDate(baby.getId(), androidFormat.format(calendar.getTime()));
         TextView todayFeedingCount = (TextView) findViewById(R.id.todayFeedings);
         String feedingCountStr = feedingCount == 0 ? "No Feeding's Today" : feedingCount + "";
         todayFeedingCount.setText(feedingCountStr);
 
         //Set History Table
-        //TODO: Swap out lsJournal and replace it with history
         List<BaseObject> history = getTodaysHistory(baby, getApplicationContext());
         TableLayout tableLayout = (TableLayout) findViewById(R.id.myTableLayout);
         journalTable.buildRows(this, history, baby, tableLayout);
