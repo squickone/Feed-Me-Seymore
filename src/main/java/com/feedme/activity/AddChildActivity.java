@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class AddChildActivity extends ChildActivity
 {
-
     private Button babyDob;
 
     @Override
@@ -45,6 +44,7 @@ public class AddChildActivity extends ChildActivity
         final Spinner babySex = (Spinner) findViewById(R.id.babySex);
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
+        
         Button addChildButton = (Button) findViewById(R.id.addChildButton);
         Button takePicture = (Button) findViewById(R.id.takePicture);
         Button selectPicture = (Button) findViewById(R.id.pickPicture);
@@ -72,28 +72,30 @@ public class AddChildActivity extends ChildActivity
 
         //In the even that the user clicked Take Picture or Select Picture and fired off a new Intent from the Add
         // Child screen.
-        if (getIntent().getExtras() != null) {
-            babyName.setText((String) getIntent().getExtras().get("babyName"));
-            babyHeight.setText((String) getIntent().getExtras().get("babyHeight"));
-            babyWeight.setText((String) getIntent().getExtras().get("babyWeight"));
-            babyDob.setText((String) getIntent().getExtras().get("babyDob"));
+        if (getIntent().getStringExtra("picturePath") != null)
+        {
+            babyName.setText(baby.getName());
+            babyHeight.setText(baby.getHeight());
+            babyWeight.setText(baby.getWeight());
+            babyDob.setText(baby.getDob());
 
             //Set Spinner Value for Baby Sex
-            if (getIntent().getExtras().get("babySex") != null) {
-                String babySexStr = (String) getIntent().getExtras().get("babySex");
-                if (babySexStr.equals("Male")) {
-                    babySex.setSelection(0);
-                } else {
-                    babySex.setSelection(1);
-                }
+            if (baby.getDob().equals("Male"))
+            {
+                babySex.setSelection(0);
             }
+            else
+            {
+                babySex.setSelection(1);
+            }
+
         }
 
         //Take Picture Button
-        takePicture.setOnClickListener(takePictureListener(baby, ADD_CHILD_ACTIVITY_ID));
+        takePicture.setOnClickListener(takePictureListener(ADD_CHILD_ACTIVITY_ID));
 
         //Select Picture Button
-        selectPicture.setOnClickListener(selectPictureListener(baby, ADD_CHILD_ACTIVITY_ID));
+        selectPicture.setOnClickListener(selectPictureListener(ADD_CHILD_ACTIVITY_ID));
 
         //declare alert dialog
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();

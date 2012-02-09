@@ -66,8 +66,8 @@ public enum BabyColumn {
     }
 
     public static String[] getColumnNames(){
-        return new String[] { ID.columnName(), NAME.columnName(), SEX.columnName(), WEIGHT.columnName(),
-                HEIGHT.columnName(), DOB.columnName(), PICTURE.columnName(), LATITUDE.columnName(),
+        return new String[] { ID.columnName(), NAME.columnName(), SEX.columnName(), HEIGHT.columnName(),
+                WEIGHT.columnName(), DOB.columnName(), PICTURE.columnName(), LATITUDE.columnName(),
                 LONGITUDE.columnName(), CREATED_DATE.columnName(), LAST_MOD_DATE.columnName()};
     }
 }

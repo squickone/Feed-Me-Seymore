@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import com.feedme.model.Baby;
 
 /**
@@ -23,6 +24,7 @@ public class TakePictureActivity extends BaseActivity
 
     public static int TAKE_PICTURE_ID = 10;
     private Uri picturePath;
+    Baby baby;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -31,6 +33,10 @@ public class TakePictureActivity extends BaseActivity
 
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/Take-Picture");
+
+        baby = (Baby) getIntent().getSerializableExtra("baby");
+
+        Log.d("BABY:PIC:", baby.dump());
 
         takePhoto();
     }
@@ -46,10 +52,8 @@ public class TakePictureActivity extends BaseActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
 
-        if (requestCode == TAKE_PICTURE_ID) {
-
-            final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
-            
+        if (requestCode == TAKE_PICTURE_ID)
+        {
             Integer intentId = (Integer) getIntent().getExtras().get("intentId");
 
             Intent intent;
@@ -62,7 +66,8 @@ public class TakePictureActivity extends BaseActivity
             Bundle b = new Bundle();
             b.putSerializable("baby", baby);
             intent.putExtras(b);
-            
+
+
             intent.putExtra("picturePath", getPath(picturePath));
             startActivityForResult(intent, TAKE_PICTURE_ID);
         }

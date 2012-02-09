@@ -3,6 +3,10 @@ package com.feedme.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import com.feedme.R;
 import com.feedme.model.Baby;
 
 /**
@@ -12,12 +16,11 @@ import com.feedme.model.Baby;
  */
 public abstract class ChildActivity extends BaseActivity
 {
-
     public int mYear;
     public int mMonth;
     public int mDay;
 
-    public View.OnClickListener takePictureListener(final Baby baby, final int activity_id)
+    public View.OnClickListener takePictureListener(final int activity_id)
     {
         return new View.OnClickListener()
         {
@@ -25,7 +28,7 @@ public abstract class ChildActivity extends BaseActivity
             {
                 Intent intent = new Intent(v.getContext(), TakePictureActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("baby", baby);
+                bundle.putSerializable("baby", buildBaby());
                 bundle.putInt("intentId", activity_id);
 
                 intent.putExtras(bundle);
@@ -35,7 +38,7 @@ public abstract class ChildActivity extends BaseActivity
         };
     }
 
-    public View.OnClickListener selectPictureListener(final Baby baby, final int activity_id)
+    public View.OnClickListener selectPictureListener(final int activity_id)
     {
         return new View.OnClickListener()
         {
@@ -43,7 +46,7 @@ public abstract class ChildActivity extends BaseActivity
             {
                 Intent intent = new Intent(v.getContext(), SelectPictureActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("baby", baby);
+                bundle.putSerializable("baby", buildBaby());
                 bundle.putInt("intentId", activity_id);
                 
                 intent.putExtras(bundle);
@@ -64,4 +67,19 @@ public abstract class ChildActivity extends BaseActivity
         };
     }
 
+    public Baby buildBaby()
+    {
+        final EditText babyName = (EditText) findViewById(R.id.babyName);
+        final Spinner babySex = (Spinner) findViewById(R.id.babySex);
+        final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
+        final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
+        final Button babyDob = (Button) findViewById(R.id.babyDob);;
+        
+        return new Baby(babyName.getText().toString(),
+                        babySex.getSelectedItem().toString(),
+                        babyHeight.getText().toString(),
+                        babyWeight.getText().toString(),
+                        babyDob.getText().toString(),
+                        "");
+    }
 }
