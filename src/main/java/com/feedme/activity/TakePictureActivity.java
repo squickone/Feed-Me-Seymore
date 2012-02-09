@@ -21,7 +21,6 @@ import com.feedme.model.Baby;
  */
 public class TakePictureActivity extends BaseActivity
 {
-
     public static int TAKE_PICTURE_ID = 10;
     private Uri picturePath;
     Baby baby;
@@ -64,11 +63,12 @@ public class TakePictureActivity extends BaseActivity
             }
 
             Bundle b = new Bundle();
+            String picPath = getPath(picturePath);
+            intent.putExtra("picturePath", picPath);
+            baby.setPicturePath(picPath);
             b.putSerializable("baby", baby);
             intent.putExtras(b);
 
-
-            intent.putExtra("picturePath", getPath(picturePath));
             startActivityForResult(intent, TAKE_PICTURE_ID);
         }
     }

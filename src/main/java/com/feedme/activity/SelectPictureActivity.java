@@ -52,14 +52,15 @@ public class SelectPictureActivity extends BaseActivity
             }
             
             Bundle b = new Bundle();
-            b.putSerializable("baby", baby);
 
             if (data != null && data.getData() != null)
             {
                 Uri photoUri = data.getData();
-                b.putString("picturePath", getPath(photoUri));
+                String picPath = getPath(photoUri);
+                baby.setPicturePath(picPath);
+                b.putString("picturePath", picPath);
             }
-
+            b.putSerializable("baby", baby);
             intent.putExtras(b);
 
             startActivityForResult(intent, SELECT_PICTURE_ID);

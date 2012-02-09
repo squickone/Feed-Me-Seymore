@@ -3,6 +3,8 @@ package com.feedme.activity;
 import android.app.*;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -44,7 +46,30 @@ public class AddChildActivity extends ChildActivity
         final Spinner babySex = (Spinner) findViewById(R.id.babySex);
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
-        
+
+        final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
+
+        if (baby != null)
+        {
+            if (baby.getPicturePath() != null && !baby.getPicturePath().equals(""))
+            {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 12;
+                Bitmap bmImg = BitmapFactory.decodeFile(baby.getPicturePath(), options);
+                babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
+                babyImage.setMaxWidth(100);
+                babyImage.setMaxHeight(100);
+                babyImage.setMinimumWidth(100);
+                babyImage.setMinimumHeight(100);
+            } else {
+                babyImage.setImageResource(R.drawable.babyicon);
+                babyImage.setMaxWidth(100);
+                babyImage.setMaxHeight(100);
+                babyImage.setMinimumWidth(100);
+                babyImage.setMinimumHeight(100);
+            }
+        }
+
         Button addChildButton = (Button) findViewById(R.id.addChildButton);
         Button takePicture = (Button) findViewById(R.id.takePicture);
         Button selectPicture = (Button) findViewById(R.id.pickPicture);
@@ -74,13 +99,14 @@ public class AddChildActivity extends ChildActivity
         // Child screen.
         if (getIntent().getStringExtra("picturePath") != null)
         {
+            baby.setPicturePath(getIntent().getStringExtra("picturePath"));
             babyName.setText(baby.getName());
             babyHeight.setText(baby.getHeight());
             babyWeight.setText(baby.getWeight());
             babyDob.setText(baby.getDob());
 
             //Set Spinner Value for Baby Sex
-            if (baby.getDob().equals("Male"))
+            if (baby.getSex().equals("Male"))
             {
                 babySex.setSelection(0);
             }
@@ -92,10 +118,10 @@ public class AddChildActivity extends ChildActivity
         }
 
         //Take Picture Button
-        takePicture.setOnClickListener(takePictureListener(ADD_CHILD_ACTIVITY_ID));
+        takePicture.setOnClickListener(takePictureListener(0, ADD_CHILD_ACTIVITY_ID));
 
         //Select Picture Button
-        selectPicture.setOnClickListener(selectPictureListener(ADD_CHILD_ACTIVITY_ID));
+        selectPicture.setOnClickListener(selectPictureListener(0, ADD_CHILD_ACTIVITY_ID));
 
         //declare alert dialog
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -119,20 +145,20 @@ public class AddChildActivity extends ChildActivity
                         }
                     });
                     alertDialog.show();
-                } else {      // else add child to database
-                    String picturePath = "";
-                    if (getIntent().getExtras() != null && getIntent().getExtras().get("picturePath") != null) {
-                        picturePath = (String) getIntent().getExtras().get("picturePath");
-                    }
-
-                    /**
-                     * CRUD Operations
-                     * */
+                }
+                else
+                {
+                    Baby addBaby = new Baby(babyName.getText().toString(),
+                                            babySex.getSelectedItem().toString(),
+                                            babyHeight.getText().toString(),
+                                            babyWeight.getText().toString(),
+                                            babyDob.getText().toString(),
+                                            baby.getPicturePath());
                     // Inserting baby
                     Log.d("Insert: ", "Inserting ..");
-                    babyDao.addBaby(new Baby(babyName.getText().toString(), babySex.getSelectedItem().toString(),
-                            babyHeight.getText().toString(), babyWeight.getText().toString(),
-                            babyDob.getText().toString(), picturePath));
+                    babyDao.addBaby(addBaby);
+
+                    Log.d("BABY:ADD: ", addBaby.dump());
 
                     // Reading all babies
                     Log.d("Reading: ", "Reading all babies..");

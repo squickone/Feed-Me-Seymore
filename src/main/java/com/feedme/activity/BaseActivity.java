@@ -1,6 +1,8 @@
 package com.feedme.activity;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.view.View;
 import android.widget.RelativeLayout;
 import com.feedme.R;
@@ -41,6 +43,34 @@ public abstract class BaseActivity extends Activity
         }
     }
 
-    
+
+    /**
+     * Resizes a Bitmap based on the passed in newHeight and newWidth and rotates the image by rotateInDegrees.
+     *
+     * @param bitMap
+     * @param newHeight
+     * @param newWidth
+     * @param rotateInDegrees
+     * @return
+     */
+    public Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees)
+    {
+        int width = bitMap.getWidth();
+        int height = bitMap.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+        //matrix.postRotate(rotateInDegrees);
+
+        // recreate the new Bitmap
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
+    }
     
 }
