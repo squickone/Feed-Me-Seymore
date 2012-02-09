@@ -48,6 +48,7 @@ public class AddChildActivity extends ChildActivity
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
 
         final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
+        babyImage.setImageResource(R.drawable.babyicon);
 
         if (baby != null)
         {
@@ -148,17 +149,31 @@ public class AddChildActivity extends ChildActivity
                 }
                 else
                 {
-                    Baby addBaby = new Baby(babyName.getText().toString(),
-                                            babySex.getSelectedItem().toString(),
-                                            babyHeight.getText().toString(),
-                                            babyWeight.getText().toString(),
-                                            babyDob.getText().toString(),
-                                            baby.getPicturePath());
-                    // Inserting baby
-                    Log.d("Insert: ", "Inserting ..");
-                    babyDao.addBaby(addBaby);
+                   if (getIntent().getStringExtra("picturePath") != null) {
+                       Baby addBaby = new Baby(babyName.getText().toString(),
+                               babySex.getSelectedItem().toString(),
+                               babyHeight.getText().toString(),
+                               babyWeight.getText().toString(),
+                               babyDob.getText().toString(),
+                               baby.getPicturePath());
+                       // Inserting baby
+                       Log.d("Insert: ", "Inserting ..");
+                       babyDao.addBaby(addBaby);
+                       Log.d("BABY:ADD: ", addBaby.dump());
+                  } else {
+                       Baby addBaby = new Baby(babyName.getText().toString(),
+                               babySex.getSelectedItem().toString(),
+                               babyHeight.getText().toString(),
+                               babyWeight.getText().toString(),
+                               babyDob.getText().toString(),
+                               "");
+                       // Inserting baby
+                       Log.d("Insert: ", "Inserting ..");
+                       babyDao.addBaby(addBaby);
+                       Log.d("BABY:ADD: ", addBaby.dump());
+                  }
 
-                    Log.d("BABY:ADD: ", addBaby.dump());
+
 
                     // Reading all babies
                     Log.d("Reading: ", "Reading all babies..");
