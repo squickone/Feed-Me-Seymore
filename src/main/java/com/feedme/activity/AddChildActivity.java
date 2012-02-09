@@ -106,7 +106,7 @@ public class AddChildActivity extends ChildActivity
             babyDob.setText(baby.getDob());
 
             //Set Spinner Value for Baby Sex
-            if (baby.getDob().equals("Male"))
+            if (baby.getSex().equals("Male"))
             {
                 babySex.setSelection(0);
             }
