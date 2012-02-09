@@ -5,6 +5,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                android:id="@+id/babyJournal"
                 android:background="#fffae8">
 
     <RelativeLayout
@@ -18,13 +19,13 @@
 
     </RelativeLayout>
 
-
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_below="@+id/topBanner"
             android:layout_above="@+id/bottomBanner"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/journalScroll">
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"

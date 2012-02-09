@@ -3,10 +3,7 @@ package com.feedme.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.*;
@@ -31,8 +28,15 @@ public class ViewEntriesActivity extends BaseActivity {
 
     private static final SimpleDateFormat ANDROID_FORMAT = new SimpleDateFormat("M-d-yyyy ");
     private static final SimpleDateFormat HEADER_FORMAT = new SimpleDateFormat("MMMMMMMMM, d yyyy");
-    
+
+    private static final int SWIPE_MIN_DISTANCE = 80;
+    private static final int SWIPE_MAX_OFF_PATH = 350;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 300;
+    private GestureDetector gestureDetector;
+
     private JournalTable journalTable = new JournalTable();
+    private Baby baby;
+    private Calendar calendar;
 
     public static final int VIEW_ENTRIES_ACTIVITY_ID = 50;
 
@@ -41,25 +45,35 @@ public class ViewEntriesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entries_home);
 
+        gestureDetector = new GestureDetector(new SlideGesture());
+        View journalView = findViewById(R.id.journalScroll);
+
+        // Set the touch listener for the  view to be our custom gesture listener
+        journalView.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/View-Entries");
 
-        Calendar calendar = Calendar.getInstance();
-        if(getIntent().getExtras()!=null && getIntent().getExtras().get("journalDate")!=null){
+        calendar = Calendar.getInstance();
+        if (getIntent().getExtras() != null && getIntent().getExtras().get("journalDate") != null) {
             calendar = (Calendar) getIntent().getExtras().get("journalDate");
         }
-        
+
         TextView journalHeader = (TextView) findViewById(R.id.journalHeader);
         journalHeader.setText(HEADER_FORMAT.format(calendar.getTime()));
 
-        final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
+        baby = (Baby) getIntent().getSerializableExtra("baby");
         Bundle bundle = new Bundle();
         bundle.putSerializable("baby", baby);
-        
-        styleActivity(baby.getSex());
-        handleButtons(calendar, bundle);
 
-        List<BaseObject> history = getHistory(baby, ANDROID_FORMAT.format(calendar.getTime()),getApplicationContext());
+        styleActivity(baby.getSex());
+        handleButtons(bundle);
+
+        List<BaseObject> history = getHistory(baby, ANDROID_FORMAT.format(calendar.getTime()), getApplicationContext());
         TableLayout tableLayout = (TableLayout) findViewById(R.id.myTableLayout);
 
         if (history.size() > 0) {
@@ -68,7 +82,7 @@ public class ViewEntriesActivity extends BaseActivity {
 
     }
 
-    public void handleButtons(final Calendar calendar, final Bundle bundle) {
+    public void handleButtons(final Bundle bundle) {
         Button childButton = (Button) findViewById(R.id.childScreen);
         childButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,6 +102,10 @@ public class ViewEntriesActivity extends BaseActivity {
                 bundle.putSerializable("journalDate", calendar);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, VIEW_ENTRIES_ACTIVITY_ID);
+                ViewEntriesActivity.this.overridePendingTransition(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                );
             }
         });
 
@@ -100,6 +118,10 @@ public class ViewEntriesActivity extends BaseActivity {
                 bundle.putSerializable("journalDate", calendar);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, VIEW_ENTRIES_ACTIVITY_ID);
+                ViewEntriesActivity.this.overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                );
             }
         });
     }
@@ -154,5 +176,50 @@ public class ViewEntriesActivity extends BaseActivity {
         Collections.reverse(history);
 
         return history;
+    }
+
+    class SlideGesture extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            Intent intent = new Intent(ViewEntriesActivity.this.getBaseContext(), ViewEntriesActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("baby", baby);
+
+            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
+                return false;
+            }
+
+            // right to left swipe
+            if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                bundle.putSerializable("journalDate", calendar);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                ViewEntriesActivity.this.overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                );
+
+            // right to left swipe
+            } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                calendar.add(Calendar.DAY_OF_YEAR, -1);
+                bundle.putSerializable("journalDate", calendar);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                ViewEntriesActivity.this.overridePendingTransition(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                );
+            }
+
+            return false;
+        }
+
+        // It is necessary to return true from onDown for the onFling event to register
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
     }
 }
