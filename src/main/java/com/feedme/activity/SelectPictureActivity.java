@@ -17,6 +17,7 @@ import com.feedme.model.Baby;
 public class SelectPictureActivity extends BaseActivity
 {
     public static final int SELECT_PICTURE_ID = 11;
+    Baby baby;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -25,6 +26,10 @@ public class SelectPictureActivity extends BaseActivity
 
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/Select-Picture");
+
+        baby = (Baby) getIntent().getSerializableExtra("baby");
+
+        Log.d("BABY:PIC:", baby.dump());
 
         pickPicture();
     }

@@ -27,7 +27,6 @@ import java.util.Calendar;
  */
 public class EditChildActivity extends ChildActivity
 {
-    
     private Button babyDob;
 
     @Override
@@ -43,16 +42,17 @@ public class EditChildActivity extends ChildActivity
 
         final Baby editBaby = (Baby) getIntent().getSerializableExtra("baby");
 
-        styleActivity(editBaby.getSex());
-
-        TextView addChild = (TextView) findViewById(R.id.addChild);
-        addChild.setText("Edit Baby");
-
         final EditText babyName = (EditText) findViewById(R.id.babyName);
         final Spinner babySex = (Spinner) findViewById(R.id.babySex);
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
         final Button deleteBaby = (Button) findViewById(R.id.deleteBaby);
+        babyDob = (Button) findViewById(R.id.babyDob);;
+
+        styleActivity(editBaby.getSex());
+
+        TextView addChild = (TextView) findViewById(R.id.addChild);
+        addChild.setText("Edit Baby");
 
         deleteBaby.setVisibility(View.VISIBLE);
 
@@ -63,7 +63,6 @@ public class EditChildActivity extends ChildActivity
         babyName.setText(editBaby.getName());
         babyHeight.setText(editBaby.getHeight());
         babyWeight.setText(editBaby.getWeight());
-        babyDob = (Button) findViewById(R.id.babyDob);
         babyDob.setText(editBaby.getDob());
 
         // add a click listener to the button
@@ -91,12 +90,31 @@ public class EditChildActivity extends ChildActivity
         } else {
             babySex.setSelection(1);
         }
+        
+        if (getIntent().getStringExtra("picturePath") != null)
+        {
+            babyName.setText(editBaby.getName());
+            babyHeight.setText(editBaby.getHeight());
+            babyWeight.setText(editBaby.getWeight());
+            babyDob.setText(editBaby.getDob());
+
+            //Set Spinner Value for Baby Sex
+            if (editBaby.getSex().equals("Male"))
+            {
+                babySex.setSelection(0);
+            }
+            else
+            {
+                babySex.setSelection(1);
+            }
+
+        }
 
         //Take Picture Button
-        takePicture.setOnClickListener(takePictureListener(editBaby, EDIT_CHILD_ACTIVITY_ID));
+        takePicture.setOnClickListener(takePictureListener(EDIT_CHILD_ACTIVITY_ID));
 
         //Select Picture Button
-        selectPicture.setOnClickListener(selectPictureListener(editBaby, EDIT_CHILD_ACTIVITY_ID));
+        selectPicture.setOnClickListener(selectPictureListener(EDIT_CHILD_ACTIVITY_ID));
 
         //declare alert dialog
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
