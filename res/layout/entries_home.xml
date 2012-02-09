@@ -57,14 +57,14 @@
 
         <Button android:text="Previous"
                 android:id="@+id/previousDay"
-                android:drawableTop="@drawable/icon_start"
+                android:drawableTop="@drawable/icon_prev"
                 android:layout_toRightOf="@+id/childScreen"
                 style="@style/iconNavButton"
                 />
 
         <Button android:text="Next"
                 android:id="@+id/nextDay"
-                android:drawableTop="@drawable/icon_start"
+                android:drawableTop="@drawable/icon_next"
                 android:layout_toRightOf="@+id/previousDay"
                 style="@style/iconNavButton"
                 />
