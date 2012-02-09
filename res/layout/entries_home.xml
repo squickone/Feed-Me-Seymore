@@ -71,7 +71,7 @@
 
         <Button android:text="Date"
                 android:id="@+id/pickDayButton"
-                android:drawableTop="@drawable/icon_clock"
+                android:drawableTop="@drawable/icon_calendar"
                 android:layout_toRightOf="@+id/nextDay"
                 style="@style/iconNavButton"
                 />
