@@ -69,6 +69,13 @@
                 style="@style/iconNavButton"
                 />
 
+        <Button android:text="Pick a Day"
+                android:id="@+id/pickDayButton"
+                android:drawableTop="@drawable/icon_clock"
+                android:layout_toRightOf="@+id/nextDay"
+                style="@style/iconNavButton"
+                />
+
     </RelativeLayout>
 
 </RelativeLayout>

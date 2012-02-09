@@ -1,5 +1,7 @@
 package com.feedme.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +26,7 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:29 PM
  */
-public class ViewEntriesActivity extends BaseActivity {
+public class ViewEntriesActivity extends JournalActivity {
 
     private static final SimpleDateFormat ANDROID_FORMAT = new SimpleDateFormat("M-d-yyyy ");
     private static final SimpleDateFormat HEADER_FORMAT = new SimpleDateFormat("MMMMMMMMM, d yyyy");
@@ -37,6 +39,8 @@ public class ViewEntriesActivity extends BaseActivity {
     private JournalTable journalTable = new JournalTable();
     private Baby baby;
     private Calendar calendar;
+
+    Bundle bundle = new Bundle();
 
     public static final int VIEW_ENTRIES_ACTIVITY_ID = 50;
 
@@ -67,8 +71,20 @@ public class ViewEntriesActivity extends BaseActivity {
         journalHeader.setText(HEADER_FORMAT.format(calendar.getTime()));
 
         baby = (Baby) getIntent().getSerializableExtra("baby");
-        Bundle bundle = new Bundle();
         bundle.putSerializable("baby", baby);
+
+        //Pick Day Button
+        entryDate = (Button) findViewById(R.id.pickDayButton);
+        entryDate.setOnClickListener(showDateDialog());
+
+        //Get the Current Time and set the Date and Time Buttons
+        final Calendar currentTime = Calendar.getInstance();
+        mYear = currentTime.get(Calendar.YEAR);
+        mMonth = currentTime.get(Calendar.MONTH);
+        mDay = currentTime.get(Calendar.DAY_OF_MONTH);
+        startHour = currentTime.get(Calendar.HOUR_OF_DAY);
+        startMinute = currentTime.get(Calendar.MINUTE);
+        startSecond = currentTime.get(Calendar.SECOND);
 
         styleActivity(baby.getSex());
         handleButtons(bundle);
@@ -79,9 +95,49 @@ public class ViewEntriesActivity extends BaseActivity {
         if (history.size() > 0) {
             journalTable.buildRows(this, history, baby, tableLayout);
         }
-
     }
 
+    /**
+     * Overrides the onCreateDialog method and sets our custom Listener to the Date Picker Dialog.
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        return new DatePickerDialog(this,
+                mDateSetListener,
+                mYear, mMonth, mDay);
+    }
+
+    /**
+     * Creates a Listener for the Data Picker to update the Journal Display with the date selected from the dialog.
+     */
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    mYear = year;
+                    mMonth = monthOfYear;
+                    mDay = dayOfMonth;
+
+                    calendar.set(Calendar.YEAR, mYear);
+                    calendar.set(Calendar.MONTH, mMonth);
+                    calendar.set(Calendar.DAY_OF_MONTH, mDay);
+
+                    Intent intent = new Intent(view.getContext(), ViewEntriesActivity.class);
+                    bundle.putSerializable("journalDate", calendar);
+                    intent.putExtras(bundle);
+                    startActivityForResult(intent, VIEW_ENTRIES_ACTIVITY_ID);
+                }
+            };
+
+    /**
+     * Sets the onClick methods for all Journal Buttons.
+     *
+     * @param bundle
+     */
     public void handleButtons(final Bundle bundle) {
         Button childButton = (Button) findViewById(R.id.childScreen);
         childButton.setOnClickListener(new View.OnClickListener() {
@@ -185,14 +241,16 @@ public class ViewEntriesActivity extends BaseActivity {
      * @return
      */
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev){
+    public boolean dispatchTouchEvent(MotionEvent ev) {
 
         super.dispatchTouchEvent(ev);
 
         return gestureDetector.onTouchEvent(ev);
-
     }
 
+    /**
+     * Creates the SlideGesture used on the Journal Screen. TODO:// Should be located in a better place for reusability.
+     */
     class SlideGesture extends GestureDetector.SimpleOnGestureListener {
 
         @Override
@@ -216,7 +274,7 @@ public class ViewEntriesActivity extends BaseActivity {
                         R.anim.slide_out_left
                 );
 
-            // right to left swipe
+                // right to left swipe
             } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                 calendar.add(Calendar.DAY_OF_YEAR, -1);
                 bundle.putSerializable("journalDate", calendar);
