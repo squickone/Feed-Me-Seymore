@@ -102,6 +102,9 @@
         <item>Brown</item>
     </string-array>
 
+    <!-- Journal Screen Strings -->
+    <string name="entriesHeader">Entries</string>
+
     <!-- Settings Page Strings -->
     <string-array name="liquidMeasurements">
         <item>oz</item>

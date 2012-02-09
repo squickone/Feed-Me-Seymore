@@ -13,7 +13,7 @@
         >
         <TextView style="@style/rightHeadline"
                   android:text="@string/journal"
-                  android:id="@+id/myFamily"
+                  android:id="@+id/journalHeader"
                 />
 
     </RelativeLayout>
@@ -51,6 +51,20 @@
                 android:id="@+id/childScreen"
                 android:drawableTop="@drawable/icon_baby"
                 android:layout_alignParentLeft="true"
+                style="@style/iconNavButton"
+                />
+
+        <Button android:text="Previous"
+                android:id="@+id/previousDay"
+                android:drawableTop="@drawable/icon_start"
+                android:layout_toRightOf="@+id/childScreen"
+                style="@style/iconNavButton"
+                />
+
+        <Button android:text="Next"
+                android:id="@+id/nextDay"
+                android:drawableTop="@drawable/icon_start"
+                android:layout_toRightOf="@+id/previousDay"
                 style="@style/iconNavButton"
                 />
 
