@@ -11,6 +11,7 @@ import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -133,7 +134,12 @@ public class AddBreastFeedActivity extends FeedActivity
                                                     "",
                                                     baby.getId());
                 Log.d("JOURNAL-ADD: ", insertJournal.dump());
-                journalDao.addEntry(insertJournal);
+
+                try {
+                    journalDao.addEntry(insertJournal);
+                } catch (ParseException e){
+                    Log.d("AddBreastFeedActivity", "Could not parse Date and StartTime into a ISO8601 format");
+                }
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtras(bundle);

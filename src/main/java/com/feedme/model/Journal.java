@@ -58,13 +58,14 @@ public class Journal extends TrackableObject {
         this._child_id = child_id;
     }
 
-    public Journal(int id, String date, String startTime, String endTime, String feedTime, String side,
+    public Journal(int id, String date, String startTime, String endTime, String dateTime, String feedTime, String side,
                    String ounces, int childId, String latitude, String longitude, String createdDate,
                    String lastModDate) {
         this._id = id;
         this._date = date;
         this._start_time = startTime;
         this._end_time = endTime;
+        this._dateTime = dateTime;
         this._feed_time = feedTime;
         this._side = side;
         this._ounces = ounces;

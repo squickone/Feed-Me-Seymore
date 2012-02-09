@@ -8,15 +8,20 @@ import android.database.sqlite.SQLiteDatabase;
 import com.feedme.database.JournalColumn;
 import com.feedme.model.Journal;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
  * This DAO class handles all CRUD operations on the Entries table in the SQLLite database.
  */
 public class JournalDao {
+
+    private static final SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    private static final SimpleDateFormat ANDROID_TIME = new SimpleDateFormat("M-d-yyyy:hh:mm:ss");
 
     // Contacts table name
     private static final String TABLE_DATA = JournalColumn.TABLE_NAME;
@@ -26,6 +31,7 @@ public class JournalDao {
     private static final String KEY_DATE = JournalColumn.DATE.columnName();
     private static final String KEY_START_TIME = JournalColumn.START_TIME.columnName();
     private static final String KEY_END_TIME = JournalColumn.END_TIME.columnName();
+    private static final String KEY_DATE_TIME = JournalColumn.DATE_TIME.columnName();
     private static final String KEY_FEED_TIME = JournalColumn.FEED_TIME.columnName();
     private static final String KEY_SIDE = JournalColumn.SIDE.columnName();
     private static final String KEY_OUNCES = JournalColumn.OUNCES.columnName();
@@ -55,10 +61,12 @@ public class JournalDao {
      *
      * @param entry - Journal POJO
      */
-    public void addEntry(Journal entry) {
+    public void addEntry(Journal entry) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
         Calendar now = Calendar.getInstance();
+
+        //NOTE: DateTime is a combination of Date and StartTime converted into ISO8601 format. Used for date sorting.
+        Date dateTime = ANDROID_TIME.parse(entry.getDate().trim() + ":" + entry.getStartTime());
         
         open();
 
@@ -66,14 +74,15 @@ public class JournalDao {
         values.put(KEY_DATE, entry.getDate()); // Date
         values.put(KEY_START_TIME, entry.getStartTime()); // Time
         values.put(KEY_END_TIME, entry.getEndTime()); // Time
+        values.put(KEY_DATE_TIME, ISO8601.format(dateTime)); // DateTime
         values.put(KEY_FEED_TIME, entry.getFeedTime()); // Feed Time
         values.put(KEY_SIDE, entry.getSide()); // Side
         values.put(KEY_OUNCES, entry.getOunces()); // Ounces
         values.put(KEY_CHILD_ID, entry.getChild()); // Child ID
         values.put(KEY_LATITUDE, entry.getLatitude());
         values.put(KEY_LONGITUDE, entry.getLongitude());
-        values.put(KEY_CREATED_DATE, sdf.format(now.getTime()));
-        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
+        values.put(KEY_CREATED_DATE, ISO8601.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, ISO8601.format(now.getTime()));
 
         // Inserting Row
         long result = database.insert(TABLE_DATA, null, values);
@@ -169,7 +178,7 @@ public class JournalDao {
         List<Journal> entryList = new ArrayList<Journal>();
 
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_CHILD_ID + " DESC";
+        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_DATE_TIME + " DESC";
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
@@ -216,7 +225,7 @@ public class JournalDao {
         List<Journal> entryList = new ArrayList<Journal>();
 
         String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY "
-                + KEY_DATE + " DESC LIMIT " + limit;
+                + KEY_DATE_TIME + " DESC LIMIT " + limit;
         Cursor cursor = database.rawQuery(query, null);
 
         if(cursor.moveToFirst()) {
@@ -255,10 +264,12 @@ public class JournalDao {
      *
      * @return
      */
-    public int updateEntry(Journal entry, int id) {
+    public int updateEntry(Journal entry, int id) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
         Calendar now = Calendar.getInstance();
+
+        //NOTE: DateTime is a combination of Date and StartTime converted into ISO8601 format. Used for date sorting.
+        Date dateTime = ANDROID_TIME.parse(entry.getDate().trim() + ":" + entry.getStartTime());
 
         open();
         
@@ -266,11 +277,12 @@ public class JournalDao {
         values.put(KEY_DATE, entry.getDate());
         values.put(KEY_START_TIME, entry.getStartTime());
         values.put(KEY_END_TIME, entry.getEndTime());
+        values.put(KEY_DATE_TIME, ISO8601.format(dateTime));
         values.put(KEY_FEED_TIME, entry.getFeedTime());
         values.put(KEY_SIDE, entry.getSide());
         values.put(KEY_OUNCES, entry.getOunces());
         values.put(KEY_CHILD_ID, entry.getChild());
-        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, ISO8601.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
@@ -356,10 +368,11 @@ public class JournalDao {
                 cursor.getString(4),
                 cursor.getString(5),
                 cursor.getString(6),
-                Integer.parseInt(cursor.getString(7)),
-                cursor.getString(8),
+                cursor.getString(7),
+                Integer.parseInt(cursor.getString(8)),
                 cursor.getString(9),
                 cursor.getString(10),
-                cursor.getString(11));
+                cursor.getString(11),
+                cursor.getString(12));
     }
 }

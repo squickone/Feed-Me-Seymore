@@ -4,6 +4,7 @@ import android.app.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
@@ -13,6 +14,8 @@ import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 import com.feedme.model.Settings;
+
+import java.text.ParseException;
 
 /**
  * User: dayel.ostraco
@@ -104,13 +107,17 @@ public class EditBottleFeedActivity extends FeedActivity
         {
             public void onClick(View v)
             {
-                journalDao.updateEntry(new Journal(entryDate.getText().toString(),
-                        startTime.getText().toString(),
-                        endTime.getText().toString(),
-                        " ",
-                        " ",
-                        feedAmt.getSelectedItem().toString(),
-                        baby.getId()), journal.getId());
+                try {
+                    journalDao.updateEntry(new Journal(entryDate.getText().toString(),
+                            startTime.getText().toString(),
+                            endTime.getText().toString(),
+                            " ",
+                            " ",
+                            feedAmt.getSelectedItem().toString(),
+                            baby.getId()), journal.getId());
+                } catch (ParseException e){
+                    Log.d("EditBottleFeedActivity", "Could not parse Date and StartTime into a ISO8601 format");
+                }
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtras(bundle);

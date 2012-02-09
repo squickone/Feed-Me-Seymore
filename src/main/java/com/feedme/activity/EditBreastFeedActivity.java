@@ -13,6 +13,7 @@ import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -104,13 +105,17 @@ public class EditBreastFeedActivity extends FeedActivity
         {
             public void onClick(View v)
             {
-                journalDao.updateEntry(new Journal(entryDate.getText().toString(),
-                        startTime.getText().toString(),
-                        endTime.getText().toString(),
-                        journal.getFeedTime(),
-                        entrySide.getSelectedItem().toString(),
-                        "",
-                        baby.getId()), journal.getId());
+                try {
+                    journalDao.updateEntry(new Journal(entryDate.getText().toString(),
+                            startTime.getText().toString(),
+                            endTime.getText().toString(),
+                            journal.getFeedTime(),
+                            entrySide.getSelectedItem().toString(),
+                            "",
+                            baby.getId()), journal.getId());
+                } catch (ParseException e){
+                    Log.d("EditBreastFeedActivity", "Could not parse Date and StartTime into a ISO8601 format");
+                }
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("baby", baby);

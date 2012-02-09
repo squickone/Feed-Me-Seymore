@@ -13,6 +13,8 @@ import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 import com.feedme.model.Settings;
 
+import java.text.ParseException;
+
 /**
  * User: dayel.ostraco
  * Date: 1/16/12
@@ -97,7 +99,12 @@ public class AddBottleFeedActivity extends FeedActivity
                                                     feedAmt.getSelectedItem().toString(),
                                                     baby.getId());
                 Log.d("JOURNAL-ADD:", insertJournal.dump());
-                journalDao.addEntry(insertJournal);
+
+                try {
+                    journalDao.addEntry(insertJournal);
+                } catch (ParseException e){
+                    Log.d("AddBottleFeedActivity", "Could not parse Date and StartTime into a ISO8601 format");
+                }
 
                 Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                 intent.putExtras(bundle);
