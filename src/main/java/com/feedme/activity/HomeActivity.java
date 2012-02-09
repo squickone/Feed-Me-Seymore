@@ -183,27 +183,6 @@ public class HomeActivity extends BaseActivity
         }
     }
 
-    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees)
-    {
-
-        int width = bitMap.getWidth();
-        int height = bitMap.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-
-        // create a matrix for the manipulation
-        Matrix matrix = new Matrix();
-
-        // resize the bit map
-        matrix.postScale(scaleWidth, scaleHeight);
-        //matrix.postRotate(rotateInDegrees);
-
-        // recreate the new Bitmap
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, false);
-
-        return resizedBitmap;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {

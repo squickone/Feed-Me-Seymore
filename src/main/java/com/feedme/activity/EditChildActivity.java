@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -42,12 +44,32 @@ public class EditChildActivity extends ChildActivity
 
         final Baby editBaby = (Baby) getIntent().getSerializableExtra("baby");
 
+        Log.d("BABY:EDIT:", editBaby.dump());
+
         final EditText babyName = (EditText) findViewById(R.id.babyName);
         final Spinner babySex = (Spinner) findViewById(R.id.babySex);
         final EditText babyHeight = (EditText) findViewById(R.id.babyHeight);
         final EditText babyWeight = (EditText) findViewById(R.id.babyWeight);
         final Button deleteBaby = (Button) findViewById(R.id.deleteBaby);
-        babyDob = (Button) findViewById(R.id.babyDob);;
+        babyDob = (Button) findViewById(R.id.babyDob);
+
+        final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
+        if (editBaby.getPicturePath() != null && !editBaby.getPicturePath().equals("")) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 12;
+            Bitmap bmImg = BitmapFactory.decodeFile(editBaby.getPicturePath(), options);
+            babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
+            babyImage.setMaxWidth(100);
+            babyImage.setMaxHeight(100);
+            babyImage.setMinimumWidth(100);
+            babyImage.setMinimumHeight(100);
+        } else {
+            babyImage.setImageResource(R.drawable.babyicon);
+            babyImage.setMaxWidth(100);
+            babyImage.setMaxHeight(100);
+            babyImage.setMinimumWidth(100);
+            babyImage.setMinimumHeight(100);
+        }
 
         styleActivity(editBaby.getSex());
 
@@ -93,6 +115,7 @@ public class EditChildActivity extends ChildActivity
         
         if (getIntent().getStringExtra("picturePath") != null)
         {
+            editBaby.setPicturePath(getIntent().getStringExtra("picturePath"));
             babyName.setText(editBaby.getName());
             babyHeight.setText(editBaby.getHeight());
             babyWeight.setText(editBaby.getWeight());
@@ -111,10 +134,10 @@ public class EditChildActivity extends ChildActivity
         }
 
         //Take Picture Button
-        takePicture.setOnClickListener(takePictureListener(EDIT_CHILD_ACTIVITY_ID));
+        takePicture.setOnClickListener(takePictureListener(editBaby.getId(), EDIT_CHILD_ACTIVITY_ID));
 
         //Select Picture Button
-        selectPicture.setOnClickListener(selectPictureListener(EDIT_CHILD_ACTIVITY_ID));
+        selectPicture.setOnClickListener(selectPictureListener(editBaby.getId(), EDIT_CHILD_ACTIVITY_ID));
 
         //declare alert dialog
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -148,13 +171,7 @@ public class EditChildActivity extends ChildActivity
                     alertDialog.show();
                 }
                 else
-                {      // else add child to database
-                    String picturePath = "";
-                    if (getIntent().getExtras() != null && getIntent().getExtras().get("picturePath") != null) {
-                        editBaby.setPicturePath(getIntent().getExtras().getString("picturePath"));
-                    }
-
-                    Log.d("UPDATE: ", "Updating ..");
+                {      
                     Baby updateBaby = new Baby(editBaby.getId(),
                             babyName.getText().toString(),
                             babySex.getSelectedItem().toString(),
@@ -162,6 +179,8 @@ public class EditChildActivity extends ChildActivity
                             babyWeight.getText().toString(),
                             babyDob.getText().toString(),
                             editBaby.getPicturePath());
+
+                    Log.d("BABY:UPDATE: ", updateBaby.dump());
 
                     babyDao.updateBaby(updateBaby, editBaby.getId());
 

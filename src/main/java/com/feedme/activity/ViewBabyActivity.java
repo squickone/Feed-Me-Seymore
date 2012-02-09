@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -66,6 +67,8 @@ public class ViewBabyActivity extends BaseActivity
             tempBaby = babyDao.getBabyByName(getIntent().getExtras().getString("babyName"));
         }
         final Baby baby = tempBaby;
+
+        Log.d("BABY:VIEW:", baby.dump());
 
         bundle.putSerializable("baby", baby);
 
@@ -291,36 +294,6 @@ public class ViewBabyActivity extends BaseActivity
                 break;
         }
         return true;
-    }
-
-    /**
-     * Resizes a Bitmap based on the passed in newHeight and newWidth and rotates the image by rotateInDegrees.
-     *
-     * @param bitMap
-     * @param newHeight
-     * @param newWidth
-     * @param rotateInDegrees
-     * @return
-     */
-    private Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees)
-    {
-
-        int width = bitMap.getWidth();
-        int height = bitMap.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-
-        // create a matrix for the manipulation
-        Matrix matrix = new Matrix();
-
-        // resize the bit map
-        matrix.postScale(scaleWidth, scaleHeight);
-        //matrix.postRotate(rotateInDegrees);
-
-        // recreate the new Bitmap
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, false);
-
-        return resizedBitmap;
     }
 
     /**

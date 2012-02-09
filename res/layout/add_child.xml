@@ -30,6 +30,16 @@
 
         <TableRow style="@style/formRow">
             <TextView
+                    android:text="Picture:"
+                    style="@style/formTag">
+            </TextView>
+            <ImageView
+                android:id="@+id/babyPicture"
+                android:layout_alignParentLeft="true"/>
+        </TableRow>
+
+        <TableRow style="@style/formRow">
+            <TextView
                     android:text="Baby Name:"
                     style="@style/formTag">
             </TextView>
