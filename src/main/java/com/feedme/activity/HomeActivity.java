@@ -144,13 +144,14 @@ public class HomeActivity extends BaseActivity
                 babyImage.setMinimumHeight(150);
             }
 
+            final int babyId = myList[j].getId();
             //button listener for each baby
             b.setOnClickListener(new View.OnClickListener()
             {
                 public void onClick(View v)
                 {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                    intent.putExtra("babyName", b.getText());
+                    intent.putExtra("babyId", babyId);
                     startActivityForResult(intent, 3);
                 }
             });
@@ -159,7 +160,7 @@ public class HomeActivity extends BaseActivity
                 public void onClick(View v)
                 {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                    intent.putExtra("babyName", b.getText());
+                    intent.putExtra("babyId", babyId);
                     startActivityForResult(intent, 3);
                 }
             });

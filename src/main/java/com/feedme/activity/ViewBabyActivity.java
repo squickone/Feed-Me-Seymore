@@ -63,7 +63,7 @@ public class ViewBabyActivity extends BaseActivity
         }
         else
         {
-            tempBaby = babyDao.getBabyByName(getIntent().getExtras().getString("babyName"));
+            tempBaby = babyDao.getBaby(getIntent().getExtras().getInt("babyId"));
         }
         final Baby baby = tempBaby;
 
