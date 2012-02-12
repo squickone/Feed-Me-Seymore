@@ -12,9 +12,8 @@ import com.feedme.activity.EditDiaperActivity;
 import com.feedme.activity.EditNapActivity;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.*;
+import com.feedme.util.DateUtil;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +22,6 @@ import java.util.List;
  * Time: 1:19 PM
  */
 public class JournalTable {
-    private SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 
     public void buildRows(final Activity activity, List<BaseObject> baseObjects, Baby baby, TableLayout tableLayout) {
         SettingsDao settingsDao = new SettingsDao(activity.getApplicationContext());
@@ -109,7 +107,17 @@ public class JournalTable {
                 entryType.setText("Diaper");
                 
             } else if(baseObject instanceof Nap){
-                entryType.setText("Nap");
+                Nap nap = (Nap) baseObject;
+                
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("Nap");
+                
+                if(nap.getLocation()!=null && !nap.getLocation().equals("")){
+                    stringBuilder.append(" - ");
+                    stringBuilder.append(nap.getLocation());
+                }
+
+                entryType.setText(stringBuilder.toString());
             }
 
             //Sets entryType to the linearLayoutVertical
@@ -127,34 +135,46 @@ public class JournalTable {
              * Metrics
              */
             TextView metrics = new TextView(activity.getApplicationContext());
+            DateUtil dateUtil = new DateUtil();
             metrics.setTextColor(0xFF000000);
+            StringBuilder metricsBuffer = new StringBuilder();
 
             if(baseObject instanceof Journal){
                 
                 Journal journal = (Journal) baseObject;
-
+                boolean isBottleFed = false;
                 if (!journal.getOunces().isEmpty()) {
-
+                    isBottleFed = true;
                     if (journal.getSide().trim().isEmpty()) {
-                        metrics.setText(journal.getOunces() + " " + setting.getLiquid());
+                        metricsBuffer.append(journal.getOunces() + " " + setting.getLiquid());
                     } else {
-                        metrics.setText(journal.getOunces());
+                        metricsBuffer.append(journal.getOunces());
                     }
                 }
 
-                if (journal.getFeedTime().trim().length() > 0) {
-                    Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
-                    metrics.setText(simpleTimeFormat.format(dateDuration));
+                if (journal.getFeedTime()!=null && !journal.getFeedTime().equals("0") && !journal.getFeedTime().trim().equals("")) {
+                    String duration = dateUtil.convertDateLongToTimeString(Long.parseLong(journal.getFeedTime()));
+                    metricsBuffer.append(dateUtil.getDurationAsStringMsg(duration));
+
+                } else {
+                    if(isBottleFed){
+                        metricsBuffer.append(" - ");
+                    }
+                    metricsBuffer.append(dateUtil.getDurationAsStringMsg(journal.getStartTime(), journal.getEndTime()));
                 }
 
             } else if(baseObject instanceof Diaper){
                 Diaper diaper = (Diaper) baseObject;
-                metrics.setText(diaper.getType());
+                metricsBuffer.append(diaper.getType());
 
             } else if(baseObject instanceof Nap){
                 Nap nap = (Nap) baseObject;
-                metrics.setText(nap.getLocation());
+                metricsBuffer.append(nap.getLocation());
+                metricsBuffer.append(" - ");
+                metricsBuffer.append(dateUtil.getDurationAsStringMsg(nap.getStartTime(), nap.getEndTime()));
             }
+            
+            metrics.setText(metricsBuffer.toString());
 
             //Add Metrics text to linearLayoutVertical
             linearLayoutVertical.addView(metrics);

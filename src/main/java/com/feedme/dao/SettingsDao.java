@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import com.feedme.database.SettingsColumn;
 import com.feedme.model.Settings;
+import com.feedme.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -52,7 +53,7 @@ public class SettingsDao {
      */
     public void addSettings(Settings settings) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
         Calendar now = Calendar.getInstance();
 
         open();
@@ -64,8 +65,8 @@ public class SettingsDao {
         values.put(KEY_TEMPERATURE, settings.getTemperature());
         values.put(KEY_SOUND, settings.getSound());
         values.put(KEY_VIBRATE, settings.getVibrate());
-        values.put(KEY_CREATED_DATE, sdf.format(now.getTime()));
-        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
+        values.put(KEY_CREATED_DATE, iso8601.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -105,7 +106,7 @@ public class SettingsDao {
      */
     public int updateSettings(Settings setting, int id) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
         Calendar now = Calendar.getInstance();
 
         open();
@@ -117,7 +118,7 @@ public class SettingsDao {
         values.put(KEY_TEMPERATURE, setting.getTemperature());
         values.put(KEY_SOUND, setting.getSound());
         values.put(KEY_VIBRATE, setting.getVibrate());
-        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });

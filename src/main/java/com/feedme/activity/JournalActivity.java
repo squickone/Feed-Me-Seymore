@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -34,8 +33,6 @@ public abstract class JournalActivity extends BaseActivity
     public int endMinute;
     public int endSecond;
 
-    public SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
-    
     @Override
     protected Dialog onCreateDialog(int id)
     {
@@ -151,7 +148,7 @@ public abstract class JournalActivity extends BaseActivity
                         // Month is 0 based so add 1
                         .append(mMonth + 1).append("-")
                         .append(mDay).append("-")
-                        .append(mYear).append(" "));
+                        .append(mYear));
     }
 
     // add leading zero to times

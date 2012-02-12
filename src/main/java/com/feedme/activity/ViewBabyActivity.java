@@ -53,27 +53,14 @@ public class ViewBabyActivity extends BaseActivity
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/View-Baby");
 
-        final BabyDao babyDao = new BabyDao(getApplicationContext());
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-
-        Baby tempBaby;
-        if (getIntent().getSerializableExtra("baby") != null)
-        {
-            tempBaby = (Baby) getIntent().getSerializableExtra("baby");
-        }
-        else
-        {
-            tempBaby = babyDao.getBaby(getIntent().getExtras().getInt("babyId"));
-        }
-        final Baby baby = tempBaby;
-
+        final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
         Log.d("BABY:VIEW:", baby.dump());
-
         bundle.putSerializable("baby", baby);
 
         //Get today's feedings
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy ");
+        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy");
         int feedingCount = journalDao.getEntriesCountByBabyAndDate(baby.getId(), androidFormat.format(calendar.getTime()));
         TextView todayFeedingCount = (TextView) findViewById(R.id.todayFeedings);
         String feedingCountStr = feedingCount == 0 ? "No Feeding's Today" : feedingCount + "";
@@ -249,7 +236,7 @@ public class ViewBabyActivity extends BaseActivity
                         intent.putExtras(bundle);
                         startActivity(intent);
                     }
-            
+
                     if (which == 1)
                     {
                         googleAnalyticsTracker.trackEvent("Clicks","Button","AddBreastFeeding", 0);
@@ -321,12 +308,12 @@ public class ViewBabyActivity extends BaseActivity
     private List<BaseObject> getTodaysHistory(Baby baby, Context context){
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy ");
-        
+        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy");
+
         JournalDao journalDao = new JournalDao(context);
         DiaperDao diaperDao = new DiaperDao(context);
         NapDao napDao = new NapDao(context);
-        
+
         List<BaseObject> history = new ArrayList<BaseObject>();
         history.addAll(journalDao.getEntriesForChildByDate(baby.getId(), androidFormat.format(calendar.getTime())));
         history.addAll(diaperDao.getDiapersForChildByDate(baby.getId(), androidFormat.format(calendar.getTime())));

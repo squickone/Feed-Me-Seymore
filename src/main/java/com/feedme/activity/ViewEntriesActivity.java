@@ -13,8 +13,8 @@ import com.feedme.model.Baby;
 import com.feedme.model.BaseObject;
 import com.feedme.ui.JournalTable;
 import com.feedme.util.BaseObjectComparator;
+import com.feedme.util.DateUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -27,9 +27,6 @@ import java.util.List;
  * Time: 12:29 PM
  */
 public class ViewEntriesActivity extends JournalActivity {
-
-    private static final SimpleDateFormat ANDROID_FORMAT = new SimpleDateFormat("M-d-yyyy ");
-    private static final SimpleDateFormat HEADER_FORMAT = new SimpleDateFormat("MMMMMMMMM, d yyyy");
 
     private static final int SWIPE_MIN_DISTANCE = 80;
     private static final int SWIPE_MAX_OFF_PATH = 350;
@@ -68,7 +65,8 @@ public class ViewEntriesActivity extends JournalActivity {
         }
 
         TextView journalHeader = (TextView) findViewById(R.id.journalHeader);
-        journalHeader.setText(HEADER_FORMAT.format(calendar.getTime()));
+        DateUtil dateUtil = new DateUtil();
+        journalHeader.setText(dateUtil.convertDateToHeaderString(calendar.getTime()));
 
         baby = (Baby) getIntent().getSerializableExtra("baby");
         bundle.putSerializable("baby", baby);
@@ -89,7 +87,7 @@ public class ViewEntriesActivity extends JournalActivity {
         styleActivity(baby.getSex());
         handleButtons(bundle);
 
-        List<BaseObject> history = getHistory(baby, ANDROID_FORMAT.format(calendar.getTime()), getApplicationContext());
+        List<BaseObject> history = getHistory(baby, dateUtil.convertDateToAndroidTimeString(calendar.getTime()), getApplicationContext());
         TableLayout tableLayout = (TableLayout) findViewById(R.id.myTableLayout);
 
         if (history.size() > 0) {

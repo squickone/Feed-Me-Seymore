@@ -126,11 +126,11 @@ public class EditDiaperActivity extends DiaperActivity {
                 DiaperDao diaperDao = new DiaperDao(getApplicationContext());
                 diaperDao.deleteDiaperByID(diaperId);
 
-                Intent intent = new Intent(EditDiaperActivity.this, ViewDiapersActivity.class);
+                Intent intent = new Intent(EditDiaperActivity.this, ViewBabyActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("baby", baby);
                 intent.putExtras(bundle);
-                startActivityForResult(intent, EDIT_DIAPER_ACTIVITY_ID);
+                startActivityForResult(intent, VIEW_BABY_ACTIVITY_ID);
 
             }
         });

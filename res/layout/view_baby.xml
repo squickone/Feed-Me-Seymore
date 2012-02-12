@@ -214,7 +214,7 @@
         <Button android:text="Naps"
                 android:id="@+id/naps_Button"
                 android:drawableTop="@drawable/icon_nap"
-                android:layout_toRightOf="@+id/journalButton"
+                android:layout_toLeftOf="@+id/diapersButton"
                 style="@style/iconNavButton"
                 />
 

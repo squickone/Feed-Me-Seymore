@@ -7,8 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.feedme.R;
 import com.feedme.model.Baby;
+import com.feedme.util.DateUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -24,7 +24,6 @@ public class TimerActivity extends BaseActivity
     private long stopTime;
     private long duration;
     private Calendar calendar;
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
     boolean paused = false;
     
     public void onCreate(Bundle savedInstanceState)
@@ -177,7 +176,8 @@ public class TimerActivity extends BaseActivity
         {
             TextView timerLabel = (TextView) findViewById(R.id.timerLabel);
 
-            String strTimer = simpleDateFormat.format(calendar.getTime());
+            DateUtil dateUtil = new DateUtil();
+            String strTimer = dateUtil.convertDateLongToTimeString(calendar.getTime().getTime());
             timerLabel.setText(strTimer);
             calendar.add(Calendar.SECOND, 1);
 		}

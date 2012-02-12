@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import com.feedme.database.JournalColumn;
 import com.feedme.model.Journal;
+import com.feedme.util.DateUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,9 +20,6 @@ import java.util.List;
  * This DAO class handles all CRUD operations on the Entries table in the SQLLite database.
  */
 public class JournalDao {
-
-    private static final SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-    private static final SimpleDateFormat ANDROID_TIME = new SimpleDateFormat("M-d-yyyy:hh:mm:ss");
 
     // Contacts table name
     private static final String TABLE_DATA = JournalColumn.TABLE_NAME;
@@ -66,7 +64,9 @@ public class JournalDao {
         Calendar now = Calendar.getInstance();
 
         //NOTE: DateTime is a combination of Date and StartTime converted into ISO8601 format. Used for date sorting.
-        Date dateTime = ANDROID_TIME.parse(entry.getDate().trim() + ":" + entry.getStartTime());
+        SimpleDateFormat androidTime = new SimpleDateFormat(DateUtil.ANDROID_TIME_FORMAT);
+        SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
+        Date dateTime = androidTime.parse(entry.getDate().trim() + ":" + entry.getStartTime());
         
         open();
 
@@ -74,15 +74,15 @@ public class JournalDao {
         values.put(KEY_DATE, entry.getDate()); // Date
         values.put(KEY_START_TIME, entry.getStartTime()); // Time
         values.put(KEY_END_TIME, entry.getEndTime()); // Time
-        values.put(KEY_DATE_TIME, ISO8601.format(dateTime)); // DateTime
+        values.put(KEY_DATE_TIME, iso8601.format(dateTime)); // DateTime
         values.put(KEY_FEED_TIME, entry.getFeedTime()); // Feed Time
         values.put(KEY_SIDE, entry.getSide()); // Side
         values.put(KEY_OUNCES, entry.getOunces()); // Ounces
         values.put(KEY_CHILD_ID, entry.getChild()); // Child ID
         values.put(KEY_LATITUDE, entry.getLatitude());
         values.put(KEY_LONGITUDE, entry.getLongitude());
-        values.put(KEY_CREATED_DATE, ISO8601.format(now.getTime()));
-        values.put(KEY_LAST_MOD_DATE, ISO8601.format(now.getTime()));
+        values.put(KEY_CREATED_DATE, iso8601.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // Inserting Row
         long result = database.insert(TABLE_DATA, null, values);
@@ -292,7 +292,9 @@ public class JournalDao {
         Calendar now = Calendar.getInstance();
 
         //NOTE: DateTime is a combination of Date and StartTime converted into ISO8601 format. Used for date sorting.
-        Date dateTime = ANDROID_TIME.parse(entry.getDate().trim() + ":" + entry.getStartTime());
+        SimpleDateFormat androidTime = new SimpleDateFormat(DateUtil.ANDROID_TIME_FORMAT);
+        SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
+        Date dateTime = androidTime.parse(entry.getDate().trim() + ":" + entry.getStartTime());
 
         open();
         
@@ -300,12 +302,12 @@ public class JournalDao {
         values.put(KEY_DATE, entry.getDate());
         values.put(KEY_START_TIME, entry.getStartTime());
         values.put(KEY_END_TIME, entry.getEndTime());
-        values.put(KEY_DATE_TIME, ISO8601.format(dateTime));
+        values.put(KEY_DATE_TIME, iso8601.format(dateTime));
         values.put(KEY_FEED_TIME, entry.getFeedTime());
         values.put(KEY_SIDE, entry.getSide());
         values.put(KEY_OUNCES, entry.getOunces());
         values.put(KEY_CHILD_ID, entry.getChild());
-        values.put(KEY_LAST_MOD_DATE, ISO8601.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });

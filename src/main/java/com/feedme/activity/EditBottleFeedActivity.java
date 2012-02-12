@@ -131,7 +131,7 @@ public class EditBottleFeedActivity extends FeedActivity
         {
             public void onClick(View v)
             {
-                deleteEntry(journal.getId(), baby.getName());
+                deleteEntry(journal.getId(), baby);
             }
         });
 
@@ -157,7 +157,7 @@ public class EditBottleFeedActivity extends FeedActivity
         return true;
     }
 
-    private void deleteEntry(final int entryID, final String babyName)
+    private void deleteEntry(final int entryID, final Baby baby)
     {
 
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditBottleFeedActivity.this);
@@ -170,7 +170,11 @@ public class EditBottleFeedActivity extends FeedActivity
                 JournalDao journalDao = new JournalDao(getApplicationContext());
                 journalDao.deleteEntryByID(entryID);
                 Intent intent = new Intent(EditBottleFeedActivity.this, ViewBabyActivity.class);
-                intent.putExtra("babyName", babyName);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("baby", baby);
+                intent.putExtras(bundle);
+
                 startActivityForResult(intent, 3);
 
             }
