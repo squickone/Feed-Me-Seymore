@@ -12,9 +12,8 @@ import com.feedme.activity.EditDiaperActivity;
 import com.feedme.activity.EditNapActivity;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.*;
+import com.feedme.util.DateUtil;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +22,6 @@ import java.util.List;
  * Time: 1:19 PM
  */
 public class JournalTable {
-    private SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 
     public void buildRows(final Activity activity, List<BaseObject> baseObjects, Baby baby, TableLayout tableLayout) {
         SettingsDao settingsDao = new SettingsDao(activity.getApplicationContext());
@@ -127,7 +125,9 @@ public class JournalTable {
              * Metrics
              */
             TextView metrics = new TextView(activity.getApplicationContext());
+            DateUtil dateUtil = new DateUtil();
             metrics.setTextColor(0xFF000000);
+            StringBuilder metricsBuffer = new StringBuilder();
 
             if(baseObject instanceof Journal){
                 
@@ -136,25 +136,31 @@ public class JournalTable {
                 if (!journal.getOunces().isEmpty()) {
 
                     if (journal.getSide().trim().isEmpty()) {
-                        metrics.setText(journal.getOunces() + " " + setting.getLiquid());
+                        metricsBuffer.append(journal.getOunces() + " " + setting.getLiquid());
                     } else {
-                        metrics.setText(journal.getOunces());
+                        metricsBuffer.append(journal.getOunces());
                     }
                 }
 
+                metricsBuffer.append(" - ");
                 if (journal.getFeedTime().trim().length() > 0) {
-                    Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
-                    metrics.setText(simpleTimeFormat.format(dateDuration));
+                    metricsBuffer.append(dateUtil.convertFeedTime(journal.getFeedTime()));
+                } else {
+                    metricsBuffer.append(dateUtil.getDuration(journal.getStartTime(), journal.getEndTime()));
                 }
 
             } else if(baseObject instanceof Diaper){
                 Diaper diaper = (Diaper) baseObject;
-                metrics.setText(diaper.getType());
+                metricsBuffer.append(diaper.getType());
 
             } else if(baseObject instanceof Nap){
                 Nap nap = (Nap) baseObject;
-                metrics.setText(nap.getLocation());
+                metricsBuffer.append(nap.getLocation());
+                metricsBuffer.append(" - ");
+                metricsBuffer.append(dateUtil.getDuration(nap.getStartTime(), nap.getEndTime()));
             }
+            
+            metrics.setText(metricsBuffer.toString());
 
             //Add Metrics text to linearLayoutVertical
             linearLayoutVertical.addView(metrics);
