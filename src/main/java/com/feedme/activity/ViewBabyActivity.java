@@ -60,7 +60,7 @@ public class ViewBabyActivity extends BaseActivity
 
         //Get today's feedings
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy ");
+        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy");
         int feedingCount = journalDao.getEntriesCountByBabyAndDate(baby.getId(), androidFormat.format(calendar.getTime()));
         TextView todayFeedingCount = (TextView) findViewById(R.id.todayFeedings);
         String feedingCountStr = feedingCount == 0 ? "No Feeding's Today" : feedingCount + "";
@@ -310,7 +310,7 @@ public class ViewBabyActivity extends BaseActivity
     private List<BaseObject> getTodaysHistory(Baby baby, Context context){
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy ");
+        SimpleDateFormat androidFormat = new SimpleDateFormat("M-d-yyyy");
 
         JournalDao journalDao = new JournalDao(context);
         DiaperDao diaperDao = new DiaperDao(context);

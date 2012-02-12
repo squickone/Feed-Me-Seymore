@@ -12,9 +12,13 @@ import java.util.Date;
 public class DateUtil {
 
     private SimpleDateFormat timeStringFormat;
+    private SimpleDateFormat androidFormat;
+    private SimpleDateFormat headerFormat;
     
     public DateUtil(){
         timeStringFormat = new SimpleDateFormat("HH:mm:ss");
+        androidFormat = new SimpleDateFormat("M-d-yyyy");
+        headerFormat = new SimpleDateFormat("MMMMMMMMM, d yyyy");
     }
 
     /**
@@ -103,6 +107,14 @@ public class DateUtil {
      */
     public synchronized String convertDateLongToTimeString(Long feedTime){
         return timeStringFormat.format(feedTime);
+    }
+    
+    public synchronized String convertDateToHeaderString(Date date){
+        return headerFormat.format(date);
+    }
+    
+    public synchronized String convertDateToAndroidTimeString(Date date){
+        return androidFormat.format(date);
     }
 
     /**

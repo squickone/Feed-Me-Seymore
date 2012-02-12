@@ -14,8 +14,6 @@ import com.feedme.dao.SettingsDao;
 import com.feedme.model.*;
 import com.feedme.util.DateUtil;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,8 +22,6 @@ import java.util.List;
  * Time: 1:19 PM
  */
 public class JournalTable {
-
-    private SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 
     public void buildRows(final Activity activity, List<BaseObject> baseObjects, Baby baby, TableLayout tableLayout) {
         SettingsDao settingsDao = new SettingsDao(activity.getApplicationContext());
@@ -146,9 +142,9 @@ public class JournalTable {
             if(baseObject instanceof Journal){
                 
                 Journal journal = (Journal) baseObject;
-
+                boolean isBottleFed = false;
                 if (!journal.getOunces().isEmpty()) {
-
+                    isBottleFed = true;
                     if (journal.getSide().trim().isEmpty()) {
                         metricsBuffer.append(journal.getOunces() + " " + setting.getLiquid());
                     } else {
@@ -156,11 +152,14 @@ public class JournalTable {
                     }
                 }
 
-                if (journal.getFeedTime()!=null && !journal.getFeedTime().equals("0")) {
+                if (journal.getFeedTime()!=null && !journal.getFeedTime().equals("0") && !journal.getFeedTime().equals("")) {
                     String duration = dateUtil.convertDateLongToTimeString(Long.parseLong(journal.getFeedTime()));
                     metricsBuffer.append(dateUtil.getDurationAsStringMsg(duration));
 
                 } else {
+                    if(isBottleFed){
+                        metricsBuffer.append(" - ");
+                    }
                     metricsBuffer.append(dateUtil.getDurationAsStringMsg(journal.getStartTime(), journal.getEndTime()));
                 }
 

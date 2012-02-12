@@ -12,6 +12,7 @@ import com.feedme.R;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
+import com.feedme.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -66,8 +67,9 @@ public class EditBreastFeedActivity extends FeedActivity
 
         if (journal.getFeedTime().trim().length() > 0)
         {
+            DateUtil dateUtil = new DateUtil();
             Date dateDuration = new Date(Long.valueOf(journal.getFeedTime()));
-            timerDuration.setText(simpleTimeFormat.format(dateDuration));
+            timerDuration.setText(dateUtil.convertDateLongToTimeString(dateDuration.getTime()));
         }
 
         if (journal.getSide().equals("Left")) {

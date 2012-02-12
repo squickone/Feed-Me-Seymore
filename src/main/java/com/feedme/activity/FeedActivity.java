@@ -1,19 +1,10 @@
 package com.feedme.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
 import com.feedme.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 /**
  * User: steve quick

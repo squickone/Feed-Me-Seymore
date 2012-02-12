@@ -10,6 +10,7 @@ import com.feedme.R;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
+import com.feedme.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -62,7 +63,7 @@ public class AddBreastFeedActivity extends FeedActivity
         long timerStart = 0L;
         long timerStop = 0L;
         long duration = 0L;
-        
+
         if (b.get("timerStart") != null)
         {
             timerStart = b.getLong("timerStart");
@@ -75,7 +76,8 @@ public class AddBreastFeedActivity extends FeedActivity
             Date dateStop = new Date(timerStop);
             Date dateDuration = new Date(duration);
 
-            timerDuration.setText(simpleTimeFormat.format(dateDuration));
+            DateUtil dateUtil = new DateUtil();
+            timerDuration.setText(dateUtil.convertDateLongToTimeString(dateDuration.getTime()));
             entrySide.setSelection(b.getInt("entrySide"));
 
             calendarStart.setTime(dateStart);
