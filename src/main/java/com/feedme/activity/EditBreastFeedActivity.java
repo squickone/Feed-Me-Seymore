@@ -24,7 +24,6 @@ import java.util.Date;
  */
 public class EditBreastFeedActivity extends FeedActivity
 {
-    private TextView timerDuration;
     private Spinner entrySide;
 
     @Override
@@ -56,7 +55,7 @@ public class EditBreastFeedActivity extends FeedActivity
         entryDate = (Button) findViewById(R.id.entryDate);
         startTime = (Button) findViewById(R.id.addStartTime);
         endTime = (Button) findViewById(R.id.addEndTime);
-        timerDuration = (TextView) findViewById(R.id.timerDuration);
+        TextView timerDuration = (TextView) findViewById(R.id.timerDuration);
 
         entrySide = (Spinner) findViewById(R.id.entrySide);
         Button editEntryButton = (Button) findViewById(R.id.editEntryButton);
@@ -132,7 +131,7 @@ public class EditBreastFeedActivity extends FeedActivity
         {
             public void onClick(View v)
             {
-                deleteEntry(journal.getId(), baby.getName());
+                deleteEntry(journal.getId(), baby);
             }
         });
     }
@@ -157,7 +156,7 @@ public class EditBreastFeedActivity extends FeedActivity
         return true;
     }
 
-    private void deleteEntry(final int entryID, final String babyName)
+    private void deleteEntry(final int entryID, final Baby baby)
     {
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditBreastFeedActivity.this);
         myAlertDialog.setTitle("Delete Entry");
@@ -170,9 +169,12 @@ public class EditBreastFeedActivity extends FeedActivity
                 JournalDao journalDao = new JournalDao(getApplicationContext());
                 journalDao.deleteEntryByID(entryID);
                 Intent intent = new Intent(EditBreastFeedActivity.this, ViewBabyActivity.class);
-                intent.putExtra("babyName", babyName);
+                
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("baby", baby);
+                intent.putExtras(bundle);
+                
                 startActivityForResult(intent, 3);
-
             }
         });
         myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()

@@ -1,13 +1,8 @@
 package com.feedme.activity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,10 +12,8 @@ import android.view.View;
 import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
-import com.feedme.dao.NapDao;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
-import com.feedme.model.Nap;
 import com.feedme.model.Settings;
 
 public class HomeActivity extends BaseActivity
@@ -83,13 +76,17 @@ public class HomeActivity extends BaseActivity
     public void showBabies()
     {
         final BabyDao babyDao = new BabyDao(getApplicationContext());
+        final Bundle bundle = new Bundle();
+        
         Baby[] myList = babyDao.getAllBabiesAsStringArray();
-
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.babyScroll);
 
         int j = 0;
         while (j < myList.length) {
+            final Baby baby = myList[j];
+            bundle.putSerializable("baby", baby);
+            
             TableLayout tl = new TableLayout(this);
             TableRow tr = new TableRow(this);  //create new row
             TableRow tr2 = new TableRow(this);  //create new row
@@ -107,13 +104,13 @@ public class HomeActivity extends BaseActivity
 
             final Button b = new Button(this);                    //create button for child
 
-            if (myList[j].getSex().equals("Male")) {     //change bg color of row and button
+            if (baby.getSex().equals("Male")) {     //change bg color of row and button
                 b.setBackgroundColor(0xFF7ED0FF);
             } else {
                 b.setBackgroundColor(0xFFFF99CC);
             }
 
-            b.setText(myList[j].getName());                     //put child's name on button
+            b.setText(baby.getName());                     //put child's name on button
             b.setTextColor(0xFFFFFFFF);
             b.setLayoutParams(new TableRow.LayoutParams(        //set params of button
                     TableRow.LayoutParams.WRAP_CONTENT,
@@ -127,10 +124,10 @@ public class HomeActivity extends BaseActivity
 
             final ImageView babyImage = new ImageView(this);
 
-            if (myList[j].getPicturePath() != null && !myList[j].getPicturePath().equals("")) {
+            if (baby.getPicturePath() != null && !baby.getPicturePath().equals("")) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 12;
-                Bitmap bmImg = BitmapFactory.decodeFile(myList[j].getPicturePath(), options);
+                Bitmap bmImg = BitmapFactory.decodeFile(baby.getPicturePath(), options);
                 babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
                 babyImage.setMaxWidth(300);
                 babyImage.setMaxHeight(300);
@@ -144,14 +141,14 @@ public class HomeActivity extends BaseActivity
                 babyImage.setMinimumHeight(150);
             }
 
-            final int babyId = myList[j].getId();
+            final int babyId = baby.getId();
             //button listener for each baby
             b.setOnClickListener(new View.OnClickListener()
             {
                 public void onClick(View v)
                 {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                    intent.putExtra("babyId", babyId);
+                    intent.putExtras(bundle);
                     startActivityForResult(intent, 3);
                 }
             });
@@ -160,7 +157,7 @@ public class HomeActivity extends BaseActivity
                 public void onClick(View v)
                 {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
-                    intent.putExtra("babyId", babyId);
+                    intent.putExtras(bundle);
                     startActivityForResult(intent, 3);
                 }
             });

@@ -119,7 +119,7 @@ public class EditNapActivity extends NapActivity {
             public void onClick(DialogInterface arg0, int arg1) {
                 NapDao napDao = new NapDao(getApplicationContext());
                 napDao.deleteNapByID(napID);
-                Intent intent = new Intent(EditNapActivity.this, ViewNapsActivity.class);
+                Intent intent = new Intent(EditNapActivity.this, ViewBabyActivity.class);
                 Bundle b = new Bundle();
                 b.putSerializable("baby", baby);
                 intent.putExtras(b);
