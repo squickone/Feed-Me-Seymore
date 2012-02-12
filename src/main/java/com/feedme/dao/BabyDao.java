@@ -104,31 +104,6 @@ public class BabyDao {
         return baby;
     }
 
-//    /**
-//     * Getting single baby from the database by its ID.
-//     *
-//     * @param name - The full name of the Baby in the database.
-//     *
-//     * @return - Baby POJO representation of a specific Baby in the database.
-//     */
-//    public Baby getBabyByName(String name) {
-//
-//        open();
-//
-//        Cursor cursor = database.query(TABLE_DATA, BabyColumn.getColumnNames(), KEY_NAME + "=?",
-//                new String[] { String.valueOf(name) }, null, null, null, null);
-//
-//        if (cursor != null){
-//            cursor.moveToFirst();
-//        }
-//
-//        Baby baby =  cursorToBaby(cursor);
-//
-//        close();
-//
-//        return baby;
-//    }
-
     /**
      * Get All Babies from the Database
      *
