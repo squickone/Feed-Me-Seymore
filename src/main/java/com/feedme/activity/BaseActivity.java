@@ -56,7 +56,10 @@ public abstract class BaseActivity extends Activity
     @Override
     public void onDestroy()
     {
-        adView.destroy();
+        if (adView != null)
+        {
+            adView.destroy();
+        }
         super.onDestroy();
     }
 
