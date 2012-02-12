@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="adBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
     <style name="iconNavButton">
         <item name="android:background">@drawable/button_states</item>
         <item name="android:paddingTop">4dp</item>
@@ -47,7 +52,7 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:background">#7ed0ff</item>
         <item name="android:padding">4dp</item>
-        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_below">@+id/adBar</item>
     </style>
     <style name="bottomBanner">
         <item name="android:layout_width">fill_parent</item>

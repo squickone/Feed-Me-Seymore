@@ -22,6 +22,8 @@ import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Nap;
 import com.feedme.model.Settings;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 
 public class HomeActivity extends BaseActivity
 {
@@ -44,6 +46,8 @@ public class HomeActivity extends BaseActivity
 
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/Home");
+
+        displayAd(this);
 
         showBabies();
         initializeSettings();
