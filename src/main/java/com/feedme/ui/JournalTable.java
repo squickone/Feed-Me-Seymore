@@ -14,6 +14,8 @@ import com.feedme.dao.SettingsDao;
 import com.feedme.model.*;
 import com.feedme.util.DateUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +24,8 @@ import java.util.List;
  * Time: 1:19 PM
  */
 public class JournalTable {
+
+    private SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 
     public void buildRows(final Activity activity, List<BaseObject> baseObjects, Baby baby, TableLayout tableLayout) {
         SettingsDao settingsDao = new SettingsDao(activity.getApplicationContext());
@@ -107,7 +111,17 @@ public class JournalTable {
                 entryType.setText("Diaper");
                 
             } else if(baseObject instanceof Nap){
-                entryType.setText("Nap");
+                Nap nap = (Nap) baseObject;
+                
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("Nap");
+                
+                if(nap.getLocation()!=null && !nap.getLocation().equals("")){
+                    stringBuilder.append(" - ");
+                    stringBuilder.append(nap.getLocation());
+                }
+
+                entryType.setText(stringBuilder.toString());
             }
 
             //Sets entryType to the linearLayoutVertical
@@ -142,11 +156,12 @@ public class JournalTable {
                     }
                 }
 
-                metricsBuffer.append(" - ");
-                if (journal.getFeedTime().trim().length() > 0) {
-                    metricsBuffer.append(dateUtil.convertFeedTime(journal.getFeedTime()));
+                if (journal.getFeedTime()!=null && !journal.getFeedTime().equals("0")) {
+                    String duration = dateUtil.convertDateLongToTimeString(Long.parseLong(journal.getFeedTime()));
+                    metricsBuffer.append(dateUtil.getDurationAsStringMsg(duration));
+
                 } else {
-                    metricsBuffer.append(dateUtil.getDuration(journal.getStartTime(), journal.getEndTime()));
+                    metricsBuffer.append(dateUtil.getDurationAsStringMsg(journal.getStartTime(), journal.getEndTime()));
                 }
 
             } else if(baseObject instanceof Diaper){
@@ -157,7 +172,7 @@ public class JournalTable {
                 Nap nap = (Nap) baseObject;
                 metricsBuffer.append(nap.getLocation());
                 metricsBuffer.append(" - ");
-                metricsBuffer.append(dateUtil.getDuration(nap.getStartTime(), nap.getEndTime()));
+                metricsBuffer.append(dateUtil.getDurationAsStringMsg(nap.getStartTime(), nap.getEndTime()));
             }
             
             metrics.setText(metricsBuffer.toString());
