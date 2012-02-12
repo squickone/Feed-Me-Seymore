@@ -85,8 +85,7 @@ public class HomeActivity extends BaseActivity
         int j = 0;
         while (j < myList.length) {
             final Baby baby = myList[j];
-            bundle.putSerializable("baby", baby);
-            
+
             TableLayout tl = new TableLayout(this);
             TableRow tr = new TableRow(this);  //create new row
             TableRow tr2 = new TableRow(this);  //create new row
@@ -141,13 +140,13 @@ public class HomeActivity extends BaseActivity
                 babyImage.setMinimumHeight(150);
             }
 
-            final int babyId = baby.getId();
             //button listener for each baby
             b.setOnClickListener(new View.OnClickListener()
             {
                 public void onClick(View v)
                 {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
+                    bundle.putSerializable("baby", baby);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 3);
                 }
@@ -157,6 +156,7 @@ public class HomeActivity extends BaseActivity
                 public void onClick(View v)
                 {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
+                    bundle.putSerializable("baby", baby);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 3);
                 }
