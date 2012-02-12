@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import com.feedme.database.NapColumn;
 import com.feedme.model.Nap;
+import com.feedme.util.DateUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,9 +20,6 @@ import java.util.List;
  * This DAO class handles all CRUD operations on the Nap table in the SQLLite database.
  */
 public class NapDao {
-
-    private static final SimpleDateFormat ISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-    private static final SimpleDateFormat ANDROID_TIME = new SimpleDateFormat("M-d-yyyy:hh:mm:ss");
 
     // Contacts table name
     private static final String TABLE_DATA = NapColumn.TABLE_NAME;
@@ -64,7 +62,9 @@ public class NapDao {
         Calendar now = Calendar.getInstance();
 
         //NOTE: DateTime is a combination of Date and StartTime converted into ISO8601 format. Used for date sorting.
-        Date dateTime = ANDROID_TIME.parse(nap.getDate().trim() + ":" + nap.getStartTime());
+        SimpleDateFormat androidTime = new SimpleDateFormat(DateUtil.ANDROID_TIME_FORMAT);
+        SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
+        Date dateTime = androidTime.parse(nap.getDate() + ":" + nap.getStartTime());
 
         open();
 
@@ -72,13 +72,13 @@ public class NapDao {
         values.put(KEY_DATE, nap.getDate()); // Date
         values.put(KEY_START_TIME, nap.getStartTime()); // Time
         values.put(KEY_END_TIME, nap.getEndTime()); // Time
-        values.put(KEY_DATE_TIME, ISO8601.format(dateTime)); //DateTime
+        values.put(KEY_DATE_TIME, iso8601.format(dateTime)); //DateTime
         values.put(KEY_LOCATION, nap.getLocation()); // Location
         values.put(KEY_CHILD_ID, nap.getChild()); // Child ID
         values.put(KEY_LATITUDE, nap.getLatitude());
         values.put(KEY_LONGITUDE, nap.getLongitude());
-        values.put(KEY_CREATED_DATE, ISO8601.format(now.getTime()));
-        values.put(KEY_LAST_MOD_DATE, ISO8601.format(now.getTime()));
+        values.put(KEY_CREATED_DATE, iso8601.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -284,7 +284,9 @@ public class NapDao {
         Calendar now = Calendar.getInstance();
 
         //NOTE: DateTime is a combination of Date and StartTime converted into ISO8601 format. Used for date sorting.
-        Date dateTime = ANDROID_TIME.parse(nap.getDate().trim() + ":" + nap.getStartTime());
+        SimpleDateFormat androidTime = new SimpleDateFormat(DateUtil.ANDROID_TIME_FORMAT);
+        SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
+        Date dateTime = androidTime.parse(nap.getDate().trim() + ":" + nap.getStartTime());
 
         open();
 
@@ -292,10 +294,10 @@ public class NapDao {
         values.put(KEY_DATE, nap.getDate());
         values.put(KEY_START_TIME, nap.getStartTime());
         values.put(KEY_END_TIME, nap.getEndTime());
-        values.put(KEY_DATE_TIME, ISO8601.format(dateTime));
+        values.put(KEY_DATE_TIME, iso8601.format(dateTime));
         values.put(KEY_LOCATION, nap.getLocation());
         values.put(KEY_CHILD_ID, nap.getChild());
-        values.put(KEY_LAST_MOD_DATE, ISO8601.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });

@@ -10,16 +10,56 @@ import java.util.Date;
  * Time: 6:20 AM
  */
 public class DateUtil {
+    
+    public static final String TIME_STRING_FORMAT = "HH:mm:ss";
+    public static final String ANDROID_DATE_FORMAT = "M-d-yyyy";
+    public static final String HEADER_FORMAT = "MMMMMMMMM, d yyyy";
+    public static final String ISO8601_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+    public static final String ANDROID_TIME_FORMAT = "M-d-yyyy:hh:mm:ss";
 
     private SimpleDateFormat timeStringFormat;
     private SimpleDateFormat androidFormat;
     private SimpleDateFormat headerFormat;
     
     public DateUtil(){
-        timeStringFormat = new SimpleDateFormat("HH:mm:ss");
-        androidFormat = new SimpleDateFormat("M-d-yyyy");
-        headerFormat = new SimpleDateFormat("MMMMMMMMM, d yyyy");
+        timeStringFormat = new SimpleDateFormat(TIME_STRING_FORMAT);
+        androidFormat = new SimpleDateFormat(ANDROID_DATE_FORMAT);
+        headerFormat = new SimpleDateFormat(HEADER_FORMAT);
     }
+
+
+    /**
+     * Converts a Date represented by a Long into a Time String in the format of hh:mm:ss.
+     * NOTE: Synchronized since SimpleDateFormat is not thread safe.
+     *
+     * @param feedTime
+     * @return
+     */
+    public synchronized String convertDateLongToTimeString(Long feedTime){
+        return timeStringFormat.format(feedTime);
+    }
+
+    /**
+     * Converts a Date to the String used for the Journal header.
+     * 
+     * @param date
+     * @return
+     */
+    public synchronized String convertDateToHeaderString(Date date){
+        return headerFormat.format(date);
+    }
+
+    /**
+     * Converts a Date to the Android Date Format.
+     * 
+     * @param date
+     * @return
+     */
+    public synchronized String convertDateToAndroidTimeString(Date date){
+        return androidFormat.format(date);
+    }
+    
+//    public synchronized String
 
     /**
      * Returns the String format of duration between the two passed in time String formats (hh:mm:ss).
@@ -96,25 +136,6 @@ public class DateUtil {
         int hours   = (int) ((duration / (1000*60*60)) % 24);
 
         return String.format("%d:%d:%d", hours, minutes, seconds);
-    }
-
-    /**
-     * Converts a Date represented by a Long into a Time String in the format of hh:mm:ss.
-     * NOTE: Synchronized since SimpleDateFormat is not thread safe.
-     * 
-     * @param feedTime
-     * @return
-     */
-    public synchronized String convertDateLongToTimeString(Long feedTime){
-        return timeStringFormat.format(feedTime);
-    }
-    
-    public synchronized String convertDateToHeaderString(Date date){
-        return headerFormat.format(date);
-    }
-    
-    public synchronized String convertDateToAndroidTimeString(Date date){
-        return androidFormat.format(date);
     }
 
     /**

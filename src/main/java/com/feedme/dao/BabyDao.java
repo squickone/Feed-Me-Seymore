@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import com.feedme.database.BabyColumn;
 import com.feedme.model.Baby;
+import com.feedme.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,8 +56,7 @@ public class BabyDao {
      * @param baby - Baby POJO
      */
     public void addBaby(Baby baby) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
         Calendar now = Calendar.getInstance();
 
         open();
@@ -70,8 +70,8 @@ public class BabyDao {
         values.put(KEY_PICTURE, baby.getPicturePath()); // Baby picturePath
         values.put(KEY_LATITUDE, baby.getLatitude());
         values.put(KEY_LONGITUDE, baby.getLongitude());
-        values.put(KEY_CREATED_DATE, sdf.format(now.getTime()));
-        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
+        values.put(KEY_CREATED_DATE, iso8601.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // Inserting Row
         database.insert(TABLE_DATA, null, values);
@@ -162,7 +162,7 @@ public class BabyDao {
      */
     public int updateBaby(Baby baby, int id) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+        SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
         Calendar now = Calendar.getInstance();
 
         open();
@@ -174,7 +174,7 @@ public class BabyDao {
         values.put(KEY_WEIGHT, baby.getWeight());
         values.put(KEY_DOB, baby.getDob());
         values.put(KEY_PICTURE, baby.getPicturePath());
-        values.put(KEY_LAST_MOD_DATE, sdf.format(now.getTime()));
+        values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // updating row
         int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });

@@ -152,7 +152,7 @@ public class JournalTable {
                     }
                 }
 
-                if (journal.getFeedTime()!=null && !journal.getFeedTime().equals("0") && !journal.getFeedTime().equals("")) {
+                if (journal.getFeedTime()!=null && !journal.getFeedTime().equals("0") && !journal.getFeedTime().trim().equals("")) {
                     String duration = dateUtil.convertDateLongToTimeString(Long.parseLong(journal.getFeedTime()));
                     metricsBuffer.append(dateUtil.getDurationAsStringMsg(duration));
 
