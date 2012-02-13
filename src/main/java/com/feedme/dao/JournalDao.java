@@ -11,10 +11,7 @@ import com.feedme.util.DateUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * This DAO class handles all CRUD operations on the Entries table in the SQLLite database.
@@ -71,6 +68,7 @@ public class JournalDao {
         open();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, UUID.randomUUID().toString());
         values.put(KEY_DATE, entry.getDate()); // Date
         values.put(KEY_START_TIME, entry.getStartTime()); // Time
         values.put(KEY_END_TIME, entry.getEndTime()); // Time
@@ -97,12 +95,12 @@ public class JournalDao {
      *
      * @return - Journal POJO representation of a specific Entry in the database.
      */
-    public Journal getEntry(int id) {
+    public Journal getEntry(String id) {
 
         open();
         
         Cursor cursor = database.query(TABLE_DATA, JournalColumn.getColumnNames(), KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                new String[]{id}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -139,13 +137,13 @@ public class JournalDao {
         return entry;
     }
     
-    public List<Journal> getEntriesForChildByDate(int childId, String date){
+    public List<Journal> getEntriesForChildByDate(String childId, String date){
         
         open();
 
         List<Journal> entries = new ArrayList<Journal>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " AND "
+        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' AND "
                 + KEY_DATE + " = '" + date + "'";
         Cursor cursor = database.rawQuery(selectQuery, null);
 
@@ -194,14 +192,14 @@ public class JournalDao {
      * @param childId
      * @return
      */
-    public List<Journal> getAllEntriesForChild(int childId) {
+    public List<Journal> getAllEntriesForChild(String childId) {
 
         open();
 
         List<Journal> entryList = new ArrayList<Journal>();
 
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_DATE_TIME + " DESC";
+        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' ORDER BY " + KEY_DATE_TIME + " DESC";
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
@@ -241,13 +239,13 @@ public class JournalDao {
      * @param limit
      * @return
      */
-    public List<Journal> getLastFeedingsByChild(int childId, int limit){
+    public List<Journal> getLastFeedingsByChild(String childId, int limit){
 
         open();
 
         List<Journal> entryList = new ArrayList<Journal>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY "
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' ORDER BY "
                 + KEY_DATE_TIME + " DESC LIMIT " + limit;
         Cursor cursor = database.rawQuery(query, null);
 
@@ -269,7 +267,7 @@ public class JournalDao {
      * @param limit
      * @return
      */
-    public Journal[] getLastFeedingsByChildAsArray(int childId, int limit){
+    public Journal[] getLastFeedingsByChildAsArray(String childId, int limit){
         
         List<Journal> entries = getLastFeedingsByChild(childId, limit);
 
@@ -287,7 +285,7 @@ public class JournalDao {
      *
      * @return
      */
-    public int updateEntry(Journal entry, int id) throws ParseException {
+    public int updateEntry(Journal entry, String id) throws ParseException {
 
         Calendar now = Calendar.getInstance();
 
@@ -322,18 +320,18 @@ public class JournalDao {
      *
      * @param babyID
      */
-    public void deleteEntry(int babyID) {
+    public void deleteEntry(String babyID) {
         open();
-        database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{String.valueOf(babyID)});
+        database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{babyID});
         close();
     }
 
     /**
      * Deletes entry with ID from the Database
      */
-    public void deleteEntryByID(int ID) {
+    public void deleteEntryByID(String ID) {
         open();
-        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(ID)});
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{ID});
         close();
     }
 
@@ -363,11 +361,11 @@ public class JournalDao {
      * @param date
      * @return
      */
-    public int getEntriesCountByBabyAndDate(int childId, String date){
+    public int getEntriesCountByBabyAndDate(String childId, String date){
 
         open();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " AND "
+        String selectQuery = "SELECT  * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' AND "
                 + KEY_DATE + " = '" + date + "'";
         Cursor cursor = database.rawQuery(selectQuery, null);
         int count = cursor.getCount();
@@ -385,7 +383,7 @@ public class JournalDao {
      * @return - Journal
      */
     private Journal cursorToJournal(Cursor cursor) {
-        return new Journal(Integer.parseInt(cursor.getString(0)),
+        return new Journal(cursor.getString(0),
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3),
@@ -393,7 +391,7 @@ public class JournalDao {
                 cursor.getString(5),
                 cursor.getString(6),
                 cursor.getString(7),
-                Integer.parseInt(cursor.getString(8)),
+                cursor.getString(8),
                 cursor.getString(9),
                 cursor.getString(10),
                 cursor.getString(11),

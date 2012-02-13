@@ -7,7 +7,7 @@ package com.feedme.database;
  */
 public enum JournalColumn {
 
-    ID("ID", "INTEGER PRIMARY KEY"),
+    ID("ID", "TEXT PRIMARY KEY"),
     DATE ("DATE", "TEXT"),
     START_TIME("START_TIME", "TEXT"),
     END_TIME("END_TIME", "TEXT"),

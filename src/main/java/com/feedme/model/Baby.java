@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 
 public class Baby extends TrackableObject {
+
     //private variables
     String _name;
     String _sex;
@@ -23,7 +24,7 @@ public class Baby extends TrackableObject {
     }
 
     // constructor
-    public Baby(int id, String name, String sex, String height, String weight, String dob, String picturePath) {
+    public Baby(String id, String name, String sex, String height, String weight, String dob, String picturePath) {
 
         this._id = id;
         this._name = name;
@@ -46,7 +47,7 @@ public class Baby extends TrackableObject {
     }
 
     // constructor
-    public Baby(int id, String name, String sex, String height, String weight, String dob, String picturePath,
+    public Baby(String id, String name, String sex, String height, String weight, String dob, String picturePath,
                 String latitude, String longitude, String createdDate, String lastModDate) {
 
         this._id = id;

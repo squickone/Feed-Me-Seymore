@@ -9,18 +9,18 @@ import java.io.Serializable;
  */
 public abstract class BaseObject implements Serializable {
 
-    int _id;
+    String _id;
     String _date;
     String _start_time;
     String _dateTime;
     String _createdDate;
     String _lastModDate;
     
-    public int getId(){
+    public String getId(){
         return _id;
     }
     
-    public void setId(int id){
+    public void setId(String id){
         this._id = id;
     }
 

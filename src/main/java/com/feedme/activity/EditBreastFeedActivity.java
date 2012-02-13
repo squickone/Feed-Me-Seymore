@@ -158,7 +158,7 @@ public class EditBreastFeedActivity extends FeedActivity
         return true;
     }
 
-    private void deleteEntry(final int entryID, final Baby baby)
+    private void deleteEntry(final String entryID, final Baby baby)
     {
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditBreastFeedActivity.this);
         myAlertDialog.setTitle("Delete Entry");

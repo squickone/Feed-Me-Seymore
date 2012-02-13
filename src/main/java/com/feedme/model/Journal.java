@@ -15,7 +15,7 @@ public class Journal extends TrackableObject {
     String _feed_time;
     String _side;
     String _ounces;
-    int _child_id;
+    String _child_id;
 
     // Empty constructor
     public Journal() {
@@ -23,14 +23,14 @@ public class Journal extends TrackableObject {
     }
 
     // constructor
-    public Journal(int id,
+    public Journal(String id,
                    String date,
                    String start_time,
                    String end_time,
                    String feed_time,
                    String side,
                    String ounces,
-                   int child_id) {
+                   String child_id) {
         this._id = id;
         this._date = date;
         this._start_time = start_time;
@@ -48,7 +48,7 @@ public class Journal extends TrackableObject {
                    String feed_time,
                    String side,
                    String ounces,
-                   int child_id) {
+                   String child_id) {
         this._date = date;
         this._start_time = start_time;
         this._end_time = end_time;
@@ -58,8 +58,8 @@ public class Journal extends TrackableObject {
         this._child_id = child_id;
     }
 
-    public Journal(int id, String date, String startTime, String endTime, String dateTime, String feedTime, String side,
-                   String ounces, int childId, String latitude, String longitude, String createdDate,
+    public Journal(String id, String date, String startTime, String endTime, String dateTime, String feedTime, String side,
+                   String ounces, String childId, String latitude, String longitude, String createdDate,
                    String lastModDate) {
         this._id = id;
         this._date = date;
@@ -108,11 +108,11 @@ public class Journal extends TrackableObject {
         this._ounces = ounces;
     }
 
-    public int getChild() {
+    public String getChild() {
         return this._child_id;
     }
 
-    public void setChild(int child_id) {
+    public void setChild(String child_id) {
         this._child_id = child_id;
     }
 

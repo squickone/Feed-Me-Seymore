@@ -13,7 +13,7 @@ public class Nap extends TrackableObject {
     //private variables
     String _end_time;
     String _location;
-    int _child_id;
+    String _child_id;
 
     // Empty constructor
     public Nap() {
@@ -21,7 +21,7 @@ public class Nap extends TrackableObject {
     }
 
     // constructor
-    public Nap(int id, String date, String start_time, String end_time, String dateTime, String location, int child_id) {
+    public Nap(String id, String date, String start_time, String end_time, String dateTime, String location, String child_id) {
         this._id = id;
         this._date = date;
         this._start_time = start_time;
@@ -32,7 +32,7 @@ public class Nap extends TrackableObject {
     }
 
     // constructor
-    public Nap(String date, String start_time, String end_time, String location, int child_id) {
+    public Nap(String date, String start_time, String end_time, String location, String child_id) {
         this._date = date;
         this._start_time = start_time;
         this._end_time = end_time;
@@ -41,7 +41,7 @@ public class Nap extends TrackableObject {
     }
 
     // constructor
-    public Nap(int id, String date, String start_time, String end_time, String dateTime, String location, int childId,
+    public Nap(String id, String date, String start_time, String end_time, String dateTime, String location, String childId,
                String latitude, String longitude, String createdDate, String lastModDate) {
 
         this._id = id;
@@ -55,14 +55,6 @@ public class Nap extends TrackableObject {
         this._longitude = longitude;
         this._createdDate = createdDate;
         this._lastModDate = lastModDate;
-    }
-
-    public int getId() {
-        return this._id;
-    }
-
-    public void setId(int id) {
-        this._id = id;
     }
 
     public String getEndTime() {
@@ -81,11 +73,11 @@ public class Nap extends TrackableObject {
         this._location = location;
     }
 
-    public int getChild() {
+    public String getChild() {
         return this._child_id;
     }
 
-    public void setChild(int child_id) {
+    public void setChild(String child_id) {
         this._child_id = child_id;
     }
 

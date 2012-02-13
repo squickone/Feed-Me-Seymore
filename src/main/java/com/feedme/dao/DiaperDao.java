@@ -11,10 +11,7 @@ import com.feedme.util.DateUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * This DAO class handles all CRUD operations on the Diapers table in the SQLLite database.
@@ -71,6 +68,7 @@ public class DiaperDao {
         open();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, UUID.randomUUID().toString());
         values.put(KEY_TYPE, diaper.getType());
         values.put(KEY_CONSISTENCY, diaper.getConsistency());
         values.put(KEY_COLOR, diaper.getColor());
@@ -96,12 +94,12 @@ public class DiaperDao {
      *
      * @return - Journal POJO representation of a specific Entry in the database.
      */
-    public Diaper getEntry(int id) {
+    public Diaper getEntry(String id) {
 
         open();
 
         Cursor cursor = database.query(TABLE_DATA, DiaperColumn.getColumnNames(), KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                new String[]{id}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -188,13 +186,13 @@ public class DiaperDao {
      * @param limit
      * @return
      */
-    public List<Diaper> getLastDiapersByChild(int childId, int limit){
+    public List<Diaper> getLastDiapersByChild(String childId, int limit){
 
         open();
 
         List<Diaper> diaperList = new ArrayList<Diaper>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY "
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' ORDER BY "
                 + KEY_DATE_TIME + " DESC LIMIT " + limit;
         Cursor cursor = database.rawQuery(query, null);
 
@@ -209,13 +207,13 @@ public class DiaperDao {
         return diaperList;
     }
     
-    public List<Diaper> getDiapersForChildByDate(int childId, String date){
+    public List<Diaper> getDiapersForChildByDate(String childId, String date){
 
         open();
 
         List<Diaper> diaperList = new ArrayList<Diaper>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " AND "
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' AND "
                 + KEY_DATE + " = '" + date + "'";
         Cursor cursor = database.rawQuery(query, null);
 
@@ -236,13 +234,13 @@ public class DiaperDao {
      * @param childId
      * @return
      */
-    public List<Diaper> getAllDiapersByChild(int childId){
+    public List<Diaper> getAllDiapersByChild(String childId){
 
         open();
 
         List<Diaper> diaperList = new ArrayList<Diaper>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY "
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' ORDER BY "
                 + KEY_DATE_TIME + " DESC";
         Cursor cursor = database.rawQuery(query, null);
 
@@ -264,7 +262,7 @@ public class DiaperDao {
      * @param limit
      * @return
      */
-    public Diaper[] getLastDiapersByChildAsArray(int childId, int limit){
+    public Diaper[] getLastDiapersByChildAsArray(String childId, int limit){
 
         List<Diaper> diapers = getLastDiapersByChild(childId, limit);
 
@@ -282,7 +280,7 @@ public class DiaperDao {
      *
      * @return
      */
-    public int updateDiaper(Diaper diaper, int id) throws ParseException {
+    public int updateDiaper(Diaper diaper, String id) throws ParseException {
 
         Calendar now = Calendar.getInstance();
 
@@ -314,18 +312,18 @@ public class DiaperDao {
     /**
      * Deletes diapers for babyId from db
      */
-    public void deleteDiaper(int babyId) {
+    public void deleteDiaper(String babyId) {
         open();
-        database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{String.valueOf(babyId)});
+        database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{babyId});
         close();
     }
 
     /**
      * Deletes diaper with ID from db
      */
-    public void deleteDiaperByID(int id) {
+    public void deleteDiaperByID(String id) {
         open();
-        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(id)});
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{id});
         close();
     }
 
@@ -378,14 +376,14 @@ public class DiaperDao {
      * @return - Diaper
      */
     private Diaper cursorToDiaper(Cursor cursor) {
-        return new Diaper(Integer.parseInt(cursor.getString(0)),
+        return new Diaper(cursor.getString(0),
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
                 cursor.getString(5),
                 cursor.getString(6),
-                Integer.parseInt(cursor.getString(7)),
+                cursor.getString(7),
                 cursor.getString(8),
                 cursor.getString(9),
                 cursor.getString(10),

@@ -115,7 +115,7 @@ public class EditDiaperActivity extends DiaperActivity {
         });
     }
 
-    private void deleteDiaper(final int diaperId, final Baby baby) {
+    private void deleteDiaper(final String diaperId, final Baby baby) {
 
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditDiaperActivity.this);
         myAlertDialog.setTitle(getString(R.string.deleteDiaperDialogTitle));
