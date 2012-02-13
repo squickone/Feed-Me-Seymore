@@ -98,6 +98,9 @@ public class FeedMeLocationService implements LocationListener {
     }
 
     public Double getLatitude() {
+        if(latitude==null){
+            return 0.0;
+        }
         return latitude;
     }
 
@@ -106,6 +109,9 @@ public class FeedMeLocationService implements LocationListener {
     }
 
     public Double getLongitude() {
+        if(longitude==null){
+            return 0.0;
+        }
         return longitude;
     }
 

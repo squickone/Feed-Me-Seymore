@@ -19,8 +19,7 @@ import com.feedme.model.Baby;
 import com.feedme.model.Settings;
 import com.feedme.service.FeedMeLocationService;
 
-public class HomeActivity extends BaseActivity
-{
+public class HomeActivity extends BaseActivity {
 
     private static String TAG = "Feed-Me";
 
@@ -32,8 +31,7 @@ public class HomeActivity extends BaseActivity
      *                           recently supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it is null.</b>
      */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
         setContentView(R.layout.main);
@@ -42,19 +40,18 @@ public class HomeActivity extends BaseActivity
         googleAnalyticsTracker.trackPageView("/Home");
 
         /* Registers the Location Manager for use throughout the application */
-        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         FeedMeLocationService locationService = FeedMeLocationService.getInstance(getApplicationContext(), locationManager);
 
         displayAd(this);
+
         showBabies();
         initializeSettings();
 
         //Add Settings Button
         Button addSettingsButton = (Button) findViewById(R.id.settings);
-        addSettingsButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        addSettingsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SettingsActivity.class);
                 startActivityForResult(intent, 2);
             }
@@ -62,10 +59,8 @@ public class HomeActivity extends BaseActivity
 
         // button listener for add child screen button
         Button addChildScreen = (Button) findViewById(R.id.addChildScreen);
-        addChildScreen.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        addChildScreen.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this,
                         AddChildActivity.class));
             }
@@ -73,16 +68,12 @@ public class HomeActivity extends BaseActivity
 
     }
 
-
-    public void initializeSettings()
-    {
+    public void initializeSettings() {
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
         settingsDao.addSettings(new Settings("oz", "in", "lbs", "F", "off", "off"));
     }
 
-
-    public void showBabies()
-    {
+    public void showBabies() {
         final BabyDao babyDao = new BabyDao(getApplicationContext());
         final Bundle bundle = new Bundle();
 
@@ -149,20 +140,16 @@ public class HomeActivity extends BaseActivity
             }
 
             //button listener for each baby
-            b.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)
-                {
+            b.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                     bundle.putSerializable("baby", baby);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 3);
                 }
             });
-            babyImage.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)
-                {
+            babyImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), ViewBabyActivity.class);
                     bundle.putSerializable("baby", baby);
                     intent.putExtras(bundle);
@@ -190,16 +177,14 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.home:

@@ -145,13 +145,14 @@ public class AddChildActivity extends ChildActivity {
                                 babyDob.getText().toString(),
                                 baby.getPicturePath());
 
-                        baby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
-                        baby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+                        addBaby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                        addBaby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
 
                         // Inserting baby
                         Log.d("Insert: ", "Inserting ..");
                         babyDao.addBaby(addBaby);
                         Log.d("BABY:ADD: ", addBaby.dump());
+
                     } else {
                         Baby addBaby = new Baby(babyName.getText().toString(),
                                 babySex.getSelectedItem().toString(),
@@ -159,8 +160,9 @@ public class AddChildActivity extends ChildActivity {
                                 babyWeight.getText().toString(),
                                 babyDob.getText().toString(),
                                 "");
-                        baby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
-                        baby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+
+                        addBaby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                        addBaby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
 
                         // Inserting baby
                         Log.d("Insert: ", "Inserting ..");
