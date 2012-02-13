@@ -89,6 +89,14 @@ public class BabyExporter {
         cell.setCellValue("Ounces");
         cell.setCellStyle(headerStyle);
 
+        cell = row.createCell(7);
+        cell.setCellValue("Latitude");
+        cell.setCellStyle(headerStyle);
+
+        cell = row.createCell(8);
+        cell.setCellValue("Longitude");
+        cell.setCellStyle(headerStyle);
+
         //Feedings Data
         for(int i=0 ; i<allFeedings.size() ; i++){
             Journal journal = allFeedings.get(i);
@@ -126,6 +134,14 @@ public class BabyExporter {
             //Ounces
             cell = row.createCell(6);
             cell.setCellValue(journal.getOunces());
+
+            //Latitude
+            cell = row.createCell(7);
+            cell.setCellValue(journal.getLatitude());
+
+            //Longitude
+            cell = row.createCell(8);
+            cell.setCellValue(journal.getLongitude());
         }
         
         //Naps Sheet
@@ -151,6 +167,14 @@ public class BabyExporter {
         cell.setCellValue("Location");
         cell.setCellStyle(headerStyle);
 
+        cell = row.createCell(4);
+        cell.setCellValue("Latitude");
+        cell.setCellStyle(headerStyle);
+
+        cell = row.createCell(5);
+        cell.setCellValue("Longitude");
+        cell.setCellStyle(headerStyle);
+
         //Feedings Data
         for(int i=0 ; i<allNaps.size() ; i++){
             Nap nap = allNaps.get(i);
@@ -172,6 +196,14 @@ public class BabyExporter {
             //Location
             cell = row.createCell(3);
             cell.setCellValue(nap.getLocation());
+
+            //Latitude
+            cell = row.createCell(4);
+            cell.setCellValue(nap.getLatitude());
+
+            //Longitude
+            cell = row.createCell(5);
+            cell.setCellValue(nap.getLongitude());
         }
 
         //Diapers Sheet
@@ -201,6 +233,14 @@ public class BabyExporter {
         cell.setCellValue("Color");
         cell.setCellStyle(headerStyle);
 
+        cell = row.createCell(5);
+        cell.setCellValue("Latitude");
+        cell.setCellStyle(headerStyle);
+
+        cell = row.createCell(6);
+        cell.setCellValue("Longitude");
+        cell.setCellStyle(headerStyle);
+
         //Feedings Data
         for(int i=0 ; i<allDiapers.size() ; i++){
             Diaper diaper = allDiapers.get(i);
@@ -226,6 +266,14 @@ public class BabyExporter {
             //Color
             cell = row.createCell(4);
             cell.setCellValue(diaper.getColor());
+
+            //Latitude
+            cell = row.createCell(5);
+            cell.setCellValue(diaper.getLatitude());
+
+            //Longitude
+            cell = row.createCell(6);
+            cell.setCellValue(diaper.getLongitude());
         }
 
         //Write Workbook to External Storage

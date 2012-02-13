@@ -12,6 +12,7 @@ import com.feedme.R;
 import com.feedme.dao.NapDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Nap;
+import com.feedme.service.FeedMeLocationService;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -35,7 +36,7 @@ public class AddNapActivity extends NapActivity
 
 
         final NapDao napDao = new NapDao(getApplicationContext());
-
+        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
         final Bundle bundle = new Bundle();
@@ -110,6 +111,9 @@ public class AddNapActivity extends NapActivity
                                         endTime.getText().toString(),
                                         location.getText().toString(),
                                         baby.getId());
+                    nap.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                    nap.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+
                     Log.d("NAP-INSERT:", nap.dump());
 
                     try {

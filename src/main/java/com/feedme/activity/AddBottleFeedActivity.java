@@ -12,6 +12,7 @@ import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
 import com.feedme.model.Settings;
+import com.feedme.service.FeedMeLocationService;
 
 import java.text.ParseException;
 
@@ -34,7 +35,7 @@ public class AddBottleFeedActivity extends FeedActivity
 
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-
+        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
         final Bundle bundle = new Bundle();
@@ -98,6 +99,8 @@ public class AddBottleFeedActivity extends FeedActivity
                                                     "",
                                                     feedAmt.getSelectedItem().toString(),
                                                     baby.getId());
+                insertJournal.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                insertJournal.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
                 Log.d("JOURNAL-ADD:", insertJournal.dump());
 
                 try {

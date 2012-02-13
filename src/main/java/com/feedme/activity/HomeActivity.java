@@ -1,8 +1,11 @@
 package com.feedme.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +18,7 @@ import com.feedme.dao.BabyDao;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Settings;
+import com.feedme.service.FeedMeLocationService;
 
 public class HomeActivity extends BaseActivity
 {
@@ -37,6 +41,10 @@ public class HomeActivity extends BaseActivity
 
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/Home");
+
+        /* Registers the Location Manager for use throughout the application */
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        FeedMeLocationService locationService = FeedMeLocationService.getInstance(getApplicationContext(), locationManager);
 
         showBabies();
         initializeSettings();

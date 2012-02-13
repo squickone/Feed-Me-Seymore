@@ -10,6 +10,7 @@ import com.feedme.R;
 import com.feedme.dao.JournalDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Journal;
+import com.feedme.service.FeedMeLocationService;
 import com.feedme.util.DateUtil;
 
 import java.text.ParseException;
@@ -37,7 +38,7 @@ public class AddBreastFeedActivity extends FeedActivity
         googleAnalyticsTracker.trackPageView("/Add-Breast-Feeding");
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-
+        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
         final Bundle bundle = new Bundle();
@@ -135,6 +136,9 @@ public class AddBreastFeedActivity extends FeedActivity
                                                     entrySide.getSelectedItem().toString(),
                                                     "",
                                                     baby.getId());
+                insertJournal.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                insertJournal.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+
                 Log.d("JOURNAL-ADD: ", insertJournal.dump());
 
                 try {

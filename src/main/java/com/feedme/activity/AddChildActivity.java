@@ -15,6 +15,7 @@ import android.widget.*;
 import com.feedme.R;
 import com.feedme.dao.BabyDao;
 import com.feedme.model.Baby;
+import com.feedme.service.FeedMeLocationService;
 
 import java.util.Calendar;
 import java.util.List;
@@ -24,13 +25,11 @@ import java.util.List;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class AddChildActivity extends ChildActivity
-{
+public class AddChildActivity extends ChildActivity {
     private Button babyDob;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_child);
 
@@ -38,6 +37,7 @@ public class AddChildActivity extends ChildActivity
         googleAnalyticsTracker.trackPageView("/Add-Child");
 
         final BabyDao babyDao = new BabyDao(getApplicationContext());
+        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
 
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
@@ -50,10 +50,8 @@ public class AddChildActivity extends ChildActivity
         final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
         babyImage.setImageResource(R.drawable.babyicon);
 
-        if (baby != null)
-        {
-            if (baby.getPicturePath() != null && !baby.getPicturePath().equals(""))
-            {
+        if (baby != null) {
+            if (baby.getPicturePath() != null && !baby.getPicturePath().equals("")) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 12;
                 Bitmap bmImg = BitmapFactory.decodeFile(baby.getPicturePath(), options);
@@ -98,8 +96,7 @@ public class AddChildActivity extends ChildActivity
 
         //In the even that the user clicked Take Picture or Select Picture and fired off a new Intent from the Add
         // Child screen.
-        if (getIntent().getStringExtra("picturePath") != null)
-        {
+        if (getIntent().getStringExtra("picturePath") != null) {
             baby.setPicturePath(getIntent().getStringExtra("picturePath"));
             babyName.setText(baby.getName());
             babyHeight.setText(baby.getHeight());
@@ -107,12 +104,9 @@ public class AddChildActivity extends ChildActivity
             babyDob.setText(baby.getDob());
 
             //Set Spinner Value for Baby Sex
-            if (baby.getSex().equals("Male"))
-            {
+            if (baby.getSex().equals("Male")) {
                 babySex.setSelection(0);
-            }
-            else
-            {
+            } else {
                 babySex.setSelection(1);
             }
 
@@ -128,51 +122,51 @@ public class AddChildActivity extends ChildActivity
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         //Add Child Button
-        addChildButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        addChildButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
                 //if name, weight, and height aren't filled out, throw an alert
                 if (babyName.getText().toString().equals("") || babyHeight.getText().toString().equals("") ||
                         babyWeight.getText().toString().equals("")) {
                     alertDialog.setTitle("Oops!");
                     alertDialog.setMessage("Please fill out the form completely.");
-                    alertDialog.setButton("OK", new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int which)
-                        {
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
                     });
                     alertDialog.show();
-                }
-                else
-                {
-                   if (getIntent().getStringExtra("picturePath") != null) {
-                       Baby addBaby = new Baby(babyName.getText().toString(),
-                               babySex.getSelectedItem().toString(),
-                               babyHeight.getText().toString(),
-                               babyWeight.getText().toString(),
-                               babyDob.getText().toString(),
-                               baby.getPicturePath());
-                       // Inserting baby
-                       Log.d("Insert: ", "Inserting ..");
-                       babyDao.addBaby(addBaby);
-                       Log.d("BABY:ADD: ", addBaby.dump());
-                  } else {
-                       Baby addBaby = new Baby(babyName.getText().toString(),
-                               babySex.getSelectedItem().toString(),
-                               babyHeight.getText().toString(),
-                               babyWeight.getText().toString(),
-                               babyDob.getText().toString(),
-                               "");
-                       // Inserting baby
-                       Log.d("Insert: ", "Inserting ..");
-                       babyDao.addBaby(addBaby);
-                       Log.d("BABY:ADD: ", addBaby.dump());
-                  }
+                } else {
+                    if (getIntent().getStringExtra("picturePath") != null) {
+                        Baby addBaby = new Baby(babyName.getText().toString(),
+                                babySex.getSelectedItem().toString(),
+                                babyHeight.getText().toString(),
+                                babyWeight.getText().toString(),
+                                babyDob.getText().toString(),
+                                baby.getPicturePath());
 
+                        baby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                        baby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+
+                        // Inserting baby
+                        Log.d("Insert: ", "Inserting ..");
+                        babyDao.addBaby(addBaby);
+                        Log.d("BABY:ADD: ", addBaby.dump());
+                    } else {
+                        Baby addBaby = new Baby(babyName.getText().toString(),
+                                babySex.getSelectedItem().toString(),
+                                babyHeight.getText().toString(),
+                                babyWeight.getText().toString(),
+                                babyDob.getText().toString(),
+                                "");
+                        baby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                        baby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+
+                        // Inserting baby
+                        Log.d("Insert: ", "Inserting ..");
+                        babyDao.addBaby(addBaby);
+                        Log.d("BABY:ADD: ", addBaby.dump());
+                    }
 
 
                     // Reading all babies
@@ -201,8 +195,7 @@ public class AddChildActivity extends ChildActivity
     }
 
     @Override
-    protected Dialog onCreateDialog(int id)
-    {
+    protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DATE_DIALOG_ID:
                 return new DatePickerDialog(this,
@@ -213,16 +206,14 @@ public class AddChildActivity extends ChildActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.home:
@@ -243,8 +234,7 @@ public class AddChildActivity extends ChildActivity
 
 
     // updates the date we display in the TextView
-    private void updateDateDisplay()
-    {
+    private void updateDateDisplay() {
         babyDob.setText(
                 new StringBuilder()
                         // Month is 0 based so add 1
@@ -255,11 +245,9 @@ public class AddChildActivity extends ChildActivity
 
     // the callback received when the user "sets" the date in the dialog
     private DatePickerDialog.OnDateSetListener mDateSetListener =
-            new DatePickerDialog.OnDateSetListener()
-            {
+            new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth)
-                {
+                                      int monthOfYear, int dayOfMonth) {
                     mYear = year;
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;

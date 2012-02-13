@@ -10,6 +10,7 @@ import com.feedme.R;
 import com.feedme.dao.DiaperDao;
 import com.feedme.model.Baby;
 import com.feedme.model.Diaper;
+import com.feedme.service.FeedMeLocationService;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -28,6 +29,7 @@ public class AddDiaperActivity extends DiaperActivity {
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/Add-Diaper");
 
+        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final DiaperDao diaperDao = new DiaperDao(getApplicationContext());
 
         //Get/Set Baby
@@ -73,6 +75,8 @@ public class AddDiaperActivity extends DiaperActivity {
                 diaper.setType(diaperType.getSelectedItem().toString());
                 diaper.setConsistency(diaperConsistency.getSelectedItem().toString());
                 diaper.setColor(diaperColor.getSelectedItem().toString());
+                diaper.setLatitude(Double.toString(feedMeLocationService.getLongitude()));
+                diaper.setLongitude(Double.toString(feedMeLocationService.getLatitude()));
 
                 try {
                     diaperDao.addDiaper(diaper);
