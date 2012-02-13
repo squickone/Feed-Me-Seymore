@@ -4,10 +4,17 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.feedme.R;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+
+import java.security.PublicKey;
+
 /**
  * User: steve quick
  * Date: 1/22/12
@@ -18,6 +25,7 @@ public abstract class BaseActivity extends Activity
 {
     public GoogleAnalyticsTracker googleAnalyticsTracker = GoogleAnalyticsTracker.getInstance();
     public static final String TRACKING_ID = "UA-29019171-1";
+    public static final String PUBLISHER_ID = "a14f34a6ae2ff13";
 
     public static final int DATE_DIALOG_ID = 0;
     public static final int START_TIME_DIALOG_ID = 1;
@@ -28,6 +36,8 @@ public abstract class BaseActivity extends Activity
     public static final int ADD_DIAPER_ACTIVITY_ID = 7;
     public static final int EDIT_DIAPER_ACTIVITY_ID = 8;
     public static final int VIEW_DIAPER_ACTIVITY_ID = 9;
+
+    public AdView adView;
 
     public void styleActivity(String babyGender)
     {
@@ -43,7 +53,28 @@ public abstract class BaseActivity extends Activity
         }
     }
 
+    @Override
+    public void onDestroy()
+    {
+        if (adView != null)
+        {
+            adView.destroy();
+        }
+        super.onDestroy();
+    }
 
+    public void displayAd(Activity activity)
+    {
+        AdRequest adRequest = new AdRequest();
+        adRequest.addTestDevice("7D1B47DD60946FBC9C2BF3D70A9DB3E0");
+
+        adView = new AdView(activity, AdSize.BANNER, PUBLISHER_ID);
+
+        LinearLayout layout = (LinearLayout)findViewById(R.id.adBar);
+        layout.addView(adView);
+        adView.loadAd(adRequest);
+    }
+    
     /**
      * Resizes a Bitmap based on the passed in newHeight and newWidth and rotates the image by rotateInDegrees.
      *

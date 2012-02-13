@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +45,7 @@ public class HomeActivity extends BaseActivity
         LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         FeedMeLocationService locationService = FeedMeLocationService.getInstance(getApplicationContext(), locationManager);
 
+        displayAd(this);
         showBabies();
         initializeSettings();
 
@@ -85,7 +85,7 @@ public class HomeActivity extends BaseActivity
     {
         final BabyDao babyDao = new BabyDao(getApplicationContext());
         final Bundle bundle = new Bundle();
-        
+
         Baby[] myList = babyDao.getAllBabiesAsStringArray();
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.babyScroll);

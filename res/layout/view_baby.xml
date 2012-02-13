@@ -29,10 +29,13 @@
                 
     </RelativeLayout>
 
+    <LinearLayout style="@style/adBar"
+                  android:id="@+id/adBar" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBanner"
+        android:layout_below="@+id/adBar"
         android:layout_above="@+id/bottomBanner">
 
         <LinearLayout

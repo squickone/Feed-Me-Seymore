@@ -49,6 +49,11 @@
         <item name="android:padding">4dp</item>
         <item name="android:layout_alignParentTop">true</item>
     </style>
+    <style name="adBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_below">@+id/topBanner</item>
+    </style>
     <style name="bottomBanner">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>

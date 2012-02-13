@@ -53,6 +53,8 @@ public class ViewBabyActivity extends BaseActivity
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/View-Baby");
 
+        displayAd(this);
+        
         final JournalDao journalDao = new JournalDao(getApplicationContext());
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
         Log.d("BABY:VIEW:", baby.dump());
@@ -76,62 +78,60 @@ public class ViewBabyActivity extends BaseActivity
         Settings setting = settingsDao.getSetting(1);
 
         // Populate Baby Data
-        if (baby != null) {
-            final TextView tBabyName = (TextView) findViewById(R.id.babyName);
-            tBabyName.setText(baby.getName());
+        final TextView tBabyName = (TextView) findViewById(R.id.babyName);
+        tBabyName.setText(baby.getName());
 
-            final TextView babySex = (TextView) findViewById(R.id.babySex);
-            babySex.setText(baby.getSex());
+        final TextView babySex = (TextView) findViewById(R.id.babySex);
+        babySex.setText(baby.getSex());
 
-            final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
-            final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
-            final TextView babyFeedings = (TextView) findViewById(R.id.babyFeedings);
-            final TextView feedHistory = (TextView) findViewById(R.id.feedHistory);
+        final RelativeLayout topBanner = (RelativeLayout) findViewById(R.id.topBanner);
+        final RelativeLayout bottomBanner = (RelativeLayout) findViewById(R.id.bottomBanner);
+        final TextView babyFeedings = (TextView) findViewById(R.id.babyFeedings);
+        final TextView feedHistory = (TextView) findViewById(R.id.feedHistory);
 
-            if ((baby.getSex()).equals("Male")) {
-                topBanner.setBackgroundColor(0xFF7ED0FF);
-                bottomBanner.setBackgroundColor(0xFF7ED0FF);
-                babyFeedings.setBackgroundColor(0xFF7ED0FF);
-                feedHistory.setBackgroundColor(0xFF7ED0FF);
-            } else {
-                topBanner.setBackgroundColor(0xFFFF99CC);
-                bottomBanner.setBackgroundColor(0xFFFF99CC);
-                babyFeedings.setBackgroundColor(0xFFFF99CC);
-                feedHistory.setBackgroundColor(0xFFFF99CC);
-            }
+        if ((baby.getSex()).equals("Male")) {
+            topBanner.setBackgroundColor(0xFF7ED0FF);
+            bottomBanner.setBackgroundColor(0xFF7ED0FF);
+            babyFeedings.setBackgroundColor(0xFF7ED0FF);
+            feedHistory.setBackgroundColor(0xFF7ED0FF);
+        } else {
+            topBanner.setBackgroundColor(0xFFFF99CC);
+            bottomBanner.setBackgroundColor(0xFFFF99CC);
+            babyFeedings.setBackgroundColor(0xFFFF99CC);
+            feedHistory.setBackgroundColor(0xFFFF99CC);
+        }
 
-            final TextView babyHeight = (TextView) findViewById(R.id.babyHeight);
-            babyHeight.setText(baby.getHeight());
+        final TextView babyHeight = (TextView) findViewById(R.id.babyHeight);
+        babyHeight.setText(baby.getHeight());
 
-            final TextView babyWeight = (TextView) findViewById(R.id.babyWeight);
-            babyWeight.setText(baby.getWeight());
+        final TextView babyWeight = (TextView) findViewById(R.id.babyWeight);
+        babyWeight.setText(baby.getWeight());
 
-            final TextView babyDob = (TextView) findViewById(R.id.babyDob);
-            babyDob.setText(baby.getDob());
+        final TextView babyDob = (TextView) findViewById(R.id.babyDob);
+        babyDob.setText(baby.getDob());
 
-            //populate units of measurement
-            final TextView heightMeas = (TextView) findViewById(R.id.heightMeas);
-            final TextView weightMeas = (TextView) findViewById(R.id.weightMeas);
-            heightMeas.setText(" " + setting.getLength());
-            weightMeas.setText(" " + setting.getSettingsWeight());
+        //populate units of measurement
+        final TextView heightMeas = (TextView) findViewById(R.id.heightMeas);
+        final TextView weightMeas = (TextView) findViewById(R.id.weightMeas);
+        heightMeas.setText(" " + setting.getLength());
+        weightMeas.setText(" " + setting.getSettingsWeight());
 
-            final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
-            if (baby.getPicturePath() != null && !baby.getPicturePath().equals("")) {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 12;
-                Bitmap bmImg = BitmapFactory.decodeFile(baby.getPicturePath(), options);
-                babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
-                babyImage.setMaxWidth(100);
-                babyImage.setMaxHeight(100);
-                babyImage.setMinimumWidth(100);
-                babyImage.setMinimumHeight(100);
-            } else {
-                babyImage.setImageResource(R.drawable.babyicon);
-                babyImage.setMaxWidth(100);
-                babyImage.setMaxHeight(100);
-                babyImage.setMinimumWidth(100);
-                babyImage.setMinimumHeight(100);
-            }
+        final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
+        if (baby.getPicturePath() != null && !baby.getPicturePath().equals("")) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 12;
+            Bitmap bmImg = BitmapFactory.decodeFile(baby.getPicturePath(), options);
+            babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
+            babyImage.setMaxWidth(100);
+            babyImage.setMaxHeight(100);
+            babyImage.setMinimumWidth(100);
+            babyImage.setMinimumHeight(100);
+        } else {
+            babyImage.setImageResource(R.drawable.babyicon);
+            babyImage.setMaxWidth(100);
+            babyImage.setMaxHeight(100);
+            babyImage.setMinimumWidth(100);
+            babyImage.setMinimumHeight(100);
         }
 
         //Add Edit Button`
