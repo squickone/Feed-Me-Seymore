@@ -68,6 +68,7 @@ public abstract class BaseActivity extends Activity
         AdRequest adRequest = new AdRequest();
         adRequest.addTestDevice("7D1B47DD60946FBC9C2BF3D70A9DB3E0");
         adRequest.addTestDevice("C6543219261ABA3A0E0779120E1F76C3");
+        adRequest.addTestDevice("CAB8A533B531F3A16DCE698676CC37EA");
 
         adView = new AdView(activity, AdSize.BANNER, PUBLISHER_ID);
 
