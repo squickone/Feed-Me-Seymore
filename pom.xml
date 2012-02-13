@@ -19,46 +19,28 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.7</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.admob.android</groupId>
+            <artifactId>ads</artifactId>
+            <version>4.3.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <profiles>
         <profile>
-            <id>sign</id>
+            <id>release</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jarsigner-plugin</artifactId>
-                        <version>1.2</version>
-                        <executions>
-                            <execution>
-                                <id>signing</id>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <inherited>true</inherited>
-                                <configuration>
-                                    <archiveDirectory></archiveDirectory>
-                                    <includes>
-                                        <include>target/*.apk</include>
-                                    </includes>
-                                    <keystore>path/to/keystore</keystore>
-                                    <storepass>storepasword</storepass>
-                                    <keypass>keypassword</keypass>
-                                    <alias>key-alias</alias>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                         <artifactId>android-maven-plugin</artifactId>
                         <version>3.0.0</version>
                         <configuration>
                             <sdk>
-                                <platform>10</platform>
+                                <platform>15</platform>
                             </sdk>
                             <emulator>
                                 <avd>22</avd>
@@ -67,9 +49,9 @@
                             <proguard>
                                 <skip>false</skip>
                             </proguard>
-                            <sign>
-                                <debug>false</debug>
-                            </sign>
+                            <!--<sign>-->
+                                <!--<debug>false</debug>-->
+                            <!--</sign>-->
                             <zipalign>
                                 <verbose>true</verbose>
                                 <skip>false</skip>
