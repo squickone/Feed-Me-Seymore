@@ -53,6 +53,8 @@ public class ViewBabyActivity extends BaseActivity
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/View-Baby");
 
+        displayAd(this);
+        
         final JournalDao journalDao = new JournalDao(getApplicationContext());
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
         Log.d("BABY:VIEW:", baby.dump());

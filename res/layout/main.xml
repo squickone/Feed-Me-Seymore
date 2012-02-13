@@ -5,16 +5,6 @@
                 android:layout_height="fill_parent"
                 android:background="#fffae8">
 
-    <LinearLayout style="@style/adBar"
-                  android:id="@+id/adBar" >
-
-        <!--<com.google.ads.AdView xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"-->
-                               <!--android:id="@+id/ad"-->
-                               <!--style="@style/adBar"-->
-                               <!--ads:adSize="BANNER"/>-->
-        
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/topBanner"
         style="@style/topBanner">
@@ -26,36 +16,39 @@
 
     </RelativeLayout>
 
+    <LinearLayout style="@style/adBar"
+                  android:id="@+id/adBar" />
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/topBanner">
+        android:layout_below="@+id/adBar">
 
         <ImageView
-            android:id="@+id/familySplash"
-            android:background="@drawable/splash"
+            android:id="@+id/logo"
+            android:background="@drawable/logo"
             android:layout_centerHorizontal="true"
-            android:layout_width="130dp"
-            android:layout_height="200dp"
+            android:layout_width="163dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            />
+            android:layout_marginBottom="10dp"
+        />
 
-            <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_below="@+id/familySplash"
-                        >
+        <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/logo">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:id="@+id/babyScroll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/babyScroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                </LinearLayout>
-                
-            </HorizontalScrollView>
+            </LinearLayout>
+
+        </HorizontalScrollView>
 
     </RelativeLayout>
 

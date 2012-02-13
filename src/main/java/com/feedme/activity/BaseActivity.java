@@ -66,14 +66,13 @@ public abstract class BaseActivity extends Activity
     public void displayAd(Activity activity)
     {
         AdRequest adRequest = new AdRequest();
-        adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
         adRequest.addTestDevice("7D1B47DD60946FBC9C2BF3D70A9DB3E0");
 
         adView = new AdView(activity, AdSize.BANNER, PUBLISHER_ID);
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.adBar);
         layout.addView(adView);
-        adView.loadAd(new AdRequest());
+        adView.loadAd(adRequest);
     }
     
     /**
