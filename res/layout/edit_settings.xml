@@ -58,7 +58,7 @@
                     />
         </TableRow>
 
-        <TableRow style="@style/formRow">
+        <!--<TableRow style="@style/formRow">
             <TextView
                     android:text="Temperature: "
                     style="@style/formTag"
@@ -68,7 +68,7 @@
                     style="@style/spinnerForm"
                     android:entries="@array/temperatureMeasurements"
             />
-        </TableRow>
+        </TableRow>-->
 
         <!--<TableRow style="@style/formRow">-->
             <!--<TextView-->
