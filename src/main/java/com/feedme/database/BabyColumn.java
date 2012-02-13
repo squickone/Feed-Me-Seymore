@@ -7,7 +7,7 @@ package com.feedme.database;
  */
 public enum BabyColumn {
 
-    ID("ID", "INTEGER PRIMARY KEY"),
+    ID("ID", "TEXT PRIMARY KEY"),
     NAME ("NAME", "TEXT"),
     SEX("SEX", "TEXT"),
     HEIGHT("HEIGHT", "TEXT"),

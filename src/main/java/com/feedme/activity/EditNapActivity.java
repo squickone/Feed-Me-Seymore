@@ -109,7 +109,7 @@ public class EditNapActivity extends NapActivity {
         });
     }
 
-    private void deleteNap(final int napID, final Baby baby) {
+    private void deleteNap(final String napID, final Baby baby) {
 
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditNapActivity.this);
         myAlertDialog.setTitle("Delete Nap");

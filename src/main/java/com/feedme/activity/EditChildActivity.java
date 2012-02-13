@@ -238,7 +238,7 @@ public class EditChildActivity extends ChildActivity
         return true;
     }
 
-    private void deleteBaby(final int babyID, final String babyName) {
+    private void deleteBaby(final String babyID, final String babyName) {
 
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditChildActivity.this);
         myAlertDialog.setTitle("Delete \"" + babyName + "\"?");

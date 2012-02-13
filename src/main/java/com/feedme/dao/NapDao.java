@@ -11,10 +11,7 @@ import com.feedme.util.DateUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * This DAO class handles all CRUD operations on the Nap table in the SQLLite database.
@@ -69,6 +66,7 @@ public class NapDao {
         open();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, UUID.randomUUID().toString());
         values.put(KEY_DATE, nap.getDate()); // Date
         values.put(KEY_START_TIME, nap.getStartTime()); // Time
         values.put(KEY_END_TIME, nap.getEndTime()); // Time
@@ -93,12 +91,12 @@ public class NapDao {
      *
      * @return - Journal POJO representation of a specific Entry in the database.
      */
-    public Nap getEntry(int id) {
+    public Nap getEntry(String id) {
 
         open();
 
         Cursor cursor = database.query(TABLE_DATA, NapColumn.getColumnNames(), KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                new String[]{id}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -186,13 +184,13 @@ public class NapDao {
      * @param limit
      * @return
      */
-    public List<Nap> getLastNapsByChild(int childId, int limit){
+    public List<Nap> getLastNapsByChild(String childId, int limit){
 
         open();
 
         List<Nap> napList = new ArrayList<Nap>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY "
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' ORDER BY "
                 + KEY_DATE_TIME  + " DESC LIMIT " + limit;
         Cursor cursor = database.rawQuery(query, null);
 
@@ -213,13 +211,13 @@ public class NapDao {
      * @param childId
      * @return
      */
-    public List<Nap> getAllNapsByChild(int childId){
+    public List<Nap> getAllNapsByChild(String childId){
 
         open();
 
         List<Nap> napList = new ArrayList<Nap>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " ORDER BY " + KEY_DATE_TIME + " DESC";
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' ORDER BY " + KEY_DATE_TIME + " DESC";
         Cursor cursor = database.rawQuery(query, null);
 
         if(cursor.moveToFirst()) {
@@ -233,13 +231,13 @@ public class NapDao {
         return napList;
     }
     
-    public List<Nap> getNapsForChildByDate(int childId, String date){
+    public List<Nap> getNapsForChildByDate(String childId, String date){
 
         open();
 
         List<Nap> napList = new ArrayList<Nap>();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "=" + childId + " AND "
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + KEY_CHILD_ID + "='" + childId + "' AND "
                 + KEY_DATE + " = '" + date + "'";
         Cursor cursor = database.rawQuery(query, null);
 
@@ -261,7 +259,7 @@ public class NapDao {
      * @param limit
      * @return
      */
-    public Nap[] getLastNapsByChildAsArray(int childId, int limit){
+    public Nap[] getLastNapsByChildAsArray(String childId, int limit){
 
         List<Nap> naps = getLastNapsByChild(childId, limit);
 
@@ -279,7 +277,7 @@ public class NapDao {
      *
      * @return
      */
-    public int updateNap(Nap nap, int id) throws ParseException {
+    public int updateNap(Nap nap, String id) throws ParseException {
 
         Calendar now = Calendar.getInstance();
 
@@ -310,18 +308,18 @@ public class NapDao {
     /**
      * Deletes naps for babyId from db
      */
-    public void deleteNap(int babyId) {
+    public void deleteNap(String babyId) {
         open();
-        database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{String.valueOf(babyId)});
+        database.delete(TABLE_DATA, KEY_CHILD_ID + " = ?", new String[]{babyId});
         close();
     }
 
     /**
      * Deletes nap with ID from db
      */
-    public void deleteNapByID(int ID) {
+    public void deleteNapByID(String ID) {
         open();
-        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(ID)});
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{ID});
         close();
     }
 
@@ -376,13 +374,13 @@ public class NapDao {
      * @return - Nap
      */
     private Nap cursorToNap(Cursor cursor) {
-        return new Nap(Integer.parseInt(cursor.getString(0)),
+        return new Nap(cursor.getString(0),
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
                 cursor.getString(5),
-                Integer.parseInt(cursor.getString(6)),
+                cursor.getString(6),
                 cursor.getString(7),
                 cursor.getString(8),
                 cursor.getString(9),

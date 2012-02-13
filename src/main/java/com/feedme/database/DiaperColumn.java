@@ -7,7 +7,7 @@ package com.feedme.database;
  */
 public enum DiaperColumn {
 
-    ID("ID", "INTEGER PRIMARY KEY"),
+    ID("ID", "TEXT PRIMARY KEY"),
     TYPE("TYPE", "TEXT"),
     CONSISTENCY("CONSISTENCY", "TEXT"),
     COLOR("COLOR", "TEXT"),

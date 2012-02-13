@@ -16,8 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- START - Comment me out for the pro version -->
         <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+        <!-- END - Comment me out for the pro version -->
         <activity android:name=".activity.HomeActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait"

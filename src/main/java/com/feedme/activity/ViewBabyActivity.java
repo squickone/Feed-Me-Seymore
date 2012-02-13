@@ -53,6 +53,7 @@ public class ViewBabyActivity extends BaseActivity
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/View-Baby");
 
+        /* Comment out for the Pro Version */
         displayAd(this);
         
         final JournalDao journalDao = new JournalDao(getApplicationContext());

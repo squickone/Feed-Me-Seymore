@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This DAO class handles all CRUD operations on the Babies table in the SQLLite database.
@@ -62,6 +63,7 @@ public class BabyDao {
         open();
         
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, UUID.randomUUID().toString());
         values.put(KEY_NAME, baby.getName()); // Baby name
         values.put(KEY_SEX, baby.getSex()); // Baby sex
         values.put(KEY_HEIGHT, baby.getHeight()); // Baby height
@@ -86,12 +88,12 @@ public class BabyDao {
      *
      * @return - Baby POJO representation of a specific Baby in the database.
      */
-    public Baby getBaby(int id) {
+    public Baby getBaby(String id) {
 
         open();
         
         Cursor cursor = database.query(TABLE_DATA, BabyColumn.getColumnNames(), KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+                new String[] {id}, null, null, null, null);
 
         if (cursor != null){
             cursor.moveToFirst();
@@ -160,7 +162,7 @@ public class BabyDao {
      * @param id
      * @return
      */
-    public int updateBaby(Baby baby, int id) {
+    public int updateBaby(Baby baby, String id) {
 
         SimpleDateFormat iso8601 = new SimpleDateFormat(DateUtil.ISO8601_FORMAT);
         Calendar now = Calendar.getInstance();
@@ -177,7 +179,7 @@ public class BabyDao {
         values.put(KEY_LAST_MOD_DATE, iso8601.format(now.getTime()));
 
         // updating row
-        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
+        int result = database.update(TABLE_DATA, values, KEY_ID + " = ?", new String[] {id});
 
         close();
 
@@ -190,9 +192,9 @@ public class BabyDao {
      * @param baby
      * @param id
      */
-    public void deleteBaby(Baby baby, int id) {
+    public void deleteBaby(Baby baby, String id) {
         open();
-        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{String.valueOf(id)});
+        database.delete(TABLE_DATA, KEY_ID + " = ?", new String[]{id});
         close();
     }
 
@@ -223,7 +225,7 @@ public class BabyDao {
      * @return - Baby
      */
     private Baby cursorToBaby(Cursor cursor) {
-        return new Baby(Integer.parseInt(cursor.getString(0)),
+        return new Baby(cursor.getString(0),
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3),

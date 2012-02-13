@@ -21,7 +21,7 @@ public abstract class ChildActivity extends BaseActivity
     public int mMonth;
     public int mDay;
 
-    public View.OnClickListener takePictureListener(final int babyId, final int activity_id)
+    public View.OnClickListener takePictureListener(final String babyId, final int activity_id)
     {
         return new View.OnClickListener()
         {
@@ -39,7 +39,7 @@ public abstract class ChildActivity extends BaseActivity
         };
     }
 
-    public View.OnClickListener selectPictureListener(final int babyId, final int activity_id)
+    public View.OnClickListener selectPictureListener(final String babyId, final int activity_id)
     {
         return new View.OnClickListener()
         {
@@ -68,7 +68,7 @@ public abstract class ChildActivity extends BaseActivity
         };
     }
 
-    public Baby buildBaby(int babyId)
+    public Baby buildBaby(String babyId)
     {
         final EditText babyName = (EditText) findViewById(R.id.babyName);
         final Spinner babySex = (Spinner) findViewById(R.id.babySex);

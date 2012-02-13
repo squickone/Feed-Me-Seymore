@@ -12,7 +12,7 @@ public class Diaper extends TrackableObject {
     String _type;
     String _consistency;
     String _color;
-    int _child_id;
+    String _child_id;
 
     // Empty constructor
     public Diaper() {
@@ -20,7 +20,7 @@ public class Diaper extends TrackableObject {
     }
 
     // constructor
-    public Diaper(int id, String type, String consistency, String color, String date, String time, String dateTime, int childId) {
+    public Diaper(String id, String type, String consistency, String color, String date, String time, String dateTime, String childId) {
         this._id = id;
         this._type = type;
         this._consistency = consistency;
@@ -32,7 +32,7 @@ public class Diaper extends TrackableObject {
     }
 
     // constructor
-    public Diaper(String type, String consistency, String color, String date, String time, String dateTime, int childId) {
+    public Diaper(String type, String consistency, String color, String date, String time, String dateTime, String childId) {
         this._type = type;
         this._consistency = consistency;
         this._color = color;
@@ -43,8 +43,8 @@ public class Diaper extends TrackableObject {
     }
 
     // constructor
-    public Diaper(int id, String type, String consistency, String color, String date, String time, String dateTime,
-                  int childId, String latitude, String longitude, String createdDate, String lastModDate) {
+    public Diaper(String id, String type, String consistency, String color, String date, String time, String dateTime,
+                  String childId, String latitude, String longitude, String createdDate, String lastModDate) {
 
         this._id = id;
         this._type = type;
@@ -84,11 +84,11 @@ public class Diaper extends TrackableObject {
         this._color = color;
     }
 
-    public int getChildId() {
+    public String getChildId() {
         return _child_id;
     }
 
-    public void setChildId(int childId) {
+    public void setChildId(String childId) {
         this._child_id = childId;
     }
 

@@ -26,7 +26,7 @@ public class Settings extends BaseObject {
     // constructor
     public Settings(int id, String liquid, String length, String weight, String temperature, String sound,
                     String vibrate) {
-        this._id = id;
+        this._id = Integer.toString(id);
         this._liquid = liquid;
         this._length = length;
         this._weight = weight;
@@ -49,7 +49,7 @@ public class Settings extends BaseObject {
     public Settings(int id, String liquid, String length, String weight, String temperature, String sound,
                     String vibrate, String createdDate, String lastModDate) {
 
-        this._id = id;
+        this._id = Integer.toString(id);
         this._liquid = liquid;
         this._length = length;
         this._weight = weight;
