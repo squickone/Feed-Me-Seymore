@@ -43,6 +43,7 @@ public class HomeActivity extends BaseActivity {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         FeedMeLocationService locationService = FeedMeLocationService.getInstance(getApplicationContext(), locationManager);
 
+        /* Comment out for the Pro Version */
         displayAd(this);
 
         showBabies();
