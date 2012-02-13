@@ -14,6 +14,12 @@ import java.security.Provider;
  * User: dayelostraco
  * Date: 2/12/12
  * Time: 6:39 PM
+ *
+ * This Service implements the Android LocationListener while also providing the LocationManager. This is a singleton
+ * class so this service needs to only be instantiated once in the application and will then on be available for every
+ * class.
+ *
+ * NOTE: This is pretty hacky so it may cause some undesirable effects. Time will tell...
  */
 public class FeedMeLocationService implements LocationListener {
 
