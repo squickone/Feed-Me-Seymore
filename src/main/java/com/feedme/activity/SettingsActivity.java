@@ -1,6 +1,5 @@
 package com.feedme.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
@@ -36,8 +35,8 @@ public class SettingsActivity extends BaseActivity
         final Spinner settingsLength = (Spinner) findViewById(R.id.settingsLength);
         final Spinner settingsWeight = (Spinner) findViewById(R.id.settingsWeight);
         final Spinner settingsTemperature = (Spinner) findViewById(R.id.settingsTemperature);
-        final Spinner settingsSound = (Spinner) findViewById(R.id.settingsSound);
-        final Spinner settingsVibrate = (Spinner) findViewById(R.id.settingsVibrate);
+//        final Spinner settingsSound = (Spinner) findViewById(R.id.settingsSound);
+//        final Spinner settingsVibrate = (Spinner) findViewById(R.id.settingsVibrate);
         Settings setting;
 
         try {
@@ -60,13 +59,13 @@ public class SettingsActivity extends BaseActivity
             adapter = (ArrayAdapter) settingsTemperature.getAdapter();
             settingsTemperature.setSelection(getIndexFromElement(adapter, setting.getTemperature()));
 
-            //Sound
-            adapter = (ArrayAdapter) settingsSound.getAdapter();
-            settingsSound.setSelection(getIndexFromElement(adapter, setting.getSound()));
-
-            //Vibrate
-            adapter = (ArrayAdapter) settingsVibrate.getAdapter();
-            settingsVibrate.setSelection(getIndexFromElement(adapter, setting.getVibrate()));
+//            //Sound
+//            adapter = (ArrayAdapter) settingsSound.getAdapter();
+//            settingsSound.setSelection(getIndexFromElement(adapter, setting.getSound()));
+//
+//            //Vibrate
+//            adapter = (ArrayAdapter) settingsVibrate.getAdapter();
+//            settingsVibrate.setSelection(getIndexFromElement(adapter, setting.getVibrate()));
 
         } catch (CursorIndexOutOfBoundsException ex) {
 
@@ -89,13 +88,13 @@ public class SettingsActivity extends BaseActivity
             adapter = (ArrayAdapter) settingsTemperature.getAdapter();
             settingsTemperature.setSelection(getIndexFromElement(adapter, setting.getTemperature()));
 
-            //Sound
-            adapter = (ArrayAdapter) settingsSound.getAdapter();
-            settingsSound.setSelection(getIndexFromElement(adapter, setting.getSound()));
-
-            //Vibrate
-            adapter = (ArrayAdapter) settingsVibrate.getAdapter();
-            settingsVibrate.setSelection(getIndexFromElement(adapter, setting.getVibrate()));
+//            //Sound
+//            adapter = (ArrayAdapter) settingsSound.getAdapter();
+//            settingsSound.setSelection(getIndexFromElement(adapter, setting.getSound()));
+//
+//            //Vibrate
+//            adapter = (ArrayAdapter) settingsVibrate.getAdapter();
+//            settingsVibrate.setSelection(getIndexFromElement(adapter, setting.getVibrate()));
 
             Log.d("Added", " Setting");
         }
@@ -114,7 +113,7 @@ public class SettingsActivity extends BaseActivity
                 settingsDao.updateSettings(new Settings(settingsLiquid.getSelectedItem().toString(),
                         settingsLength.getSelectedItem().toString(),
                         settingsWeight.getSelectedItem().toString(), settingsTemperature.getSelectedItem().toString(),
-                        settingsSound.getSelectedItem().toString(), settingsVibrate.getSelectedItem().toString()), 1);
+                        "Off", "Off"), 1);
 
                 Log.d("Insert: ", "Inserted ..");
 

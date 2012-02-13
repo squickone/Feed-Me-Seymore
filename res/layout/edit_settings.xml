@@ -70,29 +70,29 @@
             />
         </TableRow>
 
-        <TableRow style="@style/formRow">
-            <TextView
-                    android:text="Sound: "
-                    style="@style/formTag"
-            />
-            <Spinner
-                    android:id="@+id/settingsSound"
-                    style="@style/spinnerForm"
-                    android:entries="@array/soundOptions"
-            />
-        </TableRow>
+        <!--<TableRow style="@style/formRow">-->
+            <!--<TextView-->
+                    <!--android:text="Sound: "-->
+                    <!--style="@style/formTag"-->
+            <!--/>-->
+            <!--<Spinner-->
+                    <!--android:id="@+id/settingsSound"-->
+                    <!--style="@style/spinnerForm"-->
+                    <!--android:entries="@array/soundOptions"-->
+            <!--/>-->
+        <!--</TableRow>-->
 
-        <TableRow style="@style/formRow">
-            <TextView
-                    android:text="Vibrate: "
-                    style="@style/formTag"
-            />
-            <Spinner
-                    android:id="@+id/settingsVibrate"
-                    style="@style/spinnerForm"
-                    android:entries="@array/vibrateOptions"
-            />
-        </TableRow>
+        <!--<TableRow style="@style/formRow">-->
+            <!--<TextView-->
+                    <!--android:text="Vibrate: "-->
+                    <!--style="@style/formTag"-->
+            <!--/>-->
+            <!--<Spinner-->
+                    <!--android:id="@+id/settingsVibrate"-->
+                    <!--style="@style/spinnerForm"-->
+                    <!--android:entries="@array/vibrateOptions"-->
+            <!--/>-->
+        <!--</TableRow>-->
         
     </TableLayout>
 
