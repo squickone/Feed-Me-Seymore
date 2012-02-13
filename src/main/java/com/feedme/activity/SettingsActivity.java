@@ -34,7 +34,7 @@ public class SettingsActivity extends BaseActivity
         final Spinner settingsLiquid = (Spinner) findViewById(R.id.settingsLiquid);
         final Spinner settingsLength = (Spinner) findViewById(R.id.settingsLength);
         final Spinner settingsWeight = (Spinner) findViewById(R.id.settingsWeight);
-        final Spinner settingsTemperature = (Spinner) findViewById(R.id.settingsTemperature);
+//        final Spinner settingsTemperature = (Spinner) findViewById(R.id.settingsTemperature);
 //        final Spinner settingsSound = (Spinner) findViewById(R.id.settingsSound);
 //        final Spinner settingsVibrate = (Spinner) findViewById(R.id.settingsVibrate);
         Settings setting;
@@ -55,9 +55,9 @@ public class SettingsActivity extends BaseActivity
             adapter = (ArrayAdapter) settingsWeight.getAdapter();
             settingsWeight.setSelection(getIndexFromElement(adapter, setting.getSettingsWeight()));
 
-            //Temperature
-            adapter = (ArrayAdapter) settingsTemperature.getAdapter();
-            settingsTemperature.setSelection(getIndexFromElement(adapter, setting.getTemperature()));
+//            //Temperature
+//            adapter = (ArrayAdapter) settingsTemperature.getAdapter();
+//            settingsTemperature.setSelection(getIndexFromElement(adapter, setting.getTemperature()));
 
 //            //Sound
 //            adapter = (ArrayAdapter) settingsSound.getAdapter();
@@ -84,9 +84,9 @@ public class SettingsActivity extends BaseActivity
             adapter = (ArrayAdapter) settingsWeight.getAdapter();
             settingsWeight.setSelection(getIndexFromElement(adapter, setting.getSettingsWeight()));
 
-            //Temperature
-            adapter = (ArrayAdapter) settingsTemperature.getAdapter();
-            settingsTemperature.setSelection(getIndexFromElement(adapter, setting.getTemperature()));
+//            //Temperature
+//            adapter = (ArrayAdapter) settingsTemperature.getAdapter();
+//            settingsTemperature.setSelection(getIndexFromElement(adapter, setting.getTemperature()));
 
 //            //Sound
 //            adapter = (ArrayAdapter) settingsSound.getAdapter();
@@ -112,7 +112,7 @@ public class SettingsActivity extends BaseActivity
                 Log.d("Insert: ", "Inserting ..");
                 settingsDao.updateSettings(new Settings(settingsLiquid.getSelectedItem().toString(),
                         settingsLength.getSelectedItem().toString(),
-                        settingsWeight.getSelectedItem().toString(), settingsTemperature.getSelectedItem().toString(),
+                        settingsWeight.getSelectedItem().toString(), "F",
                         "Off", "Off"), 1);
 
                 Log.d("Insert: ", "Inserted ..");
