@@ -39,9 +39,12 @@ public class HomeActivity extends BaseActivity {
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/Home");
 
-        /* Registers the Location Manager for use throughout the application */
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        FeedMeLocationService locationService = FeedMeLocationService.getInstance(getApplicationContext(), locationManager);
+        String provider = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if(provider.contains("gps")){
+            /* Registers the Location Manager for use throughout the application */
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            FeedMeLocationService locationService = FeedMeLocationService.getInstance(getApplicationContext(), locationManager);
+        }
 
         /* Comment out for the Pro Version */
         displayAd(this);
