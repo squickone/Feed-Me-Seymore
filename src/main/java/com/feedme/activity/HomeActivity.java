@@ -127,11 +127,23 @@ public class HomeActivity extends BaseActivity {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 12;
                 Bitmap bmImg = BitmapFactory.decodeFile(baby.getPicturePath(), options);
-                babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
-                babyImage.setMaxWidth(300);
-                babyImage.setMaxHeight(300);
-                babyImage.setMinimumWidth(150);
-                babyImage.setMinimumHeight(150);
+
+                try {
+                    babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
+                    babyImage.setMaxWidth(300);
+                    babyImage.setMaxHeight(300);
+                    babyImage.setMinimumWidth(150);
+                    babyImage.setMinimumHeight(150);
+
+                } catch (Exception e){
+                    Log.d("HomeActivity", "Could not parse the picture taken by the user");
+                    babyImage.setImageResource(R.drawable.babyicon);
+                    babyImage.setMaxWidth(300);
+                    babyImage.setMaxHeight(300);
+                    babyImage.setMinimumWidth(150);
+                    babyImage.setMinimumHeight(150);
+                }
+
             } else {
                 babyImage.setImageResource(R.drawable.babyicon);
                 babyImage.setMaxWidth(300);

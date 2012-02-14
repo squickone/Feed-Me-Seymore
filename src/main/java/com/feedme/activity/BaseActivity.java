@@ -86,7 +86,7 @@ public abstract class BaseActivity extends Activity
      * @param rotateInDegrees
      * @return
      */
-    public Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees)
+    public Bitmap getResizedBitmap(Bitmap bitMap, int newHeight, int newWidth, int rotateInDegrees) throws Exception
     {
         int width = bitMap.getWidth();
         int height = bitMap.getHeight();

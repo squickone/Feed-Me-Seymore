@@ -2,6 +2,7 @@ package com.feedme.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.*;
 import com.feedme.R;
 import android.content.Intent;
@@ -67,7 +68,18 @@ public class FamilyHomeActivity extends BaseActivity {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 12;
                 Bitmap bmImg = BitmapFactory.decodeFile(baby.getPicturePath(), options);
-                babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
+
+                try {
+                    babyImage.setImageBitmap(getResizedBitmap(bmImg, 75, 75, 90));
+
+                } catch (Exception e){
+                    Log.d("FamilyHomeActivity", "Could not parse the picture taken by the user");
+                    babyImage.setImageResource(R.drawable.babyicon);
+                    babyImage.setMaxWidth(300);
+                    babyImage.setMaxHeight(300);
+                    babyImage.setMinimumWidth(150);
+                    babyImage.setMinimumHeight(150);
+                }
             }
 
             //button listener for each baby
