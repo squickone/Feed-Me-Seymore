@@ -54,6 +54,12 @@ public class EditChildActivity extends ChildActivity
         babyDob = (Button) findViewById(R.id.babyDob);
 
         final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
+
+        /* Clear out the ImageView object reference in the event a User backed out of the Gallery or Camera Intents */
+        if(editBaby.getPicturePath() != null && editBaby.getPicturePath().contains("android.widget.ImageView")){
+            editBaby.setPicturePath("");
+        }
+
         if (editBaby.getPicturePath() != null && !editBaby.getPicturePath().equals("")) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 12;

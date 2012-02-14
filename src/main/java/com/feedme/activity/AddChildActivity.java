@@ -50,6 +50,11 @@ public class AddChildActivity extends ChildActivity {
         final ImageView babyImage = (ImageView) findViewById(R.id.babyPicture);
         babyImage.setImageResource(R.drawable.babyicon);
 
+        /* Clear out the ImageView object reference in the event a User backed out of the Gallery or Camera Intents */
+        if(baby!=null && baby.getPicturePath() != null && baby.getPicturePath().contains("android.widget.ImageView")){
+            baby.setPicturePath("");
+        }
+
         if (baby != null) {
             if (baby.getPicturePath() != null && !baby.getPicturePath().equals("")) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
