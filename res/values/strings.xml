@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Feed Me So'more</string>
+    <string name="app_name">Feed Me So\'more</string>
     <string name="selectChildTitle">Select a Child</string>
     <string name="icon_settings">Settings</string>
     <string name="icon_add">Add</string>
