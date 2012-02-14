@@ -29,7 +29,7 @@ public class AddDiaperActivity extends DiaperActivity {
         googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
         googleAnalyticsTracker.trackPageView("/Add-Diaper");
 
-        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
+        //final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final DiaperDao diaperDao = new DiaperDao(getApplicationContext());
 
         //Get/Set Baby
@@ -75,8 +75,8 @@ public class AddDiaperActivity extends DiaperActivity {
                 diaper.setType(diaperType.getSelectedItem().toString());
                 diaper.setConsistency(diaperConsistency.getSelectedItem().toString());
                 diaper.setColor(diaperColor.getSelectedItem().toString());
-                diaper.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
-                diaper.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+                //diaper.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                //diaper.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
 
                 try {
                     diaperDao.addDiaper(diaper);

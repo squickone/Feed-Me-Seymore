@@ -35,7 +35,7 @@ public class AddBottleFeedActivity extends FeedActivity
 
 
         final JournalDao journalDao = new JournalDao(getApplicationContext());
-        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
+        //final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
         final Bundle bundle = new Bundle();
@@ -99,8 +99,8 @@ public class AddBottleFeedActivity extends FeedActivity
                                                     "",
                                                     feedAmt.getSelectedItem().toString(),
                                                     baby.getId());
-                insertJournal.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
-                insertJournal.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+                //insertJournal.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                //insertJournal.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
                 Log.d("JOURNAL-ADD:", insertJournal.dump());
 
                 try {
