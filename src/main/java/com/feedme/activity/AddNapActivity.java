@@ -36,7 +36,7 @@ public class AddNapActivity extends NapActivity
 
 
         final NapDao napDao = new NapDao(getApplicationContext());
-        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
+        //final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
         final Bundle bundle = new Bundle();
@@ -111,8 +111,8 @@ public class AddNapActivity extends NapActivity
                                         endTime.getText().toString(),
                                         location.getText().toString(),
                                         baby.getId());
-                    nap.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
-                    nap.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+                    //nap.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                    //nap.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
 
                     Log.d("NAP-INSERT:", nap.dump());
 

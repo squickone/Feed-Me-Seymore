@@ -37,7 +37,7 @@ public class AddChildActivity extends ChildActivity {
         googleAnalyticsTracker.trackPageView("/Add-Child");
 
         final BabyDao babyDao = new BabyDao(getApplicationContext());
-        final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
+        //final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
 
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
@@ -161,8 +161,8 @@ public class AddChildActivity extends ChildActivity {
                                 babyDob.getText().toString(),
                                 baby.getPicturePath());
 
-                        addBaby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
-                        addBaby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+                        //addBaby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                        //addBaby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
 
                         // Inserting baby
                         Log.d("Insert: ", "Inserting ..");
@@ -177,8 +177,8 @@ public class AddChildActivity extends ChildActivity {
                                 babyDob.getText().toString(),
                                 "");
 
-                        addBaby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
-                        addBaby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
+                        //addBaby.setLatitude(Double.toString(feedMeLocationService.getLatitude()));
+                        //addBaby.setLongitude(Double.toString(feedMeLocationService.getLongitude()));
 
                         // Inserting baby
                         Log.d("Insert: ", "Inserting ..");
