@@ -40,14 +40,23 @@
     </string-array>
     <string-array name="feedingAmountOz">
         <item>1</item>
+        <item>1.5</item>
         <item>2</item>
+        <item>2.5</item>
         <item>3</item>
+        <item>3.5</item>
         <item>4</item>
+        <item>4.5</item>
         <item>5</item>
+        <item>5.5</item>
         <item>6</item>
+        <item>6.5</item>
         <item>7</item>
+        <item>7.5</item>
         <item>8</item>
+        <item>8.5</item>
         <item>9</item>
+        <item>9.5</item>
         <item>10</item>
     </string-array>
     <string-array name="feedingAmountMl">
@@ -93,10 +102,12 @@
         <item>Poop</item>
     </string-array>
     <string-array name="diaperConsistency">
+        <item>Not Applicable</item>
         <item>Loose</item>
         <item>Solid</item>
     </string-array>
     <string-array name="diaperColor">
+        <item>Not Applicable</item>
         <item>Yellow</item>
         <item>Green</item>
         <item>Brown</item>
