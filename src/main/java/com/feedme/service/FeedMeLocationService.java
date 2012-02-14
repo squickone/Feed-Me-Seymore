@@ -52,7 +52,10 @@ public class FeedMeLocationService implements LocationListener {
         criteria.setPowerRequirement(Criteria.POWER_LOW);
 
         provider = locationManager.getBestProvider(criteria, true);
-        locationManager.requestLocationUpdates(provider, 0, 0, this);
+
+        if(provider!=null){
+            locationManager.requestLocationUpdates(provider, 0, 0, this);
+        }
     }
 
     public static FeedMeLocationService getInstance(Context context, LocationManager locationManager) {
