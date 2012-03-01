@@ -44,13 +44,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         // Drop older tables
-        db.execSQL("DROP TABLE IF EXISTS " + BabyColumn.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + JournalColumn.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + NapColumn.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + SettingsColumn.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + DiaperColumn.TABLE_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + BabyColumn.TABLE_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + JournalColumn.TABLE_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + NapColumn.TABLE_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + SettingsColumn.TABLE_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + DiaperColumn.TABLE_NAME);
 
         // Create tables again
-        onCreate(db);
+//        onCreate(db);
     }
 }
