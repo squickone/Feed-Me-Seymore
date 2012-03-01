@@ -22,12 +22,10 @@ import java.text.ParseException;
  * Date: 1/16/12
  * Time: 12:27 PM
  */
-public class EditBottleFeedActivity extends FeedActivity
-{
+public class EditBottleFeedActivity extends FeedActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_bottle_feed_entry);
 
@@ -63,33 +61,26 @@ public class EditBottleFeedActivity extends FeedActivity
         TextView entryUnits = (TextView) findViewById(R.id.entryUnits);
         final Spinner feedAmt = (Spinner) findViewById(R.id.feedAmt);
 
-        Integer tenToInteger = 10;
-        int ounces = Integer.parseInt(journal.getOunces());
+        double ounces = Double.parseDouble(journal.getOunces());
 
         if (setting.getLiquid().equals("oz")) {
+
             //populate ounces spinner
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                     this, R.array.feedingAmountOz, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             feedAmt.setAdapter(adapter);
             entryUnits.setText("Ounces: ");
-            if (ounces > 10)
-            {
-                feedAmt.setSelection((ounces % tenToInteger) - 1);
-            }
-            else
-            {
-                feedAmt.setSelection(ounces - 1);
-            }
-        }
-        else
-        {
+            double feedAmtPos = ounces / 0.5;
+            feedAmt.setSelection((int) feedAmtPos - 1);
+
+        } else {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                     this, R.array.feedingAmountMl, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             feedAmt.setAdapter(adapter);
             entryUnits.setText("Milliliters: ");
-            feedAmt.setSelection((ounces / tenToInteger) - 1);
+            feedAmt.setSelection(((int)ounces / 10) - 1);
         }
 
         // add a click listener to the button
@@ -103,10 +94,8 @@ public class EditBottleFeedActivity extends FeedActivity
 
         setupCalendar();
 
-        editEntryButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        editEntryButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 try {
                     journalDao.updateEntry(new Journal(entryDate.getText().toString(),
                             startTime.getText().toString(),
@@ -115,7 +104,7 @@ public class EditBottleFeedActivity extends FeedActivity
                             " ",
                             feedAmt.getSelectedItem().toString(),
                             baby.getId()), journal.getId());
-                } catch (ParseException e){
+                } catch (ParseException e) {
                     Log.d("EditBottleFeedActivity", "Could not parse Date and StartTime into a ISO8601 format");
                 }
 
@@ -127,10 +116,8 @@ public class EditBottleFeedActivity extends FeedActivity
 
         //Add Delete Button`
         Button deleteButton = (Button) findViewById(R.id.deleteEntry);
-        deleteButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 deleteEntry(journal.getId(), baby);
             }
         });
@@ -138,8 +125,7 @@ public class EditBottleFeedActivity extends FeedActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
                 startActivity(new Intent(EditBottleFeedActivity.this,
@@ -157,16 +143,13 @@ public class EditBottleFeedActivity extends FeedActivity
         return true;
     }
 
-    private void deleteEntry(final String entryID, final Baby baby)
-    {
+    private void deleteEntry(final String entryID, final Baby baby) {
 
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(EditBottleFeedActivity.this);
         myAlertDialog.setTitle("Delete Entry");
         myAlertDialog.setMessage("Are you sure?");
-        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface arg0, int arg1)
-            {
+        myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
                 JournalDao journalDao = new JournalDao(getApplicationContext());
                 journalDao.deleteEntryByID(entryID);
                 Intent intent = new Intent(EditBottleFeedActivity.this, ViewBabyActivity.class);
@@ -179,11 +162,9 @@ public class EditBottleFeedActivity extends FeedActivity
 
             }
         });
-        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-        {
+        myAlertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface arg0, int arg1)
-            {
+            public void onClick(DialogInterface arg0, int arg1) {
 
             }
         });
@@ -191,5 +172,11 @@ public class EditBottleFeedActivity extends FeedActivity
 
     }
 
+    public static void main(String[] args) {
+
+        Integer.parseInt("1.5");
+
+
+    }
 
 }
