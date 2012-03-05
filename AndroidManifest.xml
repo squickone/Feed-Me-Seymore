@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.feedme" android:versionCode="3" android:versionName="1.0.2">
+          package="com.feedme" android:versionCode="4" android:versionName="1.0.3">
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10" android:maxSdkVersion="15"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <!-- START - Comment me out for the pro version -->
-        <activity android:name="com.google.ads.AdActivity"
-                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+        <!--<activity android:name="com.google.ads.AdActivity"-->
+                  <!--android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>-->
         <!-- END - Comment me out for the pro version -->
         <activity android:name=".activity.HomeActivity"
                   android:label="@string/app_name"
