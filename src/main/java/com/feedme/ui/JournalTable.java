@@ -13,6 +13,7 @@ import com.feedme.activity.EditNapActivity;
 import com.feedme.dao.SettingsDao;
 import com.feedme.model.*;
 import com.feedme.util.DateUtil;
+import com.feedme.util.StringUtils;
 
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class JournalTable {
             if(baseObject instanceof Journal){
                 
                 Journal journal = (Journal) baseObject;
-                if (journal.getSide().trim().isEmpty()) {
+                if (StringUtils.isEmpty(journal.getSide().trim())) {
                     imageView.setImageResource(R.drawable.icon_bottle);
                 } else {
                     imageView.setImageResource(R.drawable.icon_breastfeed);
@@ -97,7 +98,7 @@ public class JournalTable {
                 
                 final String side = journal.getSide();
     
-                if (side.trim().isEmpty()) {
+                if (StringUtils.isEmpty(side.trim())) {
                     entryType.setText("Bottle");
                 } else {
                     entryType.setText("Breastfeeding - " + journal.getSide());
@@ -143,9 +144,9 @@ public class JournalTable {
                 
                 Journal journal = (Journal) baseObject;
                 boolean isBottleFed = false;
-                if (!journal.getOunces().isEmpty()) {
+                if (!StringUtils.isEmpty(journal.getOunces())) {
                     isBottleFed = true;
-                    if (journal.getSide().trim().isEmpty()) {
+                    if (StringUtils.isEmpty(journal.getSide().trim())) {
                         metricsBuffer.append(journal.getOunces() + " " + setting.getLiquid());
                     } else {
                         metricsBuffer.append(journal.getOunces());
@@ -219,7 +220,7 @@ public class JournalTable {
                 tr1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent;
-                        if (journal.getSide().trim().isEmpty()) {
+                        if (StringUtils.isEmpty(journal.getSide().trim())) {
                             intent = new Intent(v.getContext(), EditBottleFeedActivity.class);
                         } else {
                             intent = new Intent(v.getContext(), EditBreastFeedActivity.class);
