@@ -33,9 +33,6 @@ public class EditBreastFeedActivity extends FeedActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_breast_feed_entry);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Edit-Breast-Feeding");
-
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
         //populate left/right spinner

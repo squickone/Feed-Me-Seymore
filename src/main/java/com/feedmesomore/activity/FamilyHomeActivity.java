@@ -23,9 +23,6 @@ public class FamilyHomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.family_home);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Famil-Home");
-
         handleButtons();
         
         final Bundle bundle = new Bundle();

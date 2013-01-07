@@ -56,9 +56,6 @@ public class ViewEntriesActivity extends JournalActivity {
             }
         });
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/View-Entries");
-
         calendar = Calendar.getInstance();
         if (getIntent().getExtras() != null && getIntent().getExtras().get("journalDate") != null) {
             calendar = (Calendar) getIntent().getExtras().get("journalDate");

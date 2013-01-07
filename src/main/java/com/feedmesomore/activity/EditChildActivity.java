@@ -37,9 +37,6 @@ public class EditChildActivity extends ChildActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_child);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Edit-Child");
-
         final BabyDao babyDao = new BabyDao(getApplicationContext());
 
         final Baby editBaby = (Baby) getIntent().getSerializableExtra("baby");

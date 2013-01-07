@@ -36,9 +36,6 @@ public class HomeActivity extends BaseActivity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.main);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Home");
-
         /* Registers the Location Manager for use throughout the application */
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         FeedMeLocationService locationService = FeedMeLocationService.getInstance(getApplicationContext(), locationManager);

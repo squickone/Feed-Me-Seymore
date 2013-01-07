@@ -33,9 +33,6 @@ public class AddBreastFeedActivity extends FeedActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_breast_feed_entry);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Add-Breast-Feeding");
-
         final JournalDao journalDao = new JournalDao(getApplicationContext());
         //final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");

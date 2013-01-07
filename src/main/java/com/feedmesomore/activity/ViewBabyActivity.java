@@ -50,9 +50,6 @@ public class ViewBabyActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_baby);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/View-Baby");
-
         /* Comment out for the Pro Version */
 //        displayAd(this);
         
@@ -152,7 +149,6 @@ public class ViewBabyActivity extends BaseActivity
         {
             public void onClick(View v)
             {
-                googleAnalyticsTracker.trackEvent("Clicks","Button","EditBaby", 0);
                 Intent intent = new Intent(v.getContext(), EditChildActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, VIEW_BABY_ACTIVITY_ID);
@@ -165,7 +161,6 @@ public class ViewBabyActivity extends BaseActivity
         {
             public void onClick(View v)
             {
-                googleAnalyticsTracker.trackEvent("Clicks","Button","ExportBaby", 0);
                 BabyExporter.exportBabyToXls(v.getContext(), baby);
                 emailExport(v.getContext(), baby.getName());
             }
@@ -177,7 +172,6 @@ public class ViewBabyActivity extends BaseActivity
         {
             public void onClick(View v)
             {
-                googleAnalyticsTracker.trackEvent("Clicks","Button","FamilyButton", 0);
                 startActivity(new Intent(ViewBabyActivity.this,
                         HomeActivity.class));
             }
@@ -189,7 +183,6 @@ public class ViewBabyActivity extends BaseActivity
         {
             public void onClick(View v)
             {
-                googleAnalyticsTracker.trackEvent("Clicks","Button","NapsButton", 0);
                 Intent intent = new Intent(v.getContext(), AddNapActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
@@ -202,7 +195,6 @@ public class ViewBabyActivity extends BaseActivity
         {
             public void onClick(View v)
             {
-                googleAnalyticsTracker.trackEvent("Clicks","Button","EditBaby", 0);
                 Intent intent = new Intent(ViewBabyActivity.this, ViewEntriesActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -215,7 +207,6 @@ public class ViewBabyActivity extends BaseActivity
         {
             public void onClick(View v)
             {
-                googleAnalyticsTracker.trackEvent("Clicks","Button","Feeding", 0);
                 showDialog(0);
             }
         });
@@ -245,7 +236,6 @@ public class ViewBabyActivity extends BaseActivity
                 {
                     if (which == 0)
                     {
-                        googleAnalyticsTracker.trackEvent("Clicks","Button","AddBottleFeeding", 0);
                         Intent intent = new Intent(ViewBabyActivity.this, AddBottleFeedActivity.class);
                         intent.putExtras(bundle);
                         startActivity(intent);
@@ -253,7 +243,6 @@ public class ViewBabyActivity extends BaseActivity
 
                     if (which == 1)
                     {
-                        googleAnalyticsTracker.trackEvent("Clicks","Button","AddBreastFeeding", 0);
                         Intent intent = new Intent(ViewBabyActivity.this, AddBreastFeedActivity.class);
                         intent.putExtras(bundle);
                         startActivity(intent);

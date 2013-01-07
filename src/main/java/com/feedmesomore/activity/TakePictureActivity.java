@@ -27,9 +27,6 @@ public class TakePictureActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Take-Picture");
-
         baby = (Baby) getIntent().getSerializableExtra("baby");
 
         Log.d("BABY:PIC:", baby.dump());

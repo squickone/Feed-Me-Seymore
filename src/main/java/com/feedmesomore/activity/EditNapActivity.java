@@ -27,9 +27,6 @@ public class EditNapActivity extends NapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_nap);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Edit-Nap");
-
         final NapDao napDao = new NapDao(getApplicationContext());
 
         entryDate = (Button) findViewById(R.id.entryDate);

@@ -30,10 +30,6 @@ public class AddNapActivity extends NapActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_nap);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Add-Nap");
-
-
         final NapDao napDao = new NapDao(getApplicationContext());
         //final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");

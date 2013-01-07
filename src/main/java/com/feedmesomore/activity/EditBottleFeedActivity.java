@@ -29,9 +29,6 @@ public class EditBottleFeedActivity extends FeedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_bottle_feed_entry);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Edit-Bottle-Feeding");
-
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");

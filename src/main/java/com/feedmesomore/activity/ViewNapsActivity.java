@@ -31,9 +31,6 @@ public class ViewNapsActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.naps_home);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/View-Naps");
-
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 
         styleActivity(baby.getSex());

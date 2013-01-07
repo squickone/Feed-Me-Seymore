@@ -24,9 +24,6 @@ public class ViewEntryActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_entry);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/View-Entry");
-
         final JournalDao journalDao = new JournalDao(getApplicationContext());
 
         String entryId = "";

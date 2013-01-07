@@ -25,9 +25,6 @@ public class SettingsActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Settings");
-
         setContentView(R.layout.edit_settings);
         final SettingsDao settingsDao = new SettingsDao(getApplicationContext());
 

@@ -29,9 +29,6 @@ public class ReportBugActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_bug);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Report-Bug");
-
         final EditText bugName = (EditText) findViewById(R.id.bugName);
         final EditText bugEmail = (EditText) findViewById(R.id.bugName);
         final EditText bugDevice = (EditText) findViewById(R.id.bugDevice);

@@ -25,9 +25,6 @@ public class AddDiaperActivity extends DiaperActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_diaper);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Add-Diaper");
-
         //final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
         final DiaperDao diaperDao = new DiaperDao(getApplicationContext());
 

@@ -22,10 +22,6 @@ public class ViewDiapersActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
-        //Analytics
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/View-Diapers");
-
         //Baby Data
         final Baby baby = (Baby) getIntent().getSerializableExtra("baby");
 

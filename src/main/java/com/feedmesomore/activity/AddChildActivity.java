@@ -32,9 +32,6 @@ public class AddChildActivity extends ChildActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_child);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Add-Child");
-
         final BabyDao babyDao = new BabyDao(getApplicationContext());
         //final FeedMeLocationService feedMeLocationService = FeedMeLocationService.getInstance(getApplicationContext(), null);
 

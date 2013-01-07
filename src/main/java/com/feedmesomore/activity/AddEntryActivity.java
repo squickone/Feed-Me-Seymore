@@ -23,9 +23,6 @@ public class AddEntryActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_entry);
 
-        googleAnalyticsTracker.startNewSession(TRACKING_ID, this);
-        googleAnalyticsTracker.trackPageView("/Add-Entry");
-
         //View All Entries Button
         Button viewAllEntriesButton = (Button) findViewById(R.id.viewAllEntriesButton);
         viewAllEntriesButton.setOnClickListener(new View.OnClickListener()
